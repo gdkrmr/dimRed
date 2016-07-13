@@ -1,0 +1,11 @@
+
+.Rhistory
+.projectile*
+dir-locals.el*
+.#*
+\#*#
+*~
+dimRed_*.tar.gz
+TAGS
+dimRed.Rcheck
+

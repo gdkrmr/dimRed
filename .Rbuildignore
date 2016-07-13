@@ -1,0 +1,13 @@
+
+dimRed_.*\.tar.gz$
+
+DRR.check
+
+gitignore
+projectile
+dir-locals.el
+
+server.R
+ui.R
+
+*.sh

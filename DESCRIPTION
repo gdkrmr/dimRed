@@ -1,0 +1,51 @@
+Package: dimRed
+Title: A Collection of Dimensionality Reduction techniques
+Version: 0.0.1
+Authors@R: person("Guido", "Kraemer",
+    email = "gkraemer@bgc-jena.mpg.de",
+    role = c("aut", "cre"))
+Description: This packages collects dimensionality reduction
+    methods from R packages and provides a common
+    interface for calling the methods.
+Depends:
+    R (>= 3.0.0),
+    methods,
+    stats,
+    DRR
+License: All rights reserved by author.
+LazyData: true
+Suggests:
+    testthat,
+    MASS,
+    coRanking,
+    energy,
+    igraph,
+    optimx,
+    pcaPP,
+    rgl,
+    kernlab
+Collate:
+    'dimRedMethodPars-class.R'
+    'dimRedMethod-class.R'
+    'dimRedData-class.R'
+    'dimRed-class.R'
+    'dataSets.R'
+    'diffmap.R'
+    'dimRedResult-class.R'
+    'drr.R'
+    'fastica.R'
+    'graph_embed.R'
+    'isomap.R'
+    'kpca.R'
+    'leim.R'
+    'lle.R'
+    'loe.R'
+    'mds.R'
+    'mixColorSpaces.R'
+    'nmds.R'
+    'pca.R'
+    'quality.R'
+    'rotate.R'
+    'soe.R'
+    'tsne.R'
+RoxygenNote: 5.0.1
