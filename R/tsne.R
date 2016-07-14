@@ -22,8 +22,7 @@
 #' @export
 tsne <- new('dimRedMethod',
             fun = function (data,
-                            pars = list(knn = 50,
-                                        d = dist,
+                            pars = list(d = dist,
                                         perplexity = 30,
                                         theta = 0.5,
                                         ndim = 2),

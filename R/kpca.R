@@ -21,7 +21,8 @@
 #' @export
 kpca <- new('dimRedMethod',
             fun = function (data, pars = list(kernel = 'rbfdot',
-                                              kpar = list(sigma = 0.1)),
+                                              kpar = list(sigma = 0.1),
+                                              ndim = 2),
                             keep.org.data = TRUE) {
     if(!requireNamespace('kernlab')) stop('require package "kernlab"')
     
@@ -71,7 +72,7 @@ kpca <- new('dimRedMethod',
         new('dimRedData', data = proj, meta = appl.meta)
     }
 
-    outdata <- res@rotated
+    outdata <- res@rotated[,1:pars$ndim, drop = FALSE]
     colnames(outdata) <- paste0("kPCA", 1:ncol(outdata))
     
     return(

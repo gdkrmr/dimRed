@@ -21,8 +21,7 @@
 #' @export
 diffmap <- new('dimRedMethod',
                fun = function (data,
-                               pars = list(d = dist, knn = 50, ndim = 2,
-                                           t = Inf, norm = TRUE),
+                               pars = list(d = dist, ndim = 2, t = 0),
                                keep.org.data = TRUE) {
     if(!requireNamespace('diffusionMap')) stop('require the diffusionMap package')
 
@@ -31,7 +30,12 @@ diffmap <- new('dimRedMethod',
     indata <- data@data
 
 
-    outdata <- diffusionMap::diffuse(pars$d(indata), neigen = pars$ndim, maxdim = pars$ndim)$X
+    outdata <- diffusionMap::diffuse(
+                                 D = pars$d(indata),
+                                 t = pars$t,
+                                 neigen = pars$ndim,
+                                 maxdim = pars$ndim
+                             )$X
     
     colnames(outdata) <- paste0("diffMap", 1:ncol(outdata))
 
