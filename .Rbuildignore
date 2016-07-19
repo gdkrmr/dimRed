@@ -1,13 +1,13 @@
 
 dimRed_.*\.tar.gz$
 
-DRR.check
+DRR\.check
 
 gitignore
 projectile
-dir-locals.el
+dir-locals\.el
 
-server.R
-ui.R
+server\.R
+ui\.R
 
-*.sh
+.*\.sh

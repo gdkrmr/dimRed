@@ -168,7 +168,8 @@ setMethod('total_correlation',
         stop('naxes must specify the numbers of axes to optimize for, ',
              'i.e. a single integer between 1 and ncol(object@data@data)')
     ## try to partially match cor_method:
-    cor_method <- cor_method[pmatch(cor_method, c('pearson', 'kendall', 'spearman'))]
+    cor_methods <- c('pearson', 'kendall', 'spearman')
+    cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
     if(is.na(cor_method))
         stop("cor_method must match one of ",
              "'pearson', 'kendall', or 'spearman', ",
@@ -206,7 +207,8 @@ setMethod('cophenetic_correlation',
     if(missing(d)) d <- dist
     if(missing(cor_method)) cor_method <- 'pearson'
     if(!object@has.org.data) stop('object requires original data')
-    cor_method <- cor_method[pmatch(cor_method, c('pearson', 'kendall', 'spearman'))]
+    cor_methods <- c('pearson', 'kendall', 'spearman')
+    cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
     if(is.na(cor_method))
         stop("cor_method must match one of ",
              "'pearson', 'kendall', or 'spearman', ",
