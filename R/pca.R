@@ -18,10 +18,13 @@
 #'
 #' @include dimRed-class.R
 #' @export
-pca <- new('dimRedMethod', fun = function (data, pars = list(ndim = ncol(data@data),
+pca <- new('dimRedMethod', fun = function (data, pars = list(ndim = 2,
                                                              center = FALSE,
                                                              scale. = FALSE),
                                            keep.org.data = TRUE) {
+    if(is.null(pars$ndim))
+        pars$ndim <- ncol(data@data)
+    
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
     data <- data@data
@@ -31,7 +34,7 @@ pca <- new('dimRedMethod', fun = function (data, pars = list(ndim = ncol(data@da
     )
 
     # evaluate results here for functions
-    data <- res$x[,1:ndim,drop = FALSE]
+    data <- res$x[,1:pars$ndim,drop = FALSE]
     ce <- res$center
     sc <- res$scale
     rot <- res$rotation

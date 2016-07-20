@@ -25,6 +25,8 @@ kpca <- new('dimRedMethod',
                                               ndim = 2),
                             keep.org.data = TRUE) {
     if(!requireNamespace('kernlab')) stop('require package "kernlab"')
+    if(is.null(pars$ndim))
+        pars$ndim <- 2
     
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL

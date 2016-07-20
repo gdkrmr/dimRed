@@ -77,7 +77,7 @@ test_that('general data conversions', {
 
     for(i in 1:length(irisData)){
         if(inherits(irisRes[[i]], 'dimRedResult')){
-            expect_equal(irisRes[[i]]@apply(irisData), irisRes[[i]]@data)
+            expect_equal(irisRes[[i]]@apply(irisData)@data[,1:2], irisRes[[i]]@data@data)
             ## the reverse is an approximate:
             expect( max(
                 irisRes[[i]]@inverse(irisRes[[i]]@data)@data - irisData@data

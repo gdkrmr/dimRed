@@ -34,6 +34,10 @@ leim <- new('dimRedMethod',
         data.adj[data.inds] <- exp(-(data.adj[data.inds]^2)/pars$t) + 1e-10
     }
     outdata <- loe::spec.emb(data.adj, pars$ndim, pars$norm)
+    if(is.null(dim(outdata))) {
+        dim(outdata) <- c(length(outdata), 1)
+    }
+
     
     colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
 

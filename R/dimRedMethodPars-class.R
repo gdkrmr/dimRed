@@ -16,3 +16,7 @@ setClass(
     )
 )
 
+setClassUnion('missingORnumeric', c('numeric', 'missing'))
+setClassUnion('missingORcharacter', c('character', 'missing'))
+setClassUnion('missingORlogical', c('logical', 'missing'))
+setClassUnion('missingORfunction', c('function', 'missing'))
