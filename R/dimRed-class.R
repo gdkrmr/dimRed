@@ -10,7 +10,7 @@
 #' @include dimRedMethodPars-class.R
 #'
 #' @export
-setclass(
+setClass(
     'dimRed',
     slots = c(
         data = 'dimRedData',

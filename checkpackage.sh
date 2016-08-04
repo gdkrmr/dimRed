@@ -18,5 +18,5 @@ R CMD INSTALL dimRed_$pkgversion.tar.gz
 echo "CHECKING!!!"
 R CMD check dimRed_$pkgversion.tar.gz
 
-echo "INSTALLING con cluster!"
+echo "INSTALLING on cluster!"
 ssh pc026 R_LIBS=/User/homes/gkraemer/.R_libs /usr/local/apps/R/R-3.2.2/bin/R CMD INSTALL gkraemer/progs/dimRed/dimRed_$pkgversion.tar.gz

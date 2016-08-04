@@ -25,7 +25,12 @@ leim <- new('dimRedMethod',
     orgdata <- if (keep.org.data) data@data else NULL
     indata <- data@data
 
-
+    if(is.null(pars$d))     pars$d    <- dist
+    if(is.null(pars$knn))   pars$knn  <- 50
+    if(is.null(pars$ndim))  pars$ndim <- 2
+    if(is.null(pars$t))     pars$t    <- Inf
+    if(is.null(pars$norm))  pars$norm <- TRUE
+        
     if(is.infinite(pars$t)) {
         data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE)
     } else {
