@@ -13,7 +13,9 @@
 #' @examples
 #'
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- kpca@fun(dat)
+#' emb <- kpca@fun(dat, list(kernel = 'rbfdot',
+#'                           kpar = list(sigma = 0.1),
+#'                           ndim = 2))
 #'
 #' plot(emb@data@data)
 #' 
