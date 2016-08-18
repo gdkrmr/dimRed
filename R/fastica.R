@@ -32,10 +32,37 @@ fastica <- new('dimRedMethod',
     outdata <- res$S
     colnames(outdata) <- paste0("ICA", 1:ncol(outdata))
 
-    appl <- function(x)
-        scale(x, center = orgdata.colmeans, scale = FALSE)%*%res$K%*%res$W
-    inv <- function(x)
-        scale(x%*%res$A, center = -orgdata.colmeans, scale = FALSE)
+    appl <- function(x){
+        appl.meta <- if(inherits(x, 'dimRedData'))
+                         x@meta
+                     else   
+                         matrix(numeric(0), 0,0)
+        
+        proj <- if(inherits(x, 'dimRedData'))
+                    x@data
+                else 
+                    x
+        
+        out <- scale(proj, center = orgdata.colmeans, scale = FALSE)%*%res$K%*%res$W
+        return(new('dimRedData', data = out, meta = appl.meta))
+    }
+
+    inv <- function(x){
+        appl.meta <- if(inherits(x, 'dimRedData'))
+                         x@meta
+                     else  
+                         matrix(numeric(0), 0,0)
+        
+        proj <- if(inherits(x, 'dimRedData'))
+                    x@data
+                else
+                    x
+        
+        out <- scale(proj%*%res$A[1:ncol(proj),], center = -orgdata.colmeans, scale = FALSE)
+        reproj <- new('dimRedData', data = out, meta = appl.meta)
+        return(reproj)
+    }
+    
     
     return(new(
         'dimRedResult',

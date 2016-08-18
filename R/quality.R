@@ -158,7 +158,7 @@ setMethod('total_correlation',
             'missingORnumeric',
             'missingORcharacter',
             'missingORlogical'),
-          function(object, naxes,cor_method,is.rotated){
+          function(object, naxes, cor_method, is.rotated){
     if(missing(naxes))      naxes      <- ncol(object@data@data)
     if(missing(cor_method)) cor_method <- 'pearson'
     if(missing(is.rotated)) is.rotated <- FALSE

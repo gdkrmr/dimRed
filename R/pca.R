@@ -75,7 +75,7 @@ pca <- new('dimRedMethod', fun = function (data, pars = list(ndim = 2,
 
 
         d <- ncol(proj)
-        reproj <- proj %*% rerot[,1:d]
+        reproj <- proj %*% rerot[1:d,]
 
         if(sc[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x * sc))
         if(ce[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x + ce))

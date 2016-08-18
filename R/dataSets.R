@@ -1,4 +1,21 @@
 
+#' Example Data Sets for dimensionality reduction
+#'
+#' a compilation of standard data sets that are often being used to
+#' showcase dimensionality reduction techniques.
+#'
+#' name should be one of
+#'   \code{c('Swiss Roll', 'broken Swiss Roll',
+#'           'Helix', 'Twin Peaks', 'Sphere', 'Ball',
+#'           '3D S Curve', 'variable Noise Helix', 'Iris')}
+#' 
+#'
+#' 
+#' @param name a character vector that specifies the name of the data set
+#' @param n in generated data sets the number of points to be generated
+#' @param sigma standard deviation of the noise added
+#' 
+#' 
 #' @import stats
 #' @import methods
 #' @include dimRed-class.R

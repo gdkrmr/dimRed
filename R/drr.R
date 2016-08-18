@@ -38,14 +38,45 @@ drr <- new('dimRedMethod',
     outdata <- res$fitted.data
     colnames(outdata) <- paste0("DRR", 1:ncol(outdata))
     
+    appl <- function(x){
+        appl.meta <- if(inherits(x, 'dimRedData'))
+                         x@meta
+                     else
+                         matrix(numeric(0), 0,0)
+        proj <- if(inherits(x, 'dimRedData'))
+                    x@data
+                else
+                    x
+        if(ncol(proj) != ncol(data@data))
+            stop("x must have the same number of dimensions as the original data")
+
+        return(new('dimRedData', data = res$apply(proj), meta = appl.meta))
+    }
+
+    inv <- function(x) {
+        appl.meta <- if(inherits(x, 'dimRedData'))
+                         x@meta
+                     else 
+                         matrix(numeric(0), 0,0)
+        proj <- if(inherits(x, 'dimRedData'))
+                    x@data
+                else
+                    x
+        if(ncol(proj) > ncol(data@data))
+            stop("x must have less or equal number of dimensions as the original data")
+
+        return(new('dimRedData', data = res$inverse(proj), meta = appl.meta))
+    }
+    
+    
     return(
         new('dimRedResult',
             data = new('dimRedData',
                        data = outdata,
                        meta = meta),
             org.data = orgdata,
-            apply = res$apply,
-            inverse = res$inverse,
+            apply = appl,
+            inverse = inv,
             has.org.data = keep.org.data,
             has.apply = TRUE,
             has.inverse = TRUE
