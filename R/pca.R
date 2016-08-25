@@ -8,8 +8,9 @@
 #' @param data an object of class \code{\link{dimRedData-class}}.
 #' @param pars an object of class \code{\link{dimRedMethodPars-class}}
 #'
+
 #' @return an object of class \code{\link{dimRedResult-class}}
-#'
+#' 
 #'
 #' dat <- loadDataSet("3D S Curve")
 #' emb <- pca@fun(dat)

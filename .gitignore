@@ -1,6 +1,5 @@
-
-.Rhistory
-.projectile*
+.Rproj.user
+projectile*
 dir-locals.el*
 .#*
 \#*#
@@ -9,3 +8,7 @@ dimRed_*.tar.gz
 TAGS
 dimRed.Rcheck
 
+/.Rhistory
+/.Rprofile
+/.projectile
+/dimRed.Rproj

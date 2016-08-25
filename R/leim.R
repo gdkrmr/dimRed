@@ -13,6 +13,7 @@
 #'
 #'
 #' @include dimRed-class.R
+#' 
 #' @export
 leim <- new('dimRedMethod',
            fun = function (data,

@@ -16,22 +16,27 @@
 #' scurve = loadDataSet("3D S Curve")
 #' plot(scurve, "pairs")
 #'
-#' @importMethodsFrom graphics plot
+#' @include mixColorSpaces.R
+#' @include dimRedData-class.R
+#' 
 #' @export
 setMethod(
     f = 'plot',
     signature = 'dimRedData',
     definition = function(x, y, ...) {
-        if(missing(type))   type <- "pairs"
-        if(missing(colors)) colors <- ""
-        if(missing(vars))   vars <- seq_len(ncol(x@data@data))
+        requireNamespace("MASS")
+        requireNamespace("rgl")
+        requireNamespace("graphics")
+        if(!hasArg(type))   type <- "pairs"
+        if(!hasArg(colors)) colors <- seq_len(min(3, ncol(x@meta)))
+        if(!hasArg(vars))   vars <- seq_len(ncol(x@data))
         cols <- colorize(x@meta[,colors])
         switch(
             type,
-            "pairs" = pairs(          x@data[,vars], gap = 0, col = cols),
-            "parpl" = MASS::parcoord( x@data[,vars],          col = cols),
-            "2vars" = plot(           x@data[,vars[1:2]],     col = cols),
-            "3vars" = rgl::points3d(  x@data[,vars[1:3]],     col = cols),
+            "pairs" = graphics::pairs( x@data[,vars], gap = 0, col = cols ),
+            "parpl" = MASS::parcoord(  x@data[,vars],          col = cols ),
+            "2vars" = graphics::plot(  x@data[,vars[1:2]],     col = cols ),
+            "3vars" = rgl::points3d(   x@data[,vars[1:3]],     col = cols ),
             stop("wrong argument to plot.dimRedData")
         )
     }

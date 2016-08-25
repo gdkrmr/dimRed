@@ -17,7 +17,8 @@
 #' 
 #' plot(emb@data@data)
 #'
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' 
 #' @export
 diffmap <- new('dimRedMethod',
                fun = function (data,

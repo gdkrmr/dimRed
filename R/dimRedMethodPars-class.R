@@ -7,12 +7,8 @@
 #' @export
 setClass(
     'dimRedMethodPars',
-    slots = c(
-        pars = 'list'
-    ),
-    prototype = prototype(
-        pars = list()
-    )
+    slots = c(pars = 'list'),
+    prototype = prototype(pars = list())
 )
 
 setClassUnion('missingORnumeric', c('numeric', 'missing'))

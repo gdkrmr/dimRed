@@ -17,6 +17,7 @@
 #' plot(emb@data@data)
 #' 
 #' @include dimRed-class.R
+#' 
 #' @export
 isomap <- new('dimRedMethod',
               fun = function (data,

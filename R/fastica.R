@@ -15,6 +15,7 @@
 #'
 #'
 #' @include dimRed-class.R
+#' 
 #' @export
 fastica <- new('dimRedMethod',
                fun = function (data,

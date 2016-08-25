@@ -18,7 +18,9 @@
 #' 
 #' @import stats
 #' @import methods
-#' @include dimRed-class.R
+#' 
+#' @include dimRedResult-class.R
+#' 
 #' @export
 loadDataSet <- function (name = 'Swiss Roll', n = 2000, sigma = 0.05) {
     switch(

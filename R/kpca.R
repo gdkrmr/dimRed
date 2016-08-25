@@ -20,6 +20,7 @@
 #' plot(emb@data@data)
 #' 
 #' @include dimRed-class.R
+#' 
 #' @export
 kpca <- new('dimRedMethod',
             fun = function (data, pars = list(kernel = 'rbfdot',

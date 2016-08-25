@@ -21,6 +21,7 @@
 #'
 #' 
 #' @include dimRed-class.R
+#' 
 #' @export
 drr <- new('dimRedMethod',
            fun = function (data, pars = list(),

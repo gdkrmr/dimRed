@@ -16,6 +16,7 @@
 #' plot(em3@data@data)
 #' 
 #' @include dimRed-class.R
+#' 
 #' @export
 kamada_kawai <- new('dimRedMethod',
            fun = function (data,
