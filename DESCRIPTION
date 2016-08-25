@@ -33,7 +33,6 @@ Collate:
     'diffmap.R'
     'dimRedResult-class.R'
     'drr.R'
-    'embed.R'
     'fastica.R'
     'graph_embed.R'
     'isomap.R'

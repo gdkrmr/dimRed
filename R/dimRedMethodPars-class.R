@@ -1,4 +1,3 @@
-
 #' S4 Class to store method parameters
 #'
 #' at the moment nothing more than a wrapper around a list
