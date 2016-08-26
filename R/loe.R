@@ -34,10 +34,12 @@ loe <- new('dimRedMethod',
 
     return(new(
         'dimRedResult',
-        data = new('dimRedData',
-                   data = outdata,
-                   meta = meta),
-        org.data = orgdata,
-        has.org.data = keep.org.data
+        data         = new('dimRedData',
+                           data = outdata,
+                           meta = meta),
+        org.data     = orgdata,
+        has.org.data = keep.org.data,
+        method       = "loe",
+        pars         = pars
     ))
 })

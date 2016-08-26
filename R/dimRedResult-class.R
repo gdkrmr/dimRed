@@ -10,28 +10,34 @@
 #' @slot has.org.data logical, if the original data is included in the object.
 #' @slot has.apply logical, if a forward method is exists.
 #' @slot has.inverse logical if an inverse method exists.
+#' @slot method saves the method used.
+#' @slot pars saves the parameters used.
 #'
 #' @include dimRed-class.R
 #' @export
 dimRedResult <- setClass(
     'dimRedResult',
     slots = c(
-        data = 'dimRedData',
-        org.data = 'matrix',
-        apply = 'function',
-        inverse = 'function',
+        data         = 'dimRedData',
+        org.data     = 'matrix',
+        apply        = 'function',
+        inverse      = 'function',
         has.org.data = 'logical',
-        has.apply = 'logical',
-        has.inverse = 'logical'
+        has.apply    = 'logical',
+        has.inverse  = 'logical',
+        method       = 'character',
+        pars         = 'list'
     ),
     prototype = list(
-        data = new('dimRedData'),
-        org.data = matrix(numeric(0), 0, 0),
-        apply = function(x) NA,
-        inverse = function(x) NA,
+        data         = new('dimRedData'),
+        org.data     = matrix(numeric(0), 0, 0),
+        apply        = function(x) NA,
+        inverse      = function(x) NA,
         has.org.data = FALSE,
-        has.apply = FALSE,
-        has.inverse = FALSE
+        has.apply    = FALSE,
+        has.inverse  = FALSE,
+        method       = "",
+        pars         = list()
     )
 )
 
@@ -49,4 +55,27 @@ setAs(from = 'dimRedResult', to = 'data.frame',
           }
       })
 
+#' @export
+setGeneric('getPars', function (object) standardGeneric('getPars'))
+
+#' @export
+setMethod(
+    f = 'getPars',
+    signature = 'dimRedResult',
+    definition = function (object) {
+        object@pars
+    }
+)
+
+#' @export
+setMethod(
+    f = 'print',
+    signature = 'dimRedResult',
+    definition = function(x) {
+        cat("Method:\n")
+        cat(x@method, "\n")
+        cat("Parameters:\n")
+        str(x@pars)
+    }
+)
 

@@ -67,14 +67,16 @@ fastica <- new('dimRedMethod',
     
     return(new(
         'dimRedResult',
-        data = new('dimRedData',
-                   data = outdata,
-                   meta = meta),
-        org.data = orgdata,
+        data         = new('dimRedData',
+                           data = outdata,
+                           meta = meta),
+        org.data     = orgdata,
         has.org.data = keep.org.data,
-        apply = appl,
-        inverse = inv,
-        has.apply = TRUE,
-        has.inverse = TRUE
+        apply        = appl,
+        inverse      = inv,
+        has.apply    = TRUE,
+        has.inverse  = TRUE,
+        method       = "fastica",
+        pars         = pars
     ))
 })

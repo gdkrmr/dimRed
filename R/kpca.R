@@ -83,15 +83,17 @@ kpca <- new('dimRedMethod',
     return(
         new(
             'dimRedResult',
-            data = new('dimRedData',
-                       data = outdata,
-                       meta = meta),
-            org.data = orgdata,
-            apply = appl,
-            inverse = inv,
+            data         = new('dimRedData',
+                               data = outdata,
+                               meta = meta),
+            org.data     = orgdata,
+            apply        = appl,
+            inverse      = inv,
             has.org.data = keep.org.data,
-            has.apply = TRUE,
-            has.inverse = TRUE
+            has.apply    = TRUE,
+            has.inverse  = TRUE,
+            method       = "kpca",
+            pars         = pars
         )
     )
 })

@@ -44,11 +44,13 @@ kamada_kawai <- new('dimRedMethod',
 
     return(new(
         'dimRedResult',
-        data = new('dimRedData',
-                   data = outdata,
-                   meta = meta),
-        org.data = orgdata,
-        has.org.data = keep.org.data
+        data         = new('dimRedData',
+                           data = outdata,
+                           meta = meta),
+        org.data     = orgdata,
+        has.org.data = keep.org.data,
+        method       = "graph_kk",
+        pars         = pars        
     ))
 })
 
@@ -80,11 +82,13 @@ drl <- new('dimRedMethod',
 
     return(new(
         'dimRedResult',
-        data = new('dimRedData',
-                   data = outdata,
-                   meta = meta),
-        org.data = orgdata,
-        has.org.data = keep.org.data
+        data         = new('dimRedData',
+                           data = outdata,
+                           meta = meta),
+        org.data     = orgdata,
+        has.org.data = keep.org.data,
+        method       = "graph_drl",
+        pars         = pars
     ))
 })
 
@@ -116,11 +120,13 @@ fruchterman_reingold <- new('dimRedMethod',
 
     return(new(
         'dimRedResult',
-        data = new('dimRedData',
-                   data = outdata,
-                   meta = meta),
-        org.data = orgdata,
-        has.org.data = keep.org.data
+        data         = new('dimRedData',
+                           data = outdata,
+                           meta = meta),
+        org.data     = orgdata,
+        has.org.data = keep.org.data,
+        method       = "graph_fr",
+        pars         = pars
     ))
 })
 

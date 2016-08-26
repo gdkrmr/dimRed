@@ -46,6 +46,8 @@ diffmap <- new('dimRedMethod',
                    data = outdata,
                    meta = meta),
         org.data = orgdata,
-        has.org.data = keep.org.data
+        has.org.data = keep.org.data,
+        method       = "diffmap",
+        pars         = pars
     ))
 })

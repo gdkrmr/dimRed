@@ -88,15 +88,17 @@ pca <- new('dimRedMethod', fun = function (data, pars = list(ndim = 2,
 
     res <- new(
         'dimRedResult',
-        data = new('dimRedData',
-                   data = data,
-                   meta = meta),
-        org.data = orgdata,
-        apply = appl,
-        inverse = inv,
+        data         = new('dimRedData',
+                           data = data,
+                           meta = meta),
+        org.data     = orgdata,
+        apply        = appl,
+        inverse      = inv,
         has.org.data = keep.org.data,
-        has.apply = TRUE,
-        has.inverse = TRUE
+        has.apply    = TRUE,
+        has.inverse  = TRUE,
+        method       = "pca",
+        pars         = pars
     )
     
     return(res)

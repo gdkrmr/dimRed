@@ -24,7 +24,19 @@
 #' 
 #' @export
 drr <- new('dimRedMethod',
-           fun = function (data, pars = list(),
+           fun = function (data,
+                           pars = list(ndim = ncol(data@data),
+                                       lambda          = c(0, 10^(-3:2)),
+                                       kernel          = 'rbfdot',
+                                       kernel.pars     = list(sigma = 10^(-3:4)),
+                                       pca             = TRUE,
+                                       pca.center      = TRUE,
+                                       pca.scale       = FALSE,
+                                       fastcv          = FALSE,
+                                       cv.folds        = 5,
+                                       fastcv.test     = NULL,
+                                       fastkrr.nblocks = 4,
+                                       verbose         = TRUE),
                            keep.org.data = TRUE) {
     if(!requireNamespace('DRR')) stop('require package "DRR"')
     if(!requireNamespace("kernlab")) stop("require 'kernlab' package")
@@ -80,7 +92,9 @@ drr <- new('dimRedMethod',
             inverse = inv,
             has.org.data = keep.org.data,
             has.apply = TRUE,
-            has.inverse = TRUE
+            has.inverse = TRUE,
+            method = 'drr',
+            pars = pars
         )
     )
 })
