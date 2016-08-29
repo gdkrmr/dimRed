@@ -73,13 +73,12 @@ mixColor3Ramps <- function (vars,
 }
 
 colorize <- function (vars) {
-    switch(
-        length(vars),
-        mixColor1Ramps(vars),
-        mixColor2Ramps(vars),
-        mixColor3Ramps(vars),
-        '#000000'
-    )
+    browser()
+    l <- length(vars)
+    if(l == 1) return(mixColor1Ramps(vars))
+    if(l == 2) return(mixColor2Ramps(vars))
+    if(l == 3) return(mixColor3Ramps(vars))
+    return('#000000')
 }
 
 scale01 <- function(x, low = min(x, na.rm = TRUE), high = max(x, na.rm = FALSE)) {

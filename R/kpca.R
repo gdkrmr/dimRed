@@ -45,14 +45,8 @@ kpca <- new('dimRedMethod',
     dual_coef <- solve(K_rev, indata)        
     
     appl <- function (x) {
-        appl.meta <- if(inherits(x, 'dimRedData'))
-                         x@meta
-                     else 
-                         matrix(numeric(0), 0,0)
-        proj <- if(inherits(x, 'dimRedData'))
-                    x@data
-                else
-                    x
+        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame() 
+        proj <- if(inherits(x, 'dimRedData')) x@data else x
          
         proj <- kernlab::predict(res, proj)
         colnames(proj) <- paste0("kPCA", 1:ncol(proj))
@@ -61,14 +55,8 @@ kpca <- new('dimRedMethod',
     }
     
     inv <- function (x) {
-        appl.meta <- if(inherits(x, 'dimRedData'))
-                         x@meta
-                     else  
-                         matrix(numeric(0), 0,0)
-        proj <- if(inherits(x, 'dimRedData'))
-                    x@data
-                else 
-                    x
+        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
+        proj <- if(inherits(x, 'dimRedData')) x@data else x
         
         resrot <- res@rotated[,1:ncol(proj)]
         rot <- kernlab::kernelMatrix(kernel, proj, resrot)

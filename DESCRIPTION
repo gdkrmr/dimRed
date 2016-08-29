@@ -42,6 +42,7 @@ Collate:
     'lle.R'
     'loe.R'
     'mds.R'
+    'misc.R'
     'mixColorSpaces.R'
     'nmds.R'
     'pca.R'

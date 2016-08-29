@@ -35,7 +35,8 @@ setMethod(
         requireNamespace("rgl")
         requireNamespace("graphics")
         requireNamespace("scatterplot3d")
-        cols <- colorize(x@meta[,col])
+        browser()
+        cols <- colorize(x@meta[, col, drop = FALSE])
         switch(
             type,
             "pairs"    = graphics::pairs(
