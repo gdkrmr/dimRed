@@ -35,7 +35,6 @@ setMethod(
         requireNamespace("rgl")
         requireNamespace("graphics")
         requireNamespace("scatterplot3d")
-        browser()
         cols <- colorize(x@meta[, col, drop = FALSE])
         switch(
             type,

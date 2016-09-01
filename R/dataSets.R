@@ -1,41 +1,74 @@
-
 #' Example Data Sets for dimensionality reduction
 #'
-#' a compilation of standard data sets that are often being used to
+#' A compilation of standard data sets that are often being used to
 #' showcase dimensionality reduction techniques.
 #'
-#' name should be one of
-#'   \code{c('Swiss Roll', 'broken Swiss Roll',
-#'           'Helix', 'Twin Peaks', 'Sphere', 'Ball',
-#'           '3D S Curve', 'variable Noise Helix', 'Iris')}
+#' Name should be one of \code{dataSetList()}. Partial matching is
+#' possible, see \link{\code{match.arg}}. Generated data sets contain
+#' the internal coordinates of the manifold in the \code{meta} slot.
 #' 
 #'
 #' 
-#' @param name a character vector that specifies the name of the data set
-#' @param n in generated data sets the number of points to be generated
-#' @param sigma standard deviation of the noise added
-#' 
+#' @param name A character vector that specifies the name of the data
+#'     set.
+#' @param n In generated data sets the number of points to be
+#'     generated.
+#' @param sigma Standard deviation of the noise added.
+#' @return \code{loadDataSet} an object of class
+#'     \link{\code{dimRedData}}. \code{dataSetList()} return a
+#'     character string with the implemented data sets
+#'
+#' @examples
+#' ## a list of available data sets:
+#' dataSetList()
+#' ## Load a data set:
+#' swissRoll <- loadDataSet("Swiss Roll")
+#' \donttest{plot(swissRoll, type = '3vars')}
+#' ## Load Iris data set, partial matching:
+#' loadDataSet("I")
 #' 
 #' @import stats
 #' @import methods
 #' 
-#' @include dimRedResult-class.R
+#' @name dataSets
+NULL
+
+#' @include dimRedData-class.R
+#'
+#' @rdname dataSets
 #' 
 #' @export
-loadDataSet <- function (name = 'Swiss Roll', n = 2000, sigma = 0.05) {
+loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
+    name <- match.arg(name)
     switch(
         name,
-        'Swiss Roll'           = swissRoll(n,sigma),
-        'broken Swiss Roll'    = brokenSwissRoll(n,sigma),
-        'Helix'                = helix(n,sigma),
-        'Twin Peaks'           = twinPeaks(n,sigma),
+        'Swiss Roll'           = swissRoll(n, sigma),
+        'Broken Swiss Roll'    = brokenSwissRoll(n, sigma),
+        'Helix'                = helix(n, sigma),
+        'Twin Peaks'           = twinPeaks(n, sigma),
         'Sphere'               = sphere(n, sigma),
         'Ball'                 = ball(n, sigma),
         '3D S Curve'           = sCurve(n, sigma),
         'variable Noise Helix' = noisyHelix(n, sigma),
-        'Iris'                 = irisdata(),
-        new("dimRedData", data = cbind(1:10, 1:10, 1:10))
+        'Iris'                 = irisdata()
     )
+}
+
+#' @rdname dataSets
+#' 
+#' @export
+dataSetList <- function () {
+    return(c(
+        'Swiss Roll',
+        'Broken Swiss Roll',
+        'Helix',
+        'Twin Peaks',
+        'Sphere',
+        'Ball',
+        '3D S Curve',
+        'variable Noise Helix',
+        'Iris'
+    ))
 }
 
 irisdata <- function() {
@@ -47,7 +80,7 @@ irisdata <- function() {
 }
 
 swissRoll <- function (n = 2000, sigma = 0.05) {
-    x <-  runif(n, 1.5 * pi, 4.5 * pi)
+    x <- runif(n, 1.5 * pi, 4.5 * pi)
     y <- runif(n, 0, 30)
     
     new('dimRedData',

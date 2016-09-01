@@ -54,7 +54,11 @@ mds <- new('dimRedMethod',
         appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame() 
         proj <- if(inherits(x, 'dimRedData')) x@data else x
 
-        ## double center new data with respect to old:
+        ## double center new data with respect to old: TODO: optimize
+        ## this method, according to the de Silva, Tenenbaum(2004)
+        ## paper. Need an efficient method to calculate the distance
+        ## matrices between different point sets and arbitrary
+        ## distances.
         Kab <- as.matrix(pars$d(proj)^2)
         Exa <- colMeans(pdist2(indata, proj))
         Kab <- sweep(Kab, 1, Exa)       #, '-')

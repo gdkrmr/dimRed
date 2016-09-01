@@ -25,13 +25,14 @@ Suggests:
     rgl,
     kernlab
 Collate:
-    'dimRedMethodPars-class.R'
-    'dimRedMethod-class.R'
     'dimRedData-class.R'
+    'dataSets.R'
+    'dimRedMethod-class.R'
+    'dimRedMethodPars-class.R'
     'dimRed-class.R'
     'dimRedResult-class.R'
-    'dataSets.R'
     'diffmap.R'
+    'dimRed.R'
     'drr.R'
     'embed.R'
     'fastica.R'

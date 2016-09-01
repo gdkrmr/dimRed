@@ -4,12 +4,8 @@
 #'
 #' wraps around all dimensionality reduction functions.
 #'
-#' method must be one of \code{"\link{graph_kk}",
-#' "\link{graph_drl}", "\link{graph_fr}",
-#' "\link{isomap}", "\link{tsne}", "\link{nmds}",
-#' "\link{mds}", "\link{ica}", "\link{pca}",
-#' "\link{lle}", "\link{loe}", "\link{soe}",
-#' "\link{leim}", "\link{kpca}"}
+#' Method must be one of \code{dimRedMethodList()}, partial matching
+#' is performed.
 #'
 #' @param data object of class \code{dimRedData}
 #' @param method character vector naming one of the dimensionality
@@ -19,13 +15,8 @@
 #' @return an object of class \code{dimRedResult}
 #'
 #' @examples
-#' embed_methods <- c("graph_kk", "graph_drl", "graph_fr", "isomap", "tsne", "nmds",
-#'                    "mds", "ica", "pca", "lle", "drr",
-#'                    #"loe", "soe",
-#'                    "leim", "kpca")
-#' quality_methods <- c("Q_local", "Q_global", "mean_R_NX", "total_correlation",
-#'                      "cophenetic_correlation", "distance_correlation",
-#'                      "reconstruction_rmse")
+#' embed_methods <- dimRedMethodList() 
+#' quality_methods <- dimRedQualityList()
 #' scurve <- loadDataSet("3D S Curve", n = 500)
 #'
 #' quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
@@ -46,34 +37,38 @@
 #' 
 #' 
 #' @export
-embed <- function(data, method, keep.org.data = TRUE, ...){
+embed <- function(data, method = dimRedMethodList(), keep.org.data = TRUE, ...){
 
-    args <- list(data = data, keep.org.data = keep.org.data)
-
-    pars <- list(...)
-    if(length(pars) != 0) args$pars <- pars
+    method <- match.arg(method)
     
-    switch(
+    methodObject <- switch(
         method,
-        graph_kk  = do.call( kamada_kawai@fun,         args ),
-        graph_drl = do.call( drl@fun,                  args ),
-        graph_fr  = do.call( fruchterman_reingold@fun, args ),
-        drr       = do.call( drr@fun,                  args ),
-        isomap    = do.call( isomap@fun,               args ),
-        tsne      = do.call( tsne@fun,                 args ),
-        nmds      = do.call( nmds@fun,                 args ),
-        mds       = do.call( mds@fun,                  args ),
-        ica       = do.call( fastica@fun,              args ),
-        pca       = do.call( pca@fun,                  args ),
-        lle       = do.call( lle@fun,                  args ),
-        loe       = do.call( loe@fun,                  args ),
-        soe       = do.call( soe@fun,                  args ),
-        leim      = do.call( leim@fun,                 args ),
-        kpca      = do.call( kpca@fun,                 args ),
-        stop("method ", method, " unknown")
+        graph_kk  = kamada_kawai,
+        graph_drl = drl,
+        graph_fr  = fruchterman_reingold,
+        drr       = drr,
+        isomap    = isomap,
+        tsne      = tsne,
+        nmds      = nmds,
+        mds       = mds,
+        ica       = fastica,
+        pca       = pca,
+        lle       = lle,
+        loe       = loe,
+        soe       = soe,
+        leim      = leim,
+        kpca      = kpca
     )
+    
+    args <- list(
+        data          = data,
+        keep.org.data = keep.org.data
+    )
+    args$pars          = matchPars(methodObject, list(...))
 
+    do.call(methodObject@fun, args)
 }
+
 
 #' dispatches the different methods for quality assessment
 #'
@@ -116,10 +111,11 @@ embed <- function(data, method, keep.org.data = TRUE, ...){
 #' print(quality_results)
 #' 
 #' @export
-quality <- function(data, method, ...){
+quality <- function(data, method = dimRedQualityList(), ...){
 
+    method <- match.arg(method)
+    
     args = list(object = data)
-
     pars = list(...)
     if(length(pars) != 0) args$pars <- pars
     
@@ -131,9 +127,7 @@ quality <- function(data, method, ...){
         total_correlation      = do.call( total_correlation,      args),
         cophenetic_correlation = do.call( cophenetic_correlation, args),
         distance_correlation   = do.call( distance_correlation,   args),
-        reconstruction_rmse    = do.call( reconstruction_rmse,    args),
-        stop("method ", method, " unknown")        
+        reconstruction_rmse    = do.call( reconstruction_rmse,    args)
     )
-    
 }
 

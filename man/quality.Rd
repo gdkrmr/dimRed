@@ -11,7 +11,7 @@
 \alias{total_correlation}
 \title{dispatches the different methods for quality assessment}
 \usage{
-quality(data, method, ...)
+quality(data, method = dimRedQualityList(), ...)
 
 Q_local(object)
 

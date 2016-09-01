@@ -73,7 +73,6 @@ mixColor3Ramps <- function (vars,
 }
 
 colorize <- function (vars) {
-    browser()
     l <- length(vars)
     if(l == 1) return(mixColor1Ramps(vars))
     if(l == 2) return(mixColor2Ramps(vars))

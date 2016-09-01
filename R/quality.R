@@ -262,3 +262,14 @@ setMethod('reconstruction_rmse', 'dimRedResult',
 
     sqrt(mean((recon@data - object@org.data)^2))
 })
+
+
+dimRedQualityList <- function () {
+    return(c('Q_local',
+             'Q_global',
+             'mean_R_NX',
+             'total_correlation',
+             'cophenetic_correlation',
+             'distance_correlation',
+             'reconstruction_rmse'))
+}

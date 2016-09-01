@@ -1,0 +1,56 @@
+Notes:
+
+* What is still todo:
+in order of importance
+
+** TODO Package description
+take this from the article
+
+** TODO unit tests!!!
+VERY IMPORTANT!!!
+
+** TODO General documentation
+simplify everything, no documentation for every method, but rather for
+the embed method with links to the original implementations.
+
+** TODO Class structure overhaul:
+
+*** TODO Decision: Remove dimRed/dimRedPars classes?
+    remove classes!!
+    the work is done adequately by the embed function!
+
+
+*** DONE Is there any good reason for wrapping the function in a dimRedMethod class?
+#+begin_src R
+setClass('myclass', slots = c(fun = "function", pars = "character"))
+new("myclass", fun = function(x) self@pars, pars = "asdf")
+#+end_src
+
+- add a formula method to create dimRedData from a data frame
+
+#+begin_src R
+dimRedData(a + b + c ~ d + e + f)
+#+end_src
+should result in columns a, b, and c being dispatched into class@meta
+slot and d, e, and f into class@data slot
+
+  
+** TODO shield the user from dealing explicitly with S4 classes
+
+** TODO find a reproducible example for loe/soe segfault and report
+
+** TODO Implement efficient landmark mds
+
+** TODO overhaul the mixColorSpaces so that arbitrary color scales can be used
+   
+** TODO landmark lle
+
+** TODO landmark leim
+
+** TODO landmark diffusion maps
+
+** TODO implement that fast newton krr for drr
+
+** TODO think what to do with sneer
+
+** TODO implement spe

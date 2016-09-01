@@ -12,5 +12,15 @@ An S4 class to hold data for dimensionality reduction
 \describe{
 \item{\code{data}}{of class \code{matrix}, holds the data, observations in
 rows, variables in columns}
+
+\item{\code{meta}}{of class \code{data.frame}, holds meta data such as
+classes, internal manifold coordinates, or simply additional
+data of the data set. Must have the same number of rows as the
+\code{data} slot or be an empty data frame.}
 }}
+\examples{
+
+
+
+}
 

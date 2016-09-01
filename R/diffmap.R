@@ -5,11 +5,8 @@
 #'
 #' Constructs a diffuson map
 #'
-#'
 #' for details see \code{\link[diffusionMap]{diffuse}}
 #'
-#'
-#' 
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
@@ -18,9 +15,11 @@
 #' plot(emb@data@data)
 #'
 #' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' 
 #' @export
 diffmap <- new('dimRedMethod',
+               stdpars = list(d = dist, ndim = 2, t = 0),
                fun = function (data,
                                pars = list(d = dist, ndim = 2, t = 0),
                                keep.org.data = TRUE) {

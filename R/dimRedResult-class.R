@@ -51,9 +51,27 @@ setAs(from = 'dimRedResult', to = 'data.frame',
               names(org.data) <- paste("org", names(org.data), sep = ".")
               cbind(as(from@data, 'data.frame'), as.data.frame(org.data))
           } else {
-              as.(from@data, 'data.frame')
+              as(from@data, 'data.frame')
           }
       })
+
+#' @export
+as.data.frame.dimRedResult <- function(x, org.data.prefix = "org.",
+                                       meta.prefix = "meta.",
+                                       dimRed.prefix = "") {
+    cbind(
+        as.data.frame(
+            x@data@meta,
+            col.names = paste0(org.data.prefix, colnames(x@data@meta))),
+        as.data.frame(
+            x@data@data,
+            col.names = paste0(dimRed.prefix,   colnames(x@data@data))),
+        if(x@has.org.data)
+            as.data.frame(
+                x@org.data,
+                col.names = paste0(org.data.prefix, colnames(x@org.data)))
+    )
+}
 
 #' @export
 setGeneric('getPars', function (object) standardGeneric('getPars'))

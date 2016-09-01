@@ -1,7 +1,3 @@
-
-
-
-
 #' implements Dimensionality Rediction via Regression for the use with dimRed
 #'
 #' uses \code{\link[DRR]{DRR}} internally. Has methods for forward and inverse calculations.
@@ -52,14 +48,9 @@ drr <- new('dimRedMethod',
     colnames(outdata) <- paste0("DRR", 1:ncol(outdata))
     
     appl <- function(x){
-        appl.meta <- if(inherits(x, 'dimRedData'))
-                         x@meta
-                     else
-                         matrix(numeric(0), 0,0)
-        proj <- if(inherits(x, 'dimRedData'))
-                    x@data
-                else
-                    x
+        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
+        proj <- if(inherits(x, 'dimRedData')) x@data else x
+        
         if(ncol(proj) != ncol(data@data))
             stop("x must have the same number of dimensions as the original data")
 

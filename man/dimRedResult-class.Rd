@@ -26,5 +26,9 @@ reduced space, may not exist.}
 \item{\code{has.apply}}{logical, if a forward method is exists.}
 
 \item{\code{has.inverse}}{logical if an inverse method exists.}
+
+\item{\code{method}}{saves the method used.}
+
+\item{\code{pars}}{saves the parameters used.}
 }}
 

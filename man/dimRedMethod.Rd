@@ -3,8 +3,12 @@
 \docType{class}
 \name{dimRedMethod-class}
 \alias{dimRedMethod-class}
+\alias{dimRedMethodList}
 \title{An S4 class that makes sure that the wrappers for dimensionality
 reduction work.}
+\usage{
+dimRedMethodList()
+}
 \description{
 An S4 class that makes sure that the wrappers for dimensionality
 reduction work.

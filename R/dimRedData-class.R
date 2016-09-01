@@ -4,8 +4,15 @@
 #'
 #' @slot data of class \code{matrix}, holds the data, observations in
 #'     rows, variables in columns
+#' @slot meta of class \code{data.frame}, holds meta data such as
+#'     classes, internal manifold coordinates, or simply additional
+#'     data of the data set. Must have the same number of rows as the
+#'     \code{data} slot or be an empty data frame.
 #'
-#' @include dimRed-class.R
+#' @examples
+#'
+#' 
+#'
 #' @export
 setClass(
     'dimRedData',
@@ -64,17 +71,28 @@ setAs(from = 'dimRedData', to = 'data.frame',
       })
 
 #' @export
-setGeneric('getData',function(object){standardGeneric('getData')})
+setGeneric('getData', function(object) standardGeneric('getData'))
 #' @export
 setMethod('getData', 'dimRedData', function(object) object@data)
 
 #' @export
-setGeneric('getMeta', function(object){standardGeneric('getMeta')})
-
+setGeneric('getMeta', function(object) standardGeneric('getMeta'))
 #' @export
 setMethod('getMeta', 'dimRedData', function(object) object@meta)
 
 #' @export
 setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
 
+#' @export
+setMethod('[', signature(x = 'dimRedData',
+                         i = 'ANY'),
+          function(x, i) {
+    x@data <- x@data[i,]
+    if(nrow(x@meta) != 0)
+        x@meta <- x@meta[i,]
+    vv <- validObject(x)
+    if(vv == TRUE) return(x)
+    else stop('cannot subset dimRedData object: \n',
+              paste(vv, collapse = '\n'))
+}) 
 

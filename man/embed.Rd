@@ -4,7 +4,7 @@
 \alias{embed}
 \title{dispatches the different methods for dimensionality reduction}
 \usage{
-embed(data, method, keep.org.data = TRUE, ...)
+embed(data, method = dimRedMethodList(), keep.org.data = TRUE, ...)
 }
 \arguments{
 \item{data}{object of class \code{dimRedData}}
@@ -22,21 +22,12 @@ an object of class \code{dimRedResult}
 wraps around all dimensionality reduction functions.
 }
 \details{
-method must be one of \code{"\link{graph_kk}",
-"\link{graph_drl}", "\link{graph_fr}",
-"\link{isomap}", "\link{tsne}", "\link{nmds}",
-"\link{mds}", "\link{ica}", "\link{pca}",
-"\link{lle}", "\link{loe}", "\link{soe}",
-"\link{leim}", "\link{kpca}"}
+Method must be one of \code{dimRedMethodList()}, partial matching
+is performed.
 }
 \examples{
-embed_methods <- c("graph_kk", "graph_drl", "graph_fr", "isomap", "tsne", "nmds",
-                   "mds", "ica", "pca", "lle", "drr",
-                   #"loe", "soe",
-                   "leim", "kpca")
-quality_methods <- c("Q_local", "Q_global", "mean_R_NX", "total_correlation",
-                     "cophenetic_correlation", "distance_correlation",
-                     "reconstruction_rmse")
+embed_methods <- dimRedMethodList() 
+quality_methods <- dimRedQualityList()
 scurve <- loadDataSet("3D S Curve", n = 500)
 
 quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
