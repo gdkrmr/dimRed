@@ -16,9 +16,9 @@
 #' 
 #' @export
 leim <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(d = dist, knn = 50, ndim = 2,
-                                       t = Inf, norm = TRUE),
+            stdpars = list(d = dist, knn = 50, ndim = 2,
+                           t = Inf, norm = TRUE),
+           fun = function (data, pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('loe')) stop('require the loe package')
 

@@ -82,7 +82,7 @@ test_that('general data conversions', {
             expect( max(
                 irisRes[[i]]@inverse(irisRes[[i]]@data)@data - irisData@data
             ) < 0.4,
-            'inverse of kpca is an approximate, so this may fail due to nummerical inaccuracy')
+            'inverse of kpca is an approximate, so this may fail due to numerical inaccuracy')
         }
     }
 })

@@ -17,8 +17,8 @@
 #' @include dimRed-class.R
 #' @export
 mds <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(d = dist, ndim = 2),
+           stdpars = list(d = dist, ndim = 2),
+           fun = function (data, pars,
                            keep.org.data = TRUE) {
     ##
     meta <- data@meta

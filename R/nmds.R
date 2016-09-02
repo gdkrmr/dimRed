@@ -15,8 +15,8 @@
 #' @include dimRed-class.R
 #' @export
 nmds <- new('dimRedMethod',
-            fun = function (data,
-                            pars = list(d = dist, ndim = 2),
+            stdpars = list(d = dist, ndim = 2),
+            fun = function (data, pars,
                             keep.org.data = TRUE) {
     if(!requireNamespace('vegan')) stop('require the vegan package')
 

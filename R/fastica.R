@@ -18,8 +18,9 @@
 #' 
 #' @export
 fastica <- new('dimRedMethod',
+               stdpars = list(ndim = 2),
                fun = function (data,
-                               pars = list(ndim = 2),
+                               pars,
                                keep.org.data = TRUE) {
     if(!requireNamespace('fastICA')) stop('require package fastICA')
                    

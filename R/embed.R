@@ -38,16 +38,29 @@
 #' 
 #' @export
 embed <- function(data, method = dimRedMethodList(), keep.org.data = TRUE, ...){
-
     method <- match.arg(method)
     
-    methodObject <- switch(
+    methodObject <- getMethodObject(method)
+    
+    args <- list(
+        data          = data,
+        keep.org.data = keep.org.data
+    )
+    args$pars          = matchPars(methodObject, list(...))
+
+    do.call(methodObject@fun, args)
+}
+
+
+getMethodObject <- function (method) {
+    switch(
         method,
         graph_kk  = kamada_kawai,
         graph_drl = drl,
         graph_fr  = fruchterman_reingold,
         drr       = drr,
         isomap    = isomap,
+        diffmap   = diffmap,
         tsne      = tsne,
         nmds      = nmds,
         mds       = mds,
@@ -59,16 +72,7 @@ embed <- function(data, method = dimRedMethodList(), keep.org.data = TRUE, ...){
         leim      = leim,
         kpca      = kpca
     )
-    
-    args <- list(
-        data          = data,
-        keep.org.data = keep.org.data
-    )
-    args$pars          = matchPars(methodObject, list(...))
-
-    do.call(methodObject@fun, args)
 }
-
 
 #' dispatches the different methods for quality assessment
 #'

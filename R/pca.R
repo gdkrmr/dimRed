@@ -19,10 +19,12 @@
 #'
 #' @include dimRed-class.R
 #' @export
-pca <- new('dimRedMethod', fun = function (data, pars = list(ndim = 2,
-                                                             center = FALSE,
-                                                             scale. = FALSE),
-                                           keep.org.data = TRUE) {
+pca <- new('dimRedMethod',
+           stdpars = list(ndim = 2,
+                          center = FALSE,
+                          scale. = FALSE),
+           fun = function (data, pars,
+                           keep.org.data = TRUE) {
     if(is.null(pars$ndim))
         pars$ndim <- ncol(data@data)
     

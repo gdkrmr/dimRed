@@ -18,8 +18,8 @@
 #' @include dimRed-class.R
 #' @export
 loe <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(d = dist, knn = 50, ndim = 2),
+           stdpars = list(d = dist, knn = 50, ndim = 2),
+           fun = function (data, pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('loe')) stop('require the loe package')
 

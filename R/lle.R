@@ -13,8 +13,8 @@
 #' @include dimRed-class.R
 #' @export
 lle <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(knn = 50, ndim = 2),
+           stdpars = list(knn = 50, ndim = 2),
+           fun = function (data, pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('lle')) stop('require the lle package')
     meta <- data@meta

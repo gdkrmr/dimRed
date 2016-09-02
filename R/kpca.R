@@ -23,9 +23,10 @@
 #' 
 #' @export
 kpca <- new('dimRedMethod',
-            fun = function (data, pars = list(kernel = 'rbfdot',
-                                              kpar = list(sigma = 0.1),
-                                              ndim = 2),
+            stdpars = list(kernel = 'rbfdot',
+                           kpar = list(sigma = 0.1),
+                           ndim = 2),
+            fun = function (data, pars,
                             keep.org.data = TRUE) {
     if(!requireNamespace('kernlab')) stop('require package "kernlab"')
     if(is.null(pars$ndim))

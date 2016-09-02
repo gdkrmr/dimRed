@@ -1,6 +1,3 @@
-
-
-
 #' Create Diffusion Maps
 #'
 #' Constructs a diffuson map
@@ -20,8 +17,7 @@
 #' @export
 diffmap <- new('dimRedMethod',
                stdpars = list(d = dist, ndim = 2, t = 0),
-               fun = function (data,
-                               pars = list(d = dist, ndim = 2, t = 0),
+               fun = function (data, pars,
                                keep.org.data = TRUE) {
     if(!requireNamespace('diffusionMap')) stop('require the diffusionMap package')
 

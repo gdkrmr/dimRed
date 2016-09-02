@@ -2,11 +2,35 @@
 % Please edit documentation in R/dimRedData-class.R
 \docType{class}
 \name{dimRedData-class}
+\alias{[,dimRedData,ANY,ANY,ANY-method}
+\alias{dimRedData}
 \alias{dimRedData-class}
-\title{An S4 class to hold data for dimensionality reduction}
-\description{
-An S4 class to hold data for dimensionality reduction
+\alias{getData,dimRedData-method}
+\alias{getMeta,dimRedData-method}
+\alias{nrow,dimRedData-method}
+\title{An S4 class and methods to hold data for dimensionality reduction}
+\usage{
+\S4method{getData}{dimRedData}(object)
+
+\S4method{getMeta}{dimRedData}(object)
+
+\S4method{nrow}{dimRedData}(x)
+
+\S4method{[}{dimRedData,ANY,ANY,ANY}(x, i)
 }
+\description{
+An S4 class and methods to hold data for dimensionality reduction
+}
+\section{Methods (by generic)}{
+\itemize{
+\item \code{getData}: extract the data slot (a matrix).
+
+\item \code{getMeta}: extract the meta slot (a data.frame).
+
+\item \code{nrow}: get the number of data entries.
+
+\item \code{[}: subsetting as in a matrix.
+}}
 \section{Slots}{
 
 \describe{

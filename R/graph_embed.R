@@ -19,12 +19,12 @@
 #' 
 #' @export
 kamada_kawai <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(ndim  = 2,
-                                       knn = 100,
-                                       d = dist,
-                                       weight.trans = function (x) exp(-(x^2))),
-                           keep.org.data = TRUE) {
+                    stdpars = list(ndim         = 2,
+                                   knn          = 100,
+                                   d            = dist,
+                                   weight.trans = function (x) exp(-(x^2))),
+                    fun = function (data, pars,
+                                    keep.org.data = TRUE) {
     if(!requireNamespace('igraph')) stop("require igraph package")
 
     meta <- data@meta
@@ -57,11 +57,11 @@ kamada_kawai <- new('dimRedMethod',
 #' @include dimRed-class.R
 #' @export
 drl <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(ndim  = 2,
-                                       knn = 100,
-                                       d = dist,
-                                       weight.trans = function (x) exp(-(x^2))),
+           stdpars = list(ndim         = 2,
+                          knn          = 100,
+                          d            = dist,
+                          weight.trans = function (x) exp(-(x^2))),
+           fun = function (data, pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('igraph')) stop("require igraph package")
     
@@ -95,12 +95,12 @@ drl <- new('dimRedMethod',
 #' @include dimRed-class.R
 #' @export
 fruchterman_reingold <- new('dimRedMethod',
-                   fun = function (data,
-                                   pars = list(ndim  = 2,
-                                               knn = 100,
-                                               d = dist,
-                                               weight.trans = function (x) exp(-(x^2))),
-                                   keep.org.data = TRUE) {
+                            stdpars = list(ndim         = 2,
+                                           knn          = 100,
+                                           d            = dist,
+                                           weight.trans = function (x) exp(-(x^2))),
+                            fun = function (data, pars,
+                                            keep.org.data = TRUE) {
     if(!requireNamespace('igraph')) stop("require igraph package")
                        
     meta <- data@meta

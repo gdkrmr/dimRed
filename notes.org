@@ -34,7 +34,7 @@ dimRedData(a + b + c ~ d + e + f)
 should result in columns a, b, and c being dispatched into class@meta
 slot and d, e, and f into class@data slot
 
-  
+
 ** TODO shield the user from dealing explicitly with S4 classes
 
 ** TODO find a reproducible example for loe/soe segfault and report

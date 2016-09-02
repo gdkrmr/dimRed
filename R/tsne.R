@@ -21,11 +21,11 @@
 #' @include dimRed-class.R
 #' @export
 tsne <- new('dimRedMethod',
-            fun = function (data,
-                            pars = list(d = dist,
-                                        perplexity = 30,
-                                        theta = 0.5,
-                                        ndim = 2),
+            stdpars = list(d = dist,
+                           perplexity = 30,
+                           theta = 0.5,
+                           ndim = 2),
+            fun = function (data, pars,
                             keep.org.data = TRUE) {
     if(!requireNamespace('Rtsne')) stop('require the Rtsne package')
 

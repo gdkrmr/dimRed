@@ -19,41 +19,11 @@
 #' @include dimRed-class.R
 #' 
 #' @export
-isomap <- new('dimRedMethod',
-              fun = function (data,
-                              pars = list(knn = 50,
-                                          d = dist,
-                                          ndim = 2),
+isomap <- new("dimRedMethod",
+              stdpars = list(knn = 50,
+                             ndim = 2),
+              fun = function (data, pars,
                               keep.org.data = TRUE) {
-    if(!requireNamespace('vegan')) stop('require the vegan package')
-
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
-
-    outdata <- vegan::isomap(pars$d(indata),
-                             ndim = pars$ndim,
-                             k = pars$knn)$points
-
-    colnames(outdata) <- paste0("Iso", 1:ncol(outdata))
-
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = outdata,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        method       = "isomap",
-        pars         = pars
-    ))
-})
-
-isomap2 <- new("dimRedMethod",
-               fun = function (data,
-                               pars = list(knn = 50,
-                                           ndim = 2),
-                               keep.org.data = TRUE) {
     message(Sys.time(), ": Isomap START")
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
@@ -159,3 +129,33 @@ makeKNNgraph <- function (x, k, eps = 0){
     return(g) 
 }
 
+## the original isomap method I'll keep it here for completeness: 
+## isomap <- new('dimRedMethod',
+##               stdpars = list(knn  = 50,
+##                              d    = dist,
+##                              ndim = 2)
+##               fun = function (data, pars,
+##                               keep.org.data = TRUE) {
+##     if(!requireNamespace('vegan')) stop('require the vegan package')
+
+##     meta <- data@meta
+##     orgdata <- if (keep.org.data) data@data else NULL
+##     indata <- data@data
+
+##     outdata <- vegan::isomap(pars$d(indata),
+##                              ndim = pars$ndim,
+##                              k = pars$knn)$points
+
+##     colnames(outdata) <- paste0("Iso", 1:ncol(outdata))
+
+##     return(new(
+##         'dimRedResult',
+##         data         = new('dimRedData',
+##                            data = outdata,
+##                            meta = meta),
+##         org.data     = orgdata,
+##         has.org.data = keep.org.data,
+##         method       = "isomap",
+##         pars         = pars
+##     ))
+## })

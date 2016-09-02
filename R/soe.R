@@ -17,8 +17,9 @@
 #'
 #' @export
 soe <- new('dimRedMethod',
+           stdpars = list(d = dist, knn = 50, ndim = 2),
            fun = function (data,
-                           pars = list(d = dist, knn = 50, ndim = 2),
+                           pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('loe')) stop('require the loe package')
 

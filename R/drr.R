@@ -20,19 +20,19 @@
 #' 
 #' @export
 drr <- new('dimRedMethod',
-           fun = function (data,
-                           pars = list(ndim = ncol(data@data),
-                                       lambda          = c(0, 10^(-3:2)),
-                                       kernel          = 'rbfdot',
-                                       kernel.pars     = list(sigma = 10^(-3:4)),
-                                       pca             = TRUE,
-                                       pca.center      = TRUE,
-                                       pca.scale       = FALSE,
-                                       fastcv          = FALSE,
-                                       cv.folds        = 5,
-                                       fastcv.test     = NULL,
-                                       fastkrr.nblocks = 4,
-                                       verbose         = TRUE),
+           stdpars = list(ndim            = 2,
+                          lambda          = c(0, 10^(-3:2)),
+                          kernel          = 'rbfdot',
+                          kernel.pars     = list(sigma = 10^(-3:4)),
+                          pca             = TRUE,
+                          pca.center      = TRUE,
+                          pca.scale       = FALSE,
+                          fastcv          = FALSE,
+                          cv.folds        = 5,
+                          fastcv.test     = NULL,
+                          fastkrr.nblocks = 4,
+                          verbose         = TRUE),
+           fun = function (data, pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('DRR')) stop('require package "DRR"')
     if(!requireNamespace("kernlab")) stop("require 'kernlab' package")
@@ -54,22 +54,23 @@ drr <- new('dimRedMethod',
         if(ncol(proj) != ncol(data@data))
             stop("x must have the same number of dimensions as the original data")
 
-        return(new('dimRedData', data = res$apply(proj), meta = appl.meta))
+        appl.out <- new('dimRedData', data = res$apply(proj), meta = appl.meta)
+        dimnames(appl.out@data) <- list(
+            rownames(x), paste0("DRR", seq_len(ncol(appl.out@data)))
+        )
+        return(appl.out)
     }
 
     inv <- function(x) {
-        appl.meta <- if(inherits(x, 'dimRedData'))
-                         x@meta
-                     else 
-                         matrix(numeric(0), 0,0)
-        proj <- if(inherits(x, 'dimRedData'))
-                    x@data
-                else
-                    x
+        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
+        proj <- if(inherits(x, 'dimRedData')) x@data else x
+        
         if(ncol(proj) > ncol(data@data))
             stop("x must have less or equal number of dimensions as the original data")
 
-        return(new('dimRedData', data = res$inverse(proj), meta = appl.meta))
+        inv.out <- new('dimRedData', data = res$inverse(proj), meta = appl.meta)
+        dimnames(inv.out@data) <- list(rownames(proj), colnames(data@data))
+        return(inv.out)
     }
     
     
@@ -86,6 +87,6 @@ drr <- new('dimRedMethod',
             has.inverse = TRUE,
             method = 'drr',
             pars = pars
-        )
+            )
     )
 })

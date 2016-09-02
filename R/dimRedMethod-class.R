@@ -19,20 +19,21 @@ setClass('dimRedMethod',
 #' @export
 dimRedMethodList <- function () {
     return(c(
-        'graph_kk,',
-        'graph_drl,',
-        'graph_fr,',
-        'drr,',
-        'isomap,',
-        'tsne,',
-        'nmds,',
-        'mds,',
-        'ica,',
-        'pca,',
-        'lle,',
+        'graph_kk',
+        'graph_drl',
+        'graph_fr',
+        'drr',
+        'isomap',
+        'diffmap',
+        'tsne',
+        'nmds',
+        'mds',
+        'ica',
+        'pca',
+        'lle',
         ## those two methods are buggy and can produce segfaults:
         ## "loe", "soe",
-        'leim,',
+        'leim',
         'kpca'
     ))
 }
@@ -51,16 +52,19 @@ setMethod('matchPars',
 
     res <- list()
     
+    ## exists can deal with elements being NULL
+    ## to assign list@el <- NULL do:
+    ## list['el'] <- list(NULL)
     for(np in nap) {
-        miss.std <- is.null(object@stdpars[[np]])
-        miss.par <- is.null(pars[[np]])
+        miss.std <- !exists(np, where = object@stdpars)
+        miss.par <- !exists(np, where = pars)
         if (miss.std) {
             warning("Parameter matching: ", np,
                     " is not a standard parameter, ignoring.")
         } else if (miss.par) { 
-            res[[np]] <- object@stdpars[[np]]
+            res[np] <- object@stdpars[np]
         } else {
-            res[[np]] <- pars[[np]]
+            res[np] <- pars[np]
         }
     }
 
