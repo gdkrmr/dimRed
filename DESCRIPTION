@@ -1,6 +1,6 @@
 Package: dimRed
 Title: A Collection of Dimensionality Reduction techniques
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: person("Guido", "Kraemer",
     email = "gkraemer@bgc-jena.mpg.de",
     role = c("aut", "cre"))
