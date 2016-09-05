@@ -16,9 +16,9 @@
 #' 
 #' plot(emb@data@data)
 #'
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #'
-#'
-#' @include dimRed-class.R
 #' @export
 tsne <- new('dimRedMethod',
             stdpars = list(d = dist,

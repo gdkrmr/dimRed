@@ -11,8 +11,9 @@
 #'
 #' plot(emb@data@data)
 #'
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' 
-#' @include dimRed-class.R
 #' @export
 nmds <- new('dimRedMethod',
             stdpars = list(d = dist, ndim = 2),

@@ -1,3 +1,8 @@
+setClassUnion('missingORnumeric', c('numeric', 'missing'))
+setClassUnion('missingORcharacter', c('character', 'missing'))
+setClassUnion('missingORlogical', c('logical', 'missing'))
+setClassUnion('missingORfunction', c('function', 'missing'))
+
 #' An S4 class and methods to hold data for dimensionality reduction
 #'
 #' @slot data of class \code{matrix}, holds the data, observations in
@@ -8,8 +13,14 @@
 #'     \code{data} slot or be an empty data frame.
 #'
 #' @examples
+#' s3d <- loadDataSet("3D S Curve")
+#' as(s3d, "data.frame")
+#' iris <- as(iris[,1:4], "dimRedData")
 #'
-#' 
+#' getData(s3d)
+#' getMeta(s3d)
+#' nrow(s3d)
+#' s3d[1:40,]
 #'
 #' @export
 dimRedData <- setClass(
@@ -37,11 +48,7 @@ dimRedData <- setClass(
             )
         }
         
-        if (is.null(retval)) {
-            return(TRUE)
-        } else {
-            return(retval)
-        }
+        return(if (is.null(retval)) TRUE else retval)
     }
 )
 

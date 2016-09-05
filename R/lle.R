@@ -10,7 +10,10 @@
 #'
 #' 
 #' plot(emb@data@data)
-#' @include dimRed-class.R
+#' 
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
+#' 
 #' @export
 lle <- new('dimRedMethod',
            stdpars = list(knn = 50, ndim = 2),

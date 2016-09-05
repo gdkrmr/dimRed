@@ -10,13 +10,14 @@
 #'
 #' @examples
 #'
-#' dat <- loadDataSet("3D S Curve")
-#' emb <- drr@fun(dat, pars = list(ndim = 2))
+#' dat <- loadDataSet("3D S Curve", n = 500)
+#' emb <- drr@fun(dat, pars = list(ndim = 2)), file = "NUL", type = 'output'
 #'
 #' plot(emb@data@data)
 #'
 #' 
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' 
 #' @export
 drr <- new('dimRedMethod',

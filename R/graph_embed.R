@@ -15,7 +15,9 @@
 #' plot(em2@data@data)
 #' plot(em3@data@data)
 #' 
-#' @include dimRed-class.R
+#' 
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' 
 #' @export
 kamada_kawai <- new('dimRedMethod',
@@ -54,7 +56,8 @@ kamada_kawai <- new('dimRedMethod',
     ))
 })
 
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' @export
 drl <- new('dimRedMethod',
            stdpars = list(ndim         = 2,
@@ -92,7 +95,8 @@ drl <- new('dimRedMethod',
     ))
 })
 
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' @export
 fruchterman_reingold <- new('dimRedMethod',
                             stdpars = list(ndim         = 2,

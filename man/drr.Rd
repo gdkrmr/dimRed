@@ -21,8 +21,8 @@ uses \code{\link[DRR]{DRR}} internally. Has methods for forward and inverse calc
 }
 \examples{
 
-dat <- loadDataSet("3D S Curve")
-emb <- drr@fun(dat, pars = list(ndim = 2))
+dat <- loadDataSet("3D S Curve", n = 500)
+emb <- drr@fun(dat, pars = list(ndim = 2)), file = "NUL", type = 'output'
 
 plot(emb@data@data)
 

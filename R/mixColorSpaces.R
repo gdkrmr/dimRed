@@ -27,9 +27,9 @@
 #' }
 #' 
 #' plot(cols$x, cols$y, col = mixed, pch = 15)
-#' @export
 #' @importFrom grDevices colorRamp
 #' @importFrom grDevices rgb
+#' @export
 mixColorRamps <- function (vars, ramps) {
     if(length(vars) > length(ramps)) stop("need more or equal ramps than vars")
    

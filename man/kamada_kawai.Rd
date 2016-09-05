@@ -23,6 +23,7 @@ plot(em@data@data)
 plot(em2@data@data)
 plot(em3@data@data)
 
+
 }
 \keyword{datasets}
 

@@ -47,7 +47,6 @@
 #' Szekely, G.J., Rizzo, M.L., Bakirov, N.K., 2007. Measuring and
 #'     testing dependence by correlation of distances. Ann. Statist. 35,
 #'     2769-2794. doi:10.1214/009053607000000505
-#'
 #' Lee, J.A., Peluffo-Ordonez, D.H., Verleysen, M., 2015. Multi-scale
 #'     similarities in stochastic neighbour embedding: Reducing
 #'     dimensionality while preserving both local and global
@@ -57,10 +56,90 @@
 #' @author Guido Kraemer
 #' @aliases Q_local Q_global total_correlation cophenetic_correlation
 #'     distance_correlation reconstruction_rmse
-#' @include dimRedResult-class.R
 #' @name quality
 NULL
 
+
+
+
+#' dispatches the different methods for quality assessment
+#'
+#' wraps around all quality assessment functions functions.
+#'
+#' method must be one of \code{"\link{Q_local}", "\link{Q_global}",
+#' "\link{mean_R_NX}", "\link{total_correlation}",
+#' "\link{cophenetic_correlation}", "\link{distance_correlation}",
+#' "\link{reconstruction_rmse}"}
+#'
+#' @param data object of class \code{dimRedResult}
+#' @param method character vector naming one of the methods
+#' @param ... the pameters, internally passed as a list to the
+#'     quality method as \code{pars = list(...)}
+#' @return a number
+#'
+#' @examples
+#' embed_methods <- dimRedMethodList() 
+#' quality_methods <- dimRedQualityList()
+#' scurve <- loadDataSet("3D S Curve", n = 500)
+#'
+#' quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
+#'                               dimnames = list(embed_methods, quality_methods))
+#' embedded_data <- list()
+#' 
+#' for(e in embed_methods) {
+#'   message("embedding: ", e)
+#'   embedded_data[[e]] <- embed(scurve, e)
+#'   for(q in quality_methods) {
+#'     message("  quality: ", q)
+#'     try(quality_results[e,q] <- quality(embedded_data[[e]], q), silent = TRUE)
+#'   }
+#' }
+#'
+#' print(quality_results)
+#' 
+#' @export
+quality <- function (data, method = dimRedQualityList(),
+                     mute = c("output", "message"),
+                     ...) {
+    method <-  match.arg(method)
+
+    methodFunction <- getQualityFunction(method)
+
+    args <- c(list(object = data), list(...))
+
+    devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
+    if('message' %in% mute){
+        devnull1 <- file(devnull,  'wt')
+        sink(devnull1, type = 'message')
+        on.exit({
+            sink(file = NULL, type = "message")
+            close(devnull1)
+        }, add = TRUE)
+    }
+    if('output' %in% mute) {
+        devnull2 <- file(devnull,  'wt')
+        sink(devnull2, type = 'output')
+        on.exit({
+            sink()
+            close(devnull2)
+        }, add = TRUE)
+    }
+    
+    do.call(methodFunction, args)
+}
+
+getQualityFunction <- function (method) {
+    switch(
+        method,
+        Q_local = Q_local,
+        Q_global = Q_global,
+        mean_R_NX = mean_R_NX,
+        total_correlation = total_correlation,
+        cophenetic_correlation = cophenetic_correlation,
+        distance_correlation = distance_correlation,
+        reconstruction_rmse = reconstruction_rmse
+    )
+}
 
 
 #' @rdname quality

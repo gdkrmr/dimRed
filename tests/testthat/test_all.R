@@ -14,12 +14,15 @@ test_that("high level functions working?",{
     
     for(e in embed_methods) {
         message("embedding: ", e)
-        embedded_data[[e]] <- embed(scurve, e)
+        suppressWarnings(embedded_data[[e]] <- embed(scurve, e))
         for(q in quality_methods) {
             message("  quality: ", q)
-            try(quality_results[e,q] <- quality(embedded_data[[e]], q))
+            suppressWarnings(try(
+                quality_results[e,q] <- quality(embedded_data[[e]], q), silent = TRUE
+            ))
         }
     }
+    
     expect(inherits(quality_results, "matrix"), "should be matrix")
     expect(storage.mode(quality_results) == "double", 'storage should be "double"')
 })

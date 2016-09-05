@@ -20,7 +20,6 @@ emb <- nmds@fun(dat)
 
 plot(emb@data@data)
 
-
 }
 \keyword{datasets}
 

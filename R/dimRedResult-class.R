@@ -13,7 +13,7 @@
 #' @slot method saves the method used.
 #' @slot pars saves the parameters used.
 #'
-#' @include dimRed-class.R
+#' @include dimRedData-class.R
 #' @export
 dimRedResult <- setClass(
     'dimRedResult',

@@ -7,11 +7,11 @@
 #' @rdname dimRedMethod
 #' 
 #' @export
-setClass('dimRedMethod',
-         slots = c(fun     = 'function',
-                   stdpars = 'list'),
-         prototype = list(fun     = function() NA,
-                          stdpars = list()))
+dimRedMethod <- setClass('dimRedMethod',
+                         slots = c(fun     = 'function',
+                                   stdpars = 'list'),
+                         prototype = list(fun     = function() NA,
+                                          stdpars = list()))
 
 
 #' @rdname dimRedMethod

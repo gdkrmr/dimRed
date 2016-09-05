@@ -4,7 +4,7 @@ context("drr")
 
 
 test_that("drr forward and backward passes", {
-    spiral <- loadDataSet("Helix")
+    spiral <- loadDataSet("Helix", n = 500)
 
     drr.spiral <- embed(spiral, 'drr', ndim = 3)
 

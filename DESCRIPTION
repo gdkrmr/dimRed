@@ -28,8 +28,6 @@ Collate:
     'dimRedData-class.R'
     'dataSets.R'
     'dimRedMethod-class.R'
-    'dimRedMethodPars-class.R'
-    'dimRed-class.R'
     'dimRedResult-class.R'
     'diffmap.R'
     'dimRed.R'

@@ -20,6 +20,7 @@ emb <- lle@fun(dat)
 
 
 plot(emb@data@data)
+
 }
 \keyword{datasets}
 

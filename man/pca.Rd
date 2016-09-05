@@ -15,16 +15,18 @@ pca
 }
 \value{
 an object of class \code{\link{dimRedResult-class}}
-
-
-dat <- loadDataSet("3D S Curve")
-emb <- pca@fun(dat)
-
-plot(emb@data@data)
 }
 \description{
 uses the \code{\link{prcomp}} function internally. Has methods for
 forward and inverse calculations.
+}
+\examples{
+dat <- loadDataSet("3D S Curve")
+emb <- pca@fun(dat, pca@stdpars)
+
+plot(emb, type = "2vars")
+plot(emb@inverse(emb@data), type = "3vars")
+
 }
 \keyword{datasets}
 

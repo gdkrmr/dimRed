@@ -2,6 +2,7 @@
 % Please edit documentation in R/dimRedMethod-class.R
 \docType{class}
 \name{dimRedMethod-class}
+\alias{dimRedMethod}
 \alias{dimRedMethod-class}
 \alias{dimRedMethodList}
 \title{An S4 class that makes sure that the wrappers for dimensionality

@@ -14,7 +14,8 @@
 #' plot(emb@data@data)
 #'
 #'
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
 #' 
 #' @export
 fastica <- new('dimRedMethod',

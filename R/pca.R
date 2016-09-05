@@ -8,25 +8,27 @@
 #' @param data an object of class \code{\link{dimRedData-class}}.
 #' @param pars an object of class \code{\link{dimRedMethodPars-class}}
 #'
-
 #' @return an object of class \code{\link{dimRedResult-class}}
 #' 
-#'
+#' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- pca@fun(dat)
+#' emb <- pca@fun(dat, pca@stdpars)
 #'
-#' plot(emb@data@data)
+#' plot(emb, type = "2vars")
+#' plot(emb@inverse(emb@data), type = "3vars")
 #'
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
+#' 
 #' @export
 pca <- new('dimRedMethod',
            stdpars = list(ndim = 2,
-                          center = FALSE,
+                          center = TRUE,
                           scale. = FALSE),
            fun = function (data, pars,
                            keep.org.data = TRUE) {
-    if(is.null(pars$ndim))
-        pars$ndim <- ncol(data@data)
+    ndim <- pars$ndim
+    pars$ndim <- NULL
     
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
@@ -37,23 +39,18 @@ pca <- new('dimRedMethod',
     )
 
     # evaluate results here for functions
-    data <- res$x[,1:pars$ndim,drop = FALSE]
+    data <- res$x[, seq_len(ndim), drop = FALSE]
     ce <- res$center
     sc <- res$scale
-    rot <- res$rotation
-    rerot <- t(res$rot)
+    rot <- res$rotation[,seq_len(ndim)]
+    rerot <- t(rot)
 
     
     appl <- function(x) {
-        appl.meta <- if(inherits(x, 'dimRedData'))
-                         x@meta
-                     else
-                         matrix(numeric(0), 0,0)
-        proj <- if(inherits(x, 'dimRedData'))
-                    x@data
-                else
-                    x
-        if(ncol(proj) != ncol(data))
+        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
+        proj <- if(inherits(x, 'dimRedData')) x@data else x
+        
+        if(ncol(proj) != ncol(orgdata))
             stop("x must have the same number of dimensions as the original data")
 
         
@@ -65,20 +62,14 @@ pca <- new('dimRedMethod',
         return(proj)
     }
     inv  <- function(x) {
-        appl.meta <- if(inherits(x, 'dimRedData'))
-                         x@meta
-                     else 
-                         matrix(numeric(0), 0,0)
-        proj <- if(inherits(x, 'dimRedData'))
-                    x@data
-                else
-                    x
+        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
+        proj <- if(inherits(x, 'dimRedData')) x@data else x
         if(ncol(proj) > ncol(data))
             stop("x must have less or equal number of dimensions as the original data")
 
 
         d <- ncol(proj)
-        reproj <- proj %*% rerot[1:d,]
+        reproj <- proj %*% rerot[seq_len(d),]
 
         if(sc[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x * sc))
         if(ce[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x + ce))

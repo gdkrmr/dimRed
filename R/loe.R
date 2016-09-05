@@ -15,7 +15,9 @@
 #' plot(emb@data@data)
 #' }
 #'
-#' @include dimRed-class.R
+#' @include dimRedResult-class.R
+#' @include dimRedMethod-class.R
+#' 
 #' @export
 loe <- new('dimRedMethod',
            stdpars = list(d = dist, knn = 50, ndim = 2),

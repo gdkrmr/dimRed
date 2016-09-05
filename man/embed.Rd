@@ -4,7 +4,8 @@
 \alias{embed}
 \title{dispatches the different methods for dimensionality reduction}
 \usage{
-embed(data, method = dimRedMethodList(), keep.org.data = TRUE, ...)
+embed(data, method = dimRedMethodList(), mute = c("message", "output"),
+  keep.org.data = TRUE, ...)
 }
 \arguments{
 \item{data}{object of class \code{dimRedData}}
