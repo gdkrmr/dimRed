@@ -5,8 +5,9 @@
 #' uses \code{\link[kernlab]{kpca}} internally. Has methods for
 #' forward and inverse calculations.
 #'
+#' 
 #' @param data an object of class \code{\link{dimRedData-class}}.
-#' @param pars an object of class \code{\link{dimRedMethodPars-class}}
+#' @param pars a list with parameters
 #'
 #' @return an object of class \code{\link{dimRedResult-class}}
 #'
@@ -21,6 +22,7 @@
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @importFrom kernlab kpca kernelMatrix predict
 #' 
 #' @export
 kpca <- new('dimRedMethod',
@@ -96,7 +98,7 @@ get_kernel_fun <- function (kernel, pars) {
         if (is(kernel,"function")) {
             kernel <- deparse(substitute(kernel))
         } else {
-            kernel <- get(kernel, asNamespace('kernlab'))
+           kernel <- get(kernel, asNamespace('kernlab'))
         }
         kernel <- do.call(kernel, pars)
     }

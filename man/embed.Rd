@@ -11,7 +11,12 @@ embed(data, method = dimRedMethodList(), mute = c("message", "output"),
 \item{data}{object of class \code{dimRedData}}
 
 \item{method}{character vector naming one of the dimensionality
-reduction techniques}
+reduction techniques.}
+
+\item{mute}{turn off printing of warnings/errors/messages of
+wrapped functions.}
+
+\item{keep.org.data}{TRUE/FALSE keep the original data.}
 
 \item{...}{the pameters, internally passed as a list to the
 dimensionality reduction method as \code{pars = list(...)}}

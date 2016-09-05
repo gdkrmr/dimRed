@@ -2,11 +2,33 @@
 % Please edit documentation in R/dimRedResult-class.R
 \docType{class}
 \name{dimRedResult-class}
+\alias{as}
+\alias{as.data.frame.dimRedResult}
 \alias{dimRedResult}
 \alias{dimRedResult-class}
+\alias{getPars}
+\alias{getPars,dimRedResult-method}
+\alias{print}
+\alias{print,dimRedResult-method}
 \title{A class to hold the results of of a dimensionality reduction.}
+\usage{
+\method{as.data.frame}{dimRedResult}(x, org.data.prefix = "org.",
+  meta.prefix = "meta.", dimRed.prefix = "")
+
+getPars(object)
+
+\S4method{getPars}{dimRedResult}(object)
+
+print(x, ...)
+
+\S4method{print}{dimRedResult}(x)
+}
 \description{
 A class to hold the results of of a dimensionality reduction.
+
+as("dimRedResult", "data.frame")
+
+convert to \code{data.frame}
 }
 \section{Slots}{
 

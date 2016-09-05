@@ -11,7 +11,7 @@ drr
 \arguments{
 \item{data}{an object of class \code{\link{dimRedData-class}}}
 
-\item{pars}{an object of class \code{\link{dimRedMethodPars-class}}}
+\item{pars}{a list with parameters}
 }
 \value{
 an object of class \code{\link{dimRedResult-class}}
@@ -22,7 +22,7 @@ uses \code{\link[DRR]{DRR}} internally. Has methods for forward and inverse calc
 \examples{
 
 dat <- loadDataSet("3D S Curve", n = 500)
-emb <- drr@fun(dat, pars = list(ndim = 2)), file = "NUL", type = 'output'
+emb <- drr@fun(dat, pars = list(ndim = 2))
 
 plot(emb@data@data)
 

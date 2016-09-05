@@ -6,7 +6,7 @@
 #' forward and inverse calculations.
 #'
 #' @param data an object of class \code{\link{dimRedData-class}}.
-#' @param pars an object of class \code{\link{dimRedMethodPars-class}}
+#' @param pars a list with parameters
 #'
 #' @return an object of class \code{\link{dimRedResult-class}}
 #' 

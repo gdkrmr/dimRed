@@ -7,7 +7,10 @@
 #'
 #' @param data object of class \code{dimRedData}
 #' @param method character vector naming one of the dimensionality
-#'     reduction techniques
+#'     reduction techniques.
+#' @param mute turn off printing of warnings/errors/messages of
+#'     wrapped functions.
+#' @param keep.org.data TRUE/FALSE keep the original data.
 #' @param ... the pameters, internally passed as a list to the
 #'     dimensionality reduction method as \code{pars = list(...)}
 #' @return an object of class \code{dimRedResult}

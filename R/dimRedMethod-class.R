@@ -3,6 +3,7 @@
 #' reduction work.
 #'
 #' @slot fun function call
+#' @slot stdpars the default parameters
 #'
 #' @rdname dimRedMethod
 #' 

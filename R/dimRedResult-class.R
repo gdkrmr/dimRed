@@ -14,6 +14,9 @@
 #' @slot pars saves the parameters used.
 #'
 #' @include dimRedData-class.R
+#' @name dimRedResult-class
+#' @aliases dimRedResult
+#' @family dimRedResult
 #' @export
 dimRedResult <- setClass(
     'dimRedResult',
@@ -43,7 +46,11 @@ dimRedResult <- setClass(
 
 
 
-#' @export
+#' as("dimRedResult", "data.frame")
+#' 
+#' @family dimRedResult
+#' @name as
+#' @rdname dimRedResult-class
 setAs(from = 'dimRedResult', to = 'data.frame',
       def = function(from){
           if(from@has.org.data) {
@@ -55,6 +62,11 @@ setAs(from = 'dimRedResult', to = 'data.frame',
           }
       })
 
+#' convert to \code{data.frame}
+#'
+#' 
+#' @family dimRedResult
+#' @rdname dimRedResult-class
 #' @export
 as.data.frame.dimRedResult <- function(x, org.data.prefix = "org.",
                                        meta.prefix = "meta.",
@@ -73,9 +85,11 @@ as.data.frame.dimRedResult <- function(x, org.data.prefix = "org.",
     )
 }
 
+#' @rdname dimRedResult-class
 #' @export
 setGeneric('getPars', function (object) standardGeneric('getPars'))
 
+#' @rdname dimRedResult-class
 #' @export
 setMethod(
     f = 'getPars',
@@ -85,6 +99,13 @@ setMethod(
     }
 )
 
+#' @rdname dimRedResult-class
+#' @export
+setGeneric('print', function(x) standardGeneric('print'))
+
+
+#' @rdname dimRedResult-class
+#' @import utils
 #' @export
 setMethod(
     f = 'print',
@@ -93,7 +114,7 @@ setMethod(
         cat("Method:\n")
         cat(x@method, "\n")
         cat("Parameters:\n")
-        str(x@pars)
+        utils::str(x@pars)
     }
 )
 

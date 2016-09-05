@@ -18,6 +18,8 @@
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @import RANN
+#' @importFrom igraph distances
 #' 
 #' @export
 isomap <- new("dimRedMethod",
@@ -98,6 +100,7 @@ isomap <- new("dimRedMethod",
 #' implements "smart" choices on RANN::nn2 parameters
 #' we ignore radius search
 #' TODO: find out a good limit to switch from kd to bd trees
+#' @importFrom igraph make_empty_graph
 makeKNNgraph <- function (x, k, eps = 0){
     requireNamespace("RANN")
     requireNamespace("igraph")

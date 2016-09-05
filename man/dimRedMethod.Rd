@@ -18,5 +18,7 @@ reduction work.
 
 \describe{
 \item{\code{fun}}{function call}
+
+\item{\code{stdpars}}{the default parameters}
 }}
 

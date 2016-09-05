@@ -4,20 +4,21 @@
 #'
 #'
 #' @param data an object of class \code{\link{dimRedData-class}}
-#' @param pars an object of class \code{\link{dimRedMethodPars-class}}
+#' @param pars a list with parameters
 #'
 #' @return an object of class \code{\link{dimRedResult-class}}
 #'
 #' @examples
 #'
 #' dat <- loadDataSet("3D S Curve", n = 500)
-#' emb <- drr@fun(dat, pars = list(ndim = 2)), file = "NUL", type = 'output'
+#' emb <- drr@fun(dat, pars = list(ndim = 2))
 #'
 #' plot(emb@data@data)
 #'
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @import DRR
 #' 
 #' @export
 drr <- new('dimRedMethod',

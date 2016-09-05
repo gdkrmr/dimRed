@@ -11,7 +11,7 @@ kpca
 \arguments{
 \item{data}{an object of class \code{\link{dimRedData-class}}.}
 
-\item{pars}{an object of class \code{\link{dimRedMethodPars-class}}}
+\item{pars}{a list with parameters}
 }
 \value{
 an object of class \code{\link{dimRedResult-class}}

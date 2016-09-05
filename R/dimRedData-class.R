@@ -22,6 +22,7 @@ setClassUnion('missingORfunction', c('function', 'missing'))
 #' nrow(s3d)
 #' s3d[1:40,]
 #'
+#' @name dimRedData
 #' @export
 dimRedData <- setClass(
     'dimRedData',
@@ -52,15 +53,18 @@ dimRedData <- setClass(
     }
 )
 
-#' @export
+#' @rdname dimRedData
+#' @name as
 setAs(from = 'ANY', to = 'dimRedData',
       def = function(from) new('dimRedData', data = as.matrix(from)))
 
-#' @export
+#' @rdname dimRedData
+#' @name as
 setAs(from = 'data.frame', to = 'dimRedData',
       def = function(from) new('dimRedData', data = as.matrix(from)))
 
-#' @export
+#' @rdname dimRedData
+#' @name as
 setAs(from = 'dimRedData', to = 'data.frame',
       def = function(from) {
           res <- cbind(from@meta, as.data.frame(from@data))
@@ -72,25 +76,27 @@ setAs(from = 'dimRedData', to = 'data.frame',
           return(res)
       })
 
+#' @rdname dimRedData
 #' @export
 setGeneric('getData', function(object) standardGeneric('getData'))
 
-#' @describeIn dimRedData extract the data slot (a matrix).
+#' @rdname dimRedData
 #' @export
 setMethod('getData', 'dimRedData', function(object) object@data)
 
+#' @rdname dimRedData
 #' @export
 setGeneric('getMeta', function(object) standardGeneric('getMeta'))
 
-#' @describeIn dimRedData extract the meta slot (a data.frame).
+#' @rdname dimRedData
 #' @export
 setMethod('getMeta', 'dimRedData', function(object) object@meta)
 
-#' @describeIn dimRedData get the number of data entries.
+#' @rdname dimRedData
 #' @export
 setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
 
-#' @describeIn dimRedData subsetting as in a matrix.
+#' @rdname dimRedData
 #' @export
 setMethod('[', signature(x = 'dimRedData',
                          i = 'ANY'),

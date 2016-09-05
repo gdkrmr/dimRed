@@ -23,7 +23,13 @@
 #'
 #' @include mixColorSpaces.R
 #' @include dimRedData-class.R
+#' @importFrom graphics plot
+#' @import scatterplot3d
 #' 
+#' @export
+setGeneric('plot', function(x, y, type, vars, col, ...) standardGeneric('plot'))
+
+#' @rdname plot
 #' @export
 setMethod(
     f = 'plot',
@@ -53,6 +59,8 @@ setMethod(
     }
 )
 
+
+#' @rdname plot
 #' @export
 setMethod(
     f = 'plot',

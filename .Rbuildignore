@@ -11,3 +11,9 @@ server\.R
 ui\.R
 
 .*\.sh
+
+^\..*$
+
+notes\.org
+
+TAGS

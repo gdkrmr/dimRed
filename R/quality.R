@@ -56,7 +56,7 @@
 #' @author Guido Kraemer
 #' @aliases Q_local Q_global total_correlation cophenetic_correlation
 #'     distance_correlation reconstruction_rmse
-#' @name quality
+#' @name quality_description
 NULL
 
 
@@ -148,6 +148,7 @@ setGeneric('Q_local', function(object) standardGeneric('Q_local'),
            valueClass = 'numeric')
 
 
+#' @rdname quality
 #' @export
 setMethod('Q_local', 'dimRedResult',
           function(object){
@@ -174,6 +175,7 @@ setGeneric(
     valueClass = 'numeric'
 )
 
+#' @rdname quality
 #' @export
 setMethod('Q_global', 'dimRedResult',
           function(object){
@@ -200,6 +202,7 @@ setGeneric(
     valueClass = 'numeric'
 )
 
+#' @rdname quality
 #' @export
 setMethod('mean_R_NX', 'dimRedResult',
           function(object){
@@ -231,6 +234,7 @@ setGeneric(
 
 
 
+#' @rdname quality
 #' @export
 setMethod('total_correlation',
           c('dimRedResult',
@@ -279,6 +283,7 @@ setGeneric('cophenetic_correlation',
            function(object, d, cor_method) standardGeneric('cophenetic_correlation'),
            valueClass = 'numeric')
 
+#' @rdname quality
 #' @export
 setMethod('cophenetic_correlation',
           c('dimRedResult', 'missingORfunction', 'missingORcharacter'), 
@@ -331,6 +336,7 @@ setGeneric('reconstruction_rmse',
            function(object) standardGeneric('reconstruction_rmse'),
            valueClass = 'numeric')
 
+#' @rdname quality
 #' @export
 setMethod('reconstruction_rmse', 'dimRedResult',
           function(object){
