@@ -15,7 +15,7 @@
 #' 
 #' @export
 mds <- new('dimRedMethod',
-           stdpars = list(d = dist, ndim = 2),
+           stdpars = list(d = stats::dist, ndim = 2),
            fun = function (data, pars,
                            keep.org.data = TRUE) {
     ##

@@ -13,10 +13,9 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import Rtsne
 #' @export
 tsne <- new('dimRedMethod',
-            stdpars = list(d = dist,
+            stdpars = list(d = stats::dist,
                            perplexity = 30,
                            theta = 0.5,
                            ndim = 2),

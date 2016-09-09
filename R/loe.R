@@ -17,10 +17,9 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import loe 
 #' @export
 loe <- new('dimRedMethod',
-           stdpars = list(d = dist, knn = 50, ndim = 2),
+           stdpars = list(d = stats::dist, knn = 50, ndim = 2),
            fun = function (data, pars,
                            keep.org.data = TRUE) {
     if(!requireNamespace('loe')) stop('require the loe package')

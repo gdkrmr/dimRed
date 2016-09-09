@@ -15,10 +15,9 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import loe
 #' @export
 soe <- new('dimRedMethod',
-           stdpars = list(d = dist, knn = 50, ndim = 2),
+           stdpars = list(d = stats::dist, knn = 50, ndim = 2),
            fun = function (data,
                            pars,
                            keep.org.data = TRUE) {

@@ -25,9 +25,6 @@
 #' @include mixColorSpaces.R
 #' @include dimRedData-class.R
 #' @importFrom graphics plot
-#' @import MASS
-#' @import rgl
-#' @import scatterplot3d
 #' 
 #'
 #' @export

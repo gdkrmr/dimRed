@@ -52,7 +52,6 @@ setMethod('maximize_correlation',
     return(res)
 })
 
-#' @import optimx
 .maximize_correlation <- function(X, Y, axes = 1:ncol(X), cor_method = 'pearson'){
 
   if (nrow(X) != nrow(Y))
@@ -206,7 +205,7 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = 'pearson'){
 
 correlate <- function (x, y, method, ...) {
   if (method != 'kendall'){
-    return(cor(x, y, method = method, ...))
+    return(stats::cor(x, y, method = method, ...))
   } else {
     if(!requireNamespace('pcaPP')) stop("package pcaPP required for method == 'kendall'.")
     ## make the cor.fk method behave like cor for matrices:

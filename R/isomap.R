@@ -24,8 +24,6 @@
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import RANN
-#' @import igraph
 #' 
 #' @export
 isomap <- new("dimRedMethod",
@@ -109,8 +107,6 @@ isomap <- new("dimRedMethod",
 ## points and checking would neutralize the performance gain, so bd
 ## trees are not really usable.
 
-#' @import igraph
-#' @import RANN
 makeKNNgraph <- function (x, k, eps = 0){
     requireNamespace("RANN")
     requireNamespace("igraph")

@@ -13,7 +13,7 @@ setClassUnion('missingORfunction', c('function', 'missing'))
 #'     \code{data} slot or be an empty data frame.
 #' @param object,x of class dimRedData.
 #' @param i a valid index.
-#'
+#' @import methods
 #' @examples
 #' s3d <- loadDataSet("3D S Curve")
 #' as(s3d, "data.frame")

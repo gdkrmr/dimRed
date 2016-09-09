@@ -14,7 +14,6 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import loe 
 #' @export
 leim <- new('dimRedMethod',
             stdpars = list(d = dist, knn = 50, ndim = 2,

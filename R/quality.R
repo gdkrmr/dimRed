@@ -291,7 +291,7 @@ setGeneric('cophenetic_correlation',
 setMethod('cophenetic_correlation',
           c('dimRedResult', 'missingORfunction', 'missingORcharacter'), 
           function(object, d, cor_method){
-    if(missing(d)) d <- dist
+    if(missing(d)) d <- stats::dist
     if(missing(cor_method)) cor_method <- 'pearson'
     if(!object@has.org.data) stop('object requires original data')
     cor_methods <- c('pearson', 'kendall', 'spearman')

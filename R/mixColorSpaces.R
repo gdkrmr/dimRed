@@ -8,7 +8,7 @@
 #' @param vars a list of variables
 #' @param ramps a list of color ramps, one for each variable.
 #'
-#'
+#' @importFrom grDevices colorRamp
 #' @examples 
 #' cols <- expand.grid(x = seq(0,1, length.out = 10),
 #'                     y = seq(0,1, length.out = 10),
@@ -43,7 +43,7 @@ mixColorRamps <- function (vars, ramps) {
     res <- apply(retrgb, 2,  function(x) (x - min(x)) / (max(x) - min(x)))
     res[is.nan(res)] <- 0
    
-    return(grDevices::rgb(res))    
+    return(rgb(res))    
 }
 
 #' @rdname mixColorRamps

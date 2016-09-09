@@ -124,7 +124,7 @@ drl <- new('dimRedMethod',
 fruchterman_reingold <- new('dimRedMethod',
                             stdpars = list(ndim         = 2,
                                            knn          = 100,
-                                           d            = dist,
+                                           d            = stats::dist,
                                            weight.trans = function (x) exp(-(x^2))),
                             fun = function (data, pars,
                                             keep.org.data = TRUE) {
@@ -159,7 +159,7 @@ fruchterman_reingold <- new('dimRedMethod',
 
 
 em_graph_layout <- function(data, graph_em_method,
-                            knn = 50, d = dist,
+                            knn = 50, d = stats::dist,
                             ndim = 2, weight.trans = I){
   if(!requireNamespace('igraph')) stop("require igraph package")
   

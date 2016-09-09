@@ -13,7 +13,6 @@
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import lle 
 #' @export
 lle <- new('dimRedMethod',
            stdpars = list(knn = 50, ndim = 2),

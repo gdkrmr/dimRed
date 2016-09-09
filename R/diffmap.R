@@ -13,11 +13,10 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import diffusionMap
 #' 
 #' @export
 diffmap <- new('dimRedMethod',
-               stdpars = list(d = dist, ndim = 2, t = 0),
+               stdpars = list(d = stats::dist, ndim = 2, t = 0),
                fun = function (data, pars,
                                keep.org.data = TRUE) {
     # if(!requireNamespace('diffusionMap')) stop('require the diffusionMap package')

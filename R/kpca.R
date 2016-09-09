@@ -15,7 +15,6 @@
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import kernlab
 #' 
 #' @export
 kpca <- new('dimRedMethod',

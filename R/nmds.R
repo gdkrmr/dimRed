@@ -12,10 +12,9 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @import vegan
 #' @export
 nmds <- new('dimRedMethod',
-            stdpars = list(d = dist, ndim = 2),
+            stdpars = list(d = stats::dist, ndim = 2),
             fun = function (data, pars,
                             keep.org.data = TRUE) {
     if(!requireNamespace('vegan')) stop('require the vegan package')
