@@ -3,7 +3,6 @@
 \docType{class}
 \name{dimRedResult-class}
 \alias{as}
-\alias{as.data.frame.dimRedResult}
 \alias{dimRedResult}
 \alias{dimRedResult-class}
 \alias{getPars}
@@ -12,9 +11,6 @@
 \alias{print,dimRedResult-method}
 \title{A class to hold the results of of a dimensionality reduction.}
 \usage{
-\method{as.data.frame}{dimRedResult}(x, org.data.prefix = "org.",
-  meta.prefix = "meta.", dimRed.prefix = "")
-
 getPars(object)
 
 \S4method{getPars}{dimRedResult}(object)
@@ -23,12 +19,17 @@ print(x, ...)
 
 \S4method{print}{dimRedResult}(x)
 }
+\arguments{
+\item{object}{of class dimRedResult}
+
+\item{x}{of class dimRedResult}
+
+\item{...}{unused?}
+}
 \description{
 A class to hold the results of of a dimensionality reduction.
 
 as("dimRedResult", "data.frame")
-
-convert to \code{data.frame}
 }
 \section{Slots}{
 
@@ -53,4 +54,9 @@ reduced space, may not exist.}
 
 \item{\code{pars}}{saves the parameters used.}
 }}
+\seealso{
+Other dimRedResult: \code{\link{as.data.frame}}
+
+Other dimRedResult: \code{\link{as.data.frame}}
+}
 

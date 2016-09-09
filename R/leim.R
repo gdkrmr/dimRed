@@ -1,12 +1,12 @@
-#' laplacian eigenmaps
+#' Laplacian Eigenmaps
 #'
-#' Fit laplacian eigenmaps
-#'
-#' for details see \code{\link[loe]{spec.emb}}
+#' Instance of \code{\link{dimRedMethod}} for Laplacian Eigenmaps.
+#' 
+#' For details see \code{\link[loe]{spec.emb}}
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- leim@fun(dat)
+#' emb <- leim@fun(dat, leim@stdpars)
 #'
 #' 
 #' plot(emb@data@data)
@@ -14,7 +14,7 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @import loe 
 #' @export
 leim <- new('dimRedMethod',
             stdpars = list(d = dist, knn = 50, ndim = 2,

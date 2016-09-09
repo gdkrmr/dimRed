@@ -1,24 +1,19 @@
-
-#' implements Graph Embedding methods via iGraph
+#' Graph Embedding via the Kamada Kawai Algorithm
 #'
-#'
-#'
+#' Instance of \code{\link{dimRedMethod}} for the Kamada Kawai Algorithm.
+#' 
+#' For details see \code{\link[igraph]{layout_with_kk}}.
+#' 
 #' @examples
-#'
 #' dat <- loadDataSet("Swiss Roll")
+#' kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
+#' 
+#' plot(kk@data@data)
+#' 
 #'
-#' em <- fruchterman_reingold@fun(dat)
-#' em2 <- kamada_kawai@fun(dat)
-#' em3 <- drl@fun(dat)
-#' 
-#' plot(em@data@data)
-#' plot(em2@data@data)
-#' plot(em3@data@data)
-#' 
-#' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#'
 #' @export
 kamada_kawai <- new('dimRedMethod',
                     stdpars = list(ndim         = 2,
@@ -56,6 +51,20 @@ kamada_kawai <- new('dimRedMethod',
     ))
 })
 
+#' Distributed Recursive Graph Layout
+#'
+#' Instance of \code{\link{dimRedMethod}} for the Distributed Recursive Graph Layout algorithm.
+#' 
+#' For details see \code{\link[igraph]{layout_with_drl}}
+#' 
+#' @examples
+#'
+#' dat <- loadDataSet("Swiss Roll")
+#' drgl <- drl@fun(dat, drl@stdpars)
+#' 
+#' plot(drgl@data@data)
+#' 
+#' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export
@@ -95,6 +104,20 @@ drl <- new('dimRedMethod',
     ))
 })
 
+#' Fruchterman Reingold Graph Layout
+#'
+#' Instance of \code{\link{dimRedMethod}} for the Fruchterman Reingold Graph Layout algorithm.
+#' 
+#' For details see \code{\link[igraph]{layout_with_fr}}
+#' 
+#' @examples
+#'
+#' dat <- loadDataSet("Swiss Roll")
+#' fr <- fruchterman_reingold@fun(dat, fruchterman_reingold@stdpars)
+#' 
+#' plot(fr@data@data)
+#' 
+#' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export

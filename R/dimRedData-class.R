@@ -11,6 +11,8 @@ setClassUnion('missingORfunction', c('function', 'missing'))
 #'     classes, internal manifold coordinates, or simply additional
 #'     data of the data set. Must have the same number of rows as the
 #'     \code{data} slot or be an empty data frame.
+#' @param object,x of class dimRedData.
+#' @param i a valid index.
 #'
 #' @examples
 #' s3d <- loadDataSet("3D S Curve")
@@ -22,7 +24,10 @@ setClassUnion('missingORfunction', c('function', 'missing'))
 #' nrow(s3d)
 #' s3d[1:40,]
 #'
+#' 
+#' @family dimRedData
 #' @name dimRedData
+#' @aliases dimRedData-class
 #' @export
 dimRedData <- setClass(
     'dimRedData',
@@ -54,17 +59,18 @@ dimRedData <- setClass(
 )
 
 #' @rdname dimRedData
-#' @name as
+#' @name as.dimRedData,ANY
 setAs(from = 'ANY', to = 'dimRedData',
       def = function(from) new('dimRedData', data = as.matrix(from)))
 
 #' @rdname dimRedData
-#' @name as
+#' @name as.dimRedData,data.frame
 setAs(from = 'data.frame', to = 'dimRedData',
       def = function(from) new('dimRedData', data = as.matrix(from)))
 
+
 #' @rdname dimRedData
-#' @name as
+#' @name as,data.frame,dimRedData
 setAs(from = 'dimRedData', to = 'data.frame',
       def = function(from) {
           res <- cbind(from@meta, as.data.frame(from@data))
@@ -74,7 +80,46 @@ setAs(from = 'dimRedData', to = 'data.frame',
           )
           names(res) <- resnames
           return(res)
-      })
+})
+
+#' @rdname as.data.frame
+#' @param row.names unused
+#' @param optional unused
+#' @param ... unused
+setGeneric(
+    'as.data.frame',
+    function(x, row.names, optional, ...) standardGeneric('as.data.frame'),
+    useAsDefault = base::as.data.frame
+)
+
+#' Convert to \code{data.frame}
+#'
+#' Convert a dimRedData object to a data.frame.
+#'
+#' To avoid column name colissions prefixes for each slot can be given.
+#'
+#' @param x dimRedResult object.
+#' @param meta.prefix prefix for the meta slot
+#' @param data.prefix prefix for the dim Red slot
+#' 
+#' @family dimRedData
+#' @method as.data.frame dimRedData
+#' @rdname as.data.frame
+#' @export
+setMethod(f = 'as.data.frame',
+          signature = c('dimRedData'),
+          definition = function(x, meta.prefix = "meta.",
+                                data.prefix = "") {
+    cbind(
+        as.data.frame(
+            x@meta,
+            col.names = paste0(meta.prefix, colnames(x@meta))),
+        as.data.frame(
+            x@data,
+            col.names = paste0(data.prefix,   colnames(x@data)))
+    )
+})
+
 
 #' @rdname dimRedData
 #' @export

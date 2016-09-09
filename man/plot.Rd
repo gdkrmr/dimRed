@@ -3,16 +3,16 @@
 \docType{methods}
 \name{plot}
 \alias{plot}
-\alias{plot,dimRedData,missing-method}
-\alias{plot,dimRedResult,missing-method}
+\alias{plot,dimRedData,ANY-method}
+\alias{plot,dimRedResult,ANY-method}
 \title{Plotting of dimRed* objects}
 \usage{
-plot(x, y, type, vars, col, ...)
+plot(x, y, ...)
 
-\S4method{plot}{dimRedData,missing}(x, y = NULL, type = "pairs",
+\S4method{plot}{dimRedData,ANY}(x, type = "pairs",
   vars = seq_len(ncol(x@data)), col = seq_len(min(3, ncol(x@meta))), ...)
 
-\S4method{plot}{dimRedResult,missing}(x, y = NULL, type = "pairs",
+\S4method{plot}{dimRedResult,ANY}(x, type = "pairs",
   vars = seq_len(ncol(x@data@data)), col = seq_len(min(3,
   ncol(x@data@meta))), ...)
 }
@@ -22,6 +22,8 @@ embedded/loadDataSet}
 
 \item{y}{Ignored}
 
+\item{...}{handed over to the underlying plotting function.}
+
 \item{type}{plot type, one of \code{c("pairs", "parallel", "2d",
 "3d")}}
 
@@ -29,8 +31,6 @@ embedded/loadDataSet}
 
 \item{col}{the columns of the meta slot to use for coloring, can be
 referenced as the column names or number of x@data}
-
-\item{...}{handed over to the underlying plotting function.}
 }
 \description{
 Plots a object of class dimRedResult and dimRedData
@@ -39,11 +39,18 @@ Plots a object of class dimRedResult and dimRedData
 somewhat inflexible, if you require custom colors or want to modify
 graphical parameters, write your own plotting function.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{x = dimRedData,y = ANY}: Plot dimRedData objects
+
+\item \code{x = dimRedResult,y = ANY}: plot dimRedResult objects
+}}
 \examples{
 scurve = loadDataSet("3D S Curve")
 plot(scurve, type = "pairs", main = "pairs plot of S curve")
 plot(scurve, type = "parpl")
 plot(scurve, type = "2vars", vars = c("y", "z"))
+plot(scurve, type = "3vars")
 
 }
 

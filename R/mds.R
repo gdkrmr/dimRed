@@ -1,14 +1,12 @@
-
-
-#' Metric dimensional scaling
+#' Metric Dimensional Scaling
 #'
-#' Fit a metric dimensional scaling
-#'
-#' for details see \code{\link[stats]{cmdscale}}
+#' Instance of \code{\link{dimRedMethod}} for Metric Dimensional Scaling.
+#' 
+#' For details see \code{\link[stats]{cmdscale}}
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- mds@fun(dat)
+#' emb <- mds@fun(dat, mds@stdpars)
 #'
 #' plot(emb@data@data)
 #'

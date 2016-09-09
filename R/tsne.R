@@ -1,24 +1,19 @@
-#' t distributed stochastic neighborhood embedding
+#' t-Distributed Stochastic Neighborhood Embedding
 #'
-#' implements t-SNE
-#'
-#' for details see \code{\link[Rtsne]{Rtsne}}
-#'
-#'
-#'
-#'
-#'
+#' Instance of \code{\link{dimRedMethod}} for t-Distributed Stochastic Neighborhood Embedding.
+#' 
+#' For details see \code{\link[Rtsne]{Rtsne}}
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- tsne@fun(dat)
+#' emb <- tsne@fun(dat, tsne@stdpars)
 #'
 #' 
 #' plot(emb@data@data)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#'
+#' @import Rtsne
 #' @export
 tsne <- new('dimRedMethod',
             stdpars = list(d = dist,

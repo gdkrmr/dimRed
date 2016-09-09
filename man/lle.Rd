@@ -3,20 +3,20 @@
 \docType{data}
 \name{lle}
 \alias{lle}
-\title{Local linear embedding}
+\title{Local Linear Embedding}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 lle
 }
 \description{
-Fit a local linear embedding
+Instance of \code{\link{dimRedMethod}} for Local Linear Embedding.
 }
 \details{
-for details see \code{\link[lle]{lle}}
+For details see \code{\link[lle]{lle}}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- lle@fun(dat)
+emb <- lle@fun(dat, lle@stdpars)
 
 
 plot(emb@data@data)

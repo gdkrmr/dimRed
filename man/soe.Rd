@@ -3,20 +3,20 @@
 \docType{data}
 \name{soe}
 \alias{soe}
-\title{Soft ordinal embedding}
+\title{Soft Ordinal Embedding}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 soe
 }
 \description{
-implements soft ordinal embedding
+Instance of \code{\link{dimRedMethod}} for Soft Ordinal Embedding.
 }
 \details{
-for details see \code{\link[loe]{SOE}}
+For details see \code{\link[loe]{SOE}}.
 }
 \examples{
 dat <- loadDataSet("3D S Curve", n = 50)
-emb <- soe@fun(dat)
+emb <- soe@fun(dat, soe@stdpars)
 
 
 plot(emb@data@data)

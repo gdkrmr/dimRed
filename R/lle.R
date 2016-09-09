@@ -1,19 +1,19 @@
-#' Local linear embedding
+#' Local Linear Embedding
 #'
-#' Fit a local linear embedding
-#'
-#' for details see \code{\link[lle]{lle}}
+#' Instance of \code{\link{dimRedMethod}} for Local Linear Embedding.
+#' 
+#' For details see \code{\link[lle]{lle}}
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- lle@fun(dat)
+#' emb <- lle@fun(dat, lle@stdpars)
 #'
 #' 
 #' plot(emb@data@data)
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @import lle 
 #' @export
 lle <- new('dimRedMethod',
            stdpars = list(knn = 50, ndim = 2),

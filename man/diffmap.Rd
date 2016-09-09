@@ -3,20 +3,20 @@
 \docType{data}
 \name{diffmap}
 \alias{diffmap}
-\title{Create Diffusion Maps}
+\title{Diffusion Maps}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 diffmap
 }
 \description{
-Constructs a diffuson map
+Instance of \code{\link{dimRedMethod}} to construct a diffuson maps.
 }
 \details{
-for details see \code{\link[diffusionMap]{diffuse}}
+For details see \code{\link[diffusionMap]{diffuse}}.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- diffmap@fun(dat)
+emb <- diffmap@fun(dat, diffmap@stdpars)
 
 plot(emb@data@data)
 

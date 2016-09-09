@@ -1,15 +1,9 @@
-
-
-#' implements PCA for the use with dimRed
+#' Principal Component Analysis 
 #'
-#' uses the \code{\link{prcomp}} function internally. Has methods for
-#' forward and inverse calculations.
-#'
-#' @param data an object of class \code{\link{dimRedData-class}}.
-#' @param pars a list with parameters
-#'
-#' @return an object of class \code{\link{dimRedResult-class}}
+#' Instance of \code{\link{dimRedMethod}} for Principal Component Analysis.
 #' 
+#' For details see \code{\link{prcomp}}.
+#'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
 #' emb <- pca@fun(dat, pca@stdpars)

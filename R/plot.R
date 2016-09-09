@@ -20,27 +20,35 @@
 #' plot(scurve, type = "pairs", main = "pairs plot of S curve")
 #' plot(scurve, type = "parpl")
 #' plot(scurve, type = "2vars", vars = c("y", "z"))
+#' plot(scurve, type = "3vars")
 #'
 #' @include mixColorSpaces.R
 #' @include dimRedData-class.R
 #' @importFrom graphics plot
+#' @import MASS
+#' @import rgl
 #' @import scatterplot3d
 #' 
+#'
 #' @export
-setGeneric('plot', function(x, y, type, vars, col, ...) standardGeneric('plot'))
+setGeneric(
+    'plot', function(x, y, ...) standardGeneric('plot'),
+    useAsDefault = graphics::plot
+)
 
-#' @rdname plot
+#' @describeIn plot Plot dimRedData objects
+#' 
 #' @export
 setMethod(
     f = 'plot',
-    signature = c('dimRedData', 'missing'),
-    definition = function(x, y = NULL, type = "pairs",
+    signature = c('dimRedData'),
+    definition = function(x, type = "pairs",
                           vars = seq_len(ncol(x@data)),
                           col = seq_len(min(3, ncol(x@meta))), ...) {
-        requireNamespace("MASS")
-        requireNamespace("rgl")
-        requireNamespace("graphics")
-        requireNamespace("scatterplot3d")
+        ## requireNamespace("MASS")
+        ## requireNamespace("rgl")
+        ## requireNamespace("graphics")
+        ## requireNamespace("scatterplot3d")
         cols <- colorize(x@meta[, col, drop = FALSE])
         switch(
             type,
@@ -60,12 +68,12 @@ setMethod(
 )
 
 
-#' @rdname plot
+#' @describeIn plot plot dimRedResult objects
 #' @export
 setMethod(
     f = 'plot',
-    signature = c('dimRedResult', 'missing'),
-    definition = function (x, y = NULL, type = "pairs",
+    signature = c('dimRedResult'),
+    definition = function (x, type = "pairs",
                            vars = seq_len(ncol(x@data@data)),
                            col = seq_len(min(3, ncol(x@data@meta))), ...) {
         plot(x = x@data, type = type, vars = vars, col = col, ...)

@@ -3,22 +3,16 @@
 \docType{data}
 \name{pca}
 \alias{pca}
-\title{implements PCA for the use with dimRed}
+\title{Principal Component Analysis}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 pca
 }
-\arguments{
-\item{data}{an object of class \code{\link{dimRedData-class}}.}
-
-\item{pars}{a list with parameters}
-}
-\value{
-an object of class \code{\link{dimRedResult-class}}
-}
 \description{
-uses the \code{\link{prcomp}} function internally. Has methods for
-forward and inverse calculations.
+Instance of \code{\link{dimRedMethod}} for Principal Component Analysis.
+}
+\details{
+For details see \code{\link{prcomp}}.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")

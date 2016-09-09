@@ -1,15 +1,10 @@
-#' implements Dimensionality Rediction via Regression for the use with dimRed
+#' Dimensionality Reduction via Regression
 #'
-#' uses \code{\link[DRR]{DRR}} internally. Has methods for forward and inverse calculations.
-#'
-#'
-#' @param data an object of class \code{\link{dimRedData-class}}
-#' @param pars a list with parameters
-#'
-#' @return an object of class \code{\link{dimRedResult-class}}
+#' Instance of \code{\link{dimRedMethod}} for Dimensionality Reduction via Regression.
+#' 
+#' For details see \code{\link[DRR]{DRR}}.
 #'
 #' @examples
-#'
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #' emb <- drr@fun(dat, pars = list(ndim = 2))
 #'

@@ -9,14 +9,23 @@
 isomap
 }
 \description{
-Fit the isomap embedding.
+Instance of \code{\link{dimRedMethod}} for Isomap.
 }
 \details{
-For details see \code{\link[vegan]{isomap}}
+Create a k nearest neighbor graph, compute geodesic distance on the
+graph, use classical scaling for the embedding.
+The landmark version is implemented via \code{isomap@apply()}.
+
+Parameters to set are
+\itemize{
+\item k. The number of neighbors
+\item ndim. The number of dimensions
+\item eps. if larger than 0, approximate the nearest neighbors.
+}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- isomap@fun(dat)
+emb <- isomap@fun(dat, isomap@stdpars)
 
 plot(emb@data@data)
 

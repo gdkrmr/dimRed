@@ -21,7 +21,7 @@ generated.}
 }
 \value{
 \code{loadDataSet} an object of class
-    \link{\code{dimRedData}}. \code{dataSetList()} return a
+    \code{\link{dimRedData}}. \code{dataSetList()} return a
     character string with the implemented data sets
 }
 \description{
@@ -30,7 +30,7 @@ showcase dimensionality reduction techniques.
 }
 \details{
 Name should be one of \code{dataSetList()}. Partial matching is
-possible, see \link{\code{match.arg}}. Generated data sets contain
+possible, see \code{\link{match.arg}}. Generated data sets contain
 the internal coordinates of the manifold in the \code{meta} slot.
 }
 \examples{

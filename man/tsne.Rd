@@ -3,20 +3,20 @@
 \docType{data}
 \name{tsne}
 \alias{tsne}
-\title{t distributed stochastic neighborhood embedding}
+\title{t-Distributed Stochastic Neighborhood Embedding}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 tsne
 }
 \description{
-implements t-SNE
+Instance of \code{\link{dimRedMethod}} for t-Distributed Stochastic Neighborhood Embedding.
 }
 \details{
-for details see \code{\link[Rtsne]{Rtsne}}
+For details see \code{\link[Rtsne]{Rtsne}}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- tsne@fun(dat)
+emb <- tsne@fun(dat, tsne@stdpars)
 
 
 plot(emb@data@data)

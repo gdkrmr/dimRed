@@ -54,8 +54,6 @@
 #'     246-261. doi:10.1016/j.neucom.2014.12.095
 #'
 #' @author Guido Kraemer
-#' @aliases Q_local Q_global total_correlation cophenetic_correlation
-#'     distance_correlation reconstruction_rmse
 #' @name quality_description
 NULL
 
@@ -73,8 +71,10 @@ NULL
 #'
 #' @param data object of class \code{dimRedResult}
 #' @param method character vector naming one of the methods
+#' @param mute what output from the embedding method should be muted.
 #' @param ... the pameters, internally passed as a list to the
 #'     quality method as \code{pars = list(...)}
+#' @param object of class dimRedResult
 #' @return a number
 #'
 #' @examples
@@ -142,13 +142,13 @@ getQualityFunction <- function (method) {
 }
 
 
-#' @rdname quality
 #' @export
 setGeneric('Q_local', function(object) standardGeneric('Q_local'),
            valueClass = 'numeric')
 
 
 #' @rdname quality
+#' @aliases Q_local
 #' @export
 setMethod('Q_local', 'dimRedResult',
           function(object){
@@ -168,14 +168,14 @@ setMethod('Q_local', 'dimRedResult',
     return(Qlocal)
 })
 
-#' @rdname quality
-#' @export
+
 setGeneric(
     'Q_global', function(object) standardGeneric('Q_global'),
     valueClass = 'numeric'
 )
 
 #' @rdname quality
+#' @aliases Q_global
 #' @export
 setMethod('Q_global', 'dimRedResult',
           function(object){
@@ -195,7 +195,6 @@ setMethod('Q_global', 'dimRedResult',
     return(Qglobal)    
 })
 
-#' @rdname quality
 #' @export
 setGeneric(
     'mean_R_NX', function(object) standardGeneric('mean_R_NX'),
@@ -203,6 +202,7 @@ setGeneric(
 )
 
 #' @rdname quality
+#' @aliases mean_R_NX
 #' @export
 setMethod('mean_R_NX', 'dimRedResult',
           function(object){
@@ -224,7 +224,6 @@ setMethod('mean_R_NX', 'dimRedResult',
 })
 
 
-#' @rdname quality
 #' @export
 setGeneric(
     'total_correlation',
@@ -234,7 +233,11 @@ setGeneric(
 
 
 
+#' @param naxes the number of axes to use for optimization.
+#' @param cor_method the correlation method to use.
+#' @param is.rotated if FALSE the object is rotated.
 #' @rdname quality
+#' @aliases total_correlation
 #' @export
 setMethod('total_correlation',
           c('dimRedResult',
@@ -277,13 +280,13 @@ setMethod('total_correlation',
     return(res)
 })
 
-#' @rdname quality
-#' @export
 setGeneric('cophenetic_correlation',
            function(object, d, cor_method) standardGeneric('cophenetic_correlation'),
            valueClass = 'numeric')
 
+#' @param d the distance function to use.
 #' @rdname quality
+#' @aliases cophenetic_correlation
 #' @export
 setMethod('cophenetic_correlation',
           c('dimRedResult', 'missingORfunction', 'missingORcharacter'), 
@@ -312,12 +315,13 @@ setMethod('cophenetic_correlation',
     return(res)
 })
 
-#' @rdname quality
 #' @export
 setGeneric('distance_correlation',
            function(object) standardGeneric('distance_correlation'),
            valueClass = 'numeric')
 
+#' @rdname quality
+#' @aliases distance_correlation
 #' @export
 setMethod('distance_correlation',
           'dimRedResult',
@@ -330,13 +334,13 @@ setMethod('distance_correlation',
 
 
 
-#' @rdname quality
 #' @export
 setGeneric('reconstruction_rmse',
            function(object) standardGeneric('reconstruction_rmse'),
            valueClass = 'numeric')
 
 #' @rdname quality
+#' @aliases reconstruction_rmse
 #' @export
 setMethod('reconstruction_rmse', 'dimRedResult',
           function(object){
@@ -348,7 +352,8 @@ setMethod('reconstruction_rmse', 'dimRedResult',
     sqrt(mean((recon@data - object@org.data)^2))
 })
 
-
+#' @rdname quality
+#' @export
 dimRedQualityList <- function () {
     return(c('Q_local',
              'Q_global',

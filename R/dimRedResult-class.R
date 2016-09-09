@@ -12,6 +12,8 @@
 #' @slot has.inverse logical if an inverse method exists.
 #' @slot method saves the method used.
 #' @slot pars saves the parameters used.
+#' @param ... unused?
+#' @param object of class dimRedResult
 #'
 #' @include dimRedData-class.R
 #' @name dimRedResult-class
@@ -62,28 +64,41 @@ setAs(from = 'dimRedResult', to = 'data.frame',
           }
       })
 
-#' convert to \code{data.frame}
+
+
+
+#' Convert to \code{data.frame}
 #'
+#' Convert a dimRedResult object to a data.frame.
+#'
+#' To avoid column name colissions prefixes for each slot can be given.
+#'
+#' @param org.data.prefix prefix for the org.data slot
+#' @param dimRed.prefix prefix for the dim Red slot
 #' 
 #' @family dimRedResult
-#' @rdname dimRedResult-class
+#' @method as.data.frame dimRedResult
+#' @include dimRedData-class.R
+#' @rdname as.data.frame
 #' @export
-as.data.frame.dimRedResult <- function(x, org.data.prefix = "org.",
-                                       meta.prefix = "meta.",
-                                       dimRed.prefix = "") {
+setMethod(f = 'as.data.frame',
+          signature = c('dimRedResult'),
+          definition = function(x, org.data.prefix = "org.",
+                                meta.prefix = "meta.",
+                                dimRed.prefix = "") {
     cbind(
         as.data.frame(
             x@data@meta,
-            col.names = paste0(org.data.prefix, colnames(x@data@meta))),
+            col.names     = paste0(org.data.prefix, colnames(x@data@meta))),
         as.data.frame(
             x@data@data,
-            col.names = paste0(dimRed.prefix,   colnames(x@data@data))),
+            col.names     = paste0(dimRed.prefix,   colnames(x@data@data))),
         if(x@has.org.data)
             as.data.frame(
                 x@org.data,
                 col.names = paste0(org.data.prefix, colnames(x@org.data)))
     )
-}
+})
 
 #' @rdname dimRedResult-class
 #' @export
@@ -105,6 +120,7 @@ setGeneric('print', function(x) standardGeneric('print'))
 
 
 #' @rdname dimRedResult-class
+#' @param x of class dimRedResult
 #' @import utils
 #' @export
 setMethod(

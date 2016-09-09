@@ -1,5 +1,5 @@
 Package: dimRed
-Title: A Collection of Dimensionality Reduction techniques
+Title: A Collection of Dimensionality Reduction Techniques
 Version: 0.0.2
 Authors@R: person("Guido", "Kraemer",
     email = "gkraemer@bgc-jena.mpg.de",
@@ -10,20 +10,29 @@ Description: This packages collects dimensionality reduction
 Depends:
     R (>= 3.0.0),
     methods,
-    stats,
     DRR
+Imports:
+    MASS,
+    RANN,
+    Rtsne,
+    coRanking,
+    diffusionMap,
+    energy,
+    graphics,
+    igraph,
+    kernlab,
+    lle,
+    loe,
+    optimx,
+    pcaPP,
+    rgl,
+    scatterplot3d,
+    stats,
+    vegan
 License: All rights reserved by author.
 LazyData: true
 Suggests:
     testthat,
-    MASS,
-    coRanking,
-    energy,
-    igraph,
-    optimx,
-    pcaPP,
-    rgl,
-    kernlab
 Collate:
     'dimRedData-class.R'
     'dataSets.R'

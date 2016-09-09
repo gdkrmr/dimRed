@@ -3,24 +3,18 @@
 \docType{data}
 \name{drr}
 \alias{drr}
-\title{implements Dimensionality Rediction via Regression for the use with dimRed}
+\title{Dimensionality Reduction via Regression}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 drr
 }
-\arguments{
-\item{data}{an object of class \code{\link{dimRedData-class}}}
-
-\item{pars}{a list with parameters}
-}
-\value{
-an object of class \code{\link{dimRedResult-class}}
-}
 \description{
-uses \code{\link[DRR]{DRR}} internally. Has methods for forward and inverse calculations.
+Instance of \code{\link{dimRedMethod}} for Dimensionality Reduction via Regression.
+}
+\details{
+For details see \code{\link[DRR]{DRR}}.
 }
 \examples{
-
 dat <- loadDataSet("3D S Curve", n = 500)
 emb <- drr@fun(dat, pars = list(ndim = 2))
 

@@ -8,7 +8,9 @@
 \alias{Q_local,dimRedResult-method}
 \alias{cophenetic_correlation}
 \alias{cophenetic_correlation,dimRedResult,missingORfunction,missingORcharacter-method}
+\alias{dimRedQualityList}
 \alias{distance_correlation}
+\alias{distance_correlation,dimRedResult-method}
 \alias{mean_R_NX}
 \alias{mean_R_NX,dimRedResult-method}
 \alias{quality}
@@ -21,43 +23,45 @@
 quality(data, method = dimRedQualityList(), mute = c("output", "message"),
   ...)
 
-Q_local(object)
-
 \S4method{Q_local}{dimRedResult}(object)
-
-Q_global(object)
 
 \S4method{Q_global}{dimRedResult}(object)
 
-mean_R_NX(object)
-
 \S4method{mean_R_NX}{dimRedResult}(object)
-
-total_correlation(object, naxes, cor_method, is.rotated)
 
 
   \S4method{total_correlation}{dimRedResult,missingORnumeric,missingORcharacter,missingORlogical}(object,
   naxes, cor_method, is.rotated)
 
-cophenetic_correlation(object, d, cor_method)
-
 
   \S4method{cophenetic_correlation}{dimRedResult,missingORfunction,missingORcharacter}(object,
   d, cor_method)
 
-distance_correlation(object)
-
-reconstruction_rmse(object)
+\S4method{distance_correlation}{dimRedResult}(object)
 
 \S4method{reconstruction_rmse}{dimRedResult}(object)
+
+dimRedQualityList()
 }
 \arguments{
 \item{data}{object of class \code{dimRedResult}}
 
 \item{method}{character vector naming one of the methods}
 
+\item{mute}{what output from the embedding method should be muted.}
+
 \item{...}{the pameters, internally passed as a list to the
 quality method as \code{pars = list(...)}}
+
+\item{object}{of class dimRedResult}
+
+\item{naxes}{the number of axes to use for optimization.}
+
+\item{cor_method}{the correlation method to use.}
+
+\item{is.rotated}{if FALSE the object is rotated.}
+
+\item{d}{the distance function to use.}
 }
 \value{
 a number

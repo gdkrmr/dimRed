@@ -3,20 +3,20 @@
 \docType{data}
 \name{nmds}
 \alias{nmds}
-\title{Non-metric dimensional scaling}
+\title{Non-Metric Dimensional Scaling}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 nmds
 }
 \description{
-Implements non metric dimensional scaling
+Instance of \code{\link{dimRedMethod}} for the Non-Metric Dimensional Scaling.
 }
 \details{
-for details see \code{\link[vegan]{monoMDS}}
+For details see \code{\link[vegan]{monoMDS}}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- nmds@fun(dat)
+emb <- nmds@fun(dat, nmds@stdpars)
 
 plot(emb@data@data)
 

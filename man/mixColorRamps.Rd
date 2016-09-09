@@ -9,13 +9,18 @@
 \usage{
 mixColorRamps(vars, ramps)
 
-mixColor1Ramps(var, ramp = colorRamp(c("blue", "black", "red")))
+mixColor1Ramps(vars, ramps = colorRamp(c("blue", "black", "red")))
 
 mixColor2Ramps(vars, ramps = list(colorRamp(c("blue", "green")),
   colorRamp(c("blue", "red"))))
 
 mixColor3Ramps(vars, ramps = list(colorRamp(c("white", "green")),
   colorRamp(c("white", "blue")), colorRamp(c("white", "red"))))
+}
+\arguments{
+\item{vars}{a list of variables}
+
+\item{ramps}{a list of color ramps, one for each variable.}
 }
 \description{
 mix different color ramps

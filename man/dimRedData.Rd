@@ -3,8 +3,11 @@
 \docType{class}
 \name{dimRedData}
 \alias{[,dimRedData,ANY,ANY,ANY-method}
-\alias{as}
+\alias{as,data.frame,dimRedData}
+\alias{as.dimRedData,ANY}
+\alias{as.dimRedData,data.frame}
 \alias{dimRedData}
+\alias{dimRedData-class}
 \alias{getData}
 \alias{getData,dimRedData-method}
 \alias{getMeta}
@@ -23,6 +26,11 @@ getMeta(object)
 \S4method{nrow}{dimRedData}(x)
 
 \S4method{[}{dimRedData,ANY,ANY,ANY}(x, i)
+}
+\arguments{
+\item{object, x}{of class dimRedData.}
+
+\item{i}{a valid index.}
 }
 \description{
 An S4 class and methods to hold data for dimensionality reduction
@@ -48,5 +56,9 @@ getMeta(s3d)
 nrow(s3d)
 s3d[1:40,]
 
+
+}
+\seealso{
+Other dimRedData: \code{\link{as.data.frame}}
 }
 

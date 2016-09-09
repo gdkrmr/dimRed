@@ -3,20 +3,20 @@
 \docType{data}
 \name{mds}
 \alias{mds}
-\title{Metric dimensional scaling}
+\title{Metric Dimensional Scaling}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 mds
 }
 \description{
-Fit a metric dimensional scaling
+Instance of \code{\link{dimRedMethod}} for Metric Dimensional Scaling.
 }
 \details{
-for details see \code{\link[stats]{cmdscale}}
+For details see \code{\link[stats]{cmdscale}}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- mds@fun(dat)
+emb <- mds@fun(dat, mds@stdpars)
 
 plot(emb@data@data)
 

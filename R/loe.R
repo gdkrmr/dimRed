@@ -1,15 +1,15 @@
-#' Local ordinal embedding
+#' Local Ordinal Embedding
 #'
-#' fit a local ordinal embedding
+#' Instance of \code{\link{dimRedMethod}} for Local Ordinal Embedding.
 #'
-#' for details see \code{\link[loe]{LOE}}
+#' For details see \code{\link[loe]{LOE}}
 #'
 #' @examples
 #' \dontrun{
 #' # for whatever reason the loe package has problems if I run this
 #' # with R CMD check, running it in the REPL works just fine
 #' dat <- loadDataSet("3D S Curve", n = 200)
-#' emb <- loe@fun(dat)
+#' emb <- loe@fun(dat, loe@stdpars)
 #'
 #' 
 #' plot(emb@data@data)
@@ -17,7 +17,7 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @import loe 
 #' @export
 loe <- new('dimRedMethod',
            stdpars = list(d = dist, knn = 50, ndim = 2),

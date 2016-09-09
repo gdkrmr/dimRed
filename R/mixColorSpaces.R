@@ -1,14 +1,12 @@
-
-
-
-
 #' Mixing color ramps
 #'
 #' mix different color ramps
 #'
 #' automatically create colors to represent a varying number of
 #' dimensions.
-#' 
+#'
+#' @param vars a list of variables
+#' @param ramps a list of color ramps, one for each variable.
 #'
 #'
 #' @examples 
@@ -45,14 +43,14 @@ mixColorRamps <- function (vars, ramps) {
     res <- apply(retrgb, 2,  function(x) (x - min(x)) / (max(x) - min(x)))
     res[is.nan(res)] <- 0
    
-    return(rgb(res))    
+    return(grDevices::rgb(res))    
 }
 
 #' @rdname mixColorRamps
 #' @export
-mixColor1Ramps <- function (var,
-                            ramp = colorRamp(c('blue', 'black', 'red'))) {
-    mixColorRamps(var, list(ramp))
+mixColor1Ramps <- function (vars,
+                            ramps = colorRamp(c('blue', 'black', 'red'))) {
+    mixColorRamps(vars, list(ramps))
 }
 
 #' @rdname mixColorRamps
@@ -71,6 +69,7 @@ mixColor3Ramps <- function (vars,
                                         colorRamp(c('white','red')))) {
     mixColorRamps(vars, ramps)
 }
+
 
 colorize <- function (vars) {
     l <- length(vars)

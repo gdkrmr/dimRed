@@ -1,15 +1,8 @@
-
-
-#' implements Kernel PCA for the use with dimRed
+#' Kernel PCA
 #'
-#' uses \code{\link[kernlab]{kpca}} internally. Has methods for
-#' forward and inverse calculations.
-#'
+#' Instance of \code{\link{dimRedMethod}} for Kernel PCA.
 #' 
-#' @param data an object of class \code{\link{dimRedData-class}}.
-#' @param pars a list with parameters
-#'
-#' @return an object of class \code{\link{dimRedResult-class}}
+#' For details, see \code{\link[kernlab]{kpca}}
 #'
 #' @examples
 #'
@@ -22,7 +15,7 @@
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @importFrom kernlab kpca kernelMatrix predict
+#' @import kernlab
 #' 
 #' @export
 kpca <- new('dimRedMethod',

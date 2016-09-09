@@ -3,22 +3,16 @@
 \docType{data}
 \name{kpca}
 \alias{kpca}
-\title{implements Kernel PCA for the use with dimRed}
+\title{Kernel PCA}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 kpca
 }
-\arguments{
-\item{data}{an object of class \code{\link{dimRedData-class}}.}
-
-\item{pars}{a list with parameters}
-}
-\value{
-an object of class \code{\link{dimRedResult-class}}
-}
 \description{
-uses \code{\link[kernlab]{kpca}} internally. Has methods for
-forward and inverse calculations.
+Instance of \code{\link{dimRedMethod}} for Kernel PCA.
+}
+\details{
+For details, see \code{\link[kernlab]{kpca}}
 }
 \examples{
 

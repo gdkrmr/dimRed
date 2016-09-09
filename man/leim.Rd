@@ -3,20 +3,20 @@
 \docType{data}
 \name{leim}
 \alias{leim}
-\title{laplacian eigenmaps}
+\title{Laplacian Eigenmaps}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 leim
 }
 \description{
-Fit laplacian eigenmaps
+Instance of \code{\link{dimRedMethod}} for Laplacian Eigenmaps.
 }
 \details{
-for details see \code{\link[loe]{spec.emb}}
+For details see \code{\link[loe]{spec.emb}}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-emb <- leim@fun(dat)
+emb <- leim@fun(dat, leim@stdpars)
 
 
 plot(emb@data@data)

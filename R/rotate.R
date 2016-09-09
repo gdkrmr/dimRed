@@ -10,6 +10,23 @@ setGeneric('maximize_correlation',
            function(object, naxes, cor_method) standardGeneric('maximize_correlation'),
            valueClass = 'dimRedResult')
 
+#' Maximize Correlation with the Axes
+#'
+#' Rotates the data in such a way that the correlation with the first
+#' \code{naxes} axes is maximized.
+#'
+#' Methods that do not use eigenvector decomposition, like t-SNE often
+#' do not align the data with axes according to the correlation of
+#' variables with the data. \code{maximize_correlation} uses the
+#' \code{\link[optimx]{optimx}} package to rotate the data in such a
+#' way that the original variables have maximum correlation with the
+#' embedding axes.
+#'
+#' @param object A dimRedResult object
+#' @param naxes the number of axes to optimize for.
+#' @param cor_method which correlation method to use
+#'
+#' @aliases maximize_correlation
 #' @export
 setMethod('maximize_correlation',
           c('dimRedResult', 'missingORnumeric', 'missingORcharacter'),
@@ -35,6 +52,7 @@ setMethod('maximize_correlation',
     return(res)
 })
 
+#' @import optimx
 .maximize_correlation <- function(X, Y, axes = 1:ncol(X), cor_method = 'pearson'){
 
   if (nrow(X) != nrow(Y))

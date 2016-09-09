@@ -1,19 +1,18 @@
-
-#' Non-metric dimensional scaling
+#' Non-Metric Dimensional Scaling
 #'
-#' Implements non metric dimensional scaling
-#'
-#' for details see \code{\link[vegan]{monoMDS}}
+#' Instance of \code{\link{dimRedMethod}} for the Non-Metric Dimensional Scaling.
+#' 
+#' For details see \code{\link[vegan]{monoMDS}}
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- nmds@fun(dat)
+#' emb <- nmds@fun(dat, nmds@stdpars)
 #'
 #' plot(emb@data@data)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @import vegan
 #' @export
 nmds <- new('dimRedMethod',
             stdpars = list(d = dist, ndim = 2),

@@ -40,9 +40,12 @@ dimRedMethodList <- function () {
 }
 
 
-#' to put standard values for omitted arguments
+# to put standard values for omitted arguments
+
 setGeneric('matchPars', function(object, pars) standardGeneric('matchPars'),
            valueClass = c("list"))
+
+
 setMethod('matchPars',
           signature(object = 'dimRedMethod',
                     pars   = 'list'),

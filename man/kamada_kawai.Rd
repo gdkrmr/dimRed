@@ -3,25 +3,22 @@
 \docType{data}
 \name{kamada_kawai}
 \alias{kamada_kawai}
-\title{implements Graph Embedding methods via iGraph}
+\title{Graph Embedding via the Kamada Kawai Algorithm}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 kamada_kawai
 }
 \description{
-implements Graph Embedding methods via iGraph
+Instance of \code{\link{dimRedMethod}} for the Kamada Kawai Algorithm.
+}
+\details{
+For details see \code{\link[igraph]{layout_with_kk}}.
 }
 \examples{
-
 dat <- loadDataSet("Swiss Roll")
+kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 
-em <- fruchterman_reingold@fun(dat)
-em2 <- kamada_kawai@fun(dat)
-em3 <- drl@fun(dat)
-
-plot(em@data@data)
-plot(em2@data@data)
-plot(em3@data@data)
+plot(kk@data@data)
 
 
 }

@@ -1,13 +1,13 @@
-#' Soft ordinal embedding
+#' Soft Ordinal Embedding
 #'
-#' implements soft ordinal embedding
-#'
-#' for details see \code{\link[loe]{SOE}}
+#' Instance of \code{\link{dimRedMethod}} for Soft Ordinal Embedding.
+#' 
+#' For details see \code{\link[loe]{SOE}}.
 #'
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 50)
-#' emb <- soe@fun(dat)
+#' emb <- soe@fun(dat, soe@stdpars)
 #'
 #' 
 #' plot(emb@data@data)
@@ -15,7 +15,7 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#'
+#' @import loe
 #' @export
 soe <- new('dimRedMethod',
            stdpars = list(d = dist, knn = 50, ndim = 2),

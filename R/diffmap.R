@@ -1,25 +1,26 @@
-#' Create Diffusion Maps
+#' Diffusion Maps
 #'
-#' Constructs a diffuson map
-#'
-#' for details see \code{\link[diffusionMap]{diffuse}}
+#' Instance of \code{\link{dimRedMethod}} to construct a diffuson maps.
+#' 
+#' For details see \code{\link[diffusionMap]{diffuse}}.
 #'
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- diffmap@fun(dat)
+#' emb <- diffmap@fun(dat, diffmap@stdpars)
 #' 
 #' plot(emb@data@data)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @import diffusionMap
 #' 
 #' @export
 diffmap <- new('dimRedMethod',
                stdpars = list(d = dist, ndim = 2, t = 0),
                fun = function (data, pars,
                                keep.org.data = TRUE) {
-    if(!requireNamespace('diffusionMap')) stop('require the diffusionMap package')
+    # if(!requireNamespace('diffusionMap')) stop('require the diffusionMap package')
 
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL

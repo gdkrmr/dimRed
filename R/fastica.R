@@ -1,11 +1,8 @@
-
-
-
 #' FastICA
 #'
-#' the fast ICA algoritm
-#'
-#' for details see \code{\link[fastICA]{fastICA}}
+#' Instance of \code{\link{dimRedMethod}} for the fast ICA algoritm.
+#' 
+#' For details see \code{\link[fastICA]{fastICA}}.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")

@@ -3,23 +3,23 @@
 \docType{data}
 \name{loe}
 \alias{loe}
-\title{Local ordinal embedding}
+\title{Local Ordinal Embedding}
 \format{An object of class \code{dimRedMethod} of length 1.}
 \usage{
 loe
 }
 \description{
-fit a local ordinal embedding
+Instance of \code{\link{dimRedMethod}} for Local Ordinal Embedding.
 }
 \details{
-for details see \code{\link[loe]{LOE}}
+For details see \code{\link[loe]{LOE}}
 }
 \examples{
 \dontrun{
 # for whatever reason the loe package has problems if I run this
 # with R CMD check, running it in the REPL works just fine
 dat <- loadDataSet("3D S Curve", n = 200)
-emb <- loe@fun(dat)
+emb <- loe@fun(dat, loe@stdpars)
 
 
 plot(emb@data@data)

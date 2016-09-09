@@ -1,25 +1,31 @@
-
-
 #' Isomap embedding
 #'
+#' Instance of \code{\link{dimRedMethod}} for Isomap.
 #'
-#' Fit the isomap embedding.
-#'
-#'
-#' For details see \code{\link[vegan]{isomap}}
+#' Create a k nearest neighbor graph, compute geodesic distance on the
+#' graph, use classical scaling for the embedding.
+#' The landmark version is implemented via \code{isomap@apply()}.
+#' 
+#' 
+#' Parameters to set are
+#' \itemize{
+#' \item k. The number of neighbors
+#' \item ndim. The number of dimensions
+#' \item eps. if larger than 0, approximate the nearest neighbors.
+#' }
 #'
 #'
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' emb <- isomap@fun(dat)
+#' emb <- isomap@fun(dat, isomap@stdpars)
 #'
 #' plot(emb@data@data)
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @import RANN
-#' @importFrom igraph distances
+#' @import igraph
 #' 
 #' @export
 isomap <- new("dimRedMethod",
@@ -96,11 +102,15 @@ isomap <- new("dimRedMethod",
     
 })
 
-#' input data(matrix or data frame) return knn graph
-#' implements "smart" choices on RANN::nn2 parameters
-#' we ignore radius search
-#' TODO: find out a good limit to switch from kd to bd trees
-#' @importFrom igraph make_empty_graph
+## input data(matrix or data frame) return knn graph implements
+## "smart" choices on RANN::nn2 parameters we ignore radius search
+## TODO: find out a good limit to switch from kd to bd trees COMMENT:
+## bd trees are buggy, they dont work if there are duplicated data
+## points and checking would neutralize the performance gain, so bd
+## trees are not really usable.
+
+#' @import igraph
+#' @import RANN
 makeKNNgraph <- function (x, k, eps = 0){
     requireNamespace("RANN")
     requireNamespace("igraph")

@@ -9,10 +9,10 @@
 fastica
 }
 \description{
-the fast ICA algoritm
+Instance of \code{\link{dimRedMethod}} for the fast ICA algoritm.
 }
 \details{
-for details see \code{\link[fastICA]{fastICA}}
+For details see \code{\link[fastICA]{fastICA}}.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
