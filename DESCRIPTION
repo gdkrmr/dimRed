@@ -25,10 +25,11 @@ Imports:
     loe,
     optimx,
     pcaPP,
-    rgl,
     scatterplot3d,
     stats,
     vegan
+Suggests:
+    rgl
 License: All rights reserved by author.
 LazyData: true
 Suggests:

@@ -1,0 +1,93 @@
+---
+title: "Comparing DRR and PCA"
+author: "Guido Kraemer"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+    %\VignetteIndexEntry{Compare DRR and PCA}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
+---
+
+compare rotation to instrumental variables pca and canonical
+correspondence analysis:
+
+
+```{r, }
+library(dimRed)
+library(ade4)
+
+indata <- loadDataSet("3D S Curve", n = 500)
+indata <- indata[sample(nrow(indata)),]
+meth <- c('pca', 'tsne', 'drr', 'isomap')
+emb <- lapply(meth, function(x) embed(indata, x))
+names(emb) <- meth
+```
+
+```{r, result = 'hold', out.width = '45%', fig.width = 5, fig.height = 5}
+lapply(emb, plot, type = '2vars')
+```
+
+```{r, }
+
+dudis <- lapply(emb, function(x)
+    as.dudi(as.data.frame(x@data@data),
+            col.w = rep(1, ncol(x@data@data)),
+            row.w = rep(1, nrow(x@data@data)),
+            scannf = FALSE,
+            nf = 2, call = NULL, type = "dudi.emb"))
+
+names(dudis)
+
+pcaivs <- list()
+pcaivorthos <- list()
+for(n in meth) {
+    pcaivs[[n]] <- pcaiv(dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
+    pcaivorthos[[n]] <- pcaivortho(dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
+}
+```
+
+```{r, fig.width = 7, fig.height = 7}
+pcaivs$drr
+pcaivs$pca
+pcaivs$tsne
+
+pcaivorthos$drr
+pcaivorthos$pca
+pcaivorthos$tsne
+
+
+
+
+plot(indata)
+# lapply(pcaivs, function(x) plot(x$X)) # the original data
+lapply(emb, function(x) plot(x, type = "2vars"))
+
+lapply(pcaivs, function(x) {
+    plot(x$Y,   main = 'Y')   # embedded data
+    plot(x$tab, main = 'tab') # projected variables
+    plot(x$ls,  main = 'ls')  # projection of lines of dudi$tab on ppa
+    plot(x$li,  main = 'li')  # ls predicted by X
+    plot(x$l1,  main = 'l1')  # pcp constraint principal components (same as li
+}) 
+
+lapply(pcaivs, plot)
+lapply(pcaivs, print)
+lapply(pcaivs, summary)
+
+lapply(pcaivs, function(x) x$eig)
+lapply(pcaivs, function(x) x$eig / sum(x$eig))
+
+summary(pcaivs$drr)
+summary(pcaivs$pca)
+summary(pcaivs$tsne)
+summary(pcaivs$isomap)
+
+summary(pcaivorthos$drr)
+summary(pcaivorthos$pca)
+summary(pcaivorthos$tsne)
+summary(pcaivorthos$isomap)
+
+
+```
+

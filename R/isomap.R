@@ -56,6 +56,8 @@ isomap <- new("dimRedMethod",
         cmdout$eig <- cmdout$eig[seq_len(pars$ndim)]
     }
 
+    colnames(cmdout$points) <- paste0("iso", seq_len(ncol(cmdout$points)))
+    
     appl <- function (x) {
         message(Sys.time(), ": L-Isomap embed START")
         appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
