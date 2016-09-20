@@ -17,10 +17,10 @@ correspondence analysis:
 library(dimRed)
 library(ade4)
 
-indata <- loadDataSet("Iris", n = 500)
+indata <- loadDataSet("Swiss Roll", n = 500)
 indata <- indata[sample(nrow(indata)),]
 meth <- c('pca', 'tsne', 'drr', 'isomap')
-emb <- lapply(meth, function(x) embed(indata, x))
+emb <- lapply(meth, function(x) embed(indata, x, knn = 4))
 names(emb) <- meth
 ```
 
@@ -39,92 +39,128 @@ dudis <- lapply(emb, function(x)
 
 names(dudis)
 
-pcaivs <- list()
-pcaivorthos <- list()
+pcaivs <- pcaivorthos <- pcaivs.meta <- pcaivorthos.meta <- list()
 for(n in meth) {
-    pcaivs[[n]]      <- pcaiv(     dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
-    pcaivorthos[[n]] <- pcaivortho(dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
+    pcaivs[[n]]           <- pcaiv(     dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
+    pcaivs.meta[[n]]      <- pcaiv(     dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
+    pcaivorthos[[n]]      <- pcaivortho(dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
+    pcaivorthos.meta[[n]] <- pcaivortho(dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
 }
 ```
 
 ```{r, fig.width = 7, fig.height = 7}
-pcaivs$drr
-pcaivs$pca
-pcaivs$tsne
-pcaivs$isomap
+## pcaivs$drr
+## pcaivs$pca
+## pcaivs$tsne
+## pcaivs$isomap
 
-pcaivorthos$drr
-pcaivorthos$pca
-pcaivorthos$tsne
-pcaivorthos$isomap
+## pcaivorthos$drr
+## pcaivorthos$pca
+## pcaivorthos$tsne
+## pcaivorthos$isomap
 
-dev.new()
-plot( pcaivs$isomap )
-plot( pcaivs$isomap$X )
-plot( pcaivs$isomap$Y , col = "red")
-plot( pcaivs$isomap$tab )
-plot( pcaivs$isomap$ls )
-plot( pcaivs$isomap$li )
-plot( pcaivs$isomap$l1 )
-( pcaivs$isomap$c1 )
-( pcaivs$isomap$fa)
-pcaiv
-pcaivs$isomap
-pcaivs$isomap$c1
-pcaivs$isomap$as
-pcaivs$isomap$co
-pcaivs$pca$cor
+## dev.new()
+## plot( pcaivs$isomap )
+## plot( pcaivs$isomap$X )
+## plot( pcaivs$isomap$Y , col = "red")
+## plot( pcaivs$isomap$tab )
+## plot( pcaivs$isomap$ls )
+## plot( pcaivs$isomap$li )
+## plot( pcaivs$isomap$l1 )
+## ( pcaivs$isomap$c1 )
+## ( pcaivs$isomap$fa)
+## pcaiv
+## pcaivs$isomap
+## pcaivs$isomap$c1
+## pcaivs$isomap$as
+## pcaivs$isomap$co
+## pcaivs$pca$cor
 
-class(pcaivs$isomap)
-summary(pcaivs$pca)
-summary(pcaivs$isomap)
-
-
-all(as.matrix(pcaivs$drr$Y) %*% as.matrix(pcaivs$drr$c1) ==
-    pcaivs$drr$ls)
-
-t(as.matrix(pcaivs$pca$X)) %*% as.matrix(pcaivs$pca$l1)
-print(t(as.matrix(pcaivs$isomap$c1)) %*% as.matrix(pcaivs$isomap$c1),digits = 20)
-max(abs(as.matrix(cbind(1, pcaivs$pca$X)) %*% as.matrix(pcaivs$pca$fa) - pcaivs$pca$li))
-max(abs(as.matrix(pcaivs$pca$tab) - pcaivs$pca$li))
+## class(pcaivs$isomap)
+## summary(pcaivs$pca)
+## summary(pcaivs$isomap)
 
 
+## all(as.matrix(pcaivs$drr$Y) %*% as.matrix(pcaivs$drr$c1) ==
+##     pcaivs$drr$ls)
 
-head(pcaivs$pca$X)
-
-plot(as.matrix(pcaivs$drr$X) %*% as.matrix(pcaivs$drr$c1))
+## t(as.matrix(pcaivs$pca$X)) %*% as.matrix(pcaivs$pca$l1)
+## print(t(as.matrix(pcaivs$isomap$c1)) %*% as.matrix(pcaivs$isomap$c1),digits = 20)
+## max(abs(as.matrix(cbind(1, pcaivs$pca$X)) %*% as.matrix(pcaivs$pca$fa) - pcaivs$pca$li))
+## max(abs(as.matrix(pcaivs$pca$tab) - pcaivs$pca$li))
 
 
 
-plot(indata)
+## head(pcaivs$pca$X)
+
+## plot(as.matrix(pcaivs$drr$X) %*% as.matrix(pcaivs$drr$c1))
+
+
+
+## plot(indata)
 # lapply(pcaivs, function(x) plot(x$X)) # the original data
-lapply(emb, function(x) plot(x, type = "2vars"))
+## lapply(emb, function(x) plot(x, type = "2vars"))
 
-lapply(pcaivs, function(x) {
-    plot(x$Y,   main = 'Y')   # embedded data
-    plot(x$tab, main = 'tab') # projected variables
-    plot(x$ls,  main = 'ls')  # projection of lines of dudi$tab on ppa
-    plot(x$li,  main = 'li')  # ls predicted by X
-    plot(x$l1,  main = 'l1')  # pcp constraint principal components (same as li
-}) 
+## lapply(pcaivs, function(x) {
+##     ## plot(x$Y,   main = 'Y')   # embedded data
+##     ## plot(x$tab, main = 'tab') # projected variables
+##     ## plot(x$ls,  main = 'ls')  # projection of lines of dudi$tab on ppa
+##     plot(x$li,  main = 'li')  # ls predicted by X
+##     ## plot(x$l1,  main = 'l1')  # pcp constraint principal components (same as li
+## })
 
-lapply(pcaivs, plot)
-lapply(pcaivs, print)
-lapply(pcaivs, summary)
+for(i in meth) {
+    plot(emb[[i]], type = "2vars")
+    plot(pcaivs[[i]], main = i)
+    plot(pcaivs[[i]]$li, main = paste(i, "li"))
+    plot(pcaivs.meta[[i]], main = paste("meta", i))
+    plot(pcaivs.meta[[i]]$li, main = paste(i, "li meta"))
+}
 
-lapply(pcaivs, function(x) x$eig)
-lapply(pcaivs, function(x) x$eig / sum(x$eig))
+## lapply(pcaivs, plot)
+## lapply(pcaivs, print)
+## lapply(pcaivs, summary)
+
+## lapply(pcaivs, function(x) x$eig)
+## lapply(pcaivs, function(x) x$eig / sum(x$eig))
 
 summary(pcaivs$drr)
-summary(pcaivs$pca)
-summary(pcaivs$tsne)
-summary(pcaivs$isomap)
-
+summary(pcaivs.meta$drr)
 summary(pcaivorthos$drr)
-summary(pcaivorthos$pca)
-summary(pcaivorthos$tsne)
-summary(pcaivorthos$isomap)
+summary(pcaivorthos.meta$drr)
 
+summary(pcaivs$pca)
+summary(pcaivs.meta$pca)
+summary(pcaivorthos$pca)
+summary(pcaivorthos.meta$pca)
+
+summary(pcaivs$tsne)
+summary(pcaivs.meta$tsne)
+summary(pcaivorthos$tsne)
+summary(pcaivorthos.meta$tsne)
+
+summary(pcaivs$isomap)
+summary(pcaivs.meta$isomap)
+summary(pcaivorthos$isomap)
+summary(pcaivorthos.meta$isomap)
+
+plot(pcaivs.meta$isomap, plabels = list(cex = 0))
+dev.new()
+plot(pcaivs.meta$isomap$li)
+plot(pcaivs.meta$isomap$Y)
+plot(pcaivs.meta$isomap$tab)
+plot(new('dimRedData', data = as.matrix(pcaivs.meta$tsne$li), meta = indata@meta), type = '2vars')
+plot(new('dimRedData', data = as.matrix(indata@meta),         meta = indata@meta), type = '2vars')
+plot(emb$isomap)
+
+plot(rbind(pcaivs.meta$isomap$Y,
+           pcaivs.meta$isomap$tab), type = 'n')
+
+plot(NA, xlim = c(-60, 60), ylim = c(-60, 60))
+arrows(x1 = -pcaivs.meta$isomap$Y[,1],
+       y1 = -pcaivs.meta$isomap$Y[,2],
+       x0 = -pcaivs.meta$isomap$tab[,1],
+       y0 = -pcaivs.meta$isomap$tab[,2])
 
 ```
 
