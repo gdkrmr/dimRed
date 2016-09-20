@@ -17,7 +17,7 @@ correspondence analysis:
 library(dimRed)
 library(ade4)
 
-indata <- loadDataSet("3D S Curve", n = 500)
+indata <- loadDataSet("Iris", n = 500)
 indata <- indata[sample(nrow(indata)),]
 meth <- c('pca', 'tsne', 'drr', 'isomap')
 emb <- lapply(meth, function(x) embed(indata, x))
@@ -42,8 +42,8 @@ names(dudis)
 pcaivs <- list()
 pcaivorthos <- list()
 for(n in meth) {
-    pcaivs[[n]] <- pcaiv(dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
-    pcaivorthos[[n]] <- pcaivortho(dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
+    pcaivs[[n]]      <- pcaiv(     dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
+    pcaivorthos[[n]] <- pcaivortho(dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
 }
 ```
 
@@ -51,11 +51,48 @@ for(n in meth) {
 pcaivs$drr
 pcaivs$pca
 pcaivs$tsne
+pcaivs$isomap
 
 pcaivorthos$drr
 pcaivorthos$pca
 pcaivorthos$tsne
+pcaivorthos$isomap
 
+dev.new()
+plot( pcaivs$isomap )
+plot( pcaivs$isomap$X )
+plot( pcaivs$isomap$Y , col = "red")
+plot( pcaivs$isomap$tab )
+plot( pcaivs$isomap$ls )
+plot( pcaivs$isomap$li )
+plot( pcaivs$isomap$l1 )
+( pcaivs$isomap$c1 )
+( pcaivs$isomap$fa)
+pcaiv
+pcaivs$isomap
+pcaivs$isomap$c1
+pcaivs$isomap$as
+pcaivs$isomap$co
+pcaivs$pca$cor
+
+class(pcaivs$isomap)
+summary(pcaivs$pca)
+summary(pcaivs$isomap)
+
+
+all(as.matrix(pcaivs$drr$Y) %*% as.matrix(pcaivs$drr$c1) ==
+    pcaivs$drr$ls)
+
+t(as.matrix(pcaivs$pca$X)) %*% as.matrix(pcaivs$pca$l1)
+print(t(as.matrix(pcaivs$isomap$c1)) %*% as.matrix(pcaivs$isomap$c1),digits = 20)
+max(abs(as.matrix(cbind(1, pcaivs$pca$X)) %*% as.matrix(pcaivs$pca$fa) - pcaivs$pca$li))
+max(abs(as.matrix(pcaivs$pca$tab) - pcaivs$pca$li))
+
+
+
+head(pcaivs$pca$X)
+
+plot(as.matrix(pcaivs$drr$X) %*% as.matrix(pcaivs$drr$c1))
 
 
 
