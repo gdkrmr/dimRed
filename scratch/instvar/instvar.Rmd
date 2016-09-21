@@ -41,9 +41,9 @@ names(dudis)
 
 pcaivs <- pcaivorthos <- pcaivs.meta <- pcaivorthos.meta <- list()
 for(n in meth) {
-    pcaivs[[n]]           <- pcaiv(     dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
+    pcaivs[[n]]           <- pcaiv(     dudis[[n]], emb[[n]]@org.data,  scannf = FALSE)
     pcaivs.meta[[n]]      <- pcaiv(     dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
-    pcaivorthos[[n]]      <- pcaivortho(dudis[[n]], emb[[n]]@org.data, scannf = FALSE)
+    pcaivorthos[[n]]      <- pcaivortho(dudis[[n]], emb[[n]]@org.data,  scannf = FALSE)
     pcaivorthos.meta[[n]] <- pcaivortho(dudis[[n]], emb[[n]]@data@meta, scannf = FALSE)
 }
 ```
@@ -164,3 +164,59 @@ arrows(x1 = -pcaivs.meta$isomap$Y[,1],
 
 ```
 
+```{r, fig.width = 7, fig.height = 7, out.width = "95%"}
+library(ggplot2)
+library(dimRed)
+library(ade4)
+library(vegan)
+irisc <- as.data.frame(scale(iris[,1:4]))
+iris12dudi <- as.dudi(irisc[,1:2], col.w = rep(1,2), row.w = rep(1,150), scannf = FALSE, nf = 2, call = NULL, type = "dudi.I")
+
+biplot(dudi.pca(iris[,1:4], scannf = FALSE))
+
+plot(irisc[,1:2])
+plot(new("dimRedData", data = as.matrix(irisc[,1:2]), meta = irisc[,3:4]), type = "2vars")
+plot(iris12dudi$tab)
+biplot(iris12dudi)
+irispcaiv <- pcaiv(iris12dudi, irisc[,3:4], scannf = FALSE, nf = 2)
+plot(irispcaiv)
+
+## ggplot(irisc,                      aes(x = Sepal.Length, y = Sepal.Width, color = Petal.Width))  + geom_point()
+## ggplot(irisc,                      aes(x = Sepal.Length, y = Sepal.Width, color = Petal.Length)) + geom_point()
+## ggplot(cbind(irispcaiv$ls, irisc), aes(x = Axis1,        y = Axis2,       color = Petal.Width))  + geom_point()
+## ggplot(cbind(irispcaiv$ls, irisc), aes(x = Axis1,        y = Axis2,       color = Petal.Length)) + geom_point()
+## ggplot(cbind(irispcaiv$l1, irisc), aes(x = RS1,          y = RS2,         color = Petal.Width))  + geom_point()
+## ggplot(cbind(irispcaiv$l1, irisc), aes(x = RS1,          y = RS2,         color = Petal.Length)) + geom_point()
+## ggplot(cbind(irispcaiv$li, irisc), aes(x = Axis1,        y = Axis2,       color = Petal.Length)) + geom_point()
+## ggplot(cbind(irispcaiv$li, irisc), aes(x = Axis1,        y = Axis2,       color = Petal.Width))  + geom_point()
+
+irismax <- dimRed:::.maximize_correlation(irisc[,1:2], irisc[,3:4])
+
+irisccora <- CCorA(irisc[,3:4], irisc[,1:2])
+plot(irisccora$Cx)
+plot(envfit(irisccora$Cx, irisc[,3:4]))
+
+## plot(irisccora$Cy)
+## plot(envfit(irisccora$Cy, irisc[,1:2]))
+
+## plot(as.matrix(irisc[,1:2]) %*% as.matrix(irisccora$corr.X.Cy))
+## plot(envfit(as.matrix(irisc[,1:2]) %*% as.matrix(irisccora$corr.X.Cy), irisc[,3:4]))
+
+
+plot(irismax$rotated)
+plot(envfit(irismax$rotated, irisc[,3:4]))
+
+plot(irisc[,1:2])
+plot(envfit(irisc[,1:2], irisc[,3:4]))
+
+plot(irispcaiv$ls)
+plot(envfit(irispcaiv$ls, irisc[,3:4]))
+
+plot(irispcaiv$l1)
+plot(envfit(irispcaiv$l1, irisc[,3:4]))
+
+plot(irispcaiv$li)
+plot(envfit(irispcaiv$li, irisc[,3:4]))
+
+
+```

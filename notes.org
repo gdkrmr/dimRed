@@ -1,38 +1,40 @@
 Notes:
 
 * What is still todo:
-in order of importance
+  in order of importance
 
 ** TODO Package description
-take this from the article
+   take this from the article
 
 ** TODO unit tests!!!
-VERY IMPORTANT!!!
+   VERY IMPORTANT!!!
 
 ** TODO General documentation
-simplify everything, no documentation for every method, but rather for
-the embed method with links to the original implementations.
+   simplify everything, no documentation for every method, but rather for
+   the embed method with links to the original implementations.
 
-** TODO Class structure overhaul:
+** DONE Class structure overhaul:
 
-*** TODO Decision: Remove dimRed/dimRedPars classes?
+*** DONE Decision: Remove dimRed/dimRedPars classes?
     remove classes!!
     the work is done adequately by the embed function!
 
 
 *** DONE Is there any good reason for wrapping the function in a dimRedMethod class?
-#+begin_src R
-setClass('myclass', slots = c(fun = "function", pars = "character"))
-new("myclass", fun = function(x) self@pars, pars = "asdf")
-#+end_src
+    #+begin_src R
+    setClass('myclass', slots = c(fun = "function", pars = "character"))
+    new("myclass", fun = function(x) self@pars, pars = "asdf")
+    #+end_src
 
-- add a formula method to create dimRedData from a data frame
+*** TODO add a formula method to create dimRedData from a data frame
+    
+   #+begin_src R
+   dimRedData(a + b + c ~ d + e + f)
+   #+end_src
+    should result in columns a, b, and c being dispatched into class@meta
+    slot and d, e, and f into class@data slot
 
-#+begin_src R
-dimRedData(a + b + c ~ d + e + f)
-#+end_src
-should result in columns a, b, and c being dispatched into class@meta
-slot and d, e, and f into class@data slot
+
 
 
 ** TODO shield the user from dealing explicitly with S4 classes
@@ -54,3 +56,17 @@ slot and d, e, and f into class@data slot
 ** TODO think what to do with sneer
 
 ** TODO implement spe
+
+** TODO custom varimax rotation
+
+*** TODO relation to CCorA/RDA
+    it is NOT the same !!!!
+
+*** TODO implement optimizing for linear regression and not only for correlation
+
+*** TODO relation to varimax rotation in meteorology
+
+*** TODO Can this be implemented more efficiently?
+    By using the method from the following paper: 
+    Jennrich, R (2001) A SIMPLE GENERAL PROCEDURE FOR ORTHOGONAL
+    ROTATION, Psychometrica 66(2).
