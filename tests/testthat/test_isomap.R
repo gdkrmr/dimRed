@@ -5,14 +5,26 @@ context("isomap")
 ## no isomap specific tests, because forward method is not really
 ## exact.
 
-a <- matrix(rnorm(1000), 100, 10)
-
-vegiso <- vegan::isomap(dist(a), k = 10)
-vegy <- vegan::scores(vegiso)
-
-drdiso <- embed(a, "isomap", knn = 10, ndim = 10)
-drdy <- drdiso@data@data
 
 test_that("check vs vegan isomap", {
-    expect_equivalent(drdy, vegy)
+
+    eps <- 1e-13
+    a <- loadDataSet("3D S Curve", n = 200)
+
+    vegiso <- vegan::isomap(dist(getData(a)), k = 8, ndim = 2)
+    vegy <- vegan::scores(vegiso)
+
+    drdiso <- embed(a, "isomap", knn = 8, ndim = 2)
+    drdy <- drdiso@data@data
+
+    ## Randomly fails:
+    ## expect_equivalent(drdy, vegy)
+    
+    err1 <- max(abs(drdy-vegy))
+    drdy[,2] <- -drdy[,2]
+    err2 <- max(abs(drdy-vegy))
+    err <- min(err1,err2)
+
+    expect_true(err < eps)
+    
 })

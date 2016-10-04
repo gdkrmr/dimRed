@@ -24,7 +24,7 @@ pdist2 <- function (A, B) {
 ## ~ c + d + 0
 rhs <- function (formula) {
     fs <- as.character(formula)[3]
-    as.formula(paste("~", fs, "+ 0"))
+    stats::as.formula(paste("~", fs, "+ 0"))
 }
 
 ## a + b ~ c + d
@@ -32,6 +32,6 @@ rhs <- function (formula) {
 ## ~ a + b + 0
 lhs <- function (formula) {
     fs <- as.character(formula)[2]
-    as.formula(paste("~", fs, "+ 0"))
+    stats::as.formula(paste("~", fs, "+ 0"))
 }
 

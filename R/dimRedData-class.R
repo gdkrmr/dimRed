@@ -6,9 +6,8 @@
 #'     classes, internal manifold coordinates, or simply additional
 #'     data of the data set. Must have the same number of rows as the
 #'     \code{data} slot or be an empty data frame.
-#' @param object,x of class dimRedData.
+#' @param object,x,.Object of class dimRedData.
 #' @param i a valid index.
-#' @import methods
 #' @examples
 #' s3d <- loadDataSet("3D S Curve")
 #' as(s3d, "data.frame")
@@ -21,6 +20,7 @@
 #'
 #' 
 #' @family dimRedData
+#' @import methods
 #' @name dimRedData
 #' @aliases dimRedData-class
 #' @export
@@ -53,6 +53,9 @@ dimRedData <- setClass(
     }
 )
 
+#' @rdname dimRedData
+#' @param data coerced into a numeric matrix, goes into slot data
+#' @param meta coerced into a data.frame, goes into slot meta
 #' @export
 setMethod("initialize",
           signature = c("dimRedData"),
@@ -142,8 +145,8 @@ setMethod(f = 'as.dimRedData',
           signature = c('formula'),
           definition = function(x, data) {
     data <- as.data.frame(data)
-    meta <- model.frame(lhs(x), data)
-    data <- model.matrix(rhs(x), data)
+    meta <- stats::model.frame(lhs(x), data)
+    data <- stats::model.matrix(rhs(x), data)
     return(new("dimRedData", data = data, meta = meta))
 })
 

@@ -7,7 +7,7 @@ test_that("constructor",{
     expect_s4_class(dimRedData(iris[,1:4], iris[,5]), "dimRedData")
     expect_s4_class(dimRedData(iris[,1:4]), "dimRedData")
     expect_error(dimRedData(iris))
-}
+})
 
 test_that("conversion functions", {
     expect_equal(as(iris[,1:4], 'dimRedData'), dimRedData(iris[,1:4]))

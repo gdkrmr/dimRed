@@ -12,9 +12,13 @@
 \alias{getData,dimRedData-method}
 \alias{getMeta}
 \alias{getMeta,dimRedData-method}
+\alias{initialize,dimRedData-method}
 \alias{nrow,dimRedData-method}
 \title{An S4 class and methods to hold data for dimensionality reduction}
 \usage{
+\S4method{initialize}{dimRedData}(.Object, data = matrix(numeric(0), 0, 0),
+  meta = data.frame())
+
 getData(object)
 
 \S4method{getData}{dimRedData}(object)
@@ -28,7 +32,11 @@ getMeta(object)
 \S4method{[}{dimRedData,ANY,ANY,ANY}(x, i)
 }
 \arguments{
-\item{object, x}{of class dimRedData.}
+\item{data}{coerced into a numeric matrix, goes into slot data}
+
+\item{meta}{coerced into a data.frame, goes into slot meta}
+
+\item{object, x, .Object}{of class dimRedData.}
 
 \item{i}{a valid index.}
 }

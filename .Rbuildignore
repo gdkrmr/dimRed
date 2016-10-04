@@ -9,6 +9,7 @@ dir-locals\.el
 
 server\.R
 ui\.R
+src
 
 .*\.sh
 

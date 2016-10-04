@@ -1,6 +1,6 @@
 Package: dimRed
 Title: A Collection of Dimensionality Reduction Techniques
-Version: 0.0.2
+Version: 0.0.2.9000
 Authors@R: person("Guido", "Kraemer",
     email = "gkraemer@bgc-jena.mpg.de",
     role = c("aut", "cre"))
@@ -12,24 +12,24 @@ Depends:
     methods,
     DRR
 Imports:
-    MASS,
     RANN,
-    Rtsne,
     coRanking,
-    diffusionMap,
     energy,
     graphics,
     igraph,
+    optimx,
+    pcaPP,
+    stats
+Suggests:
+    MASS,
+    Rtsne,
+    diffusionMap,
     kernlab,
     lle,
     loe,
-    optimx,
-    pcaPP,
     scatterplot3d,
-    stats,
-    vegan
-Suggests:
-    testthat,
+    vegan,
+    testthat
 License: All rights reserved by author.
 LazyData: true
 Collate:

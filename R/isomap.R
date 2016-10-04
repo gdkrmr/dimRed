@@ -50,7 +50,7 @@ isomap <- new("dimRedMethod",
     neig <- sum(cmdout$eig > 0)
     if(neig < pars$ndim) {
         warning("Isomap: eigenvalues < 0, returning less dimensions!")
-        cmdout$points <- cmdout$points[, seq_len(neig)]
+        cmdout$points <- cmdout$points[, seq_len(neig), drop = FALSE]
         cmdout$eig <- cmdout$eig[seq_len(neig)]
     } else {
         cmdout$eig <- cmdout$eig[seq_len(pars$ndim)]
@@ -110,8 +110,8 @@ isomap <- new("dimRedMethod",
 ## trees are not really usable.
 
 makeKNNgraph <- function (x, k, eps = 0){
-    requireNamespace("RANN")
-    requireNamespace("igraph")
+    ## requireNamespace("RANN")
+    ## requireNamespace("igraph")
 
     ## consts
     INF_VAL <- 1.340781e+15
