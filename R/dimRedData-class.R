@@ -1,8 +1,3 @@
-setClassUnion('missingORnumeric', c('numeric', 'missing'))
-setClassUnion('missingORcharacter', c('character', 'missing'))
-setClassUnion('missingORlogical', c('logical', 'missing'))
-setClassUnion('missingORfunction', c('function', 'missing'))
-
 #' An S4 class and methods to hold data for dimensionality reduction
 #'
 #' @slot data of class \code{matrix}, holds the data, observations in
@@ -58,6 +53,16 @@ dimRedData <- setClass(
     }
 )
 
+#' @export
+setMethod("initialize",
+          signature = c("dimRedData"),
+          function (.Object, data = matrix(numeric(0), 0, 0), meta = data.frame()) {
+    data <- as.matrix(data)
+    meta <- as.data.frame(meta)
+    .Object <- callNextMethod()
+    return(.Object)
+})
+
 #' @rdname dimRedData
 #' @name as.dimRedData,ANY
 setAs(from = 'ANY', to = 'dimRedData',
@@ -72,15 +77,7 @@ setAs(from = 'data.frame', to = 'dimRedData',
 #' @rdname dimRedData
 #' @name as,data.frame,dimRedData
 setAs(from = 'dimRedData', to = 'data.frame',
-      def = function(from) {
-          res <- cbind(from@meta, as.data.frame(from@data))
-          resnames <- c(
-              paste("meta", colnames(from@meta), sep = '.'),
-              colnames(from@data)
-          )
-          names(res) <- resnames
-          return(res)
-})
+      def = function(from) {as.data.frame(from)})
 
 #' @rdname as.data.frame
 #' @param row.names unused
@@ -96,12 +93,16 @@ setGeneric(
 #'
 #' Convert a dimRedData object to a data.frame.
 #'
-#' To avoid column name colissions prefixes for each slot can be given.
+#' To avoid column name collisions prefixes for each slot can be given.
 #'
 #' @param x dimRedResult object.
 #' @param meta.prefix prefix for the meta slot
 #' @param data.prefix prefix for the dim Red slot
-#' 
+#'
+#' @examples
+#' as.data.frame(loadDataSet("Iris"), meta.prefix = "")
+#'
+#' @include misc.R
 #' @family dimRedData
 #' @method as.data.frame dimRedData
 #' @rdname as.data.frame
@@ -110,14 +111,40 @@ setMethod(f = 'as.data.frame',
           signature = c('dimRedData'),
           definition = function(x, meta.prefix = "meta.",
                                 data.prefix = "") {
-    cbind(
-        as.data.frame(
-            x@meta,
-            col.names = paste0(meta.prefix, colnames(x@meta))),
-        as.data.frame(
-            x@data,
-            col.names = paste0(data.prefix,   colnames(x@data)))
-    )
+    res <- cbind(as.data.frame(x@meta),
+                 as.data.frame(x@data))
+    names(res) <- c(paste0(meta.prefix, colnames(x@meta)),
+                    paste0(data.prefix, colnames(x@data)))
+    return(res)
+})
+
+
+#' @rdname as.dimRedData
+#' @param ... parameters
+setGeneric(
+    'as.dimRedData',
+    function(x, ...) standardGeneric('as.dimRedData'),
+    valueClass = 'dimRedData'
+)
+
+#' Convert to \code{dimRedData}
+#'
+#' Convert a \code{data.frame} to a dimRedData object using a formula
+#'
+#' @param x the formula, left hand side is assigned to meta slot
+#'     right hand side is assigned to data slot.
+#' @param data a data frame
+#' @family dimRedData
+#' @method as.dimRedData dimRedData
+#' @rdname as.dimRedData
+#' @export
+setMethod(f = 'as.dimRedData',
+          signature = c('formula'),
+          definition = function(x, data) {
+    data <- as.data.frame(data)
+    meta <- model.frame(lhs(x), data)
+    data <- model.matrix(rhs(x), data)
+    return(new("dimRedData", data = data, meta = meta))
 })
 
 

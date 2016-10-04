@@ -59,6 +59,7 @@ s3d[1:40,]
 
 }
 \seealso{
-Other dimRedData: \code{\link{as.data.frame}}
+Other dimRedData: \code{\link{as.data.frame}},
+  \code{\link{as.dimRedData}}
 }
 

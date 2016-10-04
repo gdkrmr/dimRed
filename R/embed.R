@@ -47,7 +47,7 @@ embed <- function(data, method = dimRedMethodList(),
     methodObject <- getMethodObject(method)
     
     args <- list(
-        data          = data,
+        data          = as(data, "dimRedData"),
         keep.org.data = keep.org.data
     )
     args$pars <- matchPars(methodObject, list(...))

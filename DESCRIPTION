@@ -29,12 +29,11 @@ Imports:
     stats,
     vegan
 Suggests:
-    rgl
+    testthat,
 License: All rights reserved by author.
 LazyData: true
-Suggests:
-    testthat,
 Collate:
+    'misc.R'
     'dimRedData-class.R'
     'dataSets.R'
     'dimRedMethod-class.R'
@@ -51,7 +50,6 @@ Collate:
     'lle.R'
     'loe.R'
     'mds.R'
-    'misc.R'
     'mixColorSpaces.R'
     'nmds.R'
     'pca.R'

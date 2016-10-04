@@ -38,12 +38,17 @@ Convert a dimRedData object to a data.frame.
 Convert a dimRedResult object to a data.frame.
 }
 \details{
-To avoid column name colissions prefixes for each slot can be given.
+To avoid column name collisions prefixes for each slot can be given.
 
 To avoid column name colissions prefixes for each slot can be given.
 }
+\examples{
+as.data.frame(loadDataSet("Iris"), meta.prefix = "")
+
+}
 \seealso{
-Other dimRedData: \code{\link{dimRedData}}
+Other dimRedData: \code{\link{as.dimRedData}},
+  \code{\link{dimRedData}}
 
 Other dimRedResult: \code{\link{dimRedResult-class}}
 }
