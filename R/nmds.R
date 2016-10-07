@@ -17,7 +17,7 @@ nmds <- new('dimRedMethod',
             stdpars = list(d = stats::dist, ndim = 2),
             fun = function (data, pars,
                             keep.org.data = TRUE) {
-    if(!requireNamespace('vegan')) stop('require the vegan package')
+    chckpkg('vegan')
 
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL

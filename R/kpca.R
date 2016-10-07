@@ -23,7 +23,7 @@ kpca <- new('dimRedMethod',
                            ndim = 2),
             fun = function (data, pars,
                             keep.org.data = TRUE) {
-    if(!requireNamespace('kernlab')) stop('require package "kernlab"')
+    chckpkg('kernlab')
     if(is.null(pars$ndim))
         pars$ndim <- 2
     

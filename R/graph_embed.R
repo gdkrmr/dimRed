@@ -22,7 +22,7 @@ kamada_kawai <- new('dimRedMethod',
                                    weight.trans = function (x) exp(-(x^2))),
                     fun = function (data, pars,
                                     keep.org.data = TRUE) {
-    if(!requireNamespace('igraph')) stop("require igraph package")
+    chckpkg('igraph')
 
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
@@ -75,7 +75,7 @@ drl <- new('dimRedMethod',
                           weight.trans = function (x) exp(-(x^2))),
            fun = function (data, pars,
                            keep.org.data = TRUE) {
-    if(!requireNamespace('igraph')) stop("require igraph package")
+    chckpkg('igraph')
     
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
@@ -128,7 +128,7 @@ fruchterman_reingold <- new('dimRedMethod',
                                            weight.trans = function (x) exp(-(x^2))),
                             fun = function (data, pars,
                                             keep.org.data = TRUE) {
-    if(!requireNamespace('igraph')) stop("require igraph package")
+    chckpkg('igraph')
                        
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
@@ -161,7 +161,7 @@ fruchterman_reingold <- new('dimRedMethod',
 em_graph_layout <- function(data, graph_em_method,
                             knn = 50, d = stats::dist,
                             ndim = 2, weight.trans = I){
-  if(!requireNamespace('igraph')) stop("require igraph package")
+  chckpkg('igraph')
   
   data.dist <- as.matrix(d(data))
   data.graph <- construct_knn_graph(data.dist, knn)
@@ -175,8 +175,8 @@ embed_graph <- function(graph, f, weight.trans = I, ndim = 2){
 
 
 construct_knn_graph <- function (data.dist, knn) {
-  if(!requireNamespace('igraph')) stop("require igraph package")
-  if(!requireNamespace('coRanking')) stop("require igraph package")
+  chckpkg('igraph')
+  chckpkg('coRanking')
   
   data.graph <- igraph::graph_from_adjacency_matrix(
     adjmatrix = data.dist,

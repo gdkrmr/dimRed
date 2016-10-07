@@ -131,13 +131,13 @@ quality <- function (data, method = dimRedQualityList(),
 getQualityFunction <- function (method) {
     switch(
         method,
-        Q_local = Q_local,
-        Q_global = Q_global,
-        mean_R_NX = mean_R_NX,
-        total_correlation = total_correlation,
+        Q_local                = Q_local,
+        Q_global               = Q_global,
+        mean_R_NX              = mean_R_NX,
+        total_correlation      = total_correlation,
         cophenetic_correlation = cophenetic_correlation,
-        distance_correlation = distance_correlation,
-        reconstruction_rmse = reconstruction_rmse
+        distance_correlation   = distance_correlation,
+        reconstruction_rmse    = reconstruction_rmse
     )
 }
 
@@ -151,9 +151,9 @@ setGeneric('Q_local', function(object) standardGeneric('Q_local'),
 #' @aliases Q_local
 #' @export
 setMethod('Q_local', 'dimRedResult',
-          function(object){
+          function (object) {
     if(!object@has.org.data) stop('object requires original data')
-    if(!requireNamespace('coRanking')) stop('package coRanking required')
+    chckpkg('coRanking')
 
     Q <- coRanking::coranking(object@org.data, object@data@data)
     nQ <- nrow(Q)
@@ -180,7 +180,7 @@ setGeneric(
 setMethod('Q_global', 'dimRedResult',
           function(object){
     if(!object@has.org.data) stop('object requires original data')
-    if(!requireNamespace('coRanking')) stop('package coRanking required')
+    chckpkg('coRanking')
 
     Q <- coRanking::coranking(object@org.data, object@data@data)
     nQ <- nrow(Q)
@@ -207,7 +207,7 @@ setGeneric(
 setMethod('mean_R_NX', 'dimRedResult',
           function(object){
     if(!object@has.org.data) stop('object requires original data')
-    if(!requireNamespace('coRanking')) stop('package coRanking required')
+    chckpkg('coRanking')
 
     Q <- coRanking::coranking(object@org.data, object@data@data)
     nQ <- nrow(Q)

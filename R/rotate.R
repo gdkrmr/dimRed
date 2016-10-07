@@ -61,7 +61,7 @@ setMethod('maximize_correlation',
     warning('"max(axes)" must be <= "ncol(X)", removing some axes')
   }
 
-  if(!requireNamespace('optimx')) stop('require package optimx')
+  chckpkg('optimx')
 
   xndim <- ncol(X)
   without_axes <- integer(0)

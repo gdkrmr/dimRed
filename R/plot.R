@@ -42,23 +42,29 @@ setMethod(
     definition = function(x, type = "pairs",
                           vars = seq_len(ncol(x@data)),
                           col = seq_len(min(3, ncol(x@meta))), ...) {
-        ## requireNamespace("MASS")
-        ## requireNamespace("rgl")
-        ## requireNamespace("graphics")
-        ## requireNamespace("scatterplot3d")
         cols <- colorize(x@meta[, col, drop = FALSE])
         switch(
             type,
-            "pairs"    = graphics::pairs(
-               x@data[,vars],      col = cols,   ... ),
-            "parpl"    = MASS::parcoord(
-               x@data[,vars],      col = cols,   ... ),
-            "2vars"    = graphics::plot(
-               x@data[,vars[1:2]], col = cols,   ... ),
-            "3vars"    = scatterplot3d::scatterplot3d(
-               x@data[,vars[1:3]], color = cols, ... ),
-            "3varsrgl" = rgl::points3d(
-               x@data[,vars[1:3]], col = cols,   ... ),
+            "pairs"    = {
+                chckpkg("graphics")
+                graphics::pairs(x@data[,vars],      col = cols,   ... )
+            },
+            "parpl"    = {
+                chckpkg("MASS")
+                MASS::parcoord(x@data[,vars],      col = cols,   ... )
+            },
+            "2vars"    = {
+                chckpkg("graphics")
+                graphics::plot(x@data[,vars[1:2]], col = cols,   ... )
+            },
+            "3vars"    = {
+                if(!requireNamespace("scatterplot3d")) stop("require scatterplot3d package")
+                scatterplot3d::scatterplot3d(x@data[,vars[1:3]], color = cols, ... )
+            },
+            "3varsrgl" = {
+                chckpkg("rgl")
+                rgl::points3d(x@data[,vars[1:3]], col = cols,   ... )
+            },
             stop("wrong argument to plot.dimRedData")
         )
     }

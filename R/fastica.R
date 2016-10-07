@@ -20,7 +20,7 @@ fastica <- new('dimRedMethod',
                fun = function (data,
                                pars,
                                keep.org.data = TRUE) {
-    if(!requireNamespace('fastICA')) stop('require package fastICA')
+    chckpkg('fastICA')
                    
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL

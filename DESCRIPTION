@@ -11,7 +11,7 @@ Depends:
     R (>= 3.0.0),
     methods,
     DRR
-Imports:
+Suggests:
     RANN,
     coRanking,
     energy,
@@ -19,8 +19,7 @@ Imports:
     igraph,
     optimx,
     pcaPP,
-    stats
-Suggests:
+    stats,
     MASS,
     Rtsne,
     diffusionMap,

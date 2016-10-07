@@ -31,8 +31,8 @@ drr <- new('dimRedMethod',
                           verbose         = TRUE),
            fun = function (data, pars,
                            keep.org.data = TRUE) {
-    if(!requireNamespace('DRR')) stop('require package "DRR"')
-    if(!requireNamespace("kernlab")) stop("require 'kernlab' package")
+    chckpkg('DRR')
+    chckpkg("kernlab")
 
 
     meta <- data@meta

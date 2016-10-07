@@ -18,7 +18,7 @@ lle <- new('dimRedMethod',
            stdpars = list(knn = 50, ndim = 2),
            fun = function (data, pars,
                            keep.org.data = TRUE) {
-    if(!requireNamespace('lle')) stop('require the lle package')
+    chckpkg('lle')
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
     indata <- data@data

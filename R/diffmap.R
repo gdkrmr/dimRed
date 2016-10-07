@@ -19,7 +19,7 @@ diffmap <- new('dimRedMethod',
                stdpars = list(d = stats::dist, ndim = 2, t = 0),
                fun = function (data, pars,
                                keep.org.data = TRUE) {
-    # if(!requireNamespace('diffusionMap')) stop('require the diffusionMap package')
+    chckpkg('diffusionMap')
 
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL

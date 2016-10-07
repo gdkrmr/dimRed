@@ -15,7 +15,8 @@ pkgversion=$(cat DESCRIPTION | grep Version | sed 's|Version: \(.*\)|\1|')
 echo "INSTALLING version $pkgversion"
 R CMD INSTALL dimRed_$pkgversion.tar.gz
 
-echo '\nCHECKING!!!'
+echo ""
+echo 'CHECKING!!!'
 R CMD check dimRed_$pkgversion.tar.gz
 
 # echo "INSTALLING on cluster!"

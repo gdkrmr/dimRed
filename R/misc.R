@@ -35,3 +35,11 @@ lhs <- function (formula) {
     stats::as.formula(paste("~", fs, "+ 0"))
 }
 
+## check if a package is installed
+chckpkg <- function (pkg) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+        stop(paste0("require '", pkg,
+                    "' package, install it using install.packages('",
+                    pkg, "')"))
+    }
+}

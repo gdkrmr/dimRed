@@ -21,7 +21,7 @@ tsne <- new('dimRedMethod',
                            ndim = 2),
             fun = function (data, pars,
                             keep.org.data = TRUE) {
-    if(!requireNamespace('Rtsne')) stop('require the Rtsne package')
+    chckpkg('Rtsne')
 
     meta <- data@meta
     orgdata <- if (keep.org.data) data@data else NULL
