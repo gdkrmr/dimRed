@@ -82,29 +82,36 @@ setAs(from = 'data.frame', to = 'dimRedData',
 setAs(from = 'dimRedData', to = 'data.frame',
       def = function(from) {as.data.frame(from)})
 
-#' @rdname as.data.frame
+#' Convert to \code{data.frame}
+#'
+#' Convert a dimRedData or dimRedResult object to a data.frame.
+#'
+#' To avoid column name collisions in the resulting \code{data.frame}
+#' prefixes can be assigned. The parameters \code{row.names},
+#' \code{optional}, and \code{...} are not used.
+#'
+#' @param x dimRedResult/dimRedData object.
+#' @param meta.prefix prefix for the meta data variables.
+#' @param data.prefix for dimRedResult objects: prefix for embedded
+#'     dimensions, for dimRedData objects: prefix for the variable
+#'     names.
+#' @param org.data.prefix for dimRedResult objects: prefix for the
+#'     original variables.
 #' @param row.names unused
 #' @param optional unused
 #' @param ... unused
+#'
+#' @examples
+#' as.data.frame(loadDataSet("Iris"), meta.prefix = "")
+#' as.data.frame(embed(loadDataSet("Iris"), "pca"), org.data.prefix = "", meta.prefix = "")
+#'
+#' @rdname as.data.frame
 setGeneric(
     'as.data.frame',
     function(x, row.names, optional, ...) standardGeneric('as.data.frame'),
     useAsDefault = base::as.data.frame
 )
 
-#' Convert to \code{data.frame}
-#'
-#' Convert a dimRedData object to a data.frame.
-#'
-#' To avoid column name collisions prefixes for each slot can be given.
-#'
-#' @param x dimRedResult object.
-#' @param meta.prefix prefix for the meta slot
-#' @param data.prefix prefix for the dim Red slot
-#'
-#' @examples
-#' as.data.frame(loadDataSet("Iris"), meta.prefix = "")
-#'
 #' @include misc.R
 #' @family dimRedData
 #' @method as.data.frame dimRedData
@@ -123,7 +130,8 @@ setMethod(f = 'as.data.frame',
 
 
 #' @rdname as.dimRedData
-#' @param ... parameters
+#' @param ... unused
+#' @export
 setGeneric(
     'as.dimRedData',
     function(x, ...) standardGeneric('as.dimRedData'),
@@ -137,6 +145,11 @@ setGeneric(
 #' @param x the formula, left hand side is assigned to meta slot
 #'     right hand side is assigned to data slot.
 #' @param data a data frame
+#' @examples
+#' as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+#'               iris)
+#'
+#' 
 #' @family dimRedData
 #' @method as.dimRedData dimRedData
 #' @rdname as.dimRedData

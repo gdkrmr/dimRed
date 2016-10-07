@@ -3,17 +3,19 @@
 #' A compilation of standard data sets that are often being used to
 #' showcase dimensionality reduction techniques.
 #'
-#' Name should be one of \code{dataSetList()}. Partial matching is
+#' \code{name} should be one of \code{dataSetList()}. Partial matching is
 #' possible, see \code{\link{match.arg}}. Generated data sets contain
 #' the internal coordinates of the manifold in the \code{meta} slot.
+#' Call \code{dataSetList()} to see what data sets are available.
 #' 
 #'
 #' 
 #' @param name A character vector that specifies the name of the data
 #'     set.
 #' @param n In generated data sets the number of points to be
-#'     generated.
-#' @param sigma Standard deviation of the noise added.
+#'     generated, else ignored.
+#' @param sigma In generated data sets the standard deviation of the
+#'     noise added, else ignored.
 #' @return \code{loadDataSet} an object of class
 #'     \code{\link{dimRedData}}. \code{dataSetList()} return a
 #'     character string with the implemented data sets
@@ -21,9 +23,11 @@
 #' @examples
 #' ## a list of available data sets:
 #' dataSetList()
+#' 
 #' ## Load a data set:
 #' swissRoll <- loadDataSet("Swiss Roll")
 #' \donttest{plot(swissRoll, type = '3vars')}
+#'
 #' ## Load Iris data set, partial matching:
 #' loadDataSet("I")
 #' 
@@ -31,9 +35,7 @@
 NULL
 
 #' @include dimRedData-class.R
-#'
 #' @rdname dataSets
-#' 
 #' @export
 loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
     name <- match.arg(name)
@@ -52,7 +54,6 @@ loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
 }
 
 #' @rdname dataSets
-#' 
 #' @export
 dataSetList <- function () {
     return(c(
@@ -69,7 +70,6 @@ dataSetList <- function () {
 }
 
 irisdata <- function() {
-    ##utils::data(iris)
     dd <- as.matrix(datasets::iris[, 1:4])
     new('dimRedData',
         data = dd,

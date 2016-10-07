@@ -15,9 +15,10 @@ dataSetList()
 set.}
 
 \item{n}{In generated data sets the number of points to be
-generated.}
+generated, else ignored.}
 
-\item{sigma}{Standard deviation of the noise added.}
+\item{sigma}{In generated data sets the standard deviation of the
+noise added, else ignored.}
 }
 \value{
 \code{loadDataSet} an object of class
@@ -29,16 +30,19 @@ A compilation of standard data sets that are often being used to
 showcase dimensionality reduction techniques.
 }
 \details{
-Name should be one of \code{dataSetList()}. Partial matching is
+\code{name} should be one of \code{dataSetList()}. Partial matching is
 possible, see \code{\link{match.arg}}. Generated data sets contain
 the internal coordinates of the manifold in the \code{meta} slot.
+Call \code{dataSetList()} to see what data sets are available.
 }
 \examples{
 ## a list of available data sets:
 dataSetList()
+
 ## Load a data set:
 swissRoll <- loadDataSet("Swiss Roll")
 \donttest{plot(swissRoll, type = '3vars')}
+
 ## Load Iris data set, partial matching:
 loadDataSet("I")
 

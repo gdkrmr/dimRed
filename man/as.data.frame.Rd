@@ -13,10 +13,10 @@ as.data.frame(x, row.names, optional, ...)
   data.prefix = "")
 
 \S4method{as.data.frame}{dimRedResult}(x, org.data.prefix = "org.",
-  meta.prefix = "meta.", dimRed.prefix = "")
+  meta.prefix = "meta.", data.prefix = "")
 }
 \arguments{
-\item{x}{dimRedResult object.}
+\item{x}{dimRedResult/dimRedData object.}
 
 \item{row.names}{unused}
 
@@ -24,26 +24,26 @@ as.data.frame(x, row.names, optional, ...)
 
 \item{...}{unused}
 
-\item{meta.prefix}{prefix for the meta slot}
+\item{meta.prefix}{prefix for the meta data variables.}
 
-\item{data.prefix}{prefix for the dim Red slot}
+\item{data.prefix}{for dimRedResult objects: prefix for embedded
+dimensions, for dimRedData objects: prefix for the variable
+names.}
 
-\item{org.data.prefix}{prefix for the org.data slot}
-
-\item{dimRed.prefix}{prefix for the dim Red slot}
+\item{org.data.prefix}{for dimRedResult objects: prefix for the
+original variables.}
 }
 \description{
-Convert a dimRedData object to a data.frame.
-
-Convert a dimRedResult object to a data.frame.
+Convert a dimRedData or dimRedResult object to a data.frame.
 }
 \details{
-To avoid column name collisions prefixes for each slot can be given.
-
-To avoid column name colissions prefixes for each slot can be given.
+To avoid column name collisions in the resulting \code{data.frame}
+prefixes can be assigned. The parameters \code{row.names},
+\code{optional}, and \code{...} are not used.
 }
 \examples{
 as.data.frame(loadDataSet("Iris"), meta.prefix = "")
+as.data.frame(embed(loadDataSet("Iris"), "pca"), org.data.prefix = "", meta.prefix = "")
 
 }
 \seealso{

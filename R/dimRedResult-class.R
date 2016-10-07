@@ -67,15 +67,6 @@ setAs(from = 'dimRedResult', to = 'data.frame',
 
 
 
-#' Convert to \code{data.frame}
-#'
-#' Convert a dimRedResult object to a data.frame.
-#'
-#' To avoid column name colissions prefixes for each slot can be given.
-#'
-#' @param org.data.prefix prefix for the org.data slot
-#' @param dimRed.prefix prefix for the dim Red slot
-#' 
 #' @family dimRedResult
 #' @method as.data.frame dimRedResult
 #' @include dimRedData-class.R
@@ -85,14 +76,14 @@ setMethod(f = 'as.data.frame',
           signature = c('dimRedResult'),
           definition = function(x, org.data.prefix = "org.",
                                 meta.prefix = "meta.",
-                                dimRed.prefix = "") {
+                                data.prefix = "") {
     cbind(
         as.data.frame(
             x@data@meta,
             col.names     = paste0(org.data.prefix, colnames(x@data@meta))),
         as.data.frame(
             x@data@data,
-            col.names     = paste0(dimRed.prefix,   colnames(x@data@data))),
+            col.names     = paste0(data.prefix,   colnames(x@data@data))),
         if(x@has.org.data)
             as.data.frame(
                 x@org.data,

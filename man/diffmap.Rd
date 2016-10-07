@@ -9,16 +9,30 @@
 diffmap
 }
 \description{
-Instance of \code{\link{dimRedMethod}} to construct a diffuson maps.
+Instance of \code{\link{dimRedMethod}} to construct a diffuson map.
 }
 \details{
-For details see \code{\link[diffusionMap]{diffuse}}.
+Wraps around \code{\link[diffusionMap]{diffuse}}, see there for
+details.
+
+Parameters are a list with elements
+\describe{
+  \item{d}{a function transforming a matrix row wise into a distance matrix or \code{dist} object, e.g.\ \code{\link[stats]{dist}}.}
+  \item{ndim}{The number of dimensions}
+  \item{eps}{The epsilon parameter that determines the
+     diffusion weight matrix from a distance matrix d,
+     \eqn{exp{-d^2/eps}}, if set to \code{"auto"} it will
+     be set to the median distance to the 0.01*n nearest
+     neighbor.}
+  \item{t}{Time-scale parameter. The recommended value, 0,
+     uses multiscale geometry.}
+}
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
 emb <- diffmap@fun(dat, diffmap@stdpars)
 
-plot(emb@data@data)
+plot(emb, type = "2vars")
 
 }
 \keyword{datasets}

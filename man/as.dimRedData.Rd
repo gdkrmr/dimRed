@@ -14,12 +14,18 @@ as.dimRedData(x, ...)
 \item{x}{the formula, left hand side is assigned to meta slot
 right hand side is assigned to data slot.}
 
-\item{...}{parameters}
+\item{...}{unused}
 
 \item{data}{a data frame}
 }
 \description{
 Convert a \code{data.frame} to a dimRedData object using a formula
+}
+\examples{
+as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+              iris)
+
+
 }
 \seealso{
 Other dimRedData: \code{\link{as.data.frame}},
