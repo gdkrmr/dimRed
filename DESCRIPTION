@@ -29,7 +29,7 @@ Suggests:
     scatterplot3d,
     vegan,
     testthat
-License: All rights reserved by author.
+License: GPL-3 | file LICENSE
 LazyData: true
 Collate:
     'misc.R'
