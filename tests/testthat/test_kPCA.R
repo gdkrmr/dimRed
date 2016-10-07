@@ -42,12 +42,12 @@ test_that('general data conversions', {
 
     irisRes <- lapply(irisPars, function(x)
         do.call(
-            function(...) try(embed(data = irisData, method = 'kpca', ...), silent = TRUE),
+            function(...) tryCatch(embed(data = irisData, method = 'kpca', ...), error = function(e) as.character(e)),
             x
         ) )
 
     for(i in 1:length(irisRes)) {
-        if(inherits(irisRes[[i]], 'try-error')){
+        if(inherits(irisRes[[i]], 'character')){
             expect(grepl('system is computationally singular', irisRes[[i]][1]),
                    'there is an error other than the singularity')
         } else {

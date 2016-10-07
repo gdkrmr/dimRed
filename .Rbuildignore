@@ -6,7 +6,7 @@ DRR\.check
 scratch
 \.gitignore
 \.projectile
-\.dir-locals\.el
+dir-locals\.el
 
 server\.R
 ui\.R

@@ -29,7 +29,10 @@
 #'   embedded_data[[e]] <- embed(scurve, e)
 #'   for(q in quality_methods) {
 #'     message("  quality: ", q)
-#'     try(quality_results[e,q] <- quality(embedded_data[[e]], q))
+#'     quality_results[e,q] <- tryCatch(
+#'       quality(embedded_data[[e]], q),
+#'       error = function(e) NA
+#'     )
 #'   }
 #' }
 #'
