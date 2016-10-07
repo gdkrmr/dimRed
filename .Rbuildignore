@@ -3,9 +3,10 @@ dimRed_.*\.tar.gz$
 
 DRR\.check
 
-gitignore
-projectile
-dir-locals\.el
+scratch
+\.gitignore
+\.projectile
+\.dir-locals\.el
 
 server\.R
 ui\.R

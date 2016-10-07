@@ -17,9 +17,10 @@ test_that("high level functions working?",{
         suppressWarnings(embedded_data[[e]] <- embed(scurve, e))
         for(q in quality_methods) {
             message("  quality: ", q)
-            suppressWarnings(try(
-                quality_results[e,q] <- quality(embedded_data[[e]], q), silent = TRUE
-            ))
+            quality_results[e,q] <- tryCatch(
+                suppressWarnings(quality(embedded_data[[e]], q)),
+                error = function (e) NA
+            )
         }
     }
     
