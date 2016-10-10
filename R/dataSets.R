@@ -200,7 +200,7 @@ sCurveMapping <- function (t, y) {
 noisyHelix <- function (n = 2000, sigma = 0.05) {
     t <- stats::runif(n, 0, 4*pi)
     min_noise <- 0.1
-    max_noise <- 1.8
+    max_noise <- 1.4
   
     new('dimRedData',
         data = noisyHelixMapping(t, min_noise, max_noise) + stats::rnorm(3*n, sd = sigma),

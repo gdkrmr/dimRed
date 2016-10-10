@@ -4,15 +4,15 @@
 \name{dimRed-package}
 \alias{dimRed}
 \alias{dimRed-package}
-\title{A package to aggregate dimensionality reduction techniques.}
+\title{The dimRed package}
 \description{
-dimRed collects dimensionality reduction methods that are
-implemented in R and gives them a common interface.
-}
-\details{
+This package simplifies dimensionality reduction in R by providing
+a framework in form of S4 classes and methods. dimRed collects
+dimensionality reduction methods that are implemented in R and
+gives them a common interface. It also provides plotting functions
+for visualization and functions for quality assessment.
+
 Funding provided by the Max Planck Institute for Biogeochemistry,
 Jena, Empirical Inference of the Earth System Group.
-
-TODO: add a nice description
 }
 

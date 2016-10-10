@@ -1,7 +1,7 @@
-setClassUnion('missingORnumeric', c('numeric', 'missing'))
-setClassUnion('missingORcharacter', c('character', 'missing'))
-setClassUnion('missingORlogical', c('logical', 'missing'))
-setClassUnion('missingORfunction', c('function', 'missing'))
+if(!isClassUnion('missingORnumeric'))   setClassUnion('missingORnumeric',   c('numeric', 'missing'))
+if(!isClassUnion('missingORcharacter')) setClassUnion('missingORcharacter', c('character', 'missing'))
+if(!isClassUnion('missingORlogical'))   setClassUnion('missingORlogical',   c('logical', 'missing'))
+if(!isClassUnion('missingORfunction'))  setClassUnion('missingORfunction',  c('function', 'missing'))
 
 # Squared euclidean distance between points in A and B
 # taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/ 

@@ -18,6 +18,7 @@
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#' isomap <- Isomap()
 #' emb <- isomap@fun(dat, isomap@stdpars)
 #'
 #' plot(emb@data@data)
@@ -26,81 +27,86 @@
 #' @include dimRedMethod-class.R
 #' 
 #' @export
-isomap <- new("dimRedMethod",
-              stdpars = list(knn = 50,
-                             ndim = 2),
-              fun = function (data, pars,
-                              keep.org.data = TRUE) {
-    message(Sys.time(), ": Isomap START")
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
+Isomap <- setClass(
+    'Isomap',
+    contains = 'dimRedMethod',
+    prototype = list(
+        stdpars = list(knn = 50,
+                       ndim = 2),
+        fun = function (data, pars,
+                        keep.org.data = TRUE) {
+        message(Sys.time(), ": Isomap START")
+        meta <- data@meta
+        orgdata <- if (keep.org.data) data@data else NULL
+        indata <- data@data
 
-    if (is.null(pars$eps)) pars$eps <- 0
-    
-    ## geodesic distances
-    message(Sys.time(), ": constructing knn graph")
-    knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
-    message(Sys.time(), ": calculating geodesic distances")
-    geodist <- igraph::distances(knng, algorithm = "dijkstra")
-    message(Sys.time(), ": cmdscale")
-    cmdout <- stats::cmdscale(geodist, k = pars$ndim, eig = TRUE)
-
-    message(Sys.time(), ": post processing")
-    neig <- sum(cmdout$eig > 0)
-    if(neig < pars$ndim) {
-        warning("Isomap: eigenvalues < 0, returning less dimensions!")
-        cmdout$points <- cmdout$points[, seq_len(neig), drop = FALSE]
-        cmdout$eig <- cmdout$eig[seq_len(neig)]
-    } else {
-        cmdout$eig <- cmdout$eig[seq_len(pars$ndim)]
-    }
-
-    colnames(cmdout$points) <- paste0("iso", seq_len(ncol(cmdout$points)))
-    
-    appl <- function (x) {
-        message(Sys.time(), ": L-Isomap embed START")
-        appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
-        indata      <- if(inherits(x, 'dimRedData')) x@data else x
-
-        if(ncol(indata) != ncol(data@data))
-            stop("x must have the same number of dimensions as the original data")
-
-        nindata <- nrow(indata)
-        norg <- nrow(orgdata)
-
+        if (is.null(pars$eps)) pars$eps <- 0
+        
+        ## geodesic distances
         message(Sys.time(), ": constructing knn graph")
-        lknng <- makeKNNgraph(rbind(indata, orgdata),
-                              k = pars$knn, eps = pars$eps)
+        knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
         message(Sys.time(), ": calculating geodesic distances")
-        lgeodist <- igraph::distances(lknng,
-                                      seq_len(nindata),
-                                      nindata + seq_len(norg))
+        geodist <- igraph::distances(knng, algorithm = "dijkstra")
+        message(Sys.time(), ": cmdscale")
+        cmdout <- stats::cmdscale(geodist, k = pars$ndim, eig = TRUE)
 
-        message(Sys.time(), ": embedding")
-        dammu <- sweep(lgeodist^2, 2, colMeans(geodist^2), "-")
-        Lsharp <- sweep(cmdout$points, 2, cmdout$eig, "/")
-        out <- -0.5 * (dammu %*% Lsharp)
-                                                                                    
-        message(Sys.time(), ": DONE")
-        return(new('dimRedData', data = out, meta = appl.meta))    
-    }
-    
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = cmdout$points,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        apply        = appl,
-        has.apply    = TRUE,
-        method       = "isomap",
-        pars         = pars
-    ))
-    
-    
-})
+        message(Sys.time(), ": post processing")
+        neig <- sum(cmdout$eig > 0)
+        if(neig < pars$ndim) {
+            warning("Isomap: eigenvalues < 0, returning less dimensions!")
+            cmdout$points <- cmdout$points[, seq_len(neig), drop = FALSE]
+            cmdout$eig <- cmdout$eig[seq_len(neig)]
+        } else {
+            cmdout$eig <- cmdout$eig[seq_len(pars$ndim)]
+        }
+
+        colnames(cmdout$points) <- paste0("iso", seq_len(ncol(cmdout$points)))
+        
+        appl <- function (x) {
+            message(Sys.time(), ": L-Isomap embed START")
+            appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
+            indata      <- if(inherits(x, 'dimRedData')) x@data else x
+
+            if(ncol(indata) != ncol(data@data))
+                stop("x must have the same number of dimensions as the original data")
+
+            nindata <- nrow(indata)
+            norg <- nrow(orgdata)
+
+            message(Sys.time(), ": constructing knn graph")
+            lknng <- makeKNNgraph(rbind(indata, orgdata),
+                                  k = pars$knn, eps = pars$eps)
+            message(Sys.time(), ": calculating geodesic distances")
+            lgeodist <- igraph::distances(lknng,
+                                          seq_len(nindata),
+                                          nindata + seq_len(norg))
+
+            message(Sys.time(), ": embedding")
+            dammu <- sweep(lgeodist^2, 2, colMeans(geodist^2), "-")
+            Lsharp <- sweep(cmdout$points, 2, cmdout$eig, "/")
+            out <- -0.5 * (dammu %*% Lsharp)
+            
+            message(Sys.time(), ": DONE")
+            return(new('dimRedData', data = out, meta = appl.meta))    
+        }
+        
+        return(new(
+            'dimRedResult',
+            data         = new('dimRedData',
+                               data = cmdout$points,
+                               meta = meta),
+            org.data     = orgdata,
+            has.org.data = keep.org.data,
+            apply        = appl,
+            has.apply    = TRUE,
+            method       = "isomap",
+            pars         = pars
+        ))
+        
+        
+    })
+)
+
 
 ## input data(matrix or data frame) return knn graph implements
 ## "smart" choices on RANN::nn2 parameters we ignore radius search

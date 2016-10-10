@@ -6,6 +6,7 @@
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#' leim <- LaplacianEigenmaps()
 #' emb <- leim@fun(dat, leim@stdpars)
 #'
 #' 
@@ -15,46 +16,50 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export
-leim <- new('dimRedMethod',
-            stdpars = list(d = dist, knn = 50, ndim = 2,
-                           t = Inf, norm = TRUE),
-           fun = function (data, pars,
-                           keep.org.data = TRUE) {
-    chckpkg('loe')
+LaplacianEigenmaps <- setClass(
+    'LaplacianEigenmaps',
+    contains = 'dimRedMethod',
+    prototype = list(
+        stdpars = list(d = dist, knn = 50, ndim = 2,
+                       t = Inf, norm = TRUE),
+        fun = function (data, pars,
+                        keep.org.data = TRUE) {
+        chckpkg('loe')
 
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
+        meta <- data@meta
+        orgdata <- if (keep.org.data) data@data else NULL
+        indata <- data@data
 
-    if(is.null(pars$d))     pars$d    <- dist
-    if(is.null(pars$knn))   pars$knn  <- 50
-    if(is.null(pars$ndim))  pars$ndim <- 2
-    if(is.null(pars$t))     pars$t    <- Inf
-    if(is.null(pars$norm))  pars$norm <- TRUE
+        if(is.null(pars$d))     pars$d    <- dist
+        if(is.null(pars$knn))   pars$knn  <- 50
+        if(is.null(pars$ndim))  pars$ndim <- 2
+        if(is.null(pars$t))     pars$t    <- Inf
+        if(is.null(pars$norm))  pars$norm <- TRUE
         
-    if(is.infinite(pars$t)) {
-        data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE)
-    } else {
-        data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE, weight = TRUE)
-        data.inds <- data.adj != 0
-        data.adj[data.inds] <- exp(-(data.adj[data.inds]^2)/pars$t) + 1e-10
-    }
-    outdata <- loe::spec.emb(data.adj, pars$ndim, pars$norm)
-    if(is.null(dim(outdata))) {
-        dim(outdata) <- c(length(outdata), 1)
-    }
+        if(is.infinite(pars$t)) {
+            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE)
+        } else {
+            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE, weight = TRUE)
+            data.inds <- data.adj != 0
+            data.adj[data.inds] <- exp(-(data.adj[data.inds]^2)/pars$t) + 1e-10
+        }
+        outdata <- loe::spec.emb(data.adj, pars$ndim, pars$norm)
+        if(is.null(dim(outdata))) {
+            dim(outdata) <- c(length(outdata), 1)
+        }
 
-    
-    colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
+        
+        colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
 
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = outdata,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        method       = "leim",
-        pars         = pars
-    ))
-})
+        return(new(
+            'dimRedResult',
+            data         = new('dimRedData',
+                               data = outdata,
+                               meta = meta),
+            org.data     = orgdata,
+            has.org.data = keep.org.data,
+            method       = "leim",
+            pars         = pars
+        ))
+    })
+)

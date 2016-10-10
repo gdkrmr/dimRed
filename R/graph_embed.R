@@ -6,6 +6,7 @@
 #' 
 #' @examples
 #' dat <- loadDataSet("Swiss Roll")
+#' kamada_kawai <- KamadaKawai()
 #' kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 #' 
 #' plot(kk@data@data)
@@ -15,41 +16,46 @@
 #' @include dimRedMethod-class.R
 #'
 #' @export
-kamada_kawai <- new('dimRedMethod',
-                    stdpars = list(ndim         = 2,
-                                   knn          = 100,
-                                   d            = dist,
-                                   weight.trans = function (x) exp(-(x^2))),
-                    fun = function (data, pars,
-                                    keep.org.data = TRUE) {
-    chckpkg('igraph')
+KamadaKawai <- setClass(
+    'KamadaKawai',
+    contains = 'dimRedMethod',
+    prototype = list(
+        stdpars = list(ndim         = 2,
+                       knn          = 100,
+                       d            = dist,
+                       weight.trans = function (x) exp(-(x^2))),
+        fun = function (data, pars,
+                        keep.org.data = TRUE) {
+        chckpkg('igraph')
 
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
-    
-    outdata <- em_graph_layout(
-        indata,
-        graph_em_method = igraph::layout_with_kk,
-        knn = pars$knn,
-        d = pars$d,
-        ndim = pars$ndim,
-        weight.trans = pars$weight.trans
-    )
+        meta <- data@meta
+        orgdata <- if (keep.org.data) data@data else NULL
+        indata <- data@data
+        
+        outdata <- em_graph_layout(
+            indata,
+            graph_em_method = igraph::layout_with_kk,
+            knn = pars$knn,
+            d = pars$d,
+            ndim = pars$ndim,
+            weight.trans = pars$weight.trans
+        )
 
-    colnames(outdata) <- paste0("KK", 1:ncol(outdata))
+        colnames(outdata) <- paste0("KK", 1:ncol(outdata))
 
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = outdata,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        method       = "graph_kk",
-        pars         = pars        
-    ))
-})
+        return(new(
+            'dimRedResult',
+            data         = new('dimRedData',
+                               data = outdata,
+                               meta = meta),
+            org.data     = orgdata,
+            has.org.data = keep.org.data,
+            method       = "graph_kk",
+            pars         = pars        
+        ))
+    })
+)
+
 
 #' Distributed Recursive Graph Layout
 #'
@@ -60,6 +66,7 @@ kamada_kawai <- new('dimRedMethod',
 #' @examples
 #'
 #' dat <- loadDataSet("Swiss Roll")
+#' drl <- DrL()
 #' drgl <- drl@fun(dat, drl@stdpars)
 #' 
 #' plot(drgl@data@data)
@@ -68,41 +75,45 @@ kamada_kawai <- new('dimRedMethod',
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export
-drl <- new('dimRedMethod',
-           stdpars = list(ndim         = 2,
-                          knn          = 100,
-                          d            = dist,
-                          weight.trans = function (x) exp(-(x^2))),
-           fun = function (data, pars,
-                           keep.org.data = TRUE) {
-    chckpkg('igraph')
-    
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
-    
-    outdata <- em_graph_layout(
-        indata,
-        graph_em_method = igraph::layout_with_drl,
-        knn = pars$knn,
-        d = pars$d,
-        ndim = pars$ndim,
-        weight.trans = pars$weight.trans
-    )
+DrL <- setClass(
+    'DrL',
+    contains = 'dimRedMethod',
+    prototype = list(
+        stdpars = list(ndim         = 2,
+                       knn          = 100,
+                       d            = dist,
+                       weight.trans = function (x) exp(-(x^2))),
+        fun = function (data, pars,
+                        keep.org.data = TRUE) {
+        chckpkg('igraph')
+        
+        meta <- data@meta
+        orgdata <- if (keep.org.data) data@data else NULL
+        indata <- data@data
+        
+        outdata <- em_graph_layout(
+            indata,
+            graph_em_method = igraph::layout_with_drl,
+            knn = pars$knn,
+            d = pars$d,
+            ndim = pars$ndim,
+            weight.trans = pars$weight.trans
+        )
 
-    colnames(outdata) <- paste0("DrL", 1:ncol(outdata))
+        colnames(outdata) <- paste0("DrL", 1:ncol(outdata))
 
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = outdata,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        method       = "graph_drl",
-        pars         = pars
-    ))
-})
+        return(new(
+            'dimRedResult',
+            data         = new('dimRedData',
+                               data = outdata,
+                               meta = meta),
+            org.data     = orgdata,
+            has.org.data = keep.org.data,
+            method       = "graph_drl",
+            pars         = pars
+        ))
+    })
+)
 
 #' Fruchterman Reingold Graph Layout
 #'
@@ -113,6 +124,7 @@ drl <- new('dimRedMethod',
 #' @examples
 #'
 #' dat <- loadDataSet("Swiss Roll")
+#' fruchterman_reingold <- FruchtermanReingold()
 #' fr <- fruchterman_reingold@fun(dat, fruchterman_reingold@stdpars)
 #' 
 #' plot(fr@data@data)
@@ -121,42 +133,45 @@ drl <- new('dimRedMethod',
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export
-fruchterman_reingold <- new('dimRedMethod',
-                            stdpars = list(ndim         = 2,
-                                           knn          = 100,
-                                           d            = stats::dist,
-                                           weight.trans = function (x) exp(-(x^2))),
-                            fun = function (data, pars,
-                                            keep.org.data = TRUE) {
-    chckpkg('igraph')
-                       
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
-    
-    outdata <- em_graph_layout(
-        indata,
-        graph_em_method = igraph::layout_with_fr,
-        knn = pars$knn,
-        d = pars$d,
-        ndim = pars$ndim,
-        weight.trans = pars$weight.trans
-    )
+FruchtermanReingold <- setClass(
+    'FruchtermanReingold',
+    contains = 'dimRedMethod',
+    prototype = list(
+        stdpars = list(ndim         = 2,
+                       knn          = 100,
+                       d            = stats::dist,
+                       weight.trans = function (x) exp(-(x^2))),
+        fun = function (data, pars,
+                        keep.org.data = TRUE) {
+        chckpkg('igraph')
+        
+        meta <- data@meta
+        orgdata <- if (keep.org.data) data@data else NULL
+        indata <- data@data
+        
+        outdata <- em_graph_layout(
+            indata,
+            graph_em_method = igraph::layout_with_fr,
+            knn = pars$knn,
+            d = pars$d,
+            ndim = pars$ndim,
+            weight.trans = pars$weight.trans
+        )
 
-    colnames(outdata) <- paste0("FR", 1:ncol(outdata))
+        colnames(outdata) <- paste0("FR", 1:ncol(outdata))
 
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = outdata,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        method       = "graph_fr",
-        pars         = pars
-    ))
-})
-
+        return(new(
+            'dimRedResult',
+            data         = new('dimRedData',
+                               data = outdata,
+                               meta = meta),
+            org.data     = orgdata,
+            has.org.data = keep.org.data,
+            method       = "graph_fr",
+            pars         = pars
+        ))
+    })
+)
 
 em_graph_layout <- function(data, graph_em_method,
                             knn = 50, d = stats::dist,

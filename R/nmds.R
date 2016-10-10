@@ -6,6 +6,7 @@
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#' nmds <- nMDS()
 #' emb <- nmds@fun(dat, nmds@stdpars)
 #'
 #' plot(emb@data@data)
@@ -13,28 +14,32 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export
-nmds <- new('dimRedMethod',
-            stdpars = list(d = stats::dist, ndim = 2),
-            fun = function (data, pars,
-                            keep.org.data = TRUE) {
-    chckpkg('vegan')
+nMDS <- setClass(
+    'nMDS',
+    contains = 'dimRedMethod',
+    prototype = list(
+        stdpars = list(d = stats::dist, ndim = 2),
+        fun = function (data, pars,
+                        keep.org.data = TRUE) {
+        chckpkg('vegan')
 
-    meta <- data@meta
-    orgdata <- if (keep.org.data) data@data else NULL
-    indata <- data@data
+        meta <- data@meta
+        orgdata <- if (keep.org.data) data@data else NULL
+        indata <- data@data
 
-    outdata <- vegan::monoMDS(pars$d(indata), k = pars$ndim)$points
+        outdata <- vegan::monoMDS(pars$d(indata), k = pars$ndim)$points
 
-    colnames(outdata) <- paste0("NMDS", 1:ncol(outdata))
+        colnames(outdata) <- paste0("NMDS", 1:ncol(outdata))
 
-    return(new(
-        'dimRedResult',
-        data         = new('dimRedData',
-                           data = outdata,
-                           meta = meta),
-        org.data     = orgdata,
-        has.org.data = keep.org.data,
-        method       = "nmds",
-        pars         = pars
-    ))
-})
+        return(new(
+            'dimRedResult',
+            data         = new('dimRedData',
+                               data = outdata,
+                               meta = meta),
+            org.data     = orgdata,
+            has.org.data = keep.org.data,
+            method       = "nmds",
+            pars         = pars
+        ))
+    })
+)

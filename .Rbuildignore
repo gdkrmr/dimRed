@@ -15,7 +15,6 @@ src
 .*\.sh
 
 ^\..*$
-
 notes\.org
 
 TAGS

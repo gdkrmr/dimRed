@@ -18,7 +18,7 @@
 #' @examples
 #' embed_methods <- dimRedMethodList() 
 #' quality_methods <- dimRedQualityList()
-#' scurve <- loadDataSet("3D S Curve", n = 500)
+#' dataset <- loadDataSet("Iris")
 #'
 #' quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
 #'                               dimnames = list(embed_methods, quality_methods))
@@ -26,7 +26,7 @@
 #' 
 #' for(e in embed_methods) {
 #'   message("embedding: ", e)
-#'   embedded_data[[e]] <- embed(scurve, e)
+#'   embedded_data[[e]] <- embed(dataset, e)
 #'   for(q in quality_methods) {
 #'     message("  quality: ", q)
 #'     quality_results[e,q] <- tryCatch(
@@ -78,24 +78,26 @@ embed <- function(data, method = dimRedMethodList(),
 
 
 getMethodObject <- function (method) {
-    switch(
-        method,
-        graph_kk  = kamada_kawai,
-        graph_drl = drl,
-        graph_fr  = fruchterman_reingold,
-        drr       = drr,
-        isomap    = isomap,
-        diffmap   = diffmap,
-        tsne      = tsne,
-        nmds      = nmds,
-        mds       = mds,
-        ica       = fastica,
-        pca       = pca,
-        lle       = lle,
-        loe       = loe,
-        soe       = soe,
-        leim      = leim,
-        kpca      = kpca
-    )
+    ## switch(
+    ##     method,
+    ##     graph_kk  = kamada_kawai,
+    ##     graph_drl = drl,
+    ##     graph_fr  = fruchterman_reingold,
+    ##     drr       = drr,
+    ##     isomap    = isomap,
+    ##     diffmap   = diffmap,
+    ##     tsne      = tsne,
+    ##     nmds      = nmds,
+    ##     mds       = mds,
+    ##     ica       = fastica,
+    ##     pca       = pca,
+    ##     lle       = lle,
+    ##     loe       = loe,
+    ##     soe       = soe,
+    ##     leim      = leim,
+    ##     kpca      = kpca
+    ## )
+    method <- match.arg(method, dimRedMethodList())
+    do.call(method, list())
 }
 

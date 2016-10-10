@@ -8,35 +8,35 @@
 #' @rdname dimRedMethod
 #' 
 #' @export
-dimRedMethod <- setClass('dimRedMethod',
-                         slots = c(fun     = 'function',
-                                   stdpars = 'list'),
-                         prototype = list(fun     = function() NA,
-                                          stdpars = list()))
+setClass('dimRedMethod',
+         contains  = "VIRTUAL",
+         slots     = c(fun     = 'function',
+                       stdpars = 'list'))
 
 
 #' @rdname dimRedMethod
 #'
 #' @export
 dimRedMethodList <- function () {
-    return(c(
-        'graph_kk',
-        'graph_drl',
-        'graph_fr',
-        'drr',
-        'isomap',
-        'diffmap',
-        'tsne',
-        'nmds',
-        'mds',
-        'ica',
-        'pca',
-        'lle',
-        ## those two methods are buggy and can produce segfaults:
-        ## "loe", "soe",
-        'leim',
-        'kpca'
-    ))
+    ## return(c(
+    ##     'graph_kk',
+    ##     'graph_drl',
+    ##     'graph_fr',
+    ##     'drr',
+    ##     'isomap',
+    ##     'diffmap',
+    ##     'tsne',
+    ##     'nmds',
+    ##     'mds',
+    ##     'ica',
+    ##     'pca',
+    ##     'lle',
+    ##     ## those two methods are buggy and can produce segfaults:
+    ##     ## "loe", "soe",
+    ##     'leim',
+    ##     'kpca'
+    ## ))
+    names(completeClassDefinition('dimRedMethod', doExtends = FALSE)@subclasses)
 }
 
 
