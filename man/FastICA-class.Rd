@@ -4,20 +4,72 @@
 \name{FastICA-class}
 \alias{FastICA}
 \alias{FastICA-class}
-\title{FastICA}
+\title{Independent Component Analysis}
 \description{
-Instance of \code{\link{dimRedMethod}} for the fast ICA algoritm.
+An S4 Class implementing the FastICA algorithm for Indepentend
+Component Analysis.
 }
 \details{
-For details see \code{\link[fastICA]{fastICA}}.
+ICA is used for blind signal separation of different sources. It is
+a linear Projection.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+FastICA can take the following parameters:
+\describe{
+  \item{ndim}{The number of output dimensions. Defaults to \code{2}}
+}
+}
+
+\section{Implementation}{
+
+Wraps around \code{\link[fastICA]{fastICA}}. FastICA uses a very
+fast approximation for negentropy to estimate statistical
+independences between signals. Because it is a simple
+rotation/projection, forward and backward functions can be given.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
+
+## use the S4 Class directly:
 fastica <- FastICA()
 emb <- fastica@fun(dat, pars = list(ndim = 2))
 
+## simpler, use embed():
+emb2 <- embed(dat, "FastICA", ndim = 2)
+
+
 plot(emb@data@data)
 
-
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
 

@@ -1,8 +1,34 @@
 #' Laplacian Eigenmaps
 #'
-#' Instance of \code{\link{dimRedMethod}} for Laplacian Eigenmaps.
+#' An S4 Class implementing Laplacian Eigenmaps
+#'
+#' Laplacian Eigenmaps use a kernel and were originally developed to
+#' separate non-convex clusters.
 #' 
-#' For details see \code{\link[loe]{spec.emb}}
+#' @template dimRedMethodSlots
+#' 
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' \code{LaplacianEigenmaps} can take the following parameters:
+#' \describe{
+#'   \item{d}{a distance function to calculate the distance matrix}
+#'   \item{knn}{The number of nearest neighbors to use for the knn graph.}
+#'   \item{ndim}{the number of output dimensions.}
+#' 
+#'   \item{t}{Parameter for the transformation of the distance matrix
+#'   by \eqn{w=exp(-d^2/t)}, larger values give less weight to
+#'   differences in distance, \code{t == Inf} treats all distances != 0 equally.}
+#'   \item{norm}{logical, should the normed laplacian be used?}
+#' }
+#'
+#' @section Implementation:
+#' Wraps around \code{\link[loe]{spec.emb}}.
+#'
+#' @references
+#' Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for
+#' Dimensionality Reduction and Data Representation. Neural
+#' Computation 15, 1373.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
@@ -20,7 +46,7 @@ LaplacianEigenmaps <- setClass(
     'LaplacianEigenmaps',
     contains = 'dimRedMethod',
     prototype = list(
-        stdpars = list(d = dist, knn = 50, ndim = 2,
+        stdpars = list(d = stats::dist, knn = 50, ndim = 2,
                        t = Inf, norm = TRUE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {

@@ -7,7 +7,7 @@ test_that('quality', {
     irisData <- loadDataSet("Iris")
 
     parsPCA <- list(center = TRUE, scale. = TRUE)
-    resPCA <- do.call(function(...) embed(irisData, "pca", ...), parsPCA)
+    resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
 
     suppressWarnings(
         resQual <- list(

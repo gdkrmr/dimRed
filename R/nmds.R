@@ -1,18 +1,43 @@
 #' Non-Metric Dimensional Scaling
 #'
-#' Instance of \code{\link{dimRedMethod}} for the Non-Metric Dimensional Scaling.
+#' An S4 Class implementing Non-Metric Dimensional Scaling.
+#'
+#' A non-linear extension of MDS using monotonic regression
 #' 
-#' For details see \code{\link[vegan]{monoMDS}}
+#' @template dimRedMethodSlots
+#' 
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' nMDS can take the following parameters:
+#' \describe{
+#'   \item{d}{A distance function.}
+#'   \item{ndim}{The number of embedding dimensions.}
+#' }
+#'
+#' @section Implementation:
+#' Wraps around the
+#' \code{\link[vegan]{monoMDS}}. For parameters that are not
+#' available here, the standard configuration is used.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#'
+#' ## using the S4 classes:
 #' nmds <- nMDS()
 #' emb <- nmds@fun(dat, nmds@stdpars)
 #'
-#' plot(emb@data@data)
+#'
+#' ## using embed()
+#' emb2 <- embed(dat, "nMDS", d = function(x) exp(dist(x)))
+#'
+#' 
+#' plot(emb, type = '2vars')
+#' plot(emb2, type = '2vars')
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @family dimensionality reduction methods
 #' @export
 nMDS <- setClass(
     'nMDS',

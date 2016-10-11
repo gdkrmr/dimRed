@@ -1,24 +1,25 @@
-#' @title
 #' Diffusion Maps
+#' 
+#' An S4 Class implementing Diffusion Maps
 #'
-#' @description
-#' Instance of \code{\link{dimRedMethod}} to construct a diffuson map. 
+#' Diffusion Maps uses a diffusion probability matrix to robustly
+#' approximate a manifold.
 #'
-#' @usage
-#' ## see examples and \link{embed}.
-#' diffmap@fun(data, pars, keep.org.data = TRUE)
-#' embed(data, "diffmap", ...)
 #'
-#' @format
-#' Parameters are a list with the following elements:
+#' @template dimRedMethodSlots
+#' 
+#' @template dimRedMethodGeneralUsage
+#'
+#' @section Parameters: 
+#' Diffusion Maps can take the following parameters:
 #' \describe{
 #'   \item{d}{a function transforming a matrix row wise into a
 #'     distance matrix or \code{dist} object,
 #'     e.g. \code{\link[stats]{dist}}.}
 #'   \item{ndim}{The number of dimensions}
 #'   \item{eps}{The epsilon parameter that determines the
-#'      diffusion weight matrix from a distance matrix d,
-#'      \eqn{exp{-d^2/eps}}, if set to \code{"auto"} it will
+#'      diffusion weight matrix from a distance matrix \code{d},
+#'      \eqn{exp(-d^2/eps)}, if set to \code{"auto"} it will
 #'      be set to the median distance to the 0.01*n nearest
 #'      neighbor.}
 #'   \item{t}{Time-scale parameter. The recommended value, 0,
@@ -28,11 +29,11 @@
 #'     The predefined value is 10^-5.}
 #' }
 #'
-#' @details
+#' @section Implementation:
 #' Wraps around \code{\link[diffusionMap]{diffuse}}, see there for
 #' details. It uses the notation of Richards et al. (2009) which is
 #' slightly different from the one in the original paper (Coifman and
-#' Lafon, 2006) and there is no \eqn{\alpha} parameter.#'
+#' Lafon, 2006) and there is no \eqn{\alpha} parameter.
 #' There is also an out-of-sample extension, see examples.
 #'
 #'
@@ -41,16 +42,23 @@
 #'     C.M., 2009. Exploiting Low-Dimensional Structure in
 #'     Astronomical Spectra. ApJ 691,
 #'     32. doi:10.1088/0004-637X/691/1/32
+#' 
 #' Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
 #'     Computational Harmonic Analysis 21,
 #'     5-30. doi:10.1016/j.acha.2006.04.006
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#'
+#' ## use the S4 Class directly:
 #' diffmap <- DiffusionMap()
 #' emb <- diffmap@fun(dat, diffmap@stdpars)
+#' 
+#' ## simpler, use embed():
+#' emb2 <- embed(data, "DiffusionMap")
+#' 
 #' plot(emb, type = "2vars")
-#'
+#' 
 #' samp <- sample(floor(nrow(dat)/10))
 #' embsamp <- diffmap@fun(dat[samp], diffmap@stdpars)
 #' embother <- embsamp@apply(dat[-samp])
@@ -59,16 +67,16 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @family dimensionality reduction methods
 #' @export
 DiffusionMap <- setClass(
     'DiffusionMap',
     contains  = 'dimRedMethod',
     prototype = list(
-        stdpars = list(d = stats::dist,
-                       ndim = 2,
-                       eps = "auto",
-                       t = 0,
+        stdpars = list(d     = stats::dist,
+                       ndim  = 2,
+                       eps   = "auto",
+                       t     = 0,
                        delta = 1e-5),
         fun     = function (data, pars,
                             keep.org.data = TRUE) {

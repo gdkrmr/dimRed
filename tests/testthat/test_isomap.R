@@ -14,7 +14,7 @@ test_that("check vs vegan isomap", {
     vegiso <- vegan::isomap(dist(getData(a)), k = 8, ndim = 2)
     vegy <- vegan::scores(vegiso)
 
-    drdiso <- embed(a, "isomap", knn = 8, ndim = 2)
+    drdiso <- embed(a, "Isomap", knn = 8, ndim = 2)
     drdy <- drdiso@data@data
 
     ## Randomly fails:

@@ -1,17 +1,15 @@
-#' @title
 #' Dimensionality Reduction via Regression
 #'
-#' @description
-#' Instance of \code{\link{dimRedMethod}} for Dimensionality Reduction
-#' via Regression (DRR).
+#' An S4 Class implementing Dimensionality Reduction via Regression (DRR).
 #'
-#' @usage
-#' ## see examples and \link{embed}.
-#' drr@fun(data, pars, keep.org.data = TRUE)
-#' embed(data, "drr", ...)
+#' DRR is a non-linear extension of PCA that uses Kernel Ridge regression.
 #'
-#' @format
-#' Parameters are a list with the following elements:
+#' @template dimRedMethodSlots
+#' 
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' DRR can take the following parameters:
 #' \describe{
 #'   \item{ndim}{The number of dimensions}
 #'   \item{lambda}{The regularization parameter for the ridge
@@ -37,9 +35,9 @@
 #'   printed out.}
 #' }
 #' 
-#' @details
+#' @section Implementation:
 #' Wraps around \code{\link[DRR]{drr}}, see there for details. DRR is
-#' a nonlinear extension of principal components analysis using Kernel
+#' a non-linear extension of principal components analysis using Kernel
 #' Ridge Regression (KRR, details see \code{\link[CVST]{constructKRRLearner}}
 #' and \code{\link[DRR]{constructFastKRRLearner}}). Non-linear
 #' regression is used to explain more variance than PCA. DRR provides
@@ -68,13 +66,19 @@
 #'
 #' @examples
 #' dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
+#'
+#' ## use the S4 Class directly:
 #' drr <- DRR()
 #' pars <- drr@stdpars
 #' pars$ndim <- 3
 #' emb <- drr@fun(dat, pars)
 #'
+#' ## simpler, use embed():
+#' emb2 <- embed(dat, "DRR", ndim = 3)
+#'
+#'
 #' plot(dat, type = "3vars")
-#' plot(emb, type = "2vars")
+#' plot(emb, type = "3vars")
 #' plot(emb@inverse(emb@data@data[,1,drop = FALSE]), type = "3vars")
 #' 
 #'
@@ -82,7 +86,7 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @import DRR
-#' 
+#' @family dimensionality reduction methods
 #' @export
 DRR <- setClass(
     'DRR',

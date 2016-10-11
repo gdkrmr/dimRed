@@ -1,19 +1,56 @@
 #' t-Distributed Stochastic Neighborhood Embedding
 #'
-#' Instance of \code{\link{dimRedMethod}} for t-Distributed Stochastic Neighborhood Embedding.
+#' An S4 Class for t-SNE.
+#'
+#' t-SNE is a method that uses Kullback-Leibler divergence between the
+#' distance matrices in high and low-dimensional space to embed the
+#' data. The method is very well suited to visualize complex
+#' structures in low dimensions.
 #' 
-#' For details see \code{\link[Rtsne]{Rtsne}}
+#' @template dimRedMethodSlots
+#' 
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' t-SNE can take the following parameters:
+#' \description{
+#'   \item{d}{A distance function, defaults to euclidean distances}
+#'   \item{perplexity}{The perplexity parameter, roughly equivalent to neighborhood size.}
+#'   \item{theta}{Approximation for the nearest neighbour search, large values are more inaccurate.}
+#'   \item{ndim}{The number of embedding dimensions.}
+#' }
+#'
+#' @section Implementation:
+#'
+#' Wraps around \code{\link[Rtsne]{Rtsne}}, which is very well
+#' documented. Setting \code{theta = 0} does a normal t-SNE, larger
+#' values for \code{theta < 1} use the Barnes-Hut algorithm which
+#' scales much nicer with data size. Larger values for perplexity take
+#' larger neighborhoods into account.
+#'
+#' @references
+#' Maaten, L. van der, 2014. Accelerating t-SNE using Tree-Based
+#' Algorithms. Journal of Machine Learning Research 15, 3221–3245.
+#' 
+#' van der Maaten, L., Hinton, G., 2008. Visualizing Data using
+#' t-SNE. J. Mach. Learn. Res. 9, 2579–2605.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 500)
+#'
+#' ## using the S4 class directly:
 #' tsne <- tSNE()
 #' emb <- tsne@fun(dat, tsne@stdpars)
 #'
+#' ## using embed()
+#' emb2 <- embed(dat, "tSNE", perplexity = 180)
 #' 
-#' plot(emb@data@data)
+#' plot(emb, type = '2vars')
+#' plot(emb2, type = '2vars')
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @family dimensionality reduction methods
 #' @export
 tSNE <- setClass(
     'tSNE',

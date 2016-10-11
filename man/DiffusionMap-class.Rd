@@ -5,15 +5,43 @@
 \alias{DiffusionMap}
 \alias{DiffusionMap-class}
 \title{Diffusion Maps}
-\format{Parameters are a list with the following elements:
+\description{
+An S4 Class implementing Diffusion Maps
+}
+\details{
+Diffusion Maps uses a diffusion probability matrix to robustly
+approximate a manifold.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+ 
+Diffusion Maps can take the following parameters:
 \describe{
   \item{d}{a function transforming a matrix row wise into a
     distance matrix or \code{dist} object,
     e.g. \code{\link[stats]{dist}}.}
   \item{ndim}{The number of dimensions}
   \item{eps}{The epsilon parameter that determines the
-     diffusion weight matrix from a distance matrix d,
-     \eqn{exp{-d^2/eps}}, if set to \code{"auto"} it will
+     diffusion weight matrix from a distance matrix \code{d},
+     \eqn{exp(-d^2/eps)}, if set to \code{"auto"} it will
      be set to the median distance to the 0.01*n nearest
      neighbor.}
   \item{t}{Time-scale parameter. The recommended value, 0,
@@ -21,26 +49,27 @@
   \item{delta}{Sparsity cut-off for the symmetric graph Laplacian,
     a higher value results in more sparsity and faster calculation.
     The predefined value is 10^-5.}
-}}
-\usage{
-## see examples and \link{embed}.
-diffmap@fun(data, pars, keep.org.data = TRUE)
-embed(data, "diffmap", ...)
 }
-\description{
-Instance of \code{\link{dimRedMethod}} to construct a diffuson map.
 }
-\details{
+
+\section{Implementation}{
+
 Wraps around \code{\link[diffusionMap]{diffuse}}, see there for
 details. It uses the notation of Richards et al. (2009) which is
 slightly different from the one in the original paper (Coifman and
-Lafon, 2006) and there is no \eqn{\alpha} parameter.#'
+Lafon, 2006) and there is no \eqn{\alpha} parameter.
 There is also an out-of-sample extension, see examples.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
+
+## use the S4 Class directly:
 diffmap <- DiffusionMap()
 emb <- diffmap@fun(dat, diffmap@stdpars)
+
+## simpler, use embed():
+emb2 <- embed(data, "DiffusionMap")
+
 plot(emb, type = "2vars")
 
 samp <- sample(floor(nrow(dat)/10))
@@ -55,8 +84,19 @@ Richards, J.W., Freeman, P.E., Lee, A.B., Schafer,
     C.M., 2009. Exploiting Low-Dimensional Structure in
     Astronomical Spectra. ApJ 691,
     32. doi:10.1088/0004-637X/691/1/32
+
 Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
     Computational Harmonic Analysis 21,
     5-30. doi:10.1016/j.acha.2006.04.006
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
 

@@ -1,20 +1,44 @@
-#' FastICA
+#' Independent Component Analysis
 #'
-#' Instance of \code{\link{dimRedMethod}} for the fast ICA algoritm.
+#' An S4 Class implementing the FastICA algorithm for Indepentend
+#' Component Analysis.
+#'
+#' ICA is used for blind signal separation of different sources. It is
+#' a linear Projection.
+#'
+#' @template dimRedMethodSlots
 #' 
-#' For details see \code{\link[fastICA]{fastICA}}.
+#' @template dimRedMethodGeneralUsage
+#'
+#' @section Parameters:
+#' FastICA can take the following parameters:
+#' \describe{
+#'   \item{ndim}{The number of output dimensions. Defaults to \code{2}}
+#' }
+#'
+#' @section Implementation:
+#' Wraps around \code{\link[fastICA]{fastICA}}. FastICA uses a very
+#' fast approximation for negentropy to estimate statistical
+#' independences between signals. Because it is a simple
+#' rotation/projection, forward and backward functions can be given.
+#' 
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#'
+#' ## use the S4 Class directly:
 #' fastica <- FastICA()
 #' emb <- fastica@fun(dat, pars = list(ndim = 2))
 #'
-#' plot(emb@data@data)
+#' ## simpler, use embed():
+#' emb2 <- embed(dat, "FastICA", ndim = 2)
 #'
+#' 
+#' plot(emb@data@data)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @family dimensionality reduction methods
 #' @export
 FastICA <- setClass(
     'FastICA',

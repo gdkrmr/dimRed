@@ -6,26 +6,76 @@
 \alias{Isomap-class}
 \title{Isomap embedding}
 \description{
-Instance of \code{\link{dimRedMethod}} for Isomap.
+An S4 Class implementing the Isomap Algorithm
 }
 \details{
-Create a k nearest neighbor graph, compute geodesic distance on the
-graph, use classical scaling for the embedding.
-The landmark version is implemented via \code{isomap@apply()}.
-
-Parameters to set are
-\itemize{
-\item k. The number of neighbors
-\item ndim. The number of dimensions
-\item eps. if larger than 0, approximate the nearest neighbors.
+The Isomap algorithm approximates a manifold using geodesic
+distances on a k nearest neighbor graph. Then classical scaling is
+performed on the resulting distance matrix.
 }
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+Isomap can take the following parameters:
+\describe{
+  \item{knn}{The number of nearest neighbors in the graph. Defaults to 50.}
+  \item{ndim}{The number of embedding dimensions, defaults to 2.}
+}
+}
+
+\section{Implementation}{
+
+
+The dimRed package uses its own implementation of Isomap which also
+comes with an out of sample extension (known as landmark
+Isomap). The default Isomap algorithm scales computationally not
+very well, the implementation here uses \code{\link[RANN]{nn2}} for
+a faster search of the neares neighbors.  If data are too large it
+may be useful to fit a subsample of the data and use the
+out-of-sample extension for the other points.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
+
+## use the S4 Class directly:
 isomap <- Isomap()
 emb <- isomap@fun(dat, isomap@stdpars)
 
-plot(emb@data@data)
+## or simpler, use embed():
+samp <- sample(nrow(dat), size = 200)
+emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+emb3 <- emb2@apply(dat[-samp])
 
+plot(emb2, type = "2vars")
+plot(emb3, type = "2vars")
+
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
 

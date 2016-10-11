@@ -1,20 +1,49 @@
 #' Principal Component Analysis 
 #'
-#' Instance of \code{\link{dimRedMethod}} for Principal Component Analysis.
+#' S4 Class implementing PCA.
+#'
+#' PCA transforms the data in orthogonal components so that the first
+#' axis accounts for the larges variance in the data, all the
+#' following axes account for the highest variance under the
+#' constraint that they are orthogonal to the preceding axes.  PCA is
+#' sensitive to the scaling of the variables. PCA is by far the
+#' fastest and simples method of dimensionality reduction and should
+#' probably always be applied as a baseline if other methods are tested.
+#'
+#' @template dimRedMethodSlots
 #' 
-#' For details see \code{\link{prcomp}}.
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' PCA can take the following parameters:
+#' \description{
+#'   \item{ndim}{The number of output dimensions.}
+#'   \item{center}{logical, should the data be centered, defaults to \code{TRUE}.}
+#'   \item{scale.}{logical, should the data be scaled, defaults to \code{FALSE}.}
+#' }
+#'
+#' @section Implementation:
+#' 
+#' Wraps around \code{\link{prcomp}}. Because PCA can be reduced to a
+#' simple rotation, forward and backward projection functions are
+#' supplied. .
 #'
 #' @examples
-#' dat <- loadDataSet("3D S Curve")
+#' dat <- loadDataSet("Iris")
+#'
+#' ## using the S4 Class
 #' pca <- PCA()
 #' emb <- pca@fun(dat, pca@stdpars)
+#'
+#' ## using embed()
+#' emb2 <- embed(dat, "PCA")
 #'
 #' plot(emb, type = "2vars")
 #' plot(emb@inverse(emb@data), type = "3vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @family dimensionality reduction methods
 #' @export
 PCA <- setClass(
     'PCA',

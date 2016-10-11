@@ -1,8 +1,33 @@
 #' Graph Embedding via the Kamada Kawai Algorithm
 #'
-#' Instance of \code{\link{dimRedMethod}} for the Kamada Kawai Algorithm.
+#' An S4 Class implementing the Kamada Kawai Algorithm for graph embedding.
+#'
+#' Graph embedding algorithms se the data as a graph. Between the
+#' nodes of the graph exist attracting and repelling forces which can
+#' be modeled as electrical fields or springs connecting the
+#' nodes. The graph is then forced into a lower dimensional
+#' representation that tries to represent the forces betweent he nodes
+#' accurately by minimizing the total energy of the attracting and
+#' repelling forces.
+#'
+#' @template dimRedMethodSlots
 #' 
-#' For details see \code{\link[igraph]{layout_with_kk}}.
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' KamadaKawai can take the following parameters:
+#' \describe{
+#'   \item{ndim}{The number of dimensions, defaults to 2. Can only be 2 or 3}
+#'   \item{knn}{Reduce the graph to keep only the neares neighbors. Defaults to 100.}
+#'   \item{d}{The distance function to determine the weights of the graph edges. Defaults to euclidean distances.}
+#' }
+#'
+#' @section Implementation:
+#' Wraps around \code{\link[igraph]{layout_with_kk}}. The parameters
+#' maxiter, epsilon and kkconst are set to the default values and
+#' cannot be set, this may change in a future release. The DimRed
+#' Package adds an extra sparsity parameter by constructing a knn
+#' graph which also may improve visualization quality.
 #' 
 #' @examples
 #' dat <- loadDataSet("Swiss Roll")
@@ -14,7 +39,7 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#'
+#' @family dimensionality reduction methods
 #' @export
 KamadaKawai <- setClass(
     'KamadaKawai',
@@ -22,8 +47,7 @@ KamadaKawai <- setClass(
     prototype = list(
         stdpars = list(ndim         = 2,
                        knn          = 100,
-                       d            = dist,
-                       weight.trans = function (x) exp(-(x^2))),
+                       d            = stats::dist),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg('igraph')
@@ -35,10 +59,10 @@ KamadaKawai <- setClass(
         outdata <- em_graph_layout(
             indata,
             graph_em_method = igraph::layout_with_kk,
-            knn = pars$knn,
-            d = pars$d,
-            ndim = pars$ndim,
-            weight.trans = pars$weight.trans
+            knn             = pars$knn,
+            d               = pars$d,
+            ndim            = pars$ndim,
+            weight.trans    = I #pars$weight.trans
         )
 
         colnames(outdata) <- paste0("KK", 1:ncol(outdata))
@@ -59,21 +83,49 @@ KamadaKawai <- setClass(
 
 #' Distributed Recursive Graph Layout
 #'
-#' Instance of \code{\link{dimRedMethod}} for the Distributed Recursive Graph Layout algorithm.
+#' An S4 Class implementing Distributed recursive Graph Layout.
+#'
+#' DrL uses a complex algorithm to avoid local minima in the graph
+#' embedding which uses several steps.
+#'
+#' @template dimRedMethodSlots
 #' 
-#' For details see \code{\link[igraph]{layout_with_drl}}
+#' @template dimRedMethodGeneralUsage
+#'
+#' @section Parameters:
+#' DrL can take the following parameters:
+#' \describe{
+#'   \item{ndim}{The number of dimensions, defaults to 2. Can only be 2 or 3}
+#'   \item{knn}{Reduce the graph to keep only the neares neighbors. Defaults to 100.}
+#'   \item{d}{The distance function to determine the weights of the graph edges. Defaults to euclidean distances.}
+#' }
+#'
+#' @section Implementation:
+#' Wraps around \code{\link[igraph]{layout_with_drl}}. The parameters
+#' maxiter, epsilon and kkconst are set to the default values and
+#' cannot be set, this may change in a future release. The DimRed
+#' Package adds an extra sparsity parameter by constructing a knn
+#' graph which also may improve visualization quality.
+#' Instance of \code{\link{dimRedMethod}} for the Distributed
+#' Recursive Graph Layout algorithm.
 #' 
 #' @examples
-#'
 #' dat <- loadDataSet("Swiss Roll")
+#'
+#' ## use the S4 Class directly:
 #' drl <- DrL()
-#' drgl <- drl@fun(dat, drl@stdpars)
-#' 
+#' emb <- drl@fun(dat, drl@stdpars)
+#'
+#' ## simpler, use embed():
+#' emb2 <- embed(dat, "DrL")
+#'
+#'  
 #' plot(drgl@data@data)
 #' 
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @family dimensionality reduction methods
 #' @export
 DrL <- setClass(
     'DrL',
@@ -81,8 +133,7 @@ DrL <- setClass(
     prototype = list(
         stdpars = list(ndim         = 2,
                        knn          = 100,
-                       d            = dist,
-                       weight.trans = function (x) exp(-(x^2))),
+                       d            = stats::dist),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg('igraph')
@@ -97,7 +148,7 @@ DrL <- setClass(
             knn = pars$knn,
             d = pars$d,
             ndim = pars$ndim,
-            weight.trans = pars$weight.trans
+            weight.trans = I #pars$weight.trans
         )
 
         colnames(outdata) <- paste0("DrL", 1:ncol(outdata))
@@ -117,21 +168,42 @@ DrL <- setClass(
 
 #' Fruchterman Reingold Graph Layout
 #'
-#' Instance of \code{\link{dimRedMethod}} for the Fruchterman Reingold Graph Layout algorithm.
-#' 
-#' For details see \code{\link[igraph]{layout_with_fr}}
+#' An S4 Class implementing the Fruchterman Reingold Graph Layout
+#' algorithm.
+#'
+#' @template dimRedMethodSlots
+#'
+#' @template dimRedMethodGeneralUsage
+#'
+#' @section Parameters:
+#' \describe{
+#'   \item{ndim}{The number of dimensions, defaults to 2. Can only be 2 or 3}
+#'   \item{knn}{Reduce the graph to keep only the neares neighbors. Defaults to 100.}
+#'   \item{d}{The distance function to determine the weights of the graph edges. Defaults to euclidean distances.}
+#' }
+#'
+#' @section Implementation:
+#' Wraps around \code{\link[igraph]{layout_with_fr}}, see there for
+#' details. The Fruchterman Reingold algorithm puts the data into
+#' a circle and puts connected points close to each other.
 #' 
 #' @examples
+#' dat <- loadDataSet("Swiss Roll", n = 100)
 #'
-#' dat <- loadDataSet("Swiss Roll")
+#' ## use the S4 Class directly:
 #' fruchterman_reingold <- FruchtermanReingold()
-#' fr <- fruchterman_reingold@fun(dat, fruchterman_reingold@stdpars)
+#' pars <- fruchterman_reingold@stdpars
+#' pars$knn <- 5
+#' emb <- fruchterman_reingold@fun(dat, pars)
+#'
+#' ## simpler, use embed():
+#' emb2 <- embed(dat, "FruchtermannReingold", knn = 5)
 #' 
-#' plot(fr@data@data)
-#' 
+#' plot(emb, type = "2vars")
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @family dimensionality reduction methods
 #' @export
 FruchtermanReingold <- setClass(
     'FruchtermanReingold',
@@ -139,8 +211,7 @@ FruchtermanReingold <- setClass(
     prototype = list(
         stdpars = list(ndim         = 2,
                        knn          = 100,
-                       d            = stats::dist,
-                       weight.trans = function (x) exp(-(x^2))),
+                       d            = stats::dist),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg('igraph')
@@ -155,7 +226,7 @@ FruchtermanReingold <- setClass(
             knn = pars$knn,
             d = pars$d,
             ndim = pars$ndim,
-            weight.trans = pars$weight.trans
+            weight.trans = I #pars$weight.trans
         )
 
         colnames(outdata) <- paste0("FR", 1:ncol(outdata))

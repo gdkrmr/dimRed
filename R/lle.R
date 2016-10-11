@@ -1,19 +1,47 @@
-#' Local Linear Embedding
+#' Locally Linear Embedding
 #'
-#' Instance of \code{\link{dimRedMethod}} for Local Linear Embedding.
+#' An S4 Class implementing Locally Linear Embedding (LLE)
+#'
+#' LLE approximates the points in the manifold by linear combination
+#' of its neighbors. These linear combinations are the same inside the
+#' manifold and in highdimensional space.
+#'
+#' @template dimRedMethodSlots
 #' 
-#' For details see \code{\link[lle]{lle}}
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' LLE can take the following parameters:
+#' \describe{
+#'   \item{knn}{the number of neighbors for the knn graph., defaults to 50.}
+#'   \item{ndim}{the number of embedding dimensions, defaults to 2.}
+#' }
 #'
+#' @section Implementation:
+#' Wraps around \code{\link[lle]{lle}}, only
+#' exposes the parameters \code{k} and \code{m}.
+#'
+#' @references
+#' Roweis, S.T., Saul, L.K., 2000. Nonlinear Dimensionality Reduction
+#' by Locally Linear Embedding. Science 290,
+#' 2323-2326. doi:10.1126/science.290.5500.2323
+#' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#'
+#' ## directy use the S4 class:
 #' lle <- LLE()
 #' emb <- lle@fun(dat, lle@stdpars)
 #'
+#' ## using embed():
+#' emb2 <- embed(dat, "LLE", knn = 45)
 #' 
-#' plot(emb@data@data)
+#' plot(emb, type = "2vars")
+#' plot(emb2, type = "2vars")
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
+#' @family dimensionality reduction methods
 #' @export
 LLE <- setClass(
     'LLE',

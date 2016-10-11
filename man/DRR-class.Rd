@@ -5,7 +5,34 @@
 \alias{DRR}
 \alias{DRR-class}
 \title{Dimensionality Reduction via Regression}
-\format{Parameters are a list with the following elements:
+\description{
+An S4 Class implementing Dimensionality Reduction via Regression (DRR).
+}
+\details{
+DRR is a non-linear extension of PCA that uses Kernel Ridge regression.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+DRR can take the following parameters:
 \describe{
   \item{ndim}{The number of dimensions}
   \item{lambda}{The regularization parameter for the ridge
@@ -29,19 +56,13 @@
   accuracy for speed and less memory, see below for details.}
   \item{verbose}{logical, should the cross-validation results be
   printed out.}
-}}
-\usage{
-## see examples and \link{embed}.
-drr@fun(data, pars, keep.org.data = TRUE)
-embed(data, "drr", ...)
 }
-\description{
-Instance of \code{\link{dimRedMethod}} for Dimensionality Reduction
-via Regression (DRR).
 }
-\details{
+
+\section{Implementation}{
+
 Wraps around \code{\link[DRR]{drr}}, see there for details. DRR is
-a nonlinear extension of principal components analysis using Kernel
+a non-linear extension of principal components analysis using Kernel
 Ridge Regression (KRR, details see \code{\link[CVST]{constructKRRLearner}}
 and \code{\link[DRR]{constructFastKRRLearner}}). Non-linear
 regression is used to explain more variance than PCA. DRR provides
@@ -62,13 +83,19 @@ global maximum, I have not ran tests on the accuracy of this method.
 }
 \examples{
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
+
+## use the S4 Class directly:
 drr <- DRR()
 pars <- drr@stdpars
 pars$ndim <- 3
 emb <- drr@fun(dat, pars)
 
+## simpler, use embed():
+emb2 <- embed(dat, "DRR", ndim = 3)
+
+
 plot(dat, type = "3vars")
-plot(emb, type = "2vars")
+plot(emb, type = "3vars")
 plot(emb@inverse(emb@data@data[,1,drop = FALSE]), type = "3vars")
 
 
@@ -79,5 +106,15 @@ Laparra, V., Malo, J., Camps-Valls, G.,
     2015. Dimensionality Reduction via Regression in Hyperspectral
     Imagery. IEEE Journal of Selected Topics in Signal Processing
     9, 1026-1036. doi:10.1109/JSTSP.2015.2417833
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
 

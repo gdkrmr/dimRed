@@ -4,19 +4,19 @@
 \alias{embed}
 \title{dispatches the different methods for dimensionality reduction}
 \usage{
-embed(data, method = dimRedMethodList(), mute = c("message", "output"),
-  keep.org.data = TRUE, ...)
+embed(.data, .method = dimRedMethodList(), .mute = c("message", "output"),
+  .keep.org.data = TRUE, ...)
 }
 \arguments{
-\item{data}{object of class \code{dimRedData}}
+\item{.data}{object of class \code{dimRedData}}
 
-\item{method}{character vector naming one of the dimensionality
+\item{.method}{character vector naming one of the dimensionality
 reduction techniques.}
 
-\item{mute}{turn off printing of warnings/errors/messages of
+\item{.mute}{turn off printing of warnings/errors/messages of
 wrapped functions.}
 
-\item{keep.org.data}{TRUE/FALSE keep the original data.}
+\item{.keep.org.data}{TRUE/FALSE keep the original data.}
 
 \item{...}{the pameters, internally passed as a list to the
 dimensionality reduction method as \code{pars = list(...)}}
@@ -29,12 +29,16 @@ wraps around all dimensionality reduction functions.
 }
 \details{
 Method must be one of \code{dimRedMethodList()}, partial matching
-is performed.
+is performed. All parameters start with a dot, to avoid clashes
+with partial argument matching (see the R manual section 4.3.2), if
+there should ever occur any clashes in the arguments, call the
+function with all arguments named \code{embed(.data = dat, .method
+= "PCA", .d = "something")}.
 }
 \examples{
 embed_methods <- dimRedMethodList() 
 quality_methods <- dimRedQualityList()
-scurve <- loadDataSet("3D S Curve", n = 500)
+dataset <- loadDataSet("Iris")
 
 quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
                               dimnames = list(embed_methods, quality_methods))
@@ -42,7 +46,7 @@ embedded_data <- list()
 
 for(e in embed_methods) {
   message("embedding: ", e)
-  embedded_data[[e]] <- embed(scurve, e)
+  embedded_data[[e]] <- embed(dataset, e)
   for(q in quality_methods) {
     message("  quality: ", q)
     quality_results[e,q] <- tryCatch(

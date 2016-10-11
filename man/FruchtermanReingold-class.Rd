@@ -6,19 +6,66 @@
 \alias{FruchtermanReingold-class}
 \title{Fruchterman Reingold Graph Layout}
 \description{
-Instance of \code{\link{dimRedMethod}} for the Fruchterman Reingold Graph Layout algorithm.
+An S4 Class implementing the Fruchterman Reingold Graph Layout
+algorithm.
 }
-\details{
-For details see \code{\link[igraph]{layout_with_fr}}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+\describe{
+  \item{ndim}{The number of dimensions, defaults to 2. Can only be 2 or 3}
+  \item{knn}{Reduce the graph to keep only the neares neighbors. Defaults to 100.}
+  \item{d}{The distance function to determine the weights of the graph edges. Defaults to euclidean distances.}
+}
+}
+
+\section{Implementation}{
+
+Wraps around \code{\link[igraph]{layout_with_fr}}, see there for
+details. The Fruchterman Reingold algorithm puts the data into
+a circle and puts connected points close to each other.
 }
 \examples{
+dat <- loadDataSet("Swiss Roll", n = 100)
 
-dat <- loadDataSet("Swiss Roll")
+## use the S4 Class directly:
 fruchterman_reingold <- FruchtermanReingold()
-fr <- fruchterman_reingold@fun(dat, fruchterman_reingold@stdpars)
+pars <- fruchterman_reingold@stdpars
+pars$knn <- 5
+emb <- fruchterman_reingold@fun(dat, pars)
 
-plot(fr@data@data)
+## simpler, use embed():
+emb2 <- embed(dat, "FruchtermannReingold", knn = 5)
 
+plot(emb, type = "2vars")
 
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
 

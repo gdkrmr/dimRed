@@ -6,17 +6,69 @@
 \alias{nMDS-class}
 \title{Non-Metric Dimensional Scaling}
 \description{
-Instance of \code{\link{dimRedMethod}} for the Non-Metric Dimensional Scaling.
+An S4 Class implementing Non-Metric Dimensional Scaling.
 }
 \details{
-For details see \code{\link[vegan]{monoMDS}}
+A non-linear extension of MDS using monotonic regression
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+nMDS can take the following parameters:
+\describe{
+  \item{d}{A distance function.}
+  \item{ndim}{The number of embedding dimensions.}
+}
+}
+
+\section{Implementation}{
+
+Wraps around the
+\code{\link[vegan]{monoMDS}}. For parameters that are not
+available here, the standard configuration is used.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
+
+## using the S4 classes:
 nmds <- nMDS()
 emb <- nmds@fun(dat, nmds@stdpars)
 
-plot(emb@data@data)
 
+## using embed()
+emb2 <- embed(dat, "nMDS", d = function(x) exp(dist(x)))
+
+
+plot(emb, type = '2vars')
+plot(emb2, type = '2vars')
+
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{tSNE-class}}
 }
 

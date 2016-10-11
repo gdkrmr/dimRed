@@ -1,31 +1,50 @@
 #' Isomap embedding
 #'
-#' Instance of \code{\link{dimRedMethod}} for Isomap.
+#' An S4 Class implementing the Isomap Algorithm
 #'
-#' Create a k nearest neighbor graph, compute geodesic distance on the
-#' graph, use classical scaling for the embedding.
-#' The landmark version is implemented via \code{isomap@apply()}.
+#' The Isomap algorithm approximates a manifold using geodesic
+#' distances on a k nearest neighbor graph. Then classical scaling is
+#' performed on the resulting distance matrix.
+#'
+#' @template dimRedMethodSlots
 #' 
+#' @template dimRedMethodGeneralUsage
 #' 
-#' Parameters to set are
-#' \itemize{
-#' \item k. The number of neighbors
-#' \item ndim. The number of dimensions
-#' \item eps. if larger than 0, approximate the nearest neighbors.
+#' @section Parameters:
+#' Isomap can take the following parameters:
+#' \describe{
+#'   \item{knn}{The number of nearest neighbors in the graph. Defaults to 50.}
+#'   \item{ndim}{The number of embedding dimensions, defaults to 2.}
 #' }
 #'
+#' @section Implementation:
 #'
+#' The dimRed package uses its own implementation of Isomap which also
+#' comes with an out of sample extension (known as landmark
+#' Isomap). The default Isomap algorithm scales computationally not
+#' very well, the implementation here uses \code{\link[RANN]{nn2}} for
+#' a faster search of the neares neighbors.  If data are too large it
+#' may be useful to fit a subsample of the data and use the
+#' out-of-sample extension for the other points.
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
+#'
+#' ## use the S4 Class directly:
 #' isomap <- Isomap()
 #' emb <- isomap@fun(dat, isomap@stdpars)
 #'
-#' plot(emb@data@data)
+#' ## or simpler, use embed():
+#' samp <- sample(nrow(dat), size = 200)
+#' emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+#' emb3 <- emb2@apply(dat[-samp])
+#'
+#' plot(emb2, type = "2vars")
+#' plot(emb3, type = "2vars")
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @family dimensionality reduction methods
 #' @export
 Isomap <- setClass(
     'Isomap',
@@ -65,7 +84,7 @@ Isomap <- setClass(
         appl <- function (x) {
             message(Sys.time(), ": L-Isomap embed START")
             appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
-            indata      <- if(inherits(x, 'dimRedData')) x@data else x
+            indata    <- if(inherits(x, 'dimRedData')) x@data else x
 
             if(ncol(indata) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")

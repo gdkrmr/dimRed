@@ -6,10 +6,53 @@
 \alias{KamadaKawai-class}
 \title{Graph Embedding via the Kamada Kawai Algorithm}
 \description{
-Instance of \code{\link{dimRedMethod}} for the Kamada Kawai Algorithm.
+An S4 Class implementing the Kamada Kawai Algorithm for graph embedding.
 }
 \details{
-For details see \code{\link[igraph]{layout_with_kk}}.
+Graph embedding algorithms se the data as a graph. Between the
+nodes of the graph exist attracting and repelling forces which can
+be modeled as electrical fields or springs connecting the
+nodes. The graph is then forced into a lower dimensional
+representation that tries to represent the forces betweent he nodes
+accurately by minimizing the total energy of the attracting and
+repelling forces.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+KamadaKawai can take the following parameters:
+\describe{
+  \item{ndim}{The number of dimensions, defaults to 2. Can only be 2 or 3}
+  \item{knn}{Reduce the graph to keep only the neares neighbors. Defaults to 100.}
+  \item{d}{The distance function to determine the weights of the graph edges. Defaults to euclidean distances.}
+}
+}
+
+\section{Implementation}{
+
+Wraps around \code{\link[igraph]{layout_with_kk}}. The parameters
+maxiter, epsilon and kkconst are set to the default values and
+cannot be set, this may change in a future release. The DimRed
+Package adds an extra sparsity parameter by constructing a knn
+graph which also may improve visualization quality.
 }
 \examples{
 dat <- loadDataSet("Swiss Roll")
@@ -19,5 +62,15 @@ kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 plot(kk@data@data)
 
 
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
 

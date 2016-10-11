@@ -3,14 +3,18 @@
 #' wraps around all dimensionality reduction functions.
 #'
 #' Method must be one of \code{dimRedMethodList()}, partial matching
-#' is performed.
+#' is performed. All parameters start with a dot, to avoid clashes
+#' with partial argument matching (see the R manual section 4.3.2), if
+#' there should ever occur any clashes in the arguments, call the
+#' function with all arguments named \code{embed(.data = dat, .method
+#' = "PCA", .d = "something")}.
 #'
-#' @param data object of class \code{dimRedData}
-#' @param method character vector naming one of the dimensionality
+#' @param .data object of class \code{dimRedData}
+#' @param .method character vector naming one of the dimensionality
 #'     reduction techniques.
-#' @param mute turn off printing of warnings/errors/messages of
+#' @param .mute turn off printing of warnings/errors/messages of
 #'     wrapped functions.
-#' @param keep.org.data TRUE/FALSE keep the original data.
+#' @param .keep.org.data TRUE/FALSE keep the original data.
 #' @param ... the pameters, internally passed as a list to the
 #'     dimensionality reduction method as \code{pars = list(...)}
 #' @return an object of class \code{dimRedResult}
@@ -41,22 +45,22 @@
 #' 
 #' 
 #' @export
-embed <- function(data, method = dimRedMethodList(),
-                  mute = c('message', 'output'),
-                  keep.org.data = TRUE,
+embed <- function(.data, .method = dimRedMethodList(),
+                  .mute = c('message', 'output'),
+                  .keep.org.data = TRUE,
                   ...){
-    method <- match.arg(method)
+    method <- match.arg(.method)
     
     methodObject <- getMethodObject(method)
     
     args <- list(
-        data          = as(data, "dimRedData"),
-        keep.org.data = keep.org.data
+        data          = as(.data, "dimRedData"),
+        keep.org.data = .keep.org.data
     )
     args$pars <- matchPars(methodObject, list(...))
     
     devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
-    if('message' %in% mute){
+    if('message' %in% .mute){
         devnull1 <- file(devnull,  'wt')
         sink(devnull1, type = 'message')
         on.exit({
@@ -64,7 +68,7 @@ embed <- function(data, method = dimRedMethodList(),
             close(devnull1)
         }, add = TRUE)
     }
-    if('output' %in% mute) {
+    if('output' %in% .mute) {
         devnull2 <- file(devnull,  'wt')
         sink(devnull2, type = 'output')
         on.exit({

@@ -6,18 +6,77 @@
 \alias{tSNE-class}
 \title{t-Distributed Stochastic Neighborhood Embedding}
 \description{
-Instance of \code{\link{dimRedMethod}} for t-Distributed Stochastic Neighborhood Embedding.
+An S4 Class for t-SNE.
 }
 \details{
-For details see \code{\link[Rtsne]{Rtsne}}
+t-SNE is a method that uses Kullback-Leibler divergence between the
+distance matrices in high and low-dimensional space to embed the
+data. The method is very well suited to visualize complex
+structures in low dimensions.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+t-SNE can take the following parameters:
+\description{
+  \item{d}{A distance function, defaults to euclidean distances}
+  \item{perplexity}{The perplexity parameter, roughly equivalent to neighborhood size.}
+  \item{theta}{Approximation for the nearest neighbour search, large values are more inaccurate.}
+  \item{ndim}{The number of embedding dimensions.}
+}
+}
+
+\section{Implementation}{
+
+
+Wraps around \code{\link[Rtsne]{Rtsne}}, which is very well
+documented. Setting \code{theta = 0} does a normal t-SNE, larger
+values for \code{theta < 1} use the Barnes-Hut algorithm which
+scales much nicer with data size. Larger values for perplexity take
+larger neighborhoods into account.
 }
 \examples{
-dat <- loadDataSet("3D S Curve")
+dat <- loadDataSet("3D S Curve", n = 500)
 tsne <- tSNE()
 emb <- tsne@fun(dat, tsne@stdpars)
 
 
 plot(emb@data@data)
 
+}
+\references{
+Maaten, L. van der, 2014. Accelerating t-SNE using Tree-Based
+Algorithms. Journal of Machine Learning Research 15, 3221–3245.
+
+van der Maaten, L., Hinton, G., 2008. Visualizing Data using
+t-SNE. J. Mach. Learn. Res. 9, 2579–2605.
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}}
 }
 

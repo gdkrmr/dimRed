@@ -4,20 +4,75 @@
 \name{LLE-class}
 \alias{LLE}
 \alias{LLE-class}
-\title{Local Linear Embedding}
+\title{Locally Linear Embedding}
 \description{
-Instance of \code{\link{dimRedMethod}} for Local Linear Embedding.
+An S4 Class implementing Locally Linear Embedding (LLE)
 }
 \details{
-For details see \code{\link[lle]{lle}}
+LLE approximates the points in the manifold by linear combination
+of its neighbors. These linear combinations are the same inside the
+manifold and in highdimensional space.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+LLE can take the following parameters:
+\describe{
+  \item{knn}{the number of neighbors for the knn graph., defaults to 50.}
+  \item{ndim}{the number of embedding dimensions, defaults to 2.}
+}
+}
+
+\section{Implementation}{
+
+Wraps around \code{\link[lle]{lle}}, only
+exposes the parameters \code{k} and \code{m}.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
+
+## directy use the S4 class:
 lle <- LLE()
 emb <- lle@fun(dat, lle@stdpars)
 
+## using embed():
+emb2 <- embed(dat, "LLE", knn = 45)
 
-plot(emb@data@data)
+plot(emb, type = "2vars")
+plot(emb2, type = "2vars")
 
+}
+\references{
+Roweis, S.T., Saul, L.K., 2000. Nonlinear Dimensionality Reduction
+by Locally Linear Embedding. Science 290,
+2323-2326. doi:10.1126/science.290.5500.2323
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{MDS-class}},
+  \code{\link{PCA-class}}, \code{\link{kPCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
 

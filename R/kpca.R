@@ -1,22 +1,44 @@
 #' Kernel PCA
 #'
-#' Instance of \code{\link{dimRedMethod}} for Kernel PCA.
+#' An S4 Class implementing Kernel PCA
+#'
+#' Kernel PCA is a nonlinear extension of PCA using kernel methods.
+#'
 #' 
-#' For details, see \code{\link[kernlab]{kpca}}
+#' @template dimRedMethodSlots
+#' 
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' Kernel PCA can take the following parameters:
+#' \describe{
+#'   \item{ndim}{the number of output dimensions, defaults to 2}
+#'   \item{kernel}{The kernel function, either as a function or a
+#'   character vector with the name of the kernel. Defaults to
+#'   \code{'rbfdot'}}
+#'   \item{kpar}{A list with the parameters for the kernel function} 
+#' }
+#'
+#' @section Implementation:
+#' 
+#' Wraps around \code{\link[kernlab]{kpca}}, but provides additionally
+#' forward and backward projections. 
 #'
 #' @examples
-#'
 #' dat <- loadDataSet("3D S Curve")
-#' kpca <- kPCA()
-#' emb <- kpca@fun(dat, list(kernel = 'rbfdot',
-#'                           kpar = list(sigma = 0.1),
-#'                           ndim = 2))
 #'
-#' plot(emb@data@data)
+#' ## use the S4 class directly:
+#' kpca <- kPCA()
+#' emb <- kpca@fun(dat, kpca@stdpars)
+#'
+#' ## simpler, use embed():
+#' emb2 <- embed(dat, "kPCA")
+#'
+#' plot(emb, type = '2vars')
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @family dimensionality reduction methods
 #' @export
 kPCA <- setClass(
     'kPCA',

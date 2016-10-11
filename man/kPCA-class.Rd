@@ -6,20 +6,69 @@
 \alias{kPCA-class}
 \title{Kernel PCA}
 \description{
-Instance of \code{\link{dimRedMethod}} for Kernel PCA.
+An S4 Class implementing Kernel PCA
 }
 \details{
-For details, see \code{\link[kernlab]{kpca}}
+Kernel PCA is a nonlinear extension of PCA using kernel methods.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+Kernel PCA can take the following parameters:
+\describe{
+  \item{ndim}{the number of output dimensions, defaults to 2}
+  \item{kernel}{The kernel function, either as a function or a
+  character vector with the name of the kernel. Defaults to
+  \code{'rbfdot'}}
+  \item{kpar}{A list with the parameters for the kernel function} 
+}
+}
+
+\section{Implementation}{
+
+
+Wraps around \code{\link[kernlab]{kpca}}, but provides additionally
+forward and backward projections.
 }
 \examples{
-
 dat <- loadDataSet("3D S Curve")
+
+## use the S4 class directly:
 kpca <- kPCA()
-emb <- kpca@fun(dat, list(kernel = 'rbfdot',
-                          kpar = list(sigma = 0.1),
-                          ndim = 2))
+emb <- kpca@fun(dat, kpca@stdpars)
 
-plot(emb@data@data)
+## simpler, use embed():
+emb2 <- embed(dat, "kPCA")
 
+plot(emb, type = '2vars')
+
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
 

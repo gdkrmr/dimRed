@@ -1,19 +1,45 @@
 #' Metric Dimensional Scaling
 #'
-#' Instance of \code{\link{dimRedMethod}} for Metric Dimensional Scaling.
+#' An S4 Class implementing classical scaling (MDS).
+#'
+#' MDS tries to maintain distances in high- and low-dimensional space,
+#' it has the advantage over PCA that arbitrary distance functions can
+#' be used, but it is computationally more demanding.
+#'
+#' @template dimRedMethodSlots
 #' 
-#' For details see \code{\link[stats]{cmdscale}}
+#' @template dimRedMethodGeneralUsage
+#' 
+#' @section Parameters:
+#' MDS can take the following parameters:
+#' \describe{
+#'   \item{ndim}{The number of dimensions.}
+#'   \item{d}{The function to calculate the distance matrix from the input coordinates, defaults to euclidean distances.}
+#' } 
+#'
+#' @section Implementation:
+#' 
+#' Wraps around \code{\link[stats]{cmdscale}}. The implementation also
+#' provides an out-of-sample extension which is not completely
+#' optimized yet.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' mds <- MDS()
+#'
+#' ## Use the S4 Class directly:
+#' mds <- MDS()                        
 #' emb <- mds@fun(dat, mds@stdpars)
 #'
-#' plot(emb@data@data)
+#' ## use embed():
+#' emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
+#'
+#' 
+#' plot(emb, type = '2vars')
+#' plot(emb2, type = '2vars')
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' 
+#' @family dimensionality reduction methods
 #' @export
 MDS <- setClass(
     "MDS",
@@ -28,7 +54,7 @@ MDS <- setClass(
         indata <- data@data
 
         ## there are only efficient implementations for euclidean
-        ## distances: extra efficient implementations for euclidean
+        ## distances: extra efficient implementation for euclidean
         ## distances are possible, D is quared several times, it would be
         ## much faster to compute the squared distance right away.
         has.apply <- identical(all.equal(pars$d, dist), TRUE) # == TRUE

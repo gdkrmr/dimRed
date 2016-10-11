@@ -6,17 +6,71 @@
 \alias{MDS-class}
 \title{Metric Dimensional Scaling}
 \description{
-Instance of \code{\link{dimRedMethod}} for Metric Dimensional Scaling.
+An S4 Class implementing classical scaling (MDS).
 }
 \details{
-For details see \code{\link[stats]{cmdscale}}
+MDS tries to maintain distances in high- and low-dimensional space,
+it has the advantage over PCA that arbitrary distance functions can
+be used, but it is computationally more demanding.
+}
+\section{Slots}{
+
+\describe{
+\item{\code{fun}}{A function that does the embedding and returns a
+dimRedResult object.}
+
+\item{\code{stdpars}}{The standard parameters for the funciton.}
+}}
+\section{General usage}{
+
+Dimensionality reduction methods are S4 Classes that either be used
+directly, in which case they have to be initialized and a full
+list with parameters has to be handed to the \code{@fun()}
+slot, or the method name be passed to the embed function and
+parameters can be given to the \code{...}, in which case
+missing parameters will be replaced by the ones in the
+\code{@stdpars}.
+}
+
+\section{Parameters}{
+
+MDS can take the following parameters:
+\describe{
+  \item{ndim}{The number of dimensions.}
+  \item{d}{The function to calculate the distance matrix from the input coordinates, defaults to euclidean distances.}
+}
+}
+
+\section{Implementation}{
+
+
+Wraps around \code{\link[stats]{cmdscale}}. The implementation also
+provides an out-of-sample extension which is not completely
+optimized yet.
 }
 \examples{
 dat <- loadDataSet("3D S Curve")
-mds <- MDS()
+
+## Use the S4 Class directly:
+mds <- MDS()                        
 emb <- mds@fun(dat, mds@stdpars)
 
-plot(emb@data@data)
+## use embed():
+emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
 
+
+plot(emb, type = '2vars')
+plot(emb2, type = '2vars')
+
+}
+\seealso{
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMap-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{PCA-class}}, \code{\link{kPCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
 
