@@ -4,17 +4,15 @@
 #'
 #' @slot fun function call
 #' @slot stdpars the default parameters
-#'
-#' @rdname dimRedMethod
-#' 
-#' @export
-setClass('dimRedMethod',
-         contains  = "VIRTUAL",
-         slots     = c(fun     = 'function',
-                       stdpars = 'list'))
+#' @export dimRedMethod
+#' @exportClass dimRedMethod
+dimRedMethod <- setClass('dimRedMethod',
+                         contains  = "VIRTUAL",
+                         slots     = c(fun     = 'function',
+                                       stdpars = 'list'))
 
 
-#' @rdname dimRedMethod
+#' @describeIn dimRedMethod-class
 #'
 #' @export
 dimRedMethodList <- function () {

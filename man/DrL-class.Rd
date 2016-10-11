@@ -62,13 +62,13 @@ emb <- drl@fun(dat, drl@stdpars)
 emb2 <- embed(dat, "DrL")
 
  
-plot(drgl@data@data)
+plot(emb)
 
 
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DiffusionMap-class}},
+  \code{\link{DiffusionMaps-class}},
   \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{Isomap-class}},

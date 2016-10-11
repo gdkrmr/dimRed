@@ -87,7 +87,8 @@
 #' @include dimRedMethod-class.R
 #' @import DRR
 #' @family dimensionality reduction methods
-#' @export
+#' @export DRR
+#' @exportClass DRR
 DRR <- setClass(
     'DRR',
     contains  = 'dimRedMethod',

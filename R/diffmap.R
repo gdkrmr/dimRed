@@ -51,11 +51,11 @@
 #' dat <- loadDataSet("3D S Curve")
 #'
 #' ## use the S4 Class directly:
-#' diffmap <- DiffusionMap()
+#' diffmap <- DiffusionMaps()
 #' emb <- diffmap@fun(dat, diffmap@stdpars)
 #' 
 #' ## simpler, use embed():
-#' emb2 <- embed(data, "DiffusionMap")
+#' emb2 <- embed(dat, "DiffusionMaps")
 #' 
 #' plot(emb, type = "2vars")
 #' 
@@ -68,9 +68,10 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
-DiffusionMap <- setClass(
-    'DiffusionMap',
+#' @export DiffusionMaps
+#' @exportClass DiffusionMaps
+DiffusionMaps <- setClass(
+    'DiffusionMaps',
     contains  = 'dimRedMethod',
     prototype = list(
         stdpars = list(d     = stats::dist,

@@ -16,7 +16,7 @@
 #' 
 #' @section Parameters:
 #' PCA can take the following parameters:
-#' \description{
+#' \describe{
 #'   \item{ndim}{The number of output dimensions.}
 #'   \item{center}{logical, should the data be centered, defaults to \code{TRUE}.}
 #'   \item{scale.}{logical, should the data be scaled, defaults to \code{FALSE}.}
@@ -44,7 +44,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export PCA
+#' @exportClass PCA
 PCA <- setClass(
     'PCA',
     contains = 'dimRedMethod',

@@ -108,7 +108,7 @@ Laparra, V., Malo, J., Camps-Valls, G.,
     9, 1026-1036. doi:10.1109/JSTSP.2015.2417833
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DiffusionMap-class}},
+Other dimensionality reduction methods: \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{Isomap-class}},

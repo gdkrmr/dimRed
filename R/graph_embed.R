@@ -40,7 +40,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export KamadaKawai
+#' @exportClass KamadaKawai
 KamadaKawai <- setClass(
     'KamadaKawai',
     contains = 'dimRedMethod',
@@ -120,13 +121,14 @@ KamadaKawai <- setClass(
 #' emb2 <- embed(dat, "DrL")
 #'
 #'  
-#' plot(drgl@data@data)
+#' plot(emb)
 #' 
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export DrL
+#' @exportClass DrL
 DrL <- setClass(
     'DrL',
     contains = 'dimRedMethod',
@@ -197,14 +199,15 @@ DrL <- setClass(
 #' emb <- fruchterman_reingold@fun(dat, pars)
 #'
 #' ## simpler, use embed():
-#' emb2 <- embed(dat, "FruchtermannReingold", knn = 5)
+#' emb2 <- embed(dat, "FruchtermanReingold", knn = 5)
 #' 
 #' plot(emb, type = "2vars")
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export FruchtermanReingold
+#' @exportClass FruchtermanReingold
 FruchtermanReingold <- setClass(
     'FruchtermanReingold',
     contains = 'dimRedMethod',

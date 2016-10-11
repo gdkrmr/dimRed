@@ -39,7 +39,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export FastICA
+#' @exportClass FastICA
 FastICA <- setClass(
     'FastICA',
     contains = 'dimRedMethod',

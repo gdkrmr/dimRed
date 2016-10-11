@@ -103,7 +103,7 @@ setAs(from = 'dimRedData', to = 'data.frame',
 #'
 #' @examples
 #' as.data.frame(loadDataSet("Iris"), meta.prefix = "")
-#' as.data.frame(embed(loadDataSet("Iris"), "pca"), org.data.prefix = "", meta.prefix = "")
+#' as.data.frame(embed(loadDataSet("Iris"), "PCA"), org.data.prefix = "", meta.prefix = "")
 #'
 #' @rdname as.data.frame
 setGeneric(

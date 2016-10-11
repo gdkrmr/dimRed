@@ -39,7 +39,7 @@ missing parameters will be replaced by the ones in the
 \section{Parameters}{
 
 PCA can take the following parameters:
-\description{
+\describe{
   \item{ndim}{The number of output dimensions.}
   \item{center}{logical, should the data be centered, defaults to \code{TRUE}.}
   \item{scale.}{logical, should the data be scaled, defaults to \code{FALSE}.}
@@ -69,7 +69,7 @@ plot(emb@inverse(emb@data), type = "3vars")
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DiffusionMap-class}},
+  \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{Isomap-class}},

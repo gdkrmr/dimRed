@@ -53,14 +53,14 @@ pars$knn <- 5
 emb <- fruchterman_reingold@fun(dat, pars)
 
 ## simpler, use embed():
-emb2 <- embed(dat, "FruchtermannReingold", knn = 5)
+emb2 <- embed(dat, "FruchtermanReingold", knn = 5)
 
 plot(emb, type = "2vars")
 
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DiffusionMap-class}},
+  \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},

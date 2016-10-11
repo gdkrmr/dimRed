@@ -36,7 +36,7 @@ missing parameters will be replaced by the ones in the
 \section{Parameters}{
 
 t-SNE can take the following parameters:
-\description{
+\describe{
   \item{d}{A distance function, defaults to euclidean distances}
   \item{perplexity}{The perplexity parameter, roughly equivalent to neighborhood size.}
   \item{theta}{Approximation for the nearest neighbour search, large values are more inaccurate.}
@@ -55,23 +55,28 @@ larger neighborhoods into account.
 }
 \examples{
 dat <- loadDataSet("3D S Curve", n = 500)
+
+## using the S4 class directly:
 tsne <- tSNE()
 emb <- tsne@fun(dat, tsne@stdpars)
 
+## using embed()
+emb2 <- embed(dat, "tSNE", perplexity = 180)
 
-plot(emb@data@data)
+plot(emb, type = '2vars')
+plot(emb2, type = '2vars')
 
 }
 \references{
 Maaten, L. van der, 2014. Accelerating t-SNE using Tree-Based
-Algorithms. Journal of Machine Learning Research 15, 3221–3245.
+Algorithms. Journal of Machine Learning Research 15, 3221-3245.
 
 van der Maaten, L., Hinton, G., 2008. Visualizing Data using
-t-SNE. J. Mach. Learn. Res. 9, 2579–2605.
+t-SNE. J. Mach. Learn. Res. 9, 2579-2605.
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DiffusionMap-class}},
+  \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{Isomap-class}},

@@ -42,7 +42,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export LLE
+#' @exportClass LLE
 LLE <- setClass(
     'LLE',
     contains = 'dimRedMethod',

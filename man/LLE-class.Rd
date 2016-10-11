@@ -67,7 +67,7 @@ by Locally Linear Embedding. Science 290,
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DiffusionMap-class}},
+  \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{Isomap-class}},

@@ -13,7 +13,7 @@
 #' 
 #' @section Parameters:
 #' t-SNE can take the following parameters:
-#' \description{
+#' \describe{
 #'   \item{d}{A distance function, defaults to euclidean distances}
 #'   \item{perplexity}{The perplexity parameter, roughly equivalent to neighborhood size.}
 #'   \item{theta}{Approximation for the nearest neighbour search, large values are more inaccurate.}
@@ -30,10 +30,10 @@
 #'
 #' @references
 #' Maaten, L. van der, 2014. Accelerating t-SNE using Tree-Based
-#' Algorithms. Journal of Machine Learning Research 15, 3221–3245.
+#' Algorithms. Journal of Machine Learning Research 15, 3221-3245.
 #' 
 #' van der Maaten, L., Hinton, G., 2008. Visualizing Data using
-#' t-SNE. J. Mach. Learn. Res. 9, 2579–2605.
+#' t-SNE. J. Mach. Learn. Res. 9, 2579-2605.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 500)
@@ -51,7 +51,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export tSNE
+#' @exportClass tSNE
 tSNE <- setClass(
     'tSNE',
     contains = 'dimRedMethod',

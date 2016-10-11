@@ -41,7 +41,8 @@
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
-#' @export
+#' @export LaplacianEigenmaps
+#' @exportClass LaplacianEigenmaps
 LaplacianEigenmaps <- setClass(
     'LaplacianEigenmaps',
     contains = 'dimRedMethod',

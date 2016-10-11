@@ -45,7 +45,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export Isomap
+#' @exportClass Isomap
 Isomap <- setClass(
     'Isomap',
     contains = 'dimRedMethod',

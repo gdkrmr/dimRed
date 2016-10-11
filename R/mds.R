@@ -40,7 +40,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export MDS
+#' @exportClass MDS
 MDS <- setClass(
     "MDS",
     contains = 'dimRedMethod',

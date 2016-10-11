@@ -43,7 +43,7 @@ prefixes can be assigned. The parameters \code{row.names},
 }
 \examples{
 as.data.frame(loadDataSet("Iris"), meta.prefix = "")
-as.data.frame(embed(loadDataSet("Iris"), "pca"), org.data.prefix = "", meta.prefix = "")
+as.data.frame(embed(loadDataSet("Iris"), "PCA"), org.data.prefix = "", meta.prefix = "")
 
 }
 \seealso{

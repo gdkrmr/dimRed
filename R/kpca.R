@@ -39,7 +39,8 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @export
+#' @export kPCA
+#' @exportClass kPCA
 kPCA <- setClass(
     'kPCA',
     contains = 'dimRedMethod',
