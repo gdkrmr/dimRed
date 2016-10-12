@@ -55,7 +55,7 @@ Package adds an extra sparsity parameter by constructing a knn
 graph which also may improve visualization quality.
 }
 \examples{
-dat <- loadDataSet("Swiss Roll")
+dat <- loadDataSet("Swiss Roll", n = 500)
 kamada_kawai <- KamadaKawai()
 kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 

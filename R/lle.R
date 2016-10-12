@@ -27,7 +27,7 @@
 #' 2323-2326. doi:10.1126/science.290.5500.2323
 #' 
 #' @examples
-#' dat <- loadDataSet("3D S Curve")
+#' dat <- loadDataSet("3D S Curve", n = 500)
 #'
 #' ## directy use the S4 class:
 #' lle <- LLE()

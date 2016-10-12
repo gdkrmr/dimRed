@@ -47,7 +47,7 @@ Wraps around \code{\link[lle]{lle}}, only
 exposes the parameters \code{k} and \code{m}.
 }
 \examples{
-dat <- loadDataSet("3D S Curve")
+dat <- loadDataSet("3D S Curve", n = 500)
 
 ## directy use the S4 class:
 lle <- LLE()

@@ -53,7 +53,7 @@ may be useful to fit a subsample of the data and use the
 out-of-sample extension for the other points.
 }
 \examples{
-dat <- loadDataSet("3D S Curve")
+dat <- loadDataSet("3D S Curve", n = 500)
 
 ## use the S4 Class directly:
 isomap <- Isomap()

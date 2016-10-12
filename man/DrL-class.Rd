@@ -50,7 +50,7 @@ Package adds an extra sparsity parameter by constructing a knn
 graph which also may improve visualization quality.
 }
 \examples{
-dat <- loadDataSet("Swiss Roll")
+dat <- loadDataSet("Swiss Roll", n = 500)
 
 ## use the S4 Class directly:
 drl <- DrL()
