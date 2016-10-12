@@ -1,4 +1,6 @@
 
+#' Class "dimRedResult"
+#'
 #' A class to hold the results of of a dimensionality reduction.
 #'
 #' @slot data Output data of class dimRedData.
@@ -12,14 +14,10 @@
 #' @slot has.inverse logical if an inverse method exists.
 #' @slot method saves the method used.
 #' @slot pars saves the parameters used.
-#' @param ... unused?
-#' @param object of class dimRedResult
 #'
 #' @include dimRedData-class.R
-#' @name dimRedResult-class
-#' @aliases dimRedResult
 #' @family dimRedResult
-#' @export
+#' @export 
 dimRedResult <- setClass(
     'dimRedResult',
     slots = c(
@@ -48,11 +46,9 @@ dimRedResult <- setClass(
 
 
 
-#' as("dimRedResult", "data.frame")
-#' 
-#' @family dimRedResult
-#' @name as
-#' @rdname dimRedResult-class
+# #' As("dimRedResult", "data.frame")
+# #' 
+# #' @name as
 setAs(from = 'dimRedResult', to = 'data.frame',
       def = function(from){
           if(from@has.org.data) {
@@ -67,10 +63,13 @@ setAs(from = 'dimRedResult', to = 'data.frame',
 
 
 
-#' @family dimRedResult
+#' @param x Of class \code{dimRedResult}
+#' @param org.data.prefix Prefix for the columns of the org.data slot.
+#' @param meta.prefix Prefix for the columns of \code{x@@data@@meta}.
+#' @param data.prefix Prefix for the columns of \code{x@@data@@data}.
 #' @method as.data.frame dimRedResult
 #' @include dimRedData-class.R
-#' @rdname as.data.frame
+#' @describeIn dimRedResult convert to \code{data.frame}
 #' @export
 setMethod(f = 'as.data.frame',
           signature = c('dimRedResult'),
@@ -91,11 +90,11 @@ setMethod(f = 'as.data.frame',
     )
 })
 
-#' @rdname dimRedResult-class
-#' @export
-setGeneric('getPars', function (object) standardGeneric('getPars'))
 
-#' @rdname dimRedResult-class
+
+#' @param object Of class \code{dimRedResult}
+#' @describeIn dimRedResult Get the parameters with which the method
+#'     was called.
 #' @export
 setMethod(
     f = 'getPars',
@@ -105,13 +104,8 @@ setMethod(
     }
 )
 
-#' @rdname dimRedResult-class
-#' @export
-setGeneric('print', function(x) standardGeneric('print'))
 
-
-#' @rdname dimRedResult-class
-#' @param x of class dimRedResult
+#' @describeIn dimRedResult Method for printing.
 #' @import utils
 #' @export
 setMethod(

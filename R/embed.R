@@ -12,8 +12,9 @@
 #' @param .data object of class \code{dimRedData}
 #' @param .method character vector naming one of the dimensionality
 #'     reduction techniques.
-#' @param .mute turn off printing of warnings/errors/messages of
-#'     wrapped functions.
+#' @param .mute a character vector containing the elements you want to
+#'     mute (\code{c("message", "output")}), defaults to
+#'     \code{character(0)}.
 #' @param .keep.org.data TRUE/FALSE keep the original data.
 #' @param ... the pameters, internally passed as a list to the
 #'     dimensionality reduction method as \code{pars = list(...)}
@@ -30,7 +31,7 @@
 #' 
 #' for(e in embed_methods) {
 #'   message("embedding: ", e)
-#'   embedded_data[[e]] <- embed(dataset, e)
+#'   embedded_data[[e]] <- embed(dataset, e, .mute = c("message", "output"))
 #'   for(q in quality_methods) {
 #'     message("  quality: ", q)
 #'     quality_results[e,q] <- tryCatch(
@@ -46,7 +47,7 @@
 #' 
 #' @export
 embed <- function(.data, .method = dimRedMethodList(),
-                  .mute = c('message', 'output'),
+                  .mute = character(0), #c('message', 'output'),
                   .keep.org.data = TRUE,
                   ...){
     method <- match.arg(.method)

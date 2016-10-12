@@ -15,3 +15,4 @@ dimRed.Rcheck
 /.Rprofile.bak
 /.juliahistory
 /src/test.r
+/R/.Rhistory

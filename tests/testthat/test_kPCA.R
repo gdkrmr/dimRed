@@ -42,7 +42,7 @@ test_that('general data conversions', {
 
     irisRes <- lapply(irisPars, function(x)
         do.call(
-            function(...) tryCatch(embed(data = irisData, method = 'kPCA', ...), error = function(e) as.character(e)),
+            function(...) tryCatch(embed(.data = irisData, .method = 'kPCA', ...), error = function(e) as.character(e)),
             x
         ) )
 

@@ -1,4 +1,6 @@
-#' An S4 class and methods to hold data for dimensionality reduction
+#' Class "dimRedData"
+#'
+#' A class and methods to hold data for dimensionality reduction.
 #'
 #' @slot data of class \code{matrix}, holds the data, observations in
 #'     rows, variables in columns
@@ -6,8 +8,8 @@
 #'     classes, internal manifold coordinates, or simply additional
 #'     data of the data set. Must have the same number of rows as the
 #'     \code{data} slot or be an empty data frame.
-#' @param object,x,.Object of class dimRedData.
-#' @param i a valid index.
+#'
+#' 
 #' @examples
 #' s3d <- loadDataSet("3D S Curve")
 #' as(s3d, "data.frame")
@@ -18,11 +20,8 @@
 #' nrow(s3d)
 #' s3d[1:40,]
 #'
-#' 
 #' @family dimRedData
 #' @import methods
-#' @name dimRedData
-#' @aliases dimRedData-class
 #' @export
 dimRedData <- setClass(
     'dimRedData',
@@ -53,10 +52,10 @@ dimRedData <- setClass(
     }
 )
 
-#' @rdname dimRedData
-#' @param data coerced into a numeric matrix, goes into slot data
-#' @param meta coerced into a data.frame, goes into slot meta
-#' @export
+# #' @rdname dimRedData
+# #' @param data coerced into a numeric matrix, goes into slot data
+# #' @param meta coerced into a data.frame, goes into slot meta
+# #' @export
 setMethod("initialize",
           signature = c("dimRedData"),
           function (.Object, data = matrix(numeric(0), 0, 0), meta = data.frame()) {
@@ -66,56 +65,52 @@ setMethod("initialize",
     return(.Object)
 })
 
-#' @rdname dimRedData
-#' @name as.dimRedData,ANY
+# #' @rdname dimRedData
+# #' @name as.dimRedData,ANY               
 setAs(from = 'ANY', to = 'dimRedData',
       def = function(from) new('dimRedData', data = as.matrix(from)))
 
-#' @rdname dimRedData
-#' @name as.dimRedData,data.frame
-setAs(from = 'data.frame', to = 'dimRedData',
-      def = function(from) new('dimRedData', data = as.matrix(from)))
+# # #' @rdname dimRedData
+# # #' @name as.dimRedData,data.frame
+# # setAs(from = 'data.frame', to = 'dimRedData',
+# #       def = function(from) new('dimRedData', data = as.matrix(from)))
 
 
-#' @rdname dimRedData
-#' @name as,data.frame,dimRedData
+# #' @rdname dimRedData
+# #' @name as,data.frame,dimRedData
 setAs(from = 'dimRedData', to = 'data.frame',
       def = function(from) {as.data.frame(from)})
 
-#' Convert to \code{data.frame}
-#'
-#' Convert a dimRedData or dimRedResult object to a data.frame.
-#'
-#' To avoid column name collisions in the resulting \code{data.frame}
-#' prefixes can be assigned. The parameters \code{row.names},
-#' \code{optional}, and \code{...} are not used.
-#'
-#' @param x dimRedResult/dimRedData object.
-#' @param meta.prefix prefix for the meta data variables.
-#' @param data.prefix for dimRedResult objects: prefix for embedded
-#'     dimensions, for dimRedData objects: prefix for the variable
-#'     names.
-#' @param org.data.prefix for dimRedResult objects: prefix for the
-#'     original variables.
-#' @param row.names unused
-#' @param optional unused
-#' @param ... unused
-#'
-#' @examples
-#' as.data.frame(loadDataSet("Iris"), meta.prefix = "")
-#' as.data.frame(embed(loadDataSet("Iris"), "PCA"), org.data.prefix = "", meta.prefix = "")
-#'
-#' @rdname as.data.frame
-setGeneric(
-    'as.data.frame',
-    function(x, row.names, optional, ...) standardGeneric('as.data.frame'),
-    useAsDefault = base::as.data.frame
-)
+# #' Convert to \code{data.frame}
+# #'
+# #' Convert a dimRedData or dimRedResult object to a data.frame.
+# #'
+# #' To avoid column name collisions in the resulting \code{data.frame}
+# #' prefixes can be assigned. The parameters \code{row.names},
+# #' \code{optional}, and \code{...} are not used.
+# #'
+# #' @param x dimRedResult/dimRedData object.
+# #' @param meta.prefix prefix for the meta data variables.
+# #' @param data.prefix for dimRedResult objects: prefix for embedded
+# #'     dimensions, for dimRedData objects: prefix for the variable
+# #'     names.
+# #' @param org.data.prefix for dimRedResult objects: prefix for the
+# #'     original variables.
+# #' @param row.names unused
+# #' @param optional unused
+# #' @param ... unused
+# #'
+# #' @examples
+# #' as.data.frame(embed(loadDataSet("Iris"), "PCA"), org.data.prefix = "", meta.prefix = "")
 
+
+#' @param meta.prefix Prefix for the columns of the meta data names.
+#' @param data.prefix Prefix for the columns of the variable names.
+#' 
 #' @include misc.R
 #' @family dimRedData
 #' @method as.data.frame dimRedData
-#' @rdname as.data.frame
+#' @describeIn dimRedData convert to data.frame
 #' @export
 setMethod(f = 'as.data.frame',
           signature = c('dimRedData'),
@@ -129,62 +124,48 @@ setMethod(f = 'as.data.frame',
 })
 
 
-#' @rdname as.dimRedData
-#' @param ... unused
-#' @export
-setGeneric(
-    'as.dimRedData',
-    function(x, ...) standardGeneric('as.dimRedData'),
-    valueClass = 'dimRedData'
-)
-
-#' Convert to \code{dimRedData}
-#'
-#' Convert a \code{data.frame} to a dimRedData object using a formula
-#'
-#' @param x the formula, left hand side is assigned to meta slot
-#'     right hand side is assigned to data slot.
-#' @param data a data frame
+#' @param formula The formula, left hand side is assigned to the meta slot
+#'     right hand side is assigned to the data slot.
+#' @param data A data frame
+#' 
 #' @examples
 #' as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
 #'               iris)
 #'
-#' 
+#' @include misc.R
 #' @family dimRedData
 #' @method as.dimRedData dimRedData
-#' @rdname as.dimRedData
+#' @describeIn dimRedData Convert a \code{data.frame} to a dimRedData
+#'     object using a formula
 #' @export
 setMethod(f = 'as.dimRedData',
           signature = c('formula'),
-          definition = function(x, data) {
+          definition = function(formula, data) {
     data <- as.data.frame(data)
-    meta <- stats::model.frame(lhs(x), data)
-    data <- stats::model.matrix(rhs(x), data)
+    meta <- stats::model.frame(lhs(formula), data)
+    data <- stats::model.matrix(rhs(formula), data)
     return(new("dimRedData", data = data, meta = meta))
 })
 
 
-#' @rdname dimRedData
-#' @export
-setGeneric('getData', function(object) standardGeneric('getData'))
 
-#' @rdname dimRedData
+#' @param object Of class dimRedData.
+#' @describeIn dimRedData Get the data slot.
 #' @export
 setMethod('getData', 'dimRedData', function(object) object@data)
 
-#' @rdname dimRedData
-#' @export
-setGeneric('getMeta', function(object) standardGeneric('getMeta'))
 
-#' @rdname dimRedData
+#' @describeIn dimRedData Get the meta slot.
 #' @export
 setMethod('getMeta', 'dimRedData', function(object) object@meta)
 
-#' @rdname dimRedData
+#' @param x Of class dimRedData
+#' @describeIn dimRedData Get the number of observations.
 #' @export
 setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
 
-#' @rdname dimRedData
+#' @param i a valid index.
+#' @describeIn dimRedData Subset rows.
 #' @export
 setMethod('[', signature(x = 'dimRedData',
                          i = 'ANY'),

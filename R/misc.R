@@ -43,3 +43,60 @@ chckpkg <- function (pkg) {
                     pkg, "')"))
     }
 }
+
+## create generics that appear in several different places
+
+#' Converts to data.frame
+#'
+#' General conversions of objects created by \code{dimRed} to \code{data.frame}
+#'
+#' @param x The object to be converted
+#' @param row.names unused in \code{dimRed}
+#' @param optional unused in \code{dimRed}
+#' @param ... other arguments.
+setGeneric(
+    'as.data.frame',
+    function(x, row.names, optional, ...) standardGeneric('as.data.frame'),
+    useAsDefault = base::as.data.frame
+)
+
+#' Converts to dimRedData
+#'
+#' Conversion functions to dimRedData.
+#'
+#' @param formula a formula object.
+#' @param ... other arguments.
+setGeneric(
+    'as.dimRedData',
+    function(formula, ...) standardGeneric('as.dimRedData'),
+    valueClass = 'dimRedData'
+)
+
+#' Method getData
+#'
+#' Extracts the data slot.
+#' 
+#' @param object The object to be converted.
+setGeneric('getData', function(object) standardGeneric('getData'))
+
+#' Method getMeta 
+#'
+#' Extracts the meta slot.
+#' 
+#' @param object The object to be converted.
+setGeneric('getMeta', function(object) standardGeneric('getMeta'))
+
+#' Method getPars
+#'
+#' Extracts the pars slot.
+#' 
+#' @param object The object to be converted.
+setGeneric('getPars', function (object) standardGeneric('getPars'))
+
+#' Method print
+#'
+#' Imports the print method into the package namespace.
+#'
+#' @param x The object to be printed.
+#' @param ... Other arguments for printing.
+setGeneric('print', function(x, ...) standardGeneric('print'))

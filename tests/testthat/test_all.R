@@ -14,11 +14,13 @@ test_that("high level functions working?",{
     
     for(e in embed_methods) {
         message("embedding: ", e)
-        suppressWarnings(embedded_data[[e]] <- embed(scurve, e))
+        suppressWarnings(embedded_data[[e]] <- embed(scurve, e,
+                                                     .mute = c("message", "output")))
         for(q in quality_methods) {
             message("  quality: ", q)
             quality_results[e,q] <- tryCatch(
-                suppressWarnings(quality(embedded_data[[e]], q)),
+                suppressWarnings(quality(embedded_data[[e]], q,
+                                         .mute = c("message", "output"))),
                 error = function (e) NA
             )
         }

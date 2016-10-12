@@ -61,7 +61,7 @@ tsne <- tSNE()
 emb <- tsne@fun(dat, tsne@stdpars)
 
 ## using embed()
-emb2 <- embed(dat, "tSNE", perplexity = 180)
+emb2 <- embed(dat, "tSNE", perplexity = 80)
 
 plot(emb, type = '2vars')
 plot(emb2, type = '2vars')
@@ -82,6 +82,7 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{dimRedMethod-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}}
 }
 

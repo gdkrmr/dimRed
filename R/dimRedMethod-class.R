@@ -1,19 +1,53 @@
-
-#' An S4 class that makes sure that the wrappers for dimensionality
-#' reduction work.
+#' Class "dimRedMethod"
 #'
-#' @slot fun function call
-#' @slot stdpars the default parameters
-#' @export dimRedMethod
-#' @exportClass dimRedMethod
-dimRedMethod <- setClass('dimRedMethod',
-                         contains  = "VIRTUAL",
-                         slots     = c(fun     = 'function',
-                                       stdpars = 'list'))
-
-
-#' @describeIn dimRedMethod-class
+#' A virtual class "dimRedMethod" to serve as a template to implement
+#' methods for dimensionality reduction.
 #'
+#' Implementations of dimensionality reductions should inherit from
+#' this class.
+#' 
+#' The \code{fun} slot should be a function that takes three arguments
+#' \describe{
+#'   \item{data}{An object of class \code{\link{dimRedData}}.}
+#'   \item{pars}{A list with the standard parameters.}
+#'   \item{keep.org.data}{Logical. If the original data should be kept in the output.}
+#' }
+#' and returns an object of class \code{\link{dimRedResult}}.
+#'
+#' The \code{stdpars} slot should take a list that contains standard
+#' parameters for the implemented methods.
+#'
+#' This way the method can be called by \code{embed(data,
+#' "method-name", ...)}, where \code{...} can be used to to change
+#' single parameters.
+#'
+#'
+#' @slot fun A function that does the embedding.
+#' @slot stdpars A list with the default parameters for the \code{fun}
+#'     slot.
+#'
+#' @family dimensionality reduction methods
+#' @seealso \link{dimRedMethodList}
+#' @export 
+setClass('dimRedMethod',
+         contains  = "VIRTUAL",
+         slots     = c(fun     = 'function',
+                       stdpars = 'list'))
+
+
+#' dimRedMethodList
+#'
+#' Get the names of all methods for dimensionality reduction.
+#'
+#' Returns the name of all classes that inherit from
+#' \code{\link{dimRedMethod-class}} to use with \code{\link{embed}}.
+#'
+#' @return a character vector with the names of classes that inherit
+#'     from \code{dimRedMethod}.
+#'
+#' @examples
+#' dimRedMethodList()
+#' 
 #' @export
 dimRedMethodList <- function () {
     ## return(c(

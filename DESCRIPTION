@@ -15,6 +15,7 @@ Suggests:
     RANN,
     coRanking,
     energy,
+    fastICA,
     graphics,
     igraph,
     optimx,

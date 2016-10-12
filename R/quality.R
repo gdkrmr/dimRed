@@ -69,9 +69,9 @@ NULL
 #' "\link{cophenetic_correlation}", "\link{distance_correlation}",
 #' "\link{reconstruction_rmse}"}
 #'
-#' @param data object of class \code{dimRedResult}
-#' @param method character vector naming one of the methods
-#' @param mute what output from the embedding method should be muted.
+#' @param .data object of class \code{dimRedResult}
+#' @param .method character vector naming one of the methods
+#' @param .mute what output from the embedding method should be muted.
 #' @param ... the pameters, internally passed as a list to the
 #'     quality method as \code{pars = list(...)}
 #' @param object of class dimRedResult
@@ -88,7 +88,7 @@ NULL
 #' 
 #' for(e in embed_methods) {
 #'   message("embedding: ", e)
-#'   embedded_data[[e]] <- embed(scurve, e)
+#'   embedded_data[[e]] <- embed(scurve, e, .mute = c("message", "output"))
 #'   for(q in quality_methods) {
 #'     message("  quality: ", q)
 #'     quality_results[e,q] <- tryCatch(
@@ -101,17 +101,17 @@ NULL
 #' print(quality_results)
 #' 
 #' @export
-quality <- function (data, method = dimRedQualityList(),
-                     mute = c("output", "message"),
+quality <- function (.data, .method = dimRedQualityList(),
+                     .mute = character(0), # c("output", "message"),
                      ...) {
-    method <-  match.arg(method)
+    method <-  match.arg(.method)
 
     methodFunction <- getQualityFunction(method)
 
-    args <- c(list(object = data), list(...))
+    args <- c(list(object = .data), list(...))
 
     devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
-    if('message' %in% mute){
+    if('message' %in% .mute){
         devnull1 <- file(devnull,  'wt')
         sink(devnull1, type = 'message')
         on.exit({
@@ -119,7 +119,7 @@ quality <- function (data, method = dimRedQualityList(),
             close(devnull1)
         }, add = TRUE)
     }
-    if('output' %in% mute) {
+    if('output' %in% .mute) {
         devnull2 <- file(devnull,  'wt')
         sink(devnull2, type = 'output')
         on.exit({

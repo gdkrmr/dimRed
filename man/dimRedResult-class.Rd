@@ -2,35 +2,43 @@
 % Please edit documentation in R/dimRedResult-class.R
 \docType{class}
 \name{dimRedResult-class}
-\alias{as}
+\alias{as.data.frame,dimRedResult-method}
 \alias{dimRedResult}
 \alias{dimRedResult-class}
-\alias{getPars}
 \alias{getPars,dimRedResult-method}
-\alias{print}
 \alias{print,dimRedResult-method}
-\title{A class to hold the results of of a dimensionality reduction.}
+\title{Class "dimRedResult"}
 \usage{
-getPars(object)
+\S4method{as.data.frame}{dimRedResult}(x, org.data.prefix = "org.",
+  meta.prefix = "meta.", data.prefix = "")
 
 \S4method{getPars}{dimRedResult}(object)
-
-print(x, ...)
 
 \S4method{print}{dimRedResult}(x)
 }
 \arguments{
-\item{object}{of class dimRedResult}
+\item{x}{Of class \code{dimRedResult}}
 
-\item{x}{of class dimRedResult}
+\item{org.data.prefix}{Prefix for the columns of the org.data slot.}
 
-\item{...}{unused?}
+\item{meta.prefix}{Prefix for the columns of \code{x@data@meta}.}
+
+\item{data.prefix}{Prefix for the columns of \code{x@data@data}.}
+
+\item{object}{Of class \code{dimRedResult}}
 }
 \description{
 A class to hold the results of of a dimensionality reduction.
-
-as("dimRedResult", "data.frame")
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{as.data.frame}: convert to \code{data.frame}
+
+\item \code{getPars}: Get the parameters with which the method
+was called.
+
+\item \code{print}: Method for printing.
+}}
 \section{Slots}{
 
 \describe{
@@ -54,9 +62,4 @@ reduced space, may not exist.}
 
 \item{\code{pars}}{saves the parameters used.}
 }}
-\seealso{
-Other dimRedResult: \code{\link{as.data.frame}}
-
-Other dimRedResult: \code{\link{as.data.frame}}
-}
 

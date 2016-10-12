@@ -70,6 +70,7 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{Isomap-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{dimRedMethod-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }

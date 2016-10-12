@@ -2,27 +2,50 @@
 % Please edit documentation in R/dimRedMethod-class.R
 \docType{class}
 \name{dimRedMethod-class}
-\alias{dimRedMethod}
 \alias{dimRedMethod-class}
-\alias{dimRedMethodList}
-\title{An S4 class that makes sure that the wrappers for dimensionality
-reduction work.}
-\usage{
-dimRedMethodList()
-}
+\title{Class "dimRedMethod"}
 \description{
-An S4 class that makes sure that the wrappers for dimensionality
-reduction work.
+A virtual class "dimRedMethod" to serve as a template to implement
+methods for dimensionality reduction.
 }
-\section{Functions}{
-\itemize{
-\item \code{dimRedMethodList}: 
-}}
+\details{
+Implementations of dimensionality reductions should inherit from
+this class.
+
+The \code{fun} slot should be a function that takes three arguments
+\describe{
+  \item{data}{An object of class \code{\link{dimRedData}}.}
+  \item{pars}{A list with the standard parameters.}
+  \item{keep.org.data}{Logical. If the original data should be kept in the output.}
+}
+and returns an object of class \code{\link{dimRedResult}}.
+
+The \code{stdpars} slot should take a list that contains standard
+parameters for the implemented methods.
+
+This way the method can be called by \code{embed(data,
+"method-name", ...)}, where \code{...} can be used to to change
+single parameters.
+}
 \section{Slots}{
 
 \describe{
-\item{\code{fun}}{function call}
+\item{\code{fun}}{A function that does the embedding.}
 
-\item{\code{stdpars}}{the default parameters}
+\item{\code{stdpars}}{A list with the default parameters for the \code{fun}
+slot.}
 }}
+\seealso{
+\link{dimRedMethodList}
+
+Other dimensionality reduction methods: \code{\link{DRR-class}},
+  \code{\link{DiffusionMaps-class}},
+  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+  \code{\link{FruchtermanReingold-class}},
+  \code{\link{Isomap-class}},
+  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
+  \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
+}
 

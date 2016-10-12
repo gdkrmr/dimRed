@@ -20,8 +20,7 @@
 \alias{total_correlation,dimRedResult,missingORnumeric,missingORcharacter,missingORlogical-method}
 \title{dispatches the different methods for quality assessment}
 \usage{
-quality(data, method = dimRedQualityList(), mute = c("output", "message"),
-  ...)
+quality(.data, .method = dimRedQualityList(), .mute = character(0), ...)
 
 \S4method{Q_local}{dimRedResult}(object)
 
@@ -44,11 +43,11 @@ quality(data, method = dimRedQualityList(), mute = c("output", "message"),
 dimRedQualityList()
 }
 \arguments{
-\item{data}{object of class \code{dimRedResult}}
+\item{.data}{object of class \code{dimRedResult}}
 
-\item{method}{character vector naming one of the methods}
+\item{.method}{character vector naming one of the methods}
 
-\item{mute}{what output from the embedding method should be muted.}
+\item{.mute}{what output from the embedding method should be muted.}
 
 \item{...}{the pameters, internally passed as a list to the
 quality method as \code{pars = list(...)}}
@@ -86,7 +85,7 @@ embedded_data <- list()
 
 for(e in embed_methods) {
   message("embedding: ", e)
-  embedded_data[[e]] <- embed(scurve, e)
+  embedded_data[[e]] <- embed(scurve, e, .mute = c("message", "output"))
   for(q in quality_methods) {
     message("  quality: ", q)
     quality_results[e,q] <- tryCatch(

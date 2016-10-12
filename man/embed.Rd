@@ -4,7 +4,7 @@
 \alias{embed}
 \title{dispatches the different methods for dimensionality reduction}
 \usage{
-embed(.data, .method = dimRedMethodList(), .mute = c("message", "output"),
+embed(.data, .method = dimRedMethodList(), .mute = character(0),
   .keep.org.data = TRUE, ...)
 }
 \arguments{
@@ -13,8 +13,9 @@ embed(.data, .method = dimRedMethodList(), .mute = c("message", "output"),
 \item{.method}{character vector naming one of the dimensionality
 reduction techniques.}
 
-\item{.mute}{turn off printing of warnings/errors/messages of
-wrapped functions.}
+\item{.mute}{a character vector containing the elements you want to
+mute (\code{c("message", "output")}), defaults to
+\code{character(0)}.}
 
 \item{.keep.org.data}{TRUE/FALSE keep the original data.}
 
@@ -46,7 +47,7 @@ embedded_data <- list()
 
 for(e in embed_methods) {
   message("embedding: ", e)
-  embedded_data[[e]] <- embed(dataset, e)
+  embedded_data[[e]] <- embed(dataset, e, .mute = c("message", "output"))
   for(q in quality_methods) {
     message("  quality: ", q)
     quality_results[e,q] <- tryCatch(

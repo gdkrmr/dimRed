@@ -107,8 +107,6 @@ KamadaKawai <- setClass(
 #' cannot be set, this may change in a future release. The DimRed
 #' Package adds an extra sparsity parameter by constructing a knn
 #' graph which also may improve visualization quality.
-#' Instance of \code{\link{dimRedMethod}} for the Distributed
-#' Recursive Graph Layout algorithm.
 #' 
 #' @examples
 #' dat <- loadDataSet("Swiss Roll")

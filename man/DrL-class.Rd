@@ -48,8 +48,6 @@ maxiter, epsilon and kkconst are set to the default values and
 cannot be set, this may change in a future release. The DimRed
 Package adds an extra sparsity parameter by constructing a knn
 graph which also may improve visualization quality.
-Instance of \code{\link{dimRedMethod}} for the Distributed
-Recursive Graph Layout algorithm.
 }
 \examples{
 dat <- loadDataSet("Swiss Roll")
@@ -74,6 +72,7 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{PCA-class}},
+  \code{\link{dimRedMethod-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
