@@ -12,13 +12,13 @@
 #' 
 #' @examples
 #' s3d <- loadDataSet("3D S Curve")
-#' as(s3d, "data.frame")
-#' iris <- as(iris[,1:4], "dimRedData")
+#' head(as(s3d, "data.frame"))
+#' Iris <- as(iris[,1:4], "dimRedData")
 #'
-#' getData(s3d)
-#' getMeta(s3d)
+#' head(getData(s3d))
+#' head(getMeta(s3d))
 #' nrow(s3d)
-#' s3d[1:40,]
+#' s3d[1:5,]
 #'
 #' @family dimRedData
 #' @import methods
@@ -130,7 +130,7 @@ setMethod(f = 'as.data.frame',
 #' 
 #' @examples
 #' as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
-#'               iris)
+#'               iris)[1:5]
 #'
 #' @include misc.R
 #' @family dimRedData
