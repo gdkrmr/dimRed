@@ -5,6 +5,8 @@
 \alias{as.data.frame,dimRedResult-method}
 \alias{dimRedResult}
 \alias{dimRedResult-class}
+\alias{getDimRedData,dimRedResult-method}
+\alias{getOrgData,dimRedResult-method}
 \alias{getPars,dimRedResult-method}
 \alias{print,dimRedResult-method}
 \title{Class "dimRedResult"}
@@ -15,6 +17,10 @@
 \S4method{getPars}{dimRedResult}(object)
 
 \S4method{print}{dimRedResult}(x)
+
+\S4method{getOrgData}{dimRedResult}(object)
+
+\S4method{getDimRedData}{dimRedResult}(object)
 }
 \arguments{
 \item{x}{Of class \code{dimRedResult}}
@@ -38,6 +44,10 @@ A class to hold the results of of a dimensionality reduction.
 was called.
 
 \item \code{print}: Method for printing.
+
+\item \code{getOrgData}: Get the original data and meta.data
+
+\item \code{getDimRedData}: Get the embedded data
 }}
 \section{Slots}{
 
@@ -62,4 +72,28 @@ reduced space, may not exist.}
 
 \item{\code{pars}}{saves the parameters used.}
 }}
+\examples{
+## Create object by embedding data
+iris.pca <- embed(loadDataSet("Iris"), "PCA")
+
+## Convert the result to a data.frame
+head(as(iris.pca, "data.frame"))
+head(as.data.frame(iris.pca))
+
+## There are no nameclashes to avoid here:
+head(as.data.frame(iris.pca,
+                   org.data.prefix = "",
+                   meta.prefix     = "",
+                   data.prefix     = ""))
+
+## Print it more or less nicely:
+print(iris.pca)
+
+## Get the embedded data as a dimRedData object:
+getDimRedData(iris.pca)
+
+## Get the original data including meta information:
+getOrgData(iris.pca)
+
+}
 

@@ -39,10 +39,22 @@ right hand side is assigned to the data slot.}
 
 \item{object}{Of class dimRedData.}
 
-\item{i}{a valid index.}
+\item{i}{a valid index for subsetting rows.}
 }
 \description{
-A class and methods to hold data for dimensionality reduction.
+A class to hold data for dimensionality reduction and methods.
+}
+\details{
+The class hast two slots, \code{data} and \code{meta}. The
+\code{data} slot contains a \code{numeric matrix} with variables in
+columns and observations in rows. The \code{meta} slot may contain
+a \code{data.frame} with additional information. Both slots need to
+have the same number of rows or the \code{meta} slot needs to
+contain an empty \code{data.frame}.
+
+See examples for easy conversion from and to \code{data.frame}.
+
+For plotting functions see \code{\link{plot.dimRedData}}.
 }
 \section{Methods (by generic)}{
 \itemize{
@@ -71,17 +83,44 @@ data of the data set. Must have the same number of rows as the
 \code{data} slot or be an empty data frame.}
 }}
 \examples{
+## Load an example data set:
 s3d <- loadDataSet("3D S Curve")
-head(as(s3d, "data.frame"))
+
+## Create using a constructor:
+
+### without meta information:
+dimRedData(iris[,1:4])
+
+### with meta information:
+dimRedData(iris[,1:4], iris[,5])
+
+### using slot names:
+dimRedData(data = iris[,1:4], meta = iris[,5])
+
+## Convert to a dimRedData objects:
 Iris <- as(iris[,1:4], "dimRedData")
 
+## Convert to data.frame:
+head(as(s3d, "data.frame"))
+head(as.data.frame(s3d))
+
+## Extract slots:
 head(getData(s3d))
 head(getMeta(s3d))
+
+## Get the number of observations:
 nrow(s3d)
+
+## Subset:
 s3d[1:5,]
 
+## create a dimRedData object using a formula
 as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
               iris)[1:5]
+
+## Shuffle data:
+s3 <- loadDataSet("3D S Curve")
+s3 <- s3[nrow(s3)]
 
 }
 

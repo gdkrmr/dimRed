@@ -1,4 +1,3 @@
-
 #' Class "dimRedResult"
 #'
 #' A class to hold the results of of a dimensionality reduction.
@@ -14,6 +13,29 @@
 #' @slot has.inverse logical if an inverse method exists.
 #' @slot method saves the method used.
 #' @slot pars saves the parameters used.
+#'
+#' @examples
+#' ## Create object by embedding data
+#' iris.pca <- embed(loadDataSet("Iris"), "PCA")
+#'
+#' ## Convert the result to a data.frame
+#' head(as(iris.pca, "data.frame"))
+#' head(as.data.frame(iris.pca))
+#' 
+#' ## There are no nameclashes to avoid here:
+#' head(as.data.frame(iris.pca,
+#'                    org.data.prefix = "",
+#'                    meta.prefix     = "",
+#'                    data.prefix     = ""))
+#'
+#' ## Print it more or less nicely:
+#' print(iris.pca)
+#'
+#' ## Get the embedded data as a dimRedData object:
+#' getDimRedData(iris.pca)
+#'
+#' ## Get the original data including meta information:
+#' getOrgData(iris.pca)
 #'
 #' @include dimRedData-class.R
 #' @family dimRedResult
@@ -68,6 +90,7 @@ setAs(from = 'dimRedResult', to = 'data.frame',
 #' @param meta.prefix Prefix for the columns of \code{x@@data@@meta}.
 #' @param data.prefix Prefix for the columns of \code{x@@data@@data}.
 #' @method as.data.frame dimRedResult
+#'
 #' @include dimRedData-class.R
 #' @describeIn dimRedResult convert to \code{data.frame}
 #' @export
@@ -119,3 +142,24 @@ setMethod(
     }
 )
 
+#' @describeIn dimRedResult Get the original data and meta.data
+#' @export
+setMethod(
+    f = 'getOrgData',
+    signature = 'dimRedResult',
+    definition = function(object) {
+        return(new('dimRedData',
+                   data = object@org.data,
+                   meta = object@data@meta))
+    }
+)
+
+#' @describeIn dimRedResult Get the embedded data
+#' @export
+setMethod(
+    f = 'getDimRedData',
+    signature = 'dimRedResult',
+    definition = function(object) {
+        return(object@data)
+    }
+)

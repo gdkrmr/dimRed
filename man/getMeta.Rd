@@ -4,10 +4,12 @@
 \alias{getMeta}
 \title{Method getMeta}
 \usage{
-getMeta(object)
+getMeta(object, ...)
 }
 \arguments{
 \item{object}{The object to be converted.}
+
+\item{...}{other arguments.}
 }
 \description{
 Extracts the meta slot.

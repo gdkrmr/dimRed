@@ -4,10 +4,12 @@
 \alias{getPars}
 \title{Method getPars}
 \usage{
-getPars(object)
+getPars(object, ...)
 }
 \arguments{
 \item{object}{The object to be converted.}
+
+\item{...}{other arguments.}
 }
 \description{
 Extracts the pars slot.

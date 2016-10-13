@@ -1,6 +1,17 @@
 #' Class "dimRedData"
 #'
-#' A class and methods to hold data for dimensionality reduction.
+#' A class to hold data for dimensionality reduction and methods.
+#'
+#' The class hast two slots, \code{data} and \code{meta}. The
+#' \code{data} slot contains a \code{numeric matrix} with variables in
+#' columns and observations in rows. The \code{meta} slot may contain
+#' a \code{data.frame} with additional information. Both slots need to
+#' have the same number of rows or the \code{meta} slot needs to
+#' contain an empty \code{data.frame}.
+#'
+#' See examples for easy conversion from and to \code{data.frame}.
+#'
+#' For plotting functions see \code{\link{plot.dimRedData}}.
 #'
 #' @slot data of class \code{matrix}, holds the data, observations in
 #'     rows, variables in columns
@@ -11,18 +22,41 @@
 #'
 #' 
 #' @examples
+#' ## Load an example data set:
 #' s3d <- loadDataSet("3D S Curve")
-#' head(as(s3d, "data.frame"))
+#'
+#' ## Create using a constructor:
+#' 
+#' ### without meta information:
+#' dimRedData(iris[,1:4])
+#' 
+#' ### with meta information:
+#' dimRedData(iris[,1:4], iris[,5])
+#'
+#' ### using slot names:
+#' dimRedData(data = iris[,1:4], meta = iris[,5])
+#' 
+#' ## Convert to a dimRedData objects:
 #' Iris <- as(iris[,1:4], "dimRedData")
 #'
+#' ## Convert to data.frame:
+#' head(as(s3d, "data.frame"))
+#' head(as.data.frame(s3d))
+#'
+#' ## Extract slots:
 #' head(getData(s3d))
 #' head(getMeta(s3d))
+#'
+#' ## Get the number of observations:
 #' nrow(s3d)
+#'
+#' ## Subset:
 #' s3d[1:5,]
 #'
 #' @family dimRedData
 #' @import methods
-#' @export
+#' @export dimRedData
+#' @exportClass dimRedData
 dimRedData <- setClass(
     'dimRedData',
     slots     = c(data = 'matrix', meta = 'data.frame'),
@@ -52,10 +86,6 @@ dimRedData <- setClass(
     }
 )
 
-# #' @rdname dimRedData
-# #' @param data coerced into a numeric matrix, goes into slot data
-# #' @param meta coerced into a data.frame, goes into slot meta
-# #' @export
 setMethod("initialize",
           signature = c("dimRedData"),
           function (.Object, data = matrix(numeric(0), 0, 0), meta = data.frame()) {
@@ -65,44 +95,12 @@ setMethod("initialize",
     return(.Object)
 })
 
-# #' @rdname dimRedData
-# #' @name as.dimRedData,ANY               
+            
 setAs(from = 'ANY', to = 'dimRedData',
       def = function(from) new('dimRedData', data = as.matrix(from)))
 
-# # #' @rdname dimRedData
-# # #' @name as.dimRedData,data.frame
-# # setAs(from = 'data.frame', to = 'dimRedData',
-# #       def = function(from) new('dimRedData', data = as.matrix(from)))
-
-
-# #' @rdname dimRedData
-# #' @name as,data.frame,dimRedData
 setAs(from = 'dimRedData', to = 'data.frame',
       def = function(from) {as.data.frame(from)})
-
-# #' Convert to \code{data.frame}
-# #'
-# #' Convert a dimRedData or dimRedResult object to a data.frame.
-# #'
-# #' To avoid column name collisions in the resulting \code{data.frame}
-# #' prefixes can be assigned. The parameters \code{row.names},
-# #' \code{optional}, and \code{...} are not used.
-# #'
-# #' @param x dimRedResult/dimRedData object.
-# #' @param meta.prefix prefix for the meta data variables.
-# #' @param data.prefix for dimRedResult objects: prefix for embedded
-# #'     dimensions, for dimRedData objects: prefix for the variable
-# #'     names.
-# #' @param org.data.prefix for dimRedResult objects: prefix for the
-# #'     original variables.
-# #' @param row.names unused
-# #' @param optional unused
-# #' @param ... unused
-# #'
-# #' @examples
-# #' as.data.frame(embed(loadDataSet("Iris"), "PCA"), org.data.prefix = "", meta.prefix = "")
-
 
 #' @param meta.prefix Prefix for the columns of the meta data names.
 #' @param data.prefix Prefix for the columns of the variable names.
@@ -129,6 +127,7 @@ setMethod(f = 'as.data.frame',
 #' @param data A data frame
 #' 
 #' @examples
+#' ## create a dimRedData object using a formula
 #' as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
 #'               iris)[1:5]
 #'
@@ -164,7 +163,12 @@ setMethod('getMeta', 'dimRedData', function(object) object@meta)
 #' @export
 setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
 
-#' @param i a valid index.
+#' @param i a valid index for subsetting rows.
+#' @examples
+#' ## Shuffle data:
+#' s3 <- loadDataSet("3D S Curve")
+#' s3 <- s3[nrow(s3)]
+#' 
 #' @describeIn dimRedData Subset rows.
 #' @export
 setMethod('[', signature(x = 'dimRedData',

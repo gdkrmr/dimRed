@@ -1,15 +1,23 @@
 #' Plotting of dimRed* objects
 #'
-#' Plots a object of class dimRedResult and dimRedData
+#' Plots a object of class dimRedResult and dimRedData. For the
+#' documentation of the plotting function in base see here:
+#' \code{\link{plot.default}}.
 #'
-#' somewhat inflexible, if you require custom colors or want to modify
-#' graphical parameters, write your own plotting function.
+#' Plotting functions for the classes usind in \code{dimRed}. they are
+#' intended to give a quick overview over the results, so they are
+#' somewhat inflexible, e.g. it is hard to modify color scales or
+#' plotting parameters.
+#' 
+#' If you require more control over plotting, it is better to convert
+#' the object to a \code{data.frame} first and use the standard
+#' functions for plotting.
 #'
 #' @param x dimRedResult/dimRedData class, e.g. output of
 #'     embedded/loadDataSet
 #' @param y Ignored
-#' @param type plot type, one of \code{c("pairs", "parallel", "2d",
-#'     "3d")}
+#' @param type plot type, one of \code{c("pairs", "parallel", "2vars",
+#'     "3vars", "3varsrgl")}
 #' @param col the columns of the meta slot to use for coloring, can be
 #'     referenced as the column names or number of x@data
 #' @param vars the axes of the embedding to use for plotting
@@ -26,15 +34,15 @@
 #' @include dimRedData-class.R
 #' @importFrom graphics plot
 #' 
-#'
+#' @aliases plot.dimRed
 #' @export
 setGeneric(
     'plot', function(x, y, ...) standardGeneric('plot'),
     useAsDefault = graphics::plot
 )
 
-#' @describeIn plot Plot dimRedData objects
-#' 
+#' @describeIn plot Ploting of dimRedData objects
+#' @aliases plot.dimRedData
 #' @export
 setMethod(
     f = 'plot',
@@ -71,7 +79,8 @@ setMethod(
 )
 
 
-#' @describeIn plot plot dimRedResult objects
+#' @describeIn plot Ploting of dimRedResult objects.
+#' @aliases plot.dimRedResult
 #' @export
 setMethod(
     f = 'plot',

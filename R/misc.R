@@ -48,7 +48,10 @@ chckpkg <- function (pkg) {
 
 #' Converts to data.frame
 #'
-#' General conversions of objects created by \code{dimRed} to \code{data.frame}
+#' General conversions of objects created by \code{dimRed} to
+#' \code{data.frame}. See class documentations for details. For the
+#' original documentation of this function see here:
+#' \code{\link[base]{as.data.frame.default}}.
 #'
 #' @param x The object to be converted
 #' @param row.names unused in \code{dimRed}
@@ -84,14 +87,31 @@ setGeneric('getData', function(object) standardGeneric('getData'))
 #' Extracts the meta slot.
 #' 
 #' @param object The object to be converted.
-setGeneric('getMeta', function(object) standardGeneric('getMeta'))
+#' @param ... other arguments.
+setGeneric('getMeta', function(object, ...) standardGeneric('getMeta'))
 
 #' Method getPars
 #'
 #' Extracts the pars slot.
 #' 
 #' @param object The object to be converted.
-setGeneric('getPars', function (object) standardGeneric('getPars'))
+#' @param ... other arguments.
+setGeneric('getPars', function (object, ...) standardGeneric('getPars'))
+
+#' Method getOrgData
+#'
+#' Extract the Original data.
+#'
+#' @param object The object to extract data from.
+#' @param ... other arguments.
+setGeneric('getOrgData', function (object, ...) standardGeneric('getOrgData'))
+
+#' Method getDimRedData
+#'
+#' Extract dimRedData.
+#' @param object The object to extract data from.
+#' @param ... other arguments.
+setGeneric('getDimRedData', function (object, ...) standardGeneric('getDimRedData'))
 
 #' Method print
 #'
