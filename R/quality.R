@@ -1,3 +1,11 @@
+#' @include dimRedResult-class.R
+#' @include dimRedData-class.R
+
+#' @export
+setGeneric('quality',
+           function (.data, ...) standardGeneric('quality'),
+           valueClass = 'numeric')
+
 #' Quality Criteria for dimensionality reduction.
 #'
 #' A collection of functions to compute quality measures on
@@ -45,19 +53,21 @@
 #' 
 #'
 #' @references
+#' 
 #' Lueks, W., Mokbel, B., Biehl, M., Hammer, B., 2011. How
 #'     to Evaluate Dimensionality Reduction? - Improving the
 #'     Co-ranking Matrix. arXiv:1110.3917 [cs].
+#' 
 #' Szekely, G.J., Rizzo, M.L., Bakirov, N.K., 2007. Measuring and
 #'     testing dependence by correlation of distances. Ann. Statist. 35,
 #'     2769-2794. doi:10.1214/009053607000000505
+#' 
 #' Lee, J.A., Peluffo-Ordonez, D.H., Verleysen, M., 2015. Multi-scale
 #'     similarities in stochastic neighbour embedding: Reducing
 #'     dimensionality while preserving both local and global
 #'     structure. Neurocomputing, 169,
 #'     246-261. doi:10.1016/j.neucom.2014.12.095
 #'
-#' @author Guido Kraemer
 #'
 #'
 #' @param .data object of class \code{dimRedResult}
@@ -65,7 +75,6 @@
 #' @param .mute what output from the embedding method should be muted.
 #' @param ... the pameters, internally passed as a list to the
 #'     quality method as \code{pars = list(...)}
-#' @param object of class dimRedResult
 #' @return a number
 #'
 #' @examples
@@ -90,37 +99,44 @@
 #' }
 #'
 #' print(quality_results)
-#' @include dimRedResult-class.R
+#' @author Guido Kraemer
+#' @aliases quality quality.dimRedResult
+#' @family Quality scores for dimensionality reduction
+#' @describeIn quality Calculate a quality index from a dimRedResult object.
 #' @export
-quality <- function (.data, .method = dimRedQualityList(),
-                     .mute = character(0), # c("output", "message"),
-                     ...) {
-    method <-  match.arg(.method)
+setMethod(
+    'quality',
+    'dimRedResult',
+    function (.data, .method = dimRedQualityList(),
+              .mute = character(0), # c("output", "message"),
+              ...) {
+        method <-  match.arg(.method)
 
-    methodFunction <- getQualityFunction(method)
+        methodFunction <- getQualityFunction(method)
 
-    args <- c(list(object = .data), list(...))
+        args <- c(list(object = .data), list(...))
 
-    devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
-    if('message' %in% .mute){
-        devnull1 <- file(devnull,  'wt')
-        sink(devnull1, type = 'message')
-        on.exit({
-            sink(file = NULL, type = "message")
-            close(devnull1)
-        }, add = TRUE)
+        devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
+        if('message' %in% .mute){
+            devnull1 <- file(devnull,  'wt')
+            sink(devnull1, type = 'message')
+            on.exit({
+                sink(file = NULL, type = "message")
+                close(devnull1)
+            }, add = TRUE)
+        }
+        if('output' %in% .mute) {
+            devnull2 <- file(devnull,  'wt')
+            sink(devnull2, type = 'output')
+            on.exit({
+                sink()
+                close(devnull2)
+            }, add = TRUE)
+        }
+        
+        do.call(methodFunction, args)
     }
-    if('output' %in% .mute) {
-        devnull2 <- file(devnull,  'wt')
-        sink(devnull2, type = 'output')
-        on.exit({
-            sink()
-            close(devnull2)
-        }, add = TRUE)
-    }
-    
-    do.call(methodFunction, args)
-}
+)
 
 getQualityFunction <- function (method) {
     switch(
@@ -144,7 +160,12 @@ setGeneric(
 )
 
 
-#' @describeIn quality Calculate Q_local
+#' Method Q_local
+#'
+#' Calculate the Q_local score to assess the quality of a dimensionality reduction.
+#'
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
 #' @aliases Q_local
 #' @export
 setMethod(
@@ -175,7 +196,12 @@ setGeneric(
     valueClass = 'numeric'
 )
 
-#' @rdname quality
+#' Method Q_global
+#'
+#' Calculate the Q_global score to assess the quality of a dimensionality reduction.
+#'
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
 #' @aliases Q_global
 #' @export
 setMethod(
@@ -207,7 +233,12 @@ setGeneric(
     valueClass = 'numeric'
 )
 
-#' @rdname quality
+#' Method mean_R_NX
+#'
+#' Calculate the mean_R_NX score to assess the quality of a dimensionality reduction.
+#'
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
 #' @aliases mean_R_NX
 #' @export
 setMethod(
@@ -236,28 +267,30 @@ setMethod(
 #' @export
 setGeneric(
     'total_correlation',
-    function(object, naxes, cor_method, is.rotated) standardGeneric('total_correlation'),
+    function(object, ...) standardGeneric('total_correlation'),
     valueClass = 'numeric'
 )
 
-
-
+#' Method total_correlation
+#'
+#' Calculate the total correlation of the variables with the axes to
+#' assess the quality of a dimensionality reduction.
+#'
+#' @param object of class dimRedResult
 #' @param naxes the number of axes to use for optimization.
 #' @param cor_method the correlation method to use.
 #' @param is.rotated if FALSE the object is rotated.
-#' @rdname quality
+#'
+#' @family Quality scores for dimensionality reduction
 #' @aliases total_correlation
 #' @export
 setMethod(
     'total_correlation',
-    c('dimRedResult',
-      'missingORnumeric',
-      'missingORcharacter',
-      'missingORlogical'),
-    function(object, naxes, cor_method, is.rotated){
-        if(missing(naxes))      naxes      <- ncol(object@data@data)
-        if(missing(cor_method)) cor_method <- 'pearson'
-        if(missing(is.rotated)) is.rotated <- FALSE
+    'dimRedResult',
+    function(object, naxes = ndims(object), cor_method = 'pearson', is.rotated = FALSE){
+        ## if(!hasArg(naxes))      naxes      <- ncol(object@data@data)
+        ## if(!hasArg(cor_method)) cor_method <- 'pearson'
+        ## if(!hasArg(is.rotated)) is.rotated <- FALSE
 
         if(!object@has.org.data) stop('object requires original data')
         if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
@@ -292,19 +325,26 @@ setMethod(
 )
 
 setGeneric('cophenetic_correlation',
-           function(object, d, cor_method) standardGeneric('cophenetic_correlation'),
+           function(object, ...) standardGeneric('cophenetic_correlation'),
            valueClass = 'numeric')
 
+#' Method cophenetic_correlation
+#'
+#' Calculate the correlation between the distance matrices in high and
+#' low dimensioal space.
+#'
+#' @param object of class dimRedResult
 #' @param d the distance function to use.
-#' @rdname quality
+#' @param cor_method The correlation method.
 #' @aliases cophenetic_correlation
+#' @family Quality scores for dimensionality reduction
 #' @export
 setMethod(
     'cophenetic_correlation',
-    c('dimRedResult', 'missingORfunction', 'missingORcharacter'), 
-    function(object, d, cor_method){
-        if(missing(d)) d <- stats::dist
-        if(missing(cor_method)) cor_method <- 'pearson'
+    'dimRedResult', 
+    function(object, d = stats::dist, cor_method = 'pearson'){
+        ## if(missing(d)) d <- stats::dist
+        ## if(missing(cor_method)) cor_method <- 'pearson'
         if(!object@has.org.data) stop('object requires original data')
         cor_methods <- c('pearson', 'kendall', 'spearman')
         cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
@@ -335,8 +375,14 @@ setGeneric(
     valueClass = 'numeric'
 )
 
-#' @rdname quality
+#' Method distance_correlation
+#'
+#' Calculate the distance correlation between the distance matrices in
+#' high and low dimensioal space.
+#'
+#' @param object of class dimRedResult
 #' @aliases distance_correlation
+#' @family Quality scores for dimensionality reduction
 #' @export
 setMethod(
     'distance_correlation',
@@ -358,8 +404,13 @@ setGeneric(
     valueClass = 'numeric'
 )
 
-#' @rdname quality
+#' Method reconstruction_rmse
+#'
+#' Calculate the reconstruction root mean squared error a dimensionality reduction, the method must have an inverse mapping.
+#'
+#' @param object of class dimRedResult
 #' @aliases reconstruction_rmse
+#' @family Quality scores for dimensionality reduction
 #' @export
 setMethod(
     'reconstruction_rmse',
@@ -374,6 +425,7 @@ setMethod(
     })
 
 #' @rdname quality
+#' 
 #' @export
 dimRedQualityList <- function () {
     return(c('Q_local',

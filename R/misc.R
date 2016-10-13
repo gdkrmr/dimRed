@@ -1,7 +1,7 @@
-if(!isClassUnion('missingORnumeric'))   setClassUnion('missingORnumeric',   c('numeric', 'missing'))
-if(!isClassUnion('missingORcharacter')) setClassUnion('missingORcharacter', c('character', 'missing'))
-if(!isClassUnion('missingORlogical'))   setClassUnion('missingORlogical',   c('logical', 'missing'))
-if(!isClassUnion('missingORfunction'))  setClassUnion('missingORfunction',  c('function', 'missing'))
+## if(!isClassUnion('missingORnumeric'))   setClassUnion('missingORnumeric',   c('numeric', 'missing'))
+## if(!isClassUnion('missingORcharacter')) setClassUnion('missingORcharacter', c('character', 'missing'))
+## if(!isClassUnion('missingORlogical'))   setClassUnion('missingORlogical',   c('logical', 'missing'))
+## if(!isClassUnion('missingORfunction'))  setClassUnion('missingORfunction',  c('function', 'missing'))
 
 # Squared euclidean distance between points in A and B
 # taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/ 
@@ -60,7 +60,8 @@ chckpkg <- function (pkg) {
 setGeneric(
     'as.data.frame',
     function(x, row.names, optional, ...) standardGeneric('as.data.frame'),
-    useAsDefault = base::as.data.frame
+    useAsDefault = base::as.data.frame,
+    valueClass = 'data.frame'
 )
 
 #' Converts to dimRedData
@@ -120,3 +121,61 @@ setGeneric('getDimRedData', function (object, ...) standardGeneric('getDimRedDat
 #' @param x The object to be printed.
 #' @param ... Other arguments for printing.
 setGeneric('print', function(x, ...) standardGeneric('print'))
+
+
+#' Method ndims
+#'
+#' Extract the number of dimensions.
+#'
+#' @param object To extract the number of dimensions from.
+#' @param ... Arguments for further methods
+setGeneric('ndims', function (object, ...) standardGeneric('ndims'), valueClass = "integer")
+
+
+#' getSuggests
+#'
+#' Install packages wich are suggested by dimRed.
+#'
+#' By default dimRed will not install all the dependencies, because
+#' there are quite a lot and in case some of them are not available
+#' for your platform you will not be able to install dimRed without
+#' problems.
+#'
+#' To solve this I provide a function which automatically installes
+#' all the suggested packages.
+#'
+#' @examples
+#' \dontrun{
+#' installSuggests()
+#' }
+#' 
+installSuggests <- function () {
+    "%w/o%" <- function(x, y) x[!x %in% y]
+    pkgString <- installed.packages()["dimRed","Suggests"]
+    deps <- strsplit(pkgString, ", |,\n")[[1]]
+
+    installedPkgs <- rownames(installed.packages())
+    missingPkgs <- deps %w/o% installedPkgs
+
+    if (length(missingPkgs) > 0) {
+        message("The following packages are missing: ")
+        cat(missingPkgs, '\n')
+        message("installing ...")
+        install.packages(missingPkgs)
+    } else {
+        message("All necessary packages installed")
+        message("If things still don't work you may have the wrong versions installed, file a bugreport!!")
+    }
+
+    pkgString <- installed.packages()["dimRed","Suggests"]
+    installedPkgs <- rownames(installed.packages())
+    missingPkgs <- deps %w/o% installedPkgs
+    if (length(missingPkgs) > 0) {
+        message("Could not install the following packages:")
+        cat(missingPkgs, '\n')
+        message("please install manually or some methods will not work.")
+    } else {
+        message("All necessary packages installed")
+        message("If things still don't work you may have the wrong versions installed, file a bugreport!!")
+    }
+}

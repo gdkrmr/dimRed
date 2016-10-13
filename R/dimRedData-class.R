@@ -1,3 +1,7 @@
+#' @include misc.R
+NULL
+
+
 #' Class "dimRedData"
 #'
 #' A class to hold data for dimensionality reduction and methods.
@@ -105,9 +109,7 @@ setAs(from = 'dimRedData', to = 'data.frame',
 #' @param meta.prefix Prefix for the columns of the meta data names.
 #' @param data.prefix Prefix for the columns of the variable names.
 #' 
-#' @include misc.R
 #' @family dimRedData
-#' @method as.data.frame dimRedData
 #' @describeIn dimRedData convert to data.frame
 #' @export
 setMethod(f = 'as.data.frame',
@@ -133,7 +135,6 @@ setMethod(f = 'as.data.frame',
 #'
 #' @include misc.R
 #' @family dimRedData
-#' @method as.dimRedData dimRedData
 #' @describeIn dimRedData Convert a \code{data.frame} to a dimRedData
 #'     object using a formula
 #' @export
@@ -166,8 +167,7 @@ setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
 #' @param i a valid index for subsetting rows.
 #' @examples
 #' ## Shuffle data:
-#' s3 <- loadDataSet("3D S Curve")
-#' s3 <- s3[nrow(s3)]
+#' s3 <- s3d[nrow(s3d)]
 #' 
 #' @describeIn dimRedData Subset rows.
 #' @export
@@ -183,3 +183,12 @@ setMethod('[', signature(x = 'dimRedData',
               paste(vv, collapse = '\n'))
 }) 
 
+
+#' @describeIn dimRedData Extract the number of Variables from the data.
+#' 
+#' @examples
+#' ## Get the number of variables:
+#' ndims(s3d)
+#'
+#' @export
+setMethod('ndims', 'dimRedData', function(object) ncol(object@data))

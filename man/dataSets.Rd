@@ -30,10 +30,11 @@ A compilation of standard data sets that are often being used to
 showcase dimensionality reduction techniques.
 }
 \details{
-\code{name} should be one of \code{dataSetList()}. Partial matching is
-possible, see \code{\link{match.arg}}. Generated data sets contain
-the internal coordinates of the manifold in the \code{meta} slot.
-Call \code{dataSetList()} to see what data sets are available.
+The argument \code{name} should be one of
+\code{dataSetList()}. Partial matching is possible, see
+\code{\link{match.arg}}. Generated data sets contain the internal
+coordinates of the manifold in the \code{meta} slot.  Call
+\code{dataSetList()} to see what data sets are available.
 }
 \examples{
 ## a list of available data sets:

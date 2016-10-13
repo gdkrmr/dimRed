@@ -1,3 +1,7 @@
+#' @include misc.R
+#' @include dimRedData-class.R
+NULL
+
 #' Class "dimRedResult"
 #'
 #' A class to hold the results of of a dimensionality reduction.
@@ -37,9 +41,9 @@
 #' ## Get the original data including meta information:
 #' getOrgData(iris.pca)
 #'
-#' @include dimRedData-class.R
 #' @family dimRedResult
-#' @export 
+#' @export dimRedResult
+#' @exportClass dimRedResult
 dimRedResult <- setClass(
     'dimRedResult',
     slots = c(
@@ -66,32 +70,26 @@ dimRedResult <- setClass(
     )
 )
 
-
-
-# #' As("dimRedResult", "data.frame")
-# #' 
-# #' @name as
-setAs(from = 'dimRedResult', to = 'data.frame',
-      def = function(from){
-          if(from@has.org.data) {
-              org.data <- from@org.data
-              names(org.data) <- paste("org", names(org.data), sep = ".")
-              cbind(as(from@data, 'data.frame'), as.data.frame(org.data))
-          } else {
-              as(from@data, 'data.frame')
-          }
-      })
-
-
+setAs(
+    from = 'dimRedResult',
+    to = 'data.frame',
+    def = function(from){
+        if(from@has.org.data) {
+            org.data <- from@org.data
+            names(org.data) <- paste("org", names(org.data), sep = ".")
+            cbind(as(from@data, 'data.frame'), as.data.frame(org.data))
+        } else {
+            as(from@data, 'data.frame')
+        }
+    }
+)
 
 
 #' @param x Of class \code{dimRedResult}
 #' @param org.data.prefix Prefix for the columns of the org.data slot.
 #' @param meta.prefix Prefix for the columns of \code{x@@data@@meta}.
 #' @param data.prefix Prefix for the columns of \code{x@@data@@data}.
-#' @method as.data.frame dimRedResult
 #'
-#' @include dimRedData-class.R
 #' @describeIn dimRedResult convert to \code{data.frame}
 #' @export
 setMethod(f = 'as.data.frame',
@@ -162,4 +160,17 @@ setMethod(
     definition = function(object) {
         return(object@data)
     }
+)
+
+#' @describeIn dimRedResult Extract the number of embedding dimensions.
+#' 
+#' @examples
+#' ## Get the number of variables:
+#' ndims(iris.pca)
+#'
+#' @export
+setMethod(
+    'ndims',
+    'dimRedResult',
+    function(object) ncol(object@data@data)
 )

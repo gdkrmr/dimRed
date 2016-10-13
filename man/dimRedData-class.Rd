@@ -9,6 +9,7 @@
 \alias{dimRedData-class}
 \alias{getData,dimRedData-method}
 \alias{getMeta,dimRedData-method}
+\alias{ndims,dimRedData-method}
 \alias{nrow,dimRedData-method}
 \title{Class "dimRedData"}
 \usage{
@@ -24,6 +25,8 @@
 \S4method{nrow}{dimRedData}(x)
 
 \S4method{[}{dimRedData,ANY,ANY,ANY}(x, i)
+
+\S4method{ndims}{dimRedData}(object)
 }
 \arguments{
 \item{x}{Of class dimRedData}
@@ -70,6 +73,8 @@ object using a formula
 \item \code{nrow}: Get the number of observations.
 
 \item \code{[}: Subset rows.
+
+\item \code{ndims}: Extract the number of Variables from the data.
 }}
 \section{Slots}{
 
@@ -119,8 +124,10 @@ as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
               iris)[1:5]
 
 ## Shuffle data:
-s3 <- loadDataSet("3D S Curve")
-s3 <- s3[nrow(s3)]
+s3 <- s3d[nrow(s3d)]
+
+## Get the number of variables:
+ndims(s3d)
 
 }
 

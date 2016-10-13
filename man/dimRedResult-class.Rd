@@ -8,6 +8,7 @@
 \alias{getDimRedData,dimRedResult-method}
 \alias{getOrgData,dimRedResult-method}
 \alias{getPars,dimRedResult-method}
+\alias{ndims,dimRedResult-method}
 \alias{print,dimRedResult-method}
 \title{Class "dimRedResult"}
 \usage{
@@ -21,6 +22,8 @@
 \S4method{getOrgData}{dimRedResult}(object)
 
 \S4method{getDimRedData}{dimRedResult}(object)
+
+\S4method{ndims}{dimRedResult}(object)
 }
 \arguments{
 \item{x}{Of class \code{dimRedResult}}
@@ -48,6 +51,8 @@ was called.
 \item \code{getOrgData}: Get the original data and meta.data
 
 \item \code{getDimRedData}: Get the embedded data
+
+\item \code{ndims}: Extract the number of embedding dimensions.
 }}
 \section{Slots}{
 
@@ -94,6 +99,9 @@ getDimRedData(iris.pca)
 
 ## Get the original data including meta information:
 getOrgData(iris.pca)
+
+## Get the number of variables:
+ndims(iris.pca)
 
 }
 

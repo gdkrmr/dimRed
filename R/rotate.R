@@ -6,9 +6,11 @@
 ## we maximize the squared correlations of the original variables
 ## with the axis of the embeding and the final result is the sum_{axes} sum(squared(correlation(variables, axis)))
 
-setGeneric('maximize_correlation',
-           function(object, naxes, cor_method) standardGeneric('maximize_correlation'),
-           valueClass = 'dimRedResult')
+setGeneric(
+    'maximize_correlation',
+    function(object, ...) standardGeneric('maximize_correlation'),
+    valueClass = 'dimRedResult'
+)
 
 #' Maximize Correlation with the Axes
 #'
@@ -28,29 +30,31 @@ setGeneric('maximize_correlation',
 #'
 #' @aliases maximize_correlation
 #' @export
-setMethod('maximize_correlation',
-          c('dimRedResult', 'missingORnumeric', 'missingORcharacter'),
-          function(object, naxes = ncol(object@data@data), cor_method = 'pearson'){
-    if(missing(naxes))      naxes      <- ncol(object@data@data)
-    if(missing(cor_method)) cor_method <- 'pearson'
-
-    if(!object@has.org.data) stop('object requires original data')
-    if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
-        stop('naxes must specify the numbers of axes to optimize for, ',
-             'i.e. a single integer between 1 and ncol(object@data@data)')
-    ## try to partially match cor_method:
-    cor_method <- cor_method[pmatch(cor_method, c('pearson', 'kendall', 'spearman'))]
-    if(is.na(cor_method))
-        stop("cor_method must match one of ",
-             "'pearson', 'kendall', or 'spearman', ",
-             "at least partially.")
-
-    mcres <- .maximize_correlation(object@data@data, object@org.data, 1:naxes, cor_method)
-
-    res <- object
-    res@data@data <- mcres$rotated
-    return(res)
-})
+setMethod(
+    'maximize_correlation',
+    'dimRedResult',
+    function(object, naxes = ncol(object@data@data), cor_method = 'pearson'){
+        ## if(missing(naxes))      naxes      <- ncol(object@data@data)
+        ## if(missing(cor_method)) cor_method <- 'pearson'
+        
+        if(!object@has.org.data) stop('object requires original data')
+        if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
+            stop('naxes must specify the numbers of axes to optimize for, ',
+                 'i.e. a single integer between 1 and ncol(object@data@data)')
+        ## try to partially match cor_method:
+        cor_method <- cor_method[pmatch(cor_method, c('pearson', 'kendall', 'spearman'))]
+        if(is.na(cor_method))
+            stop("cor_method must match one of ",
+                 "'pearson', 'kendall', or 'spearman', ",
+                 "at least partially.")
+        
+        mcres <- .maximize_correlation(object@data@data, object@org.data, 1:naxes, cor_method)
+        
+        res <- object
+        res@data@data <- mcres$rotated
+        return(res)
+    }
+)
 
 .maximize_correlation <- function(X, Y, axes = 1:ncol(X), cor_method = 'pearson'){
 
