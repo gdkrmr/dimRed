@@ -16,7 +16,8 @@ dimRed.Rcheck
 /.juliahistory
 /src/test.r
 /R/.Rhistory
-/scratch
+
+scratch*
 
 notes.org
 
