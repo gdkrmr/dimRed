@@ -22,6 +22,5 @@ all the suggested packages.
 \dontrun{
 installSuggests()
 }
-
 }
 

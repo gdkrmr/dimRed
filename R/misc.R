@@ -148,7 +148,7 @@ setGeneric('ndims', function (object, ...) standardGeneric('ndims'), valueClass 
 #' \dontrun{
 #' installSuggests()
 #' }
-#' 
+#' @export 
 installSuggests <- function () {
     "%w/o%" <- function(x, y) x[!x %in% y]
     pkgString <- installed.packages()["dimRed","Suggests"]
