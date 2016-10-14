@@ -16,3 +16,10 @@ dimRed.Rcheck
 /.juliahistory
 /src/test.r
 /R/.Rhistory
+/scratch
+
+notes.org
+
+server.R
+ui.R
+*.jl
