@@ -19,3 +19,5 @@ src
 notes\.org
 
 TAGS
+^.*\.Rproj$
+^\.Rproj\.user$

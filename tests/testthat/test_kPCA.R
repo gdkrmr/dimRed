@@ -42,14 +42,15 @@ test_that('general data conversions', {
 
     irisRes <- lapply(irisPars, function(x)
         do.call(
-            function(...) tryCatch(embed(.data = irisData, .method = 'kPCA', ...), error = function(e) as.character(e)),
+            function(...) tryCatch(embed(.data = irisData, .method = 'kPCA', ...), 
+                                   error = function(e) as.character(e)),
             x
         ) )
 
     for(i in 1:length(irisRes)) {
         if(inherits(irisRes[[i]], 'character')){
-            expect(grepl('system is computationally singular', irisRes[[i]][1]),
-                   'there is an error other than the singularity')
+            expect(grepl('singular', irisRes[[i]]),
+                   'singular')
         } else {
             expect(inherits(irisRes[[i]], 'dimRedResult'),
                    'should be of class "dimRedResult"')
