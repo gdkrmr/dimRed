@@ -97,18 +97,21 @@ setMethod(f = 'as.data.frame',
           definition = function(x, org.data.prefix = "org.",
                                 meta.prefix = "meta.",
                                 data.prefix = "") {
-    cbind(
-        as.data.frame(
-            x@data@meta,
-            col.names     = paste0(org.data.prefix, colnames(x@data@meta))),
-        as.data.frame(
-            x@data@data,
-            col.names     = paste0(data.prefix,   colnames(x@data@data))),
-        if(x@has.org.data)
-            as.data.frame(
-                x@org.data,
-                col.names = paste0(org.data.prefix, colnames(x@org.data)))
-    )
+    browser()
+    tmp <- list()
+    
+    if(nrow(x@data@meta) > 0){
+        tmp$meta <- as.data.frame(x@data@meta)
+        names(tmp$meta) <- paste0(org.data.prefix, colnames(x@data@meta))
+    }
+    tmp$data <- as.data.frame(x@data@data)
+    names(tmp$data) <- paste0(data.prefix,   colnames(x@data@data))
+    if(x@has.org.data){
+        tmp$org.data <- as.data.frame(x@org.data)
+        names(tmp$org.data) <- paste0(org.data.prefix, colnames(x@org.data))
+    }
+    names(tmp) <- NULL
+    data.frame(tmp, stringsAsFactors = FALSE)
 })
 
 

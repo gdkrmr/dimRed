@@ -3,10 +3,18 @@
 \docType{methods}
 \name{embed}
 \alias{embed}
+\alias{embed,ANY-method}
 \alias{embed,dimRedData-method}
+\alias{embed,formula-method}
 \title{dispatches the different methods for dimensionality reduction}
 \usage{
 embed(.data, ...)
+
+\S4method{embed}{formula}(.formula, .data, .method = dimRedMethodList(),
+  .mute = character(0), .keep.org.data = TRUE, ...)
+
+\S4method{embed}{ANY}(.data, .method = dimRedMethodList(),
+  .mute = character(0), .keep.org.data = TRUE, ...)
 
 \S4method{embed}{dimRedData}(.data, .method = dimRedMethodList(),
   .mute = character(0), .keep.org.data = TRUE, ...)
@@ -16,6 +24,8 @@ embed(.data, ...)
 
 \item{...}{the pameters, internally passed as a list to the
 dimensionality reduction method as \code{pars = list(...)}}
+
+\item{.formula}{a formulat, see \code{\link{as.dimRedData}}.}
 
 \item{.method}{character vector naming one of the dimensionality
 reduction techniques.}
@@ -42,6 +52,11 @@ function with all arguments named \code{embed(.data = dat, .method
 }
 \section{Methods (by class)}{
 \itemize{
+\item \code{formula}: embed a data.frame using a formula.
+
+\item \code{ANY}: embed Anything as log as it hast a method
+\code{as(.data, "dimRedData")}.
+
 \item \code{dimRedData}: embed a dimRedData object
 }}
 \examples{
@@ -67,7 +82,17 @@ for(e in embed_methods) {
 
 print(quality_results)
 
+## embed a data.frame using a formula:
+head(as.data.frame(
+  embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+        iris, "PCA")
+))
 
-
+head(as.data.frame(
+  embed(iris[,1:4], "PCA")
+))
+head(as.data.frame(
+  embed(as.matrix(iris[,1:4]), "PCA")
+))
 }
 

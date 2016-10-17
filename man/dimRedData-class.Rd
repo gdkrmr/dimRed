@@ -108,6 +108,7 @@ Iris <- as(iris[,1:4], "dimRedData")
 ## Convert to data.frame:
 head(as(s3d, "data.frame"))
 head(as.data.frame(s3d))
+head(as.data.frame(as(iris[,1:4], "dimRedData")))
 
 ## Extract slots:
 head(getData(s3d))

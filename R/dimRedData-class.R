@@ -46,7 +46,8 @@ NULL
 #' ## Convert to data.frame:
 #' head(as(s3d, "data.frame"))
 #' head(as.data.frame(s3d))
-#'
+#' head(as.data.frame(as(iris[,1:4], "dimRedData")))
+#' 
 #' ## Extract slots:
 #' head(getData(s3d))
 #' head(getMeta(s3d))
@@ -116,11 +117,16 @@ setMethod(f = 'as.data.frame',
           signature = c('dimRedData'),
           definition = function(x, meta.prefix = "meta.",
                                 data.prefix = "") {
-    res <- cbind(as.data.frame(x@meta),
-                 as.data.frame(x@data))
-    names(res) <- c(paste0(meta.prefix, colnames(x@meta)),
-                    paste0(data.prefix, colnames(x@data)))
-    return(res)
+    tmp <- list()
+
+    if(nrow(x@meta) > 0){
+        tmp$meta <- as.data.frame(x@meta, stringsAsFactors = FALSE)
+        names(tmp$meta) <- paste0(meta.prefix, colnames(x@meta))
+    }
+    tmp$data <- as.data.frame(x@data, stringsAsFactors = FALSE)
+    names(tmp$data) <- paste0(data.prefix, colnames(x@data))
+    names(tmp) <- NULL
+    data.frame(tmp, stringsAsFactors = FALSE)
 })
 
 

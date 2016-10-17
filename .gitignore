@@ -8,7 +8,7 @@ dimRed_*.tar.gz
 TAGS
 dimRed.Rcheck
 
-/.Rhistory
+*.Rhistory
 /.Rprofile
 /.projectile
 /dimRed.Rproj

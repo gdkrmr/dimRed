@@ -43,11 +43,50 @@
 #'
 #' print(quality_results)
 #' 
-#' 
-#' 
+#' ## embed a data.frame using a formula:
+#' head(as.data.frame(
+#'   embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+#'         iris, "PCA")
+#' ))
+#'
+#' head(as.data.frame(
+#'   embed(iris[,1:4], "PCA")
+#' ))
+#' head(as.data.frame(
+#'   embed(as.matrix(iris[,1:4]), "PCA")
+#' ))
 #' @export
 setGeneric("embed", function(.data, ...) standardGeneric("embed"),
            valueClass = "dimRedResult")
+
+#' @describeIn embed embed a data.frame using a formula.
+#' @param .formula a formulat, see \code{\link{as.dimRedData}}.
+#' @export
+setMethod(
+    "embed",
+    "formula",
+    function(.formula, .data, .method = dimRedMethodList(),
+             .mute = character(0), .keep.org.data = TRUE,
+             ...) {
+        if(!is.data.frame(.data)) stop(".data must be a data.frame")
+
+        .data <- as.dimRedData(.formula, .data)
+        embed(.data, .method, .mute, .keep.org.data, ...)
+    }
+)
+
+#' @describeIn embed embed Anything as log as it hast a method
+#'     \code{as(.data, "dimRedData")}.
+#' @export
+setMethod(
+    "embed",
+    "ANY",
+    function(.data, .method = dimRedMethodList(),
+             .mute = character(0), .keep.org.data = TRUE,
+             ...) {
+        embed(as(.data, "dimRedData"), .method, .mute, .keep.org.data, ...)
+    }
+)
 
 #' @describeIn embed embed a dimRedData object
 #' @export
