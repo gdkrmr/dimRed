@@ -97,7 +97,6 @@ setMethod(f = 'as.data.frame',
           definition = function(x, org.data.prefix = "org.",
                                 meta.prefix = "meta.",
                                 data.prefix = "") {
-    browser()
     tmp <- list()
     
     if(nrow(x@data@meta) > 0){

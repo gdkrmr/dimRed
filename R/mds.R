@@ -79,7 +79,6 @@ MDS <- setClass(
                                         # forever
 
         appl <- if(!has.apply) function(x) NA else function(x) {
-            browser()
             appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame() 
             proj <- if(inherits(x, 'dimRedData')) x@data else x
 
