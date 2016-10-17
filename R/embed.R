@@ -46,41 +46,49 @@
 #' 
 #' 
 #' @export
-embed <- function(.data, .method = dimRedMethodList(),
-                  .mute = character(0), #c('message', 'output'),
-                  .keep.org.data = TRUE,
-                  ...){
-    method <- match.arg(.method)
-    
-    methodObject <- getMethodObject(method)
-    
-    args <- list(
-        data          = as(.data, "dimRedData"),
-        keep.org.data = .keep.org.data
-    )
-    args$pars <- matchPars(methodObject, list(...))
-    
-    devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
-    if('message' %in% .mute){
-        devnull1 <- file(devnull,  'wt')
-        sink(devnull1, type = 'message')
-        on.exit({
-            sink(file = NULL, type = "message")
-            close(devnull1)
-        }, add = TRUE)
-    }
-    if('output' %in% .mute) {
-        devnull2 <- file(devnull,  'wt')
-        sink(devnull2, type = 'output')
-        on.exit({
-            sink()
-            close(devnull2)
-        }, add = TRUE)
-    }
-        
-    do.call(methodObject@fun, args)
-}
+setGeneric("embed", function(.data, ...) standardGeneric("embed"),
+           valueClass = "dimRedResult")
 
+#' @describeIn embed embed a dimRedData object
+#' @export
+setMethod(
+    "embed",
+    "dimRedData",
+    function(.data, .method = dimRedMethodList(),
+             .mute = character(0), #c('message', 'output'),
+             .keep.org.data = TRUE,
+             ...){
+        method <- match.arg(.method)
+        
+        methodObject <- getMethodObject(method)
+        
+        args <- list(
+            data          = as(.data, "dimRedData"),
+            keep.org.data = .keep.org.data
+        )
+        args$pars <- matchPars(methodObject, list(...))
+        
+        devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
+        if('message' %in% .mute){
+            devnull1 <- file(devnull,  'wt')
+            sink(devnull1, type = 'message')
+            on.exit({
+                sink(file = NULL, type = "message")
+                close(devnull1)
+            }, add = TRUE)
+        }
+        if('output' %in% .mute) {
+            devnull2 <- file(devnull,  'wt')
+            sink(devnull2, type = 'output')
+            on.exit({
+                sink()
+                close(devnull2)
+            }, add = TRUE)
+        }
+        
+        do.call(methodObject@fun, args)
+    }
+)
 
 getMethodObject <- function (method) {
     ## switch(
