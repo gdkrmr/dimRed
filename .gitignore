@@ -9,6 +9,7 @@ TAGS
 dimRed.Rcheck
 
 *.Rhistory
+*.RData
 /.Rprofile
 /.projectile
 /dimRed.Rproj
