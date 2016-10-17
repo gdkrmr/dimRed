@@ -8,7 +8,8 @@
 #' gives them a common interface. It also provides plotting functions
 #' for visualization and functions for quality assessment.
 #' 
-#' Funding provided by the Max Planck Institute for Biogeochemistry,
-#' Jena, Empirical Inference of the Earth System Group.
+#' Funding provided by the Department for Biogeochemical Integration,
+#' Empirical Inference of the Earth System Group, Max Plack Institute
+#' for Biogeochemistry, Jena.
 #'
 "_PACKAGE"
