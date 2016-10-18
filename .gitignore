@@ -24,3 +24,4 @@ notes.org
 server.R
 ui.R
 *.jl
+/.dir-locals.el
