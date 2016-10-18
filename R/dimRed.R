@@ -9,7 +9,7 @@
 #' for visualization and functions for quality assessment.
 #' 
 #' Funding provided by the Department for Biogeochemical Integration,
-#' Empirical Inference of the Earth System Group, Max Plack Institute
-#' for Biogeochemistry, Jena.
+#' Empirical Inference of the Earth System Group, at the Max Plack
+#' Institute for Biogeochemistry, Jena.
 #'
 "_PACKAGE"
