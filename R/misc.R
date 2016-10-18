@@ -153,7 +153,7 @@ installSuggests <- function () {
     "%w/o%" <- function(x, y) x[!x %in% y]
     pkgString <- installed.packages()["dimRed","Suggests"]
     deps <- strsplit(pkgString, ", |,\n")[[1]]
-    deps <- gsub("\n", "", deps)
+    deps <- gsub("\n", "", deps)        # Windows needs this
 
     installedPkgs <- rownames(installed.packages())
     missingPkgs <- deps %w/o% installedPkgs
@@ -163,22 +163,22 @@ installSuggests <- function () {
         cat(missingPkgs, '\n')
         message("installing ...")
         install.packages(missingPkgs)
+        pkgString <- installed.packages()["dimRed","Suggests"]
+        installedPkgs <- rownames(installed.packages())
+        missingPkgs <- deps %w/o% installedPkgs
+        if (length(missingPkgs) > 0) {
+            message("Could not install the following packages:")
+            cat(missingPkgs, '\n')
+            message("please install manually or some methods will not work.")
+        } else {
+            message("All necessary packages installed")
+            message("If things still don't work try 'update.package()'")
+            message("If it still does not work file a bugreport!!")
+        }
     } else {
         message("All necessary packages installed")
         message("If things still don't work try 'update.package()'")
         message("If it still does not work file a bugreport!!")
     }
 
-    pkgString <- installed.packages()["dimRed","Suggests"]
-    installedPkgs <- rownames(installed.packages())
-    missingPkgs <- deps %w/o% installedPkgs
-    if (length(missingPkgs) > 0) {
-        message("Could not install the following packages:")
-        cat(missingPkgs, '\n')
-        message("please install manually or some methods will not work.")
-    } else {
-        message("All necessary packages installed")
-        message("If things still don't work try 'update.package()'")
-        message("If it still does not work file a bugreport!!")
-    }
 }
