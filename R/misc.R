@@ -153,6 +153,7 @@ installSuggests <- function () {
     "%w/o%" <- function(x, y) x[!x %in% y]
     pkgString <- installed.packages()["dimRed","Suggests"]
     deps <- strsplit(pkgString, ", |,\n")[[1]]
+    deps <- gsub("\n", "", deps)
 
     installedPkgs <- rownames(installed.packages())
     missingPkgs <- deps %w/o% installedPkgs
