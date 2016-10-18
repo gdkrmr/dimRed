@@ -26,7 +26,6 @@ Suggests:
     diffusionMap,
     kernlab,
     lle,
-    loe,
     scatterplot3d,
     vegan,
     testthat
