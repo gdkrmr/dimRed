@@ -178,6 +178,7 @@ installSuggests <- function () {
         message("please install manually or some methods will not work.")
     } else {
         message("All necessary packages installed")
-        message("If things still don't work you may have the wrong versions installed, file a bugreport!!")
+        message("If things still don't work try 'update.package()'")
+        message("If it still does not work file a bugreport!!")
     }
 }
