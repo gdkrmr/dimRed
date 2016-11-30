@@ -66,7 +66,7 @@ setMethod(
                 graphics::plot(x@data[,vars[1:2]], col = cols,   ... )
             },
             "3vars"    = {
-                if(!requireNamespace("scatterplot3d")) stop("require scatterplot3d package")
+                chckpkg("scatterplot3d")
                 scatterplot3d::scatterplot3d(x@data[,vars[1:3]], color = cols, ... )
             },
             "3varsrgl" = {
