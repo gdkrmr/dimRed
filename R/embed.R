@@ -6,8 +6,8 @@
 #' is performed. All parameters start with a dot, to avoid clashes
 #' with partial argument matching (see the R manual section 4.3.2), if
 #' there should ever occur any clashes in the arguments, call the
-#' function with all arguments named \code{embed(.data = dat, .method
-#' = "PCA", .d = "something")}.
+#' function with all arguments named, e.g. \code{embed(.data = dat,
+#' .method = "mymethod", .d = "some parameter")}.
 #'
 #' @param .data object of class \code{dimRedData}
 #' @param .method character vector naming one of the dimensionality
@@ -60,7 +60,7 @@ setGeneric("embed", function(.data, ...) standardGeneric("embed"),
            valueClass = "dimRedResult")
 
 #' @describeIn embed embed a data.frame using a formula.
-#' @param .formula a formulat, see \code{\link{as.dimRedData}}.
+#' @param .formula a formula, see \code{\link{as.dimRedData}}.
 #' @export
 setMethod(
     "embed",
@@ -75,8 +75,8 @@ setMethod(
     }
 )
 
-#' @describeIn embed embed Anything as log as it hast a method
-#'     \code{as(.data, "dimRedData")}.
+#' @describeIn embed Embed anything as long as it can be coerced to
+#'     \code{dimRedData}.
 #' @export
 setMethod(
     "embed",
@@ -88,7 +88,7 @@ setMethod(
     }
 )
 
-#' @describeIn embed embed a dimRedData object
+#' @describeIn embed Embed a dimRedData object
 #' @export
 setMethod(
     "embed",
