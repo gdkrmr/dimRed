@@ -72,7 +72,7 @@ tSNE <- setClass(
         outdata <- Rtsne::Rtsne(pars$d(indata),
                                 perplexity = pars$perplexity,
                                 theta = pars$theta,
-                                ndims = pars$ndim)$Y
+                                dims = pars$ndim)$Y
 
         colnames(outdata) <- paste0("tSNE", 1:ncol(outdata))
 
