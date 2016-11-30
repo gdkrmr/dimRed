@@ -47,6 +47,7 @@ loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
         'Helix'                = helix(n, sigma),
         'Twin Peaks'           = twinPeaks(n, sigma),
         'Sphere'               = sphere(n, sigma),
+        'FishBowl'             = fishbowl(n, sigma),
         'Ball'                 = ball(n, sigma),
         '3D S Curve'           = sCurve(n, sigma),
         'variable Noise Helix' = noisyHelix(n, sigma),
@@ -64,6 +65,7 @@ dataSetList <- function () {
         'Twin Peaks',
         'Sphere',
         'Ball',
+        'FishBowl',
         '3D S Curve',
         'variable Noise Helix',
         'Iris'
@@ -141,6 +143,15 @@ sphere <- function (n = 2000, sigma = 0.05) {
     new('dimRedData',
         data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(phi = phi, psi = psi))
+}
+
+fishbowl <- function (n = 2000, sigma = 0.05) {
+    phi <- stats::runif(n, 0, 2*pi)
+    psi <- acos(stats::runif(n, -1, 0.8))
+
+    new('dimRedData',
+        data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
+        meta = data.frame(psi = psi))
 }
 
 sphereMapping <- function (phi, psi) {

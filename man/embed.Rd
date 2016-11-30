@@ -25,7 +25,7 @@ embed(.data, ...)
 \item{...}{the pameters, internally passed as a list to the
 dimensionality reduction method as \code{pars = list(...)}}
 
-\item{.formula}{a formulat, see \code{\link{as.dimRedData}}.}
+\item{.formula}{a formula, see \code{\link{as.dimRedData}}.}
 
 \item{.method}{character vector naming one of the dimensionality
 reduction techniques.}
@@ -47,17 +47,17 @@ Method must be one of \code{dimRedMethodList()}, partial matching
 is performed. All parameters start with a dot, to avoid clashes
 with partial argument matching (see the R manual section 4.3.2), if
 there should ever occur any clashes in the arguments, call the
-function with all arguments named \code{embed(.data = dat, .method
-= "PCA", .d = "something")}.
+function with all arguments named, e.g. \code{embed(.data = dat,
+.method = "mymethod", .d = "some parameter")}.
 }
 \section{Methods (by class)}{
 \itemize{
 \item \code{formula}: embed a data.frame using a formula.
 
-\item \code{ANY}: embed Anything as log as it hast a method
-\code{as(.data, "dimRedData")}.
+\item \code{ANY}: Embed anything as long as it can be coerced to
+\code{dimRedData}.
 
-\item \code{dimRedData}: embed a dimRedData object
+\item \code{dimRedData}: Embed a dimRedData object
 }}
 \examples{
 embed_methods <- dimRedMethodList() 
