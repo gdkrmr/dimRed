@@ -184,7 +184,7 @@ setMethod(
 
         Kmax <- which.max(lcmc)
 
-        Qlocal <- sum(Qnx[1:Kmax]) / Kmax
+        Qlocal <- sum(lcmc[1:Kmax]) / Kmax
         return(Qlocal)
     }
 )
@@ -208,7 +208,6 @@ setMethod(
     'Q_global',
     'dimRedResult',
     function(object){
-        
         if(!object@has.org.data) stop('object requires original data')
         chckpkg('coRanking')
         
@@ -221,7 +220,7 @@ setMethod(
         
         Kmax <- which.max(lcmc)
         
-        Qglobal <- sum(Qnx[(Kmax+1):nQ]) / (N - Kmax)
+        Qglobal <- sum(lcmc[(Kmax+1):nQ]) / (N - Kmax)
         return(Qglobal)    
     }
 )
