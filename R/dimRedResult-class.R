@@ -97,12 +97,12 @@ setMethod(f = 'as.data.frame',
           definition = function(x, org.data.prefix = "org.",
                                 meta.prefix = "meta.",
                                 data.prefix = "") {
-    browser()
     tmp <- list()
     
     if(nrow(x@data@meta) > 0){
         tmp$meta <- as.data.frame(x@data@meta)
-        names(tmp$meta) <- paste0(meta.data.prefix, colnames(x@data@meta))
+        names(tmp$meta) <- paste0(meta.data.prefix,
+                                  colnames(x@data@meta))
     }
     tmp$data <- as.data.frame(x@data@data)
     names(tmp$data) <- paste0(data.prefix,   colnames(x@data@data))
