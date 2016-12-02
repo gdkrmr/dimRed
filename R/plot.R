@@ -71,7 +71,7 @@ setMethod(
             },
             "3varsrgl" = {
                 chckpkg("rgl")
-                rgl::points3d(x@data[,vars[1:3]], col = cols,   ... )
+                rgl::plot3d(x@data[,vars[1:3]], col = cols,   ... )
             },
             stop("wrong argument to plot.dimRedData")
         )
