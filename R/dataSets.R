@@ -232,9 +232,9 @@ noisyHelixMapping <- function(t, min_noise, max_noise) {
 }
 
 cube <- function(n = 2000, sigma = 0.05){
-    tmp <- cbind(x = runif(n) + rnorm(n, sd = sigma),
-                 y = runif(n) + rnorm(n, sd = sigma),
-                 z = runif(n) + rnorm(n, sd = sigma))
+    tmp <- cbind(x = stats::runif(n) + stats::rnorm(n, sd = sigma),
+                 y = stats::runif(n) + stats::rnorm(n, sd = sigma),
+                 z = stats::runif(n) + stats::rnorm(n, sd = sigma))
 
     new('dimRedData', data = tmp, meta = tmp)
 }

@@ -101,7 +101,7 @@ setMethod(f = 'as.data.frame',
     
     if(nrow(x@data@meta) > 0){
         tmp$meta <- as.data.frame(x@data@meta)
-        names(tmp$meta) <- paste0(meta.data.prefix,
+        names(tmp$meta) <- paste0(meta.prefix,
                                   colnames(x@data@meta))
     }
     tmp$data <- as.data.frame(x@data@data)
