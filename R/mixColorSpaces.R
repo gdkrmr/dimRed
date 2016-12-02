@@ -64,9 +64,9 @@ mixColor2Ramps <- function (vars,
 #' @rdname mixColorRamps
 #' @export
 mixColor3Ramps <- function (vars,
-                           ramps = list(colorRamp(c('white','green')),
-                                        colorRamp(c('white','blue')),
-                                        colorRamp(c('white','red')))) {
+                           ramps = list(colorRamp(c('#001A00','#00E600')),
+                                        colorRamp(c('#00001A','#0000E6')),
+                                        colorRamp(c('#1A0000','#E60000')))) {
     mixColorRamps(vars, ramps)
 }
 
