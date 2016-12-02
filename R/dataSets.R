@@ -51,6 +51,7 @@ loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
         'Ball'                 = ball(n, sigma),
         '3D S Curve'           = sCurve(n, sigma),
         'variable Noise Helix' = noisyHelix(n, sigma),
+        'Cube'                 = cube(n, sigma),
         'Iris'                 = irisdata()
     )
 }
@@ -68,7 +69,8 @@ dataSetList <- function () {
         'FishBowl',
         '3D S Curve',
         'variable Noise Helix',
-        'Iris'
+        'Iris',
+        'Cube'
     ))
 }
 
@@ -229,3 +231,10 @@ noisyHelixMapping <- function(t, min_noise, max_noise) {
           z = 2 * t + make_noise(t))
 }
 
+cube <- function(n = 2000, sigma = 0.05){
+    tmp <- cbind(x = runif(n) + rnorm(n, sigma),
+                 y = runif(n) + rnorm(n, sigma),
+                 z = runif(n) + rnorm(n, sigma))
+
+    new('dimRedData', data = tmp, meta = tmp)
+}
