@@ -8,7 +8,7 @@
 #' intended to give a quick overview over the results, so they are
 #' somewhat inflexible, e.g. it is hard to modify color scales or
 #' plotting parameters.
-#' 
+#'
 #' If you require more control over plotting, it is better to convert
 #' the object to a \code{data.frame} first and use the standard
 #' functions for plotting.
@@ -33,7 +33,7 @@
 #' @include mixColorSpaces.R
 #' @include dimRedData-class.R
 #' @importFrom graphics plot
-#' 
+#'
 #' @aliases plot.dimRed
 #' @export
 setGeneric(

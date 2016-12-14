@@ -59,7 +59,7 @@ emb <- drl@fun(dat, drl@stdpars)
 ## simpler, use embed():
 emb2 <- embed(dat, "DrL")
 
- 
+
 plot(emb)
 
 

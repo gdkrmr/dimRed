@@ -5,7 +5,7 @@ context("PCA")
 test_that("general data conversions", {
     irisData <- as(iris[,1:4], "dimRedData")
     expect_equal(class(irisData)[1], "dimRedData")
-    
+
     irisParsCS <- list(center = TRUE,  scale. = TRUE)
     irisParsC  <- list(center = TRUE,  scale. = FALSE)
     irisParsS  <- list(center = FALSE, scale. = TRUE)

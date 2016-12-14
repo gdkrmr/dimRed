@@ -6,11 +6,11 @@
 #' distance matrices in high and low-dimensional space to embed the
 #' data. The method is very well suited to visualize complex
 #' structures in low dimensions.
-#' 
+#'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' t-SNE can take the following parameters:
 #' \describe{
@@ -31,7 +31,7 @@
 #' @references
 #' Maaten, L. van der, 2014. Accelerating t-SNE using Tree-Based
 #' Algorithms. Journal of Machine Learning Research 15, 3221-3245.
-#' 
+#'
 #' van der Maaten, L., Hinton, G., 2008. Visualizing Data using
 #' t-SNE. J. Mach. Learn. Res. 9, 2579-2605.
 #'
@@ -44,7 +44,7 @@
 #'
 #' ## using embed()
 #' emb2 <- embed(dat, "tSNE", perplexity = 80)
-#' 
+#'
 #' plot(emb, type = "2vars")
 #' plot(emb2, type = "2vars")
 #'

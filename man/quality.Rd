@@ -82,7 +82,7 @@ calculating the correlation of distances. For details see
 of the reconstrucion. \code{object} requires an inverse function.
 }
 \examples{
-embed_methods <- dimRedMethodList() 
+embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
 scurve <- loadDataSet("3D S Curve", n = 500)
 
@@ -90,13 +90,13 @@ quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
                               dimnames = list(embed_methods, quality_methods))
 embedded_data <- list()
 
-for(e in embed_methods) {
+for (e in embed_methods) {
   message("embedding: ", e)
   embedded_data[[e]] <- embed(scurve, e, .mute = c("message", "output"))
-  for(q in quality_methods) {
+  for (q in quality_methods) {
     message("  quality: ", q)
     quality_results[e,q] <- tryCatch(
-      quality(embedded_data[[e]], q), 
+      quality(embedded_data[[e]], q),
       error = function (e) NA
     )
   }

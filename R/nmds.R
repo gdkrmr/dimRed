@@ -3,11 +3,11 @@
 #' An S4 Class implementing Non-Metric Dimensional Scaling.
 #'
 #' A non-linear extension of MDS using monotonic regression
-#' 
+#'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' nMDS can take the following parameters:
 #' \describe{
@@ -31,7 +31,7 @@
 #' ## using embed()
 #' emb2 <- embed(dat, "nMDS", d = function(x) exp(dist(x)))
 #'
-#' 
+#'
 #' plot(emb, type = "2vars")
 #' plot(emb2, type = "2vars")
 #'

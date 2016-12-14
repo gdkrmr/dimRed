@@ -9,7 +9,7 @@
 #' @param ramps a list of color ramps, one for each variable.
 #'
 #' @importFrom grDevices colorRamp
-#' @examples 
+#' @examples
 #' cols <- expand.grid(x = seq(0,1, length.out = 10),
 #'                     y = seq(0,1, length.out = 10),
 #'                     z = seq(0,1, length.out = 10))
@@ -23,16 +23,16 @@
 #'                     y = seq(0,1, length.out = 10))
 #' mixed <- mixColor2Ramps(cols)
 #' }
-#' 
+#'
 #' plot(cols$x, cols$y, col = mixed, pch = 15)
 #' @importFrom grDevices colorRamp
 #' @importFrom grDevices rgb
 #' @export
 mixColorRamps <- function (vars, ramps) {
     if (length(vars) > length(ramps)) stop("need more or equal ramps than vars")
-   
+
     nvars <- length(vars)
-    
+
     rgbs <- list()
     for (i in 1:nvars){
         rgbs[[i]] <- ramps[[i]](scale01(as.numeric(vars[[i]])))
@@ -42,8 +42,8 @@ mixColorRamps <- function (vars, ramps) {
 
     res <- apply(retrgb, 2,  function(x) (x - min(x)) / (max(x) - min(x)))
     res[is.nan(res)] <- 0
-   
-    return(rgb(res))    
+
+    return(rgb(res))
 }
 
 #' @rdname mixColorRamps

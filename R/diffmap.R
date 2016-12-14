@@ -1,5 +1,5 @@
 #' Diffusion Maps
-#' 
+#'
 #' An S4 Class implementing Diffusion Maps
 #'
 #' Diffusion Maps uses a diffusion probability matrix to robustly
@@ -7,10 +7,10 @@
 #'
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
 #'
-#' @section Parameters: 
+#' @section Parameters:
 #' Diffusion Maps can take the following parameters:
 #' \describe{
 #'   \item{d}{a function transforming a matrix row wise into a
@@ -42,23 +42,23 @@
 #'     C.M., 2009. Exploiting Low-Dimensional Structure in
 #'     Astronomical Spectra. ApJ 691,
 #'     32. doi:10.1088/0004-637X/691/1/32
-#' 
+#'
 #' Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
 #'     Computational Harmonic Analysis 21,
 #'     5-30. doi:10.1016/j.acha.2006.04.006
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
 #'
 #' ## use the S4 Class directly:
 #' diffmap <- DiffusionMaps()
 #' emb <- diffmap@fun(dat, diffmap@stdpars)
-#' 
+#'
 #' ## simpler, use embed():
 #' emb2 <- embed(dat, "DiffusionMaps")
-#' 
+#'
 #' plot(emb, type = "2vars")
-#' 
+#'
 #' samp <- sample(floor(nrow(dat)/10))
 #' embsamp <- diffmap@fun(dat[samp], diffmap@stdpars)
 #' embother <- embsamp@apply(dat[-samp])
@@ -86,7 +86,7 @@ DiffusionMaps <- setClass(
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
-        
+
         distmat <- pars$d(indata)
         if (pars$eps == "auto") pars$eps <- diffusionMap::epsilonCompute(distmat)
         diffres <- diffusionMap::diffuse(
@@ -98,23 +98,23 @@ DiffusionMaps <- setClass(
                                      delta = pars$delta
                                  )
         outdata <- diffres$X
-        
+
         appl <- function(x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
-            
+
             if (ncol(proj) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
-            
+
             dd <- sqrt(pdist2(proj, indata))
-            
+
             appl.res <- diffusionMap::nystrom(diffres, dd, sigma = diffres$epsilon)
             dimnames(appl.res) <- list(
                 rownames(x), paste0("diffMap", seq_len(ncol(outdata)))
             )
             return(appl.res)
         }
-    
+
         colnames(outdata) <- paste0("diffMap", seq_len(ncol(outdata)))
 
         return(new(

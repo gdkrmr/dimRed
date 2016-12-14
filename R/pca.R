@@ -1,4 +1,4 @@
-#' Principal Component Analysis 
+#' Principal Component Analysis
 #'
 #' S4 Class implementing PCA.
 #'
@@ -11,9 +11,9 @@
 #' probably always be applied as a baseline if other methods are tested.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' PCA can take the following parameters:
 #' \describe{
@@ -23,7 +23,7 @@
 #' }
 #'
 #' @section Implementation:
-#' 
+#'
 #' Wraps around \code{\link{prcomp}}. Because PCA can be reduced to a
 #' simple rotation, forward and backward projection functions are
 #' supplied. .
@@ -57,7 +57,7 @@ PCA <- setClass(
                         keep.org.data = TRUE) {
         ndim <- pars$ndim
         pars$ndim <- NULL
-        
+
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         data <- data@data
@@ -73,15 +73,15 @@ PCA <- setClass(
         rot <- res$rotation[,seq_len(ndim)]
         rerot <- t(rot)
 
-        
+
         appl <- function(x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
-            
+
             if (ncol(proj) != ncol(orgdata))
                 stop("x must have the same number of dimensions as the original data")
 
-            
+
             if (ce[1]  != FALSE) proj <- t(apply(proj, 1, function(x) x - ce))
             if (sc[1]  != FALSE) proj <- t(apply(proj, 1, function(x) x / sc))
             proj <- proj %*% rot
@@ -103,7 +103,7 @@ PCA <- setClass(
             if (ce[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x + ce))
 
             reproj <- new("dimRedData", data = reproj, meta = appl.meta)
-            
+
             return(reproj)
         }
 
@@ -121,7 +121,7 @@ PCA <- setClass(
             method       = "pca",
             pars         = pars
         )
-        
+
         return(res)
     })
 )

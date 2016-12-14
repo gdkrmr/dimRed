@@ -4,18 +4,18 @@
 #'
 #' Laplacian Eigenmaps use a kernel and were originally developed to
 #' separate non-convex clusters.
-#' 
+#'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' \code{LaplacianEigenmaps} can take the following parameters:
 #' \describe{
 #'   \item{d}{a distance function to calculate the distance matrix}
 #'   \item{knn}{The number of nearest neighbors to use for the knn graph.}
 #'   \item{ndim}{the number of output dimensions.}
-#' 
+#'
 #'   \item{t}{Parameter for the transformation of the distance matrix
 #'   by \eqn{w=exp(-d^2/t)}, larger values give less weight to
 #'   differences in distance, \code{t == Inf} treats all distances != 0 equally.}
@@ -35,7 +35,7 @@
 #' leim <- LaplacianEigenmaps()
 #' emb <- leim@fun(dat, leim@stdpars)
 #'
-#' 
+#'
 #' plot(emb@data@data)
 #'
 #'
@@ -62,7 +62,7 @@ LaplacianEigenmaps <- setClass(
         if (is.null(pars$ndim))  pars$ndim <- 2
         if (is.null(pars$t))     pars$t    <- Inf
         if (is.null(pars$norm))  pars$norm <- TRUE
-        
+
         if (is.infinite(pars$t)) {
             data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE)
         } else {
@@ -75,7 +75,7 @@ LaplacianEigenmaps <- setClass(
             dim(outdata) <- c(length(outdata), 1)
         }
 
-        
+
         colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
 
         return(new(

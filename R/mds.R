@@ -7,18 +7,18 @@
 #' be used, but it is computationally more demanding.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' MDS can take the following parameters:
 #' \describe{
 #'   \item{ndim}{The number of dimensions.}
 #'   \item{d}{The function to calculate the distance matrix from the input coordinates, defaults to euclidean distances.}
-#' } 
+#' }
 #'
 #' @section Implementation:
-#' 
+#'
 #' Wraps around \code{\link[stats]{cmdscale}}. The implementation also
 #' provides an out-of-sample extension which is not completely
 #' optimized yet.
@@ -27,13 +27,13 @@
 #' dat <- loadDataSet("3D S Curve")
 #'
 #' ## Use the S4 Class directly:
-#' mds <- MDS()                        
+#' mds <- MDS()
 #' emb <- mds@fun(dat, mds@stdpars)
 #'
 #' ## use embed():
 #' emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
 #'
-#' 
+#'
 #' plot(emb, type = "2vars")
 #' plot(emb2, type = "2vars")
 #'
@@ -66,20 +66,20 @@ MDS <- setClass(
                                         # TRUE or an
                                         # error
                                         # string!!!!
-        
+
         D <- as.matrix(pars$d(indata))
         if (has.apply) mD2 <- mean(D^2)
-        
+
         ## cmdscale square the matrix internally
         res <- stats::cmdscale(D, k = pars$ndim)
         outdata <- res
-        
+
         D <- NULL  # Untested: remove that from environment before creating
                                         # appl function, else it will stay in its environment
                                         # forever
 
         appl <- if (!has.apply) function(x) NA else function(x) {
-            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame() 
+            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
             ## double center new data with respect to old: TODO: optimize
@@ -97,21 +97,21 @@ MDS <- setClass(
             tmp  <- eigen(Kab, symmetric = TRUE)
             ev   <- tmp$values[seq_len(pars$ndim)]
             evec <- tmp$vectors[, seq_len(pars$ndim), drop = FALSE]
-            
+
             k1 <- sum(ev > 0)
             if (k1 < pars$ndim) {
-                warning(gettextf("only %d of the first %d eigenvalues are > 0", 
+                warning(gettextf("only %d of the first %d eigenvalues are > 0",
                                  k1, k), domain = NA)
                 evec <- evec[, ev > 0, drop = FALSE]
                 ev <- ev[ev > 0]
             }
             points <- evec * rep(sqrt(ev), each = nrow(proj))
             dimnames(points) <- list(NULL, paste0("MDS", seq_len(ncol(points))))
-            
+
             new("dimRedData", data = points, meta = appl.meta)
         }
-        
-        
+
+
 
         colnames(outdata) <- paste0("MDS", seq_len(ncol(outdata)))
 

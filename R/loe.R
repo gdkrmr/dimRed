@@ -14,7 +14,7 @@
 ## #' loe <- LOE()
 ## #' emb <- loe@fun(dat, loe@stdpars)
 ## #'
-## #' 
+## #'
 ## #' plot(emb@data@data)
 ## #'
 ## #' @include dimRedResult-class.R

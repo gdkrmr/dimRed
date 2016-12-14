@@ -8,9 +8,9 @@
 #' \code{\link{match.arg}}. Generated data sets contain the internal
 #' coordinates of the manifold in the \code{meta} slot.  Call
 #' \code{dataSetList()} to see what data sets are available.
-#' 
 #'
-#' 
+#'
+#'
 #' @param name A character vector that specifies the name of the data
 #'     set.
 #' @param n In generated data sets the number of points to be
@@ -24,14 +24,14 @@
 #' @examples
 #' ## a list of available data sets:
 #' dataSetList()
-#' 
+#'
 #' ## Load a data set:
 #' swissRoll <- loadDataSet("Swiss Roll")
 #' \donttest{plot(swissRoll, type = "3vars")}
 #'
 #' ## Load Iris data set, partial matching:
 #' loadDataSet("I")
-#' 
+#'
 #' @name dataSets
 NULL
 
@@ -96,7 +96,7 @@ brokenSwissRoll <- function (n = 2000, sigma = 0.05) {
         stats::runif(ceiling(n/2), 3.3 * pi, 4.5 * pi)
     )
     y <- stats::runif(n, 0, 30)
-    
+
     new("dimRedData",
         data = swissRollMapping(x, y) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(x = x, y = y))
@@ -121,7 +121,7 @@ helixMapping <- function (x) {
           y = (2 + cos(8*x)) * sin(x),
           z = (sin(8*x)))
 }
-    
+
 twinPeaks <- function (n = 2000, sigma = 0.05) {
     x <- stats::runif(n, -1, 1)
     y <- stats::runif(n, -1, 1)
@@ -141,7 +141,7 @@ twinPeaksMapping <- function (x, y) {
 sphere <- function (n = 2000, sigma = 0.05) {
     phi <- stats::runif(n, 0, 2 * pi)
     psi <- acos(stats::runif(n, -1, 1))
-    
+
     new("dimRedData",
         data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(phi = phi, psi = psi))
@@ -176,7 +176,7 @@ ball <- function (n = 2000, sigma = 0.05) {
 ballMapping <- function (phi, psi, r) {
     cbind(x = r*cos(phi)*sin(psi),
           y = r*sin(phi)*sin(psi),
-          z = r*cos(psi))    
+          z = r*cos(psi))
 }
 
 sCurve <- function (n = 2000, sigma = 0.05) {
@@ -198,7 +198,7 @@ noisyHelix <- function (n = 2000, sigma = 0.05) {
     t <- stats::runif(n, 0, 4*pi)
     min_noise <- 0.1
     max_noise <- 1.4
-  
+
     new("dimRedData",
         data = noisyHelixMapping(t, min_noise, max_noise) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(t = t))
@@ -208,7 +208,7 @@ noisyHelixMapping <- function(t, min_noise, max_noise) {
     make_noise <- function (t){
         stats::rnorm(length(t), sd = t * max_noise / max(t) + min_noise)
     }
-    
+
     cbind(x = 3 * cos(t) + make_noise(t),
           y = 3 * sin(t) + make_noise(t),
           z = 2 * t + make_noise(t))

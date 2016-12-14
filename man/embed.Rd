@@ -60,7 +60,7 @@ function with all arguments named, e.g. \code{embed(.data = dat,
 \item \code{dimRedData}: Embed a dimRedData object
 }}
 \examples{
-embed_methods <- dimRedMethodList() 
+embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
 dataset <- loadDataSet("Iris")
 
@@ -68,10 +68,10 @@ quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
                               dimnames = list(embed_methods, quality_methods))
 embedded_data <- list()
 
-for(e in embed_methods) {
+for (e in embed_methods) {
   message("embedding: ", e)
   embedded_data[[e]] <- embed(dataset, e, .mute = c("message", "output"))
-  for(q in quality_methods) {
+  for (q in quality_methods) {
     message("  quality: ", q)
     quality_results[e,q] <- tryCatch(
       quality(embedded_data[[e]], q),

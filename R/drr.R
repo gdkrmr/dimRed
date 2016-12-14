@@ -5,9 +5,9 @@
 #' DRR is a non-linear extension of PCA that uses Kernel Ridge regression.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' DRR can take the following parameters:
 #' \describe{
@@ -34,7 +34,7 @@
 #'   \item{verbose}{logical, should the cross-validation results be
 #'   printed out.}
 #' }
-#' 
+#'
 #' @section Implementation:
 #' Wraps around \code{\link[DRR]{drr}}, see there for details. DRR is
 #' a non-linear extension of principal components analysis using Kernel
@@ -56,8 +56,8 @@
 #' efficient way to search the parameter space but may also miss the
 #' global maximum, I have not ran tests on the accuracy of this method.
 #'
-#' 
-#' 
+#'
+#'
 #' @references
 #' Laparra, V., Malo, J., Camps-Valls, G.,
 #'     2015. Dimensionality Reduction via Regression in Hyperspectral
@@ -80,9 +80,9 @@
 #' plot(dat, type = "3vars")
 #' plot(emb, type = "3vars")
 #' plot(emb@inverse(emb@data@data[,1,drop = FALSE]), type = "3vars")
-#' 
 #'
-#' 
+#'
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @import DRR
@@ -119,11 +119,11 @@ DRR <- setClass(
 
         outdata <- res$fitted.data
         colnames(outdata) <- paste0("DRR", 1:ncol(outdata))
-        
+
         appl <- function(x){
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
-            
+
             if (ncol(proj) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
 
@@ -137,7 +137,7 @@ DRR <- setClass(
         inv <- function(x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
-            
+
             if (ncol(proj) > ncol(data@data))
                 stop("x must have less or equal number of dimensions as the original data")
 
@@ -145,8 +145,8 @@ DRR <- setClass(
             dimnames(inv.out@data) <- list(rownames(proj), colnames(data@data))
             return(inv.out)
         }
-        
-        
+
+
         return(
             new("dimRedResult",
                 data = new("dimRedData",

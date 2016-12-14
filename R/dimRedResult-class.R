@@ -25,7 +25,7 @@ NULL
 #' ## Convert the result to a data.frame
 #' head(as(iris.pca, "data.frame"))
 #' head(as.data.frame(iris.pca))
-#' 
+#'
 #' ## There are no nameclashes to avoid here:
 #' head(as.data.frame(iris.pca,
 #'                    org.data.prefix = "",
@@ -98,7 +98,7 @@ setMethod(f = "as.data.frame",
                                 meta.prefix = "meta.",
                                 data.prefix = "") {
     tmp <- list()
-    
+
     if (nrow(x@data@meta) > 0){
         tmp$meta <- as.data.frame(x@data@meta)
         names(tmp$meta) <- paste0(meta.prefix,
@@ -166,7 +166,7 @@ setMethod(
 )
 
 #' @describeIn dimRedResult Extract the number of embedding dimensions.
-#' 
+#'
 #' @examples
 #' ## Get the number of variables:
 #' ndims(iris.pca)

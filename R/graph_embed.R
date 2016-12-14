@@ -11,9 +11,9 @@
 #' repelling forces.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' KamadaKawai can take the following parameters:
 #' \describe{
@@ -28,14 +28,14 @@
 #' cannot be set, this may change in a future release. The DimRed
 #' Package adds an extra sparsity parameter by constructing a knn
 #' graph which also may improve visualization quality.
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 500)
 #' kamada_kawai <- KamadaKawai()
 #' kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
-#' 
+#'
 #' plot(kk@data@data)
-#' 
+#'
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -56,7 +56,7 @@ KamadaKawai <- setClass(
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
-        
+
         outdata <- em_graph_layout(
             indata,
             graph_em_method = igraph::layout_with_kk,
@@ -76,7 +76,7 @@ KamadaKawai <- setClass(
             org.data     = orgdata,
             has.org.data = keep.org.data,
             method       = "graph_kk",
-            pars         = pars        
+            pars         = pars
         ))
     })
 )
@@ -90,7 +90,7 @@ KamadaKawai <- setClass(
 #' embedding which uses several steps.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
 #'
 #' @section Parameters:
@@ -107,7 +107,7 @@ KamadaKawai <- setClass(
 #' cannot be set, this may change in a future release. The DimRed
 #' Package adds an extra sparsity parameter by constructing a knn
 #' graph which also may improve visualization quality.
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 500)
 #'
@@ -118,10 +118,10 @@ KamadaKawai <- setClass(
 #' ## simpler, use embed():
 #' emb2 <- embed(dat, "DrL")
 #'
-#'  
+#'
 #' plot(emb)
-#' 
-#' 
+#'
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -137,11 +137,11 @@ DrL <- setClass(
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg("igraph")
-        
+
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
-        
+
         outdata <- em_graph_layout(
             indata,
             graph_em_method = igraph::layout_with_drl,
@@ -186,7 +186,7 @@ DrL <- setClass(
 #' Wraps around \code{\link[igraph]{layout_with_fr}}, see there for
 #' details. The Fruchterman Reingold algorithm puts the data into
 #' a circle and puts connected points close to each other.
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 100)
 #'
@@ -198,9 +198,9 @@ DrL <- setClass(
 #'
 #' ## simpler, use embed():
 #' emb2 <- embed(dat, "FruchtermanReingold", knn = 5)
-#' 
+#'
 #' plot(emb, type = "2vars")
-#' 
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -216,11 +216,11 @@ FruchtermanReingold <- setClass(
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg("igraph")
-        
+
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
-        
+
         outdata <- em_graph_layout(
             indata,
             graph_em_method = igraph::layout_with_fr,
@@ -249,7 +249,7 @@ em_graph_layout <- function(data, graph_em_method,
                             knn = 50, d = stats::dist,
                             ndim = 2, weight.trans = I){
   chckpkg("igraph")
-  
+
   data.dist <- as.matrix(d(data))
   data.graph <- construct_knn_graph(data.dist, knn)
 
@@ -264,7 +264,7 @@ embed_graph <- function(graph, f, weight.trans = I, ndim = 2){
 construct_knn_graph <- function (data.dist, knn) {
   chckpkg("igraph")
   chckpkg("coRanking")
-  
+
   data.graph <- igraph::graph_from_adjacency_matrix(
     adjmatrix = data.dist,
     mode = "undirected",

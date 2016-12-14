@@ -52,7 +52,7 @@ optimized yet.
 dat <- loadDataSet("3D S Curve")
 
 ## Use the S4 Class directly:
-mds <- MDS()                        
+mds <- MDS()
 emb <- mds@fun(dat, mds@stdpars)
 
 ## use embed():

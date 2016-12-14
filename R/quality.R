@@ -12,7 +12,7 @@ setGeneric("quality",
 #' \code{\link{dimRedResult}} objects.
 #'
 #' @section Implemented methods:
-#' 
+#'
 #' Method must be one of \code{"\link{Q_local}", "\link{Q_global}",
 #' "\link{mean_R_NX}", "\link{total_correlation}",
 #' "\link{cophenetic_correlation}", "\link{distance_correlation}",
@@ -50,18 +50,18 @@ setGeneric("quality",
 #'
 #' \code{reconstruction_rmse} calculates the root mean squared error
 #' of the reconstrucion. \code{object} requires an inverse function.
-#' 
+#'
 #'
 #' @references
-#' 
+#'
 #' Lueks, W., Mokbel, B., Biehl, M., Hammer, B., 2011. How
 #'     to Evaluate Dimensionality Reduction? - Improving the
 #'     Co-ranking Matrix. arXiv:1110.3917 [cs].
-#' 
+#'
 #' Szekely, G.J., Rizzo, M.L., Bakirov, N.K., 2007. Measuring and
 #'     testing dependence by correlation of distances. Ann. Statist. 35,
 #'     2769-2794. doi:10.1214/009053607000000505
-#' 
+#'
 #' Lee, J.A., Peluffo-Ordonez, D.H., Verleysen, M., 2015. Multi-scale
 #'     similarities in stochastic neighbour embedding: Reducing
 #'     dimensionality while preserving both local and global
@@ -78,21 +78,21 @@ setGeneric("quality",
 #' @return a number
 #'
 #' @examples
-#' embed_methods <- dimRedMethodList() 
+#' embed_methods <- dimRedMethodList()
 #' quality_methods <- dimRedQualityList()
 #' scurve <- loadDataSet("3D S Curve", n = 500)
 #'
 #' quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
 #'                               dimnames = list(embed_methods, quality_methods))
 #' embedded_data <- list()
-#' 
-#' for(e in embed_methods) {
+#'
+#' for (e in embed_methods) {
 #'   message("embedding: ", e)
 #'   embedded_data[[e]] <- embed(scurve, e, .mute = c("message", "output"))
-#'   for(q in quality_methods) {
+#'   for (q in quality_methods) {
 #'     message("  quality: ", q)
 #'     quality_results[e,q] <- tryCatch(
-#'       quality(embedded_data[[e]], q), 
+#'       quality(embedded_data[[e]], q),
 #'       error = function (e) NA
 #'     )
 #'   }
@@ -133,7 +133,7 @@ setMethod(
                 close(devnull2)
             }, add = TRUE)
         }
-        
+
         do.call(methodFunction, args)
     }
 )
@@ -178,7 +178,7 @@ setMethod(
         Q <- coRanking::coranking(object@org.data, object@data@data)
         nQ <- nrow(Q)
         N <- nQ + 1
-        
+
         Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / (1:nQ) / N
         lcmc <- Qnx - 1:nQ / nQ
 
@@ -210,18 +210,18 @@ setMethod(
     function(object){
         if (!object@has.org.data) stop("object requires original data")
         chckpkg("coRanking")
-        
+
         Q <- coRanking::coranking(object@org.data, object@data@data)
         nQ <- nrow(Q)
         N <- nQ + 1
-        
+
         Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / (1:nQ) / N
         lcmc <- Qnx - 1:nQ / nQ
-        
+
         Kmax <- which.max(lcmc)
-        
+
         Qglobal <- sum(lcmc[(Kmax+1):nQ]) / (N - Kmax)
-        return(Qglobal)    
+        return(Qglobal)
     }
 )
 
@@ -250,14 +250,14 @@ setMethod(
         Q <- coRanking::coranking(object@org.data, object@data@data)
         nQ <- nrow(Q)
         N <- nQ + 1
-        
+
         Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / (1:nQ) / N
 
         ## R_NX is only defined for 1 <= K <= N-2
         Qnx <- Qnx[-length(Qnx)]
         K <- 1:(nQ-1)
         Rnx <- (nQ*Qnx - K) / (nQ-K)
-        
+
         return(mean(Rnx))
     }
 )
@@ -302,7 +302,7 @@ setMethod(
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
                  "at least partially.")
-        
+
         if (!is.rotated) {
             rotated_result <- maximize_correlation(
                 object, naxes, cor_method
@@ -312,13 +312,13 @@ setMethod(
         }
 
         res <- 0
-        for(i in 1:naxes)
+        for (i in 1:naxes)
             res <- res + mean(correlate(
                              rotated_result@data@data,
                              rotated_result@org.data,
                              cor_method
                          )[i,]^2)
-        
+
         return(res)
     }
 )
@@ -340,7 +340,7 @@ setGeneric("cophenetic_correlation",
 #' @export
 setMethod(
     "cophenetic_correlation",
-    "dimRedResult", 
+    "dimRedResult",
     function(object, d = stats::dist, cor_method = "pearson"){
         ## if (missing(d)) d <- stats::dist
         ## if (missing(cor_method)) cor_method <- "pearson"
@@ -357,7 +357,7 @@ setMethod(
 
         if (!inherits(d.org, "dist") || !inherits(d.emb, "dist"))
             stop("d must return a dist object")
-        
+
         res <- correlate(
             d(object@org.data),
             d(object@data@data),
@@ -390,7 +390,7 @@ setMethod(
         if (!object@has.org.data) stop("object requires original data")
         if (!requireNamespace("energy")) stop("package energy required.")
 
-        energy::dcor(object@org.data, object@data@data)    
+        energy::dcor(object@org.data, object@data@data)
     }
 )
 
@@ -424,7 +424,7 @@ setMethod(
     })
 
 #' @rdname quality
-#' 
+#'
 #' @export
 dimRedQualityList <- function () {
     return(c("Q_local",

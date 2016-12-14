@@ -36,7 +36,7 @@ setMethod(
     function(object, naxes = ncol(object@data@data), cor_method = "pearson"){
         ## if (missing(naxes))      naxes      <- ncol(object@data@data)
         ## if (missing(cor_method)) cor_method <- "pearson"
-        
+
         if (!object@has.org.data) stop("object requires original data")
         if (length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
             stop("naxes must specify the numbers of axes to optimize for, ",
@@ -47,9 +47,9 @@ setMethod(
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
                  "at least partially.")
-        
+
         mcres <- .maximize_correlation(object@data@data, object@org.data, 1:naxes, cor_method)
-        
+
         res <- object
         res@data@data <- mcres$rotated
         return(res)
@@ -70,8 +70,8 @@ setMethod(
   xndim <- ncol(X)
   without_axes <- integer(0)
   res <- list()
-  
-  for(axis in axes){
+
+  for (axis in axes){
     without_axes <- c(without_axes, axis)
 
     nplanes <- xndim - length(without_axes)
@@ -96,7 +96,7 @@ setMethod(
       without_axes = without_axes,
       cor_method = cor_method
     )
-  
+
     best_idx <- which.min(o$value)
 
     if (length(best_idx) == 0)
@@ -113,7 +113,7 @@ setMethod(
     ## with "axis", see return value of "obj":
     res[[res_idx]]$cor <- -o$value[best_idx]
   }
-  
+
   ## calculate the correlation for axes
   nres <- length(res)
   if (nres > 0) {
@@ -124,7 +124,7 @@ setMethod(
     for (i in 1:nres)
       res$result <- res$result + res[[i]]$cor^2
     ## res$result <- res$result / length(res)
-    
+
     ## rotate the input to maximize correlations
     res$rotated <- X
     for (i in 1:nres)
@@ -135,7 +135,7 @@ setMethod(
     res$result <- sum(correlate(X, Y, cor_method)^2)
     res$rotated <- X
   }
-  
+
   res
 }
 
@@ -165,8 +165,8 @@ rotate <- function (angs, planes, X) {
       2, 2, byrow = T
     )
     p_rotmat <- diag(ndim)
-    for(i in 1:2)
-      for(j in 1:2)
+    for (i in 1:2)
+      for (j in 1:2)
         p_rotmat[ planes[i,p], planes[j,p] ] <- rotmat2d[i,j]
     rotmat <- rotmat %*% p_rotmat
   }
@@ -188,10 +188,10 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = "pearson"){
   xndim <- ncol(X)
 
   planes <- get_planes(xndim, axis, without_axes)
-  
+
   X2 <- rotate(alpha, planes, X)
 
-  
+
   ## cor(x,y) returns a matrix with the correlations between the
   ## columns of x = X2 (rows) and the columns of y = Y (columns) we
   ## want the mean of squared correlations of all variables original

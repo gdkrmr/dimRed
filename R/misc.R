@@ -4,15 +4,15 @@
 ## if (!isClassUnion("missingORfunction"))  setClassUnion("missingORfunction",  c("function", "missing"))
 
 # Squared euclidean distance between points in A and B
-# taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/ 
+# taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/
 
 pdist2 <- function (A, B) {
     an = rowSums(A^2) # apply(A, 1, function(rvec) crossprod(rvec,rvec))
     bn = rowSums(B^2) # apply(B, 1, function(rvec) crossprod(rvec,rvec))
- 
+
     m = nrow(A)
     n = nrow(B)
- 
+
     matrix(rep(an, n), nrow=m) +
         matrix(rep(bn, m), nrow=m, byrow=TRUE) -
         2 * tcrossprod(A,B)
@@ -79,14 +79,14 @@ setGeneric(
 #' Method getData
 #'
 #' Extracts the data slot.
-#' 
+#'
 #' @param object The object to be converted.
 setGeneric("getData", function(object) standardGeneric("getData"))
 
-#' Method getMeta 
+#' Method getMeta
 #'
 #' Extracts the meta slot.
-#' 
+#'
 #' @param object The object to be converted.
 #' @param ... other arguments.
 setGeneric("getMeta", function(object, ...) standardGeneric("getMeta"))
@@ -94,7 +94,7 @@ setGeneric("getMeta", function(object, ...) standardGeneric("getMeta"))
 #' Method getPars
 #'
 #' Extracts the pars slot.
-#' 
+#'
 #' @param object The object to be converted.
 #' @param ... other arguments.
 setGeneric("getPars", function (object, ...) standardGeneric("getPars"))
@@ -148,7 +148,7 @@ setGeneric("ndims", function (object, ...) standardGeneric("ndims"), valueClass 
 #' \dontrun{
 #' installSuggests()
 #' }
-#' @export 
+#' @export
 installSuggests <- function () {
     "%w/o%" <- function(x, y) x[!x %in% y]
     pkgString <- installed.packages()["dimRed","Suggests"]

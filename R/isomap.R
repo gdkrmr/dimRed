@@ -7,9 +7,9 @@
 #' performed on the resulting distance matrix.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' Isomap can take the following parameters:
 #' \describe{
@@ -26,7 +26,7 @@
 #' a faster search of the neares neighbors.  If data are too large it
 #' may be useful to fit a subsample of the data and use the
 #' out-of-sample extension for the other points.
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #'
@@ -41,7 +41,7 @@
 #'
 #' plot(emb2, type = "2vars")
 #' plot(emb3, type = "2vars")
-#' 
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -61,7 +61,7 @@ Isomap <- setClass(
         indata <- data@data
 
         if (is.null(pars$eps)) pars$eps <- 0
-        
+
         ## geodesic distances
         message(Sys.time(), ": constructing knn graph")
         knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
@@ -81,7 +81,7 @@ Isomap <- setClass(
         }
 
         colnames(cmdout$points) <- paste0("iso", seq_len(ncol(cmdout$points)))
-        
+
         appl <- function (x) {
             message(Sys.time(), ": L-Isomap embed START")
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
@@ -105,11 +105,11 @@ Isomap <- setClass(
             dammu <- sweep(lgeodist^2, 2, colMeans(geodist^2), "-")
             Lsharp <- sweep(cmdout$points, 2, cmdout$eig, "/")
             out <- -0.5 * (dammu %*% Lsharp)
-            
+
             message(Sys.time(), ": DONE")
-            return(new("dimRedData", data = out, meta = appl.meta))    
+            return(new("dimRedData", data = out, meta = appl.meta))
         }
-        
+
         return(new(
             "dimRedResult",
             data         = new("dimRedData",
@@ -122,8 +122,8 @@ Isomap <- setClass(
             method       = "isomap",
             pars         = pars
         ))
-        
-        
+
+
     })
 )
 
@@ -164,10 +164,10 @@ makeKNNgraph <- function (x, k, eps = 0){
       to   = as.vector(nn2res$nn.idx[, -1]),
       attr = "weight"] <- as.vector(nn2res$nn.dists[,-1])
 
-    return(g) 
+    return(g)
 }
 
-## the original isomap method I'll keep it here for completeness: 
+## the original isomap method I'll keep it here for completeness:
 ## isomap <- new("dimRedMethod",
 ##               stdpars = list(knn  = 50,
 ##                              d    = dist,

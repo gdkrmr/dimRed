@@ -7,9 +7,9 @@
 #' manifold and in highdimensional space.
 #'
 #' @template dimRedMethodSlots
-#' 
+#'
 #' @template dimRedMethodGeneralUsage
-#' 
+#'
 #' @section Parameters:
 #' LLE can take the following parameters:
 #' \describe{
@@ -25,7 +25,7 @@
 #' Roweis, S.T., Saul, L.K., 2000. Nonlinear Dimensionality Reduction
 #' by Locally Linear Embedding. Science 290,
 #' 2323-2326. doi:10.1126/science.290.5500.2323
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #'
@@ -35,10 +35,10 @@
 #'
 #' ## using embed():
 #' emb2 <- embed(dat, "LLE", knn = 45)
-#' 
+#'
 #' plot(emb, type = "2vars")
 #' plot(emb2, type = "2vars")
-#' 
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -63,7 +63,7 @@ LLE <- setClass(
             dim(outdata) <- c(length(outdata), 1)
         }
         colnames(outdata) <- paste0("LLE", 1:ncol(outdata))
-        
+
         return(new(
             "dimRedResult",
             data         = new("dimRedData",

@@ -3,7 +3,7 @@ data(iris)
 context("kPCA")
 
 test_that("general data conversions", {
-    
+
     irisData <- loadDataSet("Iris")
     expect_equal(class(irisData)[1], "dimRedData")
 
@@ -42,12 +42,12 @@ test_that("general data conversions", {
 
     irisRes <- lapply(irisPars, function(x)
         do.call(
-            function(...) tryCatch(embed(.data = irisData, .method = "kPCA", ...), 
+            function(...) tryCatch(embed(.data = irisData, .method = "kPCA", ...),
                                    error = function(e) as.character(e)),
             x
         ) )
 
-    for(i in 1:length(irisRes)) {
+    for (i in 1:length(irisRes)) {
         if (inherits(irisRes[[i]], "character")){
             expect(grepl("singular", irisRes[[i]]),
                    "singular")
@@ -57,7 +57,7 @@ test_that("general data conversions", {
         }
     }
 
-    for(i in 1:length(irisRes)){
+    for (i in 1:length(irisRes)){
         if (inherits(irisRes[[i]], "dimRedResult")){
             expect_equal(irisRes[[i]]@apply(irisData)@data[,1:2], irisRes[[i]]@data@data)
             ## the reverse is an approximate:

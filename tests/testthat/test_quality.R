@@ -20,6 +20,6 @@ test_that("quality", {
             reconstruction_rmse(resPCA)
         )
     )
-    
+
     lapply(resQual, function(x) expect_true(is.numeric(x)))
 })

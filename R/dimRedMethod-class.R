@@ -5,7 +5,7 @@
 #'
 #' Implementations of dimensionality reductions should inherit from
 #' this class.
-#' 
+#'
 #' The \code{fun} slot should be a function that takes three arguments
 #' \describe{
 #'   \item{data}{An object of class \code{\link{dimRedData}}.}
@@ -28,7 +28,7 @@
 #'
 #' @family dimensionality reduction methods
 #' @seealso \link{dimRedMethodList}
-#' @export 
+#' @export
 setClass("dimRedMethod",
          contains  = "VIRTUAL",
          slots     = c(fun     = "function",
@@ -47,7 +47,7 @@ setClass("dimRedMethod",
 #'
 #' @examples
 #' dimRedMethodList()
-#' 
+#'
 #' @export
 dimRedMethodList <- function () {
     ## return(c(
@@ -87,17 +87,17 @@ setMethod("matchPars",
     nap <- union(nsp, ncp)
 
     res <- list()
-    
+
     ## exists can deal with elements being NULL
     ## to assign list@el <- NULL do:
     ## list["el"] <- list(NULL)
-    for(np in nap) {
+    for (np in nap) {
         miss.std <- !exists(np, where = object@stdpars)
         miss.par <- !exists(np, where = pars)
         if (miss.std) {
             warning("Parameter matching: ", np,
                     " is not a standard parameter, ignoring.")
-        } else if (miss.par) { 
+        } else if (miss.par) {
             res[np] <- object@stdpars[np]
         } else {
             res[np] <- pars[np]

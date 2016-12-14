@@ -32,7 +32,7 @@ missing parameters will be replaced by the ones in the
 }
 
 \section{Parameters}{
- 
+
 Diffusion Maps can take the following parameters:
 \describe{
   \item{d}{a function transforming a matrix row wise into a

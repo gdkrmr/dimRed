@@ -1,7 +1,7 @@
 ## #' Soft Ordinal Embedding
 ## #'
 ## #' Instance of \code{\link{dimRedMethod}} for Soft Ordinal Embedding.
-## #' 
+## #'
 ## #' For details see \code{\link[loe]{SOE}}.
 ## #'
 ## #'
@@ -10,7 +10,7 @@
 ## #' soe <- SOE()
 ## #' emb <- soe@fun(dat, soe@stdpars)
 ## #'
-## #' 
+## #'
 ## #' plot(emb@data@data)
 ## #'
 ## #'
@@ -30,7 +30,7 @@
 ##         meta <- data@meta
 ##         orgdata <- if (keep.org.data) data@data else NULL
 ##         indata <- data@data
-        
+
 ##         outdata <- loe::SOE(loe::get.order(as.matrix(pars$d(indata))),
 ##                             N = nrow(indata), p = pars$ndim)$X
 

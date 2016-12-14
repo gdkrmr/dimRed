@@ -21,18 +21,18 @@
 #' @return an object of class \code{dimRedResult}
 #'
 #' @examples
-#' embed_methods <- dimRedMethodList() 
+#' embed_methods <- dimRedMethodList()
 #' quality_methods <- dimRedQualityList()
 #' dataset <- loadDataSet("Iris")
 #'
 #' quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
 #'                               dimnames = list(embed_methods, quality_methods))
 #' embedded_data <- list()
-#' 
-#' for(e in embed_methods) {
+#'
+#' for (e in embed_methods) {
 #'   message("embedding: ", e)
 #'   embedded_data[[e]] <- embed(dataset, e, .mute = c("message", "output"))
-#'   for(q in quality_methods) {
+#'   for (q in quality_methods) {
 #'     message("  quality: ", q)
 #'     quality_results[e,q] <- tryCatch(
 #'       quality(embedded_data[[e]], q),
@@ -42,7 +42,7 @@
 #' }
 #'
 #' print(quality_results)
-#' 
+#'
 #' ## embed a data.frame using a formula:
 #' head(as.data.frame(
 #'   embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
@@ -98,15 +98,15 @@ setMethod(
              .keep.org.data = TRUE,
              ...){
         method <- match.arg(.method)
-        
+
         methodObject <- getMethodObject(method)
-        
+
         args <- list(
             data          = as(.data, "dimRedData"),
             keep.org.data = .keep.org.data
         )
         args$pars <- matchPars(methodObject, list(...))
-        
+
         devnull <- if (Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
         if ("message" %in% .mute){
             devnull1 <- file(devnull,  "wt")
@@ -124,7 +124,7 @@ setMethod(
                 close(devnull2)
             }, add = TRUE)
         }
-        
+
         do.call(methodObject@fun, args)
     }
 )

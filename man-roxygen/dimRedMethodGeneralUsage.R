@@ -6,4 +6,4 @@
 #' parameters can be given to the \code{...}, in which case
 #' missing parameters will be replaced by the ones in the
 #' \code{@@stdpars}.
-#' 
+#'

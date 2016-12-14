@@ -38,7 +38,7 @@ Kernel PCA can take the following parameters:
   \item{kernel}{The kernel function, either as a function or a
   character vector with the name of the kernel. Defaults to
   \code{"rbfdot"}}
-  \item{kpar}{A list with the parameters for the kernel function} 
+  \item{kpar}{A list with the parameters for the kernel function}
 }
 }
 
