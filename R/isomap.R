@@ -102,7 +102,7 @@ Isomap <- setClass(
                                           nindata + seq_len(norg))
 
             message(Sys.time(), ": embedding")
-            dammu <- sweep(lgeodist^2, 2, colMeans(geodist^2), "-")
+            dammu <- sweep(lgeodist ^ 2, 2, colMeans(geodist ^ 2), "-")
             Lsharp <- sweep(cmdout$points, 2, cmdout$eig, "/")
             out <- -0.5 * (dammu %*% Lsharp)
 

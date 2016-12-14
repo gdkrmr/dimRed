@@ -220,7 +220,7 @@ setMethod(
 
         Kmax <- which.max(lcmc)
 
-        Qglobal <- sum(lcmc[(Kmax+1):nQ]) / (N - Kmax)
+        Qglobal <- sum(lcmc[(Kmax + 1):nQ]) / (N - Kmax)
         return(Qglobal)
     }
 )
@@ -256,7 +256,7 @@ setMethod(
         ## R_NX is only defined for 1 <= K <= N-2
         Qnx <- Qnx[-length(Qnx)]
         K <- 1:(nQ-1)
-        Rnx <- (nQ*Qnx - K) / (nQ-K)
+        Rnx <- (nQ * Qnx - K) / (nQ-K)
 
         return(mean(Rnx))
     }
@@ -317,7 +317,7 @@ setMethod(
                              rotated_result@data@data,
                              rotated_result@org.data,
                              cor_method
-                         )[i,]^2)
+                         )[i,] ^ 2)
 
         return(res)
     }
@@ -420,7 +420,7 @@ setMethod(
 
         recon <- object@inverse(object@data)
 
-        sqrt(mean((recon@data - object@org.data)^2))
+        sqrt(mean((recon@data - object@org.data) ^ 2))
     })
 
 #' @rdname quality

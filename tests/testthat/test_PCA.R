@@ -25,9 +25,9 @@ test_that("general data conversions", {
     expect_equal(irisResC@apply(irisData),  irisResC@data)
     expect_equal(irisRes@apply(irisData),   irisRes@data)
 
-    expect(sqrt(mean((irisResCS@inverse(irisResCS@data)@data - irisData@data)^2)) < 0.3, "error too large" )
-    expect(sqrt(mean((irisResS@inverse(irisResS@data)@data   - irisData@data)^2)) < 0.3, "error too large" )
-    expect(sqrt(mean((irisResC@inverse(irisResC@data)@data   - irisData@data)^2)) < 0.3, "error too large" )
-    expect(sqrt(mean((irisRes@inverse(irisRes@data)@data     - irisData@data)^2)) < 0.3, "error too large" )
+    expect(sqrt(mean((irisResCS@inverse(irisResCS@data)@data - irisData@data) ^ 2)) < 0.3, "error too large" )
+    expect(sqrt(mean((irisResS@inverse(irisResS@data)@data   - irisData@data) ^ 2)) < 0.3, "error too large" )
+    expect(sqrt(mean((irisResC@inverse(irisResC@data)@data   - irisData@data) ^ 2)) < 0.3, "error too large" )
+    expect(sqrt(mean((irisRes@inverse(irisRes@data)@data     - irisData@data) ^ 2)) < 0.3, "error too large" )
 })
 

@@ -88,7 +88,7 @@ setMethod(
       ##            "nlminb", "spg", "ucminf", "newuoa", "bobyqa", "nmkb",
       ##            "hjkb", "Rcgmin","Rvmmin"),
       lower = 0,
-      upper = 2*pi,
+      upper = 2 * pi,
       control = list(all.methods = T),
       X = as.matrix(X),
       Y = as.matrix(Y),
@@ -122,7 +122,7 @@ setMethod(
     ## mean squared correlation of the variables with axis "i"
     res$result <- 0
     for (i in 1:nres)
-      res$result <- res$result + res[[i]]$cor^2
+      res$result <- res$result + res[[i]]$cor ^ 2
     ## res$result <- res$result / length(res)
 
     ## rotate the input to maximize correlations
@@ -132,7 +132,7 @@ setMethod(
   } else {
     ## if we only had one dimension, simply return the means squared
     ## correlation and don't rotate
-    res$result <- sum(correlate(X, Y, cor_method)^2)
+    res$result <- sum(correlate(X, Y, cor_method) ^ 2)
     res$rotated <- X
   }
 
@@ -204,7 +204,7 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = "pearson"){
     X2, Y,
     #use = "pairwise.complete.obs",
     method = cor_method
-  )[axis,]^2)
+  )[axis,] ^ 2)
 }
 
 correlate <- function (x, y, method, ...) {

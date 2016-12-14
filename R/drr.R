@@ -94,9 +94,9 @@ DRR <- setClass(
     contains  = "dimRedMethod",
     prototype = list(
         stdpars = list(ndim            = 2,
-                       lambda          = c(0, 10^(-3:2)),
+                       lambda          = c(0, 10 ^ (-3:2)),
                        kernel          = "rbfdot",
-                       kernel.pars     = list(sigma = 10^(-3:4)),
+                       kernel.pars     = list(sigma = 10 ^ (-3:4)),
                        pca             = TRUE,
                        pca.center      = TRUE,
                        pca.scale       = FALSE,

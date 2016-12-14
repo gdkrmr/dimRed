@@ -68,7 +68,7 @@ MDS <- setClass(
                                         # string!!!!
 
         D <- as.matrix(pars$d(indata))
-        if (has.apply) mD2 <- mean(D^2)
+        if (has.apply) mD2 <- mean(D ^ 2)
 
         ## cmdscale square the matrix internally
         res <- stats::cmdscale(D, k = pars$ndim)
@@ -87,7 +87,7 @@ MDS <- setClass(
             ## paper. Need an efficient method to calculate the distance
             ## matrices between different point sets and arbitrary
             ## distances.
-            Kab <- as.matrix(pars$d(proj)^2)
+            Kab <- as.matrix(pars$d(proj) ^ 2)
             Exa <- colMeans(pdist2(indata, proj))
             Kab <- sweep(Kab, 1, Exa)       #, "-")
             Kab <- sweep(Kab, 2, Exa)       #, "-")

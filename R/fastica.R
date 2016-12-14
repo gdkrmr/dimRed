@@ -72,7 +72,7 @@ FastICA <- setClass(
                     else
                         x
 
-            out <- scale(proj, center = orgdata.colmeans, scale = FALSE)%*%res$K%*%res$W
+            out <- scale(proj, center = orgdata.colmeans, scale = FALSE) %*% res$K %*% res$W
             return(new("dimRedData", data = out, meta = appl.meta))
         }
 
@@ -87,7 +87,7 @@ FastICA <- setClass(
                     else
                         x
 
-            out <- scale(proj%*%res$A[1:ncol(proj),], center = -orgdata.colmeans, scale = FALSE)
+            out <- scale(proj %*% res$A[1:ncol(proj),], center = -orgdata.colmeans, scale = FALSE)
             reproj <- new("dimRedData", data = out, meta = appl.meta)
             return(reproj)
         }

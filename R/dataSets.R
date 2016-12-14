@@ -86,19 +86,19 @@ swissRoll <- function (n = 2000, sigma = 0.05) {
     y <- stats::runif(n, 0, 30)
 
     new("dimRedData",
-        data = swissRollMapping(x, y) + stats::rnorm(3*n, sd = sigma),
+        data = swissRollMapping(x, y) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(x = x, y = y))
 }
 
 brokenSwissRoll <- function (n = 2000, sigma = 0.05) {
     x <- c(
-        stats::runif(floor(n/2),   1.5 * pi, 2.7 * pi),
-        stats::runif(ceiling(n/2), 3.3 * pi, 4.5 * pi)
+        stats::runif(floor(n / 2),   1.5 * pi, 2.7 * pi),
+        stats::runif(ceiling(n / 2), 3.3 * pi, 4.5 * pi)
     )
     y <- stats::runif(n, 0, 30)
 
     new("dimRedData",
-        data = swissRollMapping(x, y) + stats::rnorm(3*n, sd = sigma),
+        data = swissRollMapping(x, y) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(x = x, y = y))
 }
 
@@ -112,14 +112,14 @@ swissRollMapping <- function (x, y) {
 helix <- function (n = 2000, sigma = 0.05) {
     t <- stats::runif(n, 0, 2 * pi)
     new("dimRedData",
-        data = helixMapping(t) + stats::rnorm(3*n, sd = sigma),
+        data = helixMapping(t) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(t = t))
 }
 
 helixMapping <- function (x) {
-    cbind(x = (2 + cos(8*x)) * cos(x),
-          y = (2 + cos(8*x)) * sin(x),
-          z = (sin(8*x)))
+    cbind(x = (2 + cos(8 * x)) * cos(x),
+          y = (2 + cos(8 * x)) * sin(x),
+          z = (sin(8 * x)))
 }
 
 twinPeaks <- function (n = 2000, sigma = 0.05) {
@@ -143,48 +143,48 @@ sphere <- function (n = 2000, sigma = 0.05) {
     psi <- acos(stats::runif(n, -1, 1))
 
     new("dimRedData",
-        data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
+        data = sphereMapping(phi, psi) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(phi = phi, psi = psi))
 }
 
 fishbowl <- function (n = 2000, sigma = 0.05) {
-    phi <- stats::runif(n, 0, 2*pi)
+    phi <- stats::runif(n, 0, 2 * pi)
     psi <- acos(stats::runif(n, -1, 0.8))
 
     new("dimRedData",
-        data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
+        data = sphereMapping(phi, psi) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(psi = psi))
 }
 
 sphereMapping <- function (phi, psi) {
-    cbind(x = cos(phi)*sin(psi),
-          y = sin(phi)*sin(psi),
+    cbind(x = cos(phi) * sin(psi),
+          y = sin(phi) * sin(psi),
           z = cos(psi))
 }
 
 ball <- function (n = 2000, sigma = 0.05) {
-    phi <- stats::runif(n, 0, 2*pi)
+    phi <- stats::runif(n, 0, 2 * pi)
     psi <- acos(stats::runif(n, -1, 1))
     ## make it uniformly distributed inside the sphere
-    r <-  stats::runif(n)^(1/3)
+    r <-  stats::runif(n) ^ (1 / 3)
 
     new("dimRedData",
-        data = ballMapping(phi, psi, r) + stats::rnorm(3*n, sd = sigma),
+        data = ballMapping(phi, psi, r) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(phi = phi, psi = psi, r = r))
 }
 
 ballMapping <- function (phi, psi, r) {
-    cbind(x = r*cos(phi)*sin(psi),
-          y = r*sin(phi)*sin(psi),
-          z = r*cos(psi))
+    cbind(x = r * cos(phi) * sin(psi),
+          y = r * sin(phi) * sin(psi),
+          z = r * cos(psi))
 }
 
 sCurve <- function (n = 2000, sigma = 0.05) {
-    t <- stats::runif(n, -1.5*pi, 1.5*pi)
+    t <- stats::runif(n, -1.5 * pi, 1.5 * pi)
     y <- stats::runif(n, 0, 2)
 
     new("dimRedData",
-        data = sCurveMapping(t, y) + stats::rnorm(3*n, sd = sigma),
+        data = sCurveMapping(t, y) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(x = t, y = y))
 }
 
@@ -195,12 +195,12 @@ sCurveMapping <- function (t, y) {
 }
 
 noisyHelix <- function (n = 2000, sigma = 0.05) {
-    t <- stats::runif(n, 0, 4*pi)
+    t <- stats::runif(n, 0, 4 * pi)
     min_noise <- 0.1
     max_noise <- 1.4
 
     new("dimRedData",
-        data = noisyHelixMapping(t, min_noise, max_noise) + stats::rnorm(3*n, sd = sigma),
+        data = noisyHelixMapping(t, min_noise, max_noise) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(t = t))
 }
 

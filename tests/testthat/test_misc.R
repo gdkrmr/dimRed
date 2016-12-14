@@ -7,7 +7,7 @@ b <- matrix(rnorm(25), 5, 5)
 
 test_that("squared euclidean distance", {
     expect_equivalent(
-        t(as.matrix(dist(rbind(a,b)))[6:10,1:5]^2),
+        t(as.matrix(dist(rbind(a,b)))[6:10,1:5] ^ 2),
         pdist2(a, b)
     )
 })

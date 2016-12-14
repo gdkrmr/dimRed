@@ -80,6 +80,6 @@ colorize <- function (vars) {
 }
 
 scale01 <- function(x, low = min(x, na.rm = TRUE), high = max(x, na.rm = FALSE)) {
-    x <- (x - low)/(high - low)
+    x <- (x - low) / (high - low)
     x
 }
