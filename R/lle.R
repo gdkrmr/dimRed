@@ -59,7 +59,7 @@ LLE <- setClass(
         outdata <- lle::lle(indata,
                             k = pars$knn,
                             m = pars$ndim)$Y
-        if(is.null(dim(outdata))) {
+        if (is.null(dim(outdata))) {
             dim(outdata) <- c(length(outdata), 1)
         }
         colnames(outdata) <- paste0("LLE", 1:ncol(outdata))

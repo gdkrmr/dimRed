@@ -68,7 +68,7 @@ setMethod(
     function(.formula, .data, .method = dimRedMethodList(),
              .mute = character(0), .keep.org.data = TRUE,
              ...) {
-        if(!is.data.frame(.data)) stop(".data must be a data.frame")
+        if (!is.data.frame(.data)) stop(".data must be a data.frame")
 
         .data <- as.dimRedData(.formula, .data)
         embed(.data, .method, .mute, .keep.org.data, ...)
@@ -107,8 +107,8 @@ setMethod(
         )
         args$pars <- matchPars(methodObject, list(...))
         
-        devnull <- if(Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
-        if("message" %in% .mute){
+        devnull <- if (Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
+        if ("message" %in% .mute){
             devnull1 <- file(devnull,  "wt")
             sink(devnull1, type = "message")
             on.exit({
@@ -116,7 +116,7 @@ setMethod(
                 close(devnull1)
             }, add = TRUE)
         }
-        if("output" %in% .mute) {
+        if ("output" %in% .mute) {
             devnull2 <- file(devnull,  "wt")
             sink(devnull2, type = "output")
             on.exit({

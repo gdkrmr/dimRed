@@ -74,7 +74,7 @@ setAs(
     from = "dimRedResult",
     to = "data.frame",
     def = function(from){
-        if(from@has.org.data) {
+        if (from@has.org.data) {
             org.data <- from@org.data
             names(org.data) <- paste("org", names(org.data), sep = ".")
             cbind(as(from@data, "data.frame"), as.data.frame(org.data))
@@ -99,14 +99,14 @@ setMethod(f = "as.data.frame",
                                 data.prefix = "") {
     tmp <- list()
     
-    if(nrow(x@data@meta) > 0){
+    if (nrow(x@data@meta) > 0){
         tmp$meta <- as.data.frame(x@data@meta)
         names(tmp$meta) <- paste0(meta.prefix,
                                   colnames(x@data@meta))
     }
     tmp$data <- as.data.frame(x@data@data)
     names(tmp$data) <- paste0(data.prefix,   colnames(x@data@data))
-    if(x@has.org.data){
+    if (x@has.org.data){
         tmp$org.data <- as.data.frame(x@org.data)
         names(tmp$org.data) <- paste0(org.data.prefix, colnames(x@org.data))
     }

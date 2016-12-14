@@ -34,16 +34,16 @@ setMethod(
     "maximize_correlation",
     "dimRedResult",
     function(object, naxes = ncol(object@data@data), cor_method = "pearson"){
-        ## if(missing(naxes))      naxes      <- ncol(object@data@data)
-        ## if(missing(cor_method)) cor_method <- "pearson"
+        ## if (missing(naxes))      naxes      <- ncol(object@data@data)
+        ## if (missing(cor_method)) cor_method <- "pearson"
         
-        if(!object@has.org.data) stop("object requires original data")
-        if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
+        if (!object@has.org.data) stop("object requires original data")
+        if (length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
             stop("naxes must specify the numbers of axes to optimize for, ",
                  "i.e. a single integer between 1 and ncol(object@data@data)")
         ## try to partially match cor_method:
         cor_method <- cor_method[pmatch(cor_method, c("pearson", "kendall", "spearman"))]
-        if(is.na(cor_method))
+        if (is.na(cor_method))
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
                  "at least partially.")
@@ -78,7 +78,7 @@ setMethod(
     planes <- matrix(NA, 2, nplanes)
     planes[1,] <- axis
     planes[2,] <- (1:xndim)[-without_axes]
-    if(ncol(planes) == 0)
+    if (ncol(planes) == 0)
       break
 
     o <- optimx::optimx(
@@ -150,7 +150,7 @@ setMethod(
 rotate <- function (angs, planes, X) {
   ndim <- ncol(X)
   nplanes <- ncol(planes)
-  if(length(angs) != nplanes)
+  if (length(angs) != nplanes)
     stop("length(angs) not equal to chose(ndim,2)")
 
   ## loop over the planes to construct general rotation matrix
@@ -211,7 +211,7 @@ correlate <- function (x, y, method, ...) {
   if (method != "kendall"){
     return(stats::cor(x, y, method = method, ...))
   } else {
-    if(!requireNamespace("pcaPP")) stop("package pcaPP required for method == 'kendall'.")
+    if (!requireNamespace("pcaPP")) stop("package pcaPP required for method == 'kendall'.")
     ## make the cor.fk method behave like cor for matrices:
     if (is.matrix(x) && is.matrix(y)) {
       res <- matrix(

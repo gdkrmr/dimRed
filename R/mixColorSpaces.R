@@ -29,7 +29,7 @@
 #' @importFrom grDevices rgb
 #' @export
 mixColorRamps <- function (vars, ramps) {
-    if(length(vars) > length(ramps)) stop("need more or equal ramps than vars")
+    if (length(vars) > length(ramps)) stop("need more or equal ramps than vars")
    
     nvars <- length(vars)
     
@@ -73,9 +73,9 @@ mixColor3Ramps <- function (vars,
 
 colorize <- function (vars) {
     l <- length(vars)
-    if(l == 1) return(mixColor1Ramps(vars))
-    if(l == 2) return(mixColor2Ramps(vars))
-    if(l == 3) return(mixColor3Ramps(vars))
+    if (l == 1) return(mixColor1Ramps(vars))
+    if (l == 2) return(mixColor2Ramps(vars))
+    if (l == 3) return(mixColor3Ramps(vars))
     return("#000000")
 }
 

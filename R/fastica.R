@@ -62,12 +62,12 @@ FastICA <- setClass(
         colnames(outdata) <- paste0("ICA", 1:ncol(outdata))
 
         appl <- function(x){
-            appl.meta <- if(inherits(x, "dimRedData"))
+            appl.meta <- if (inherits(x, "dimRedData"))
                              x@meta
                          else   
                              matrix(numeric(0), 0,0)
             
-            proj <- if(inherits(x, "dimRedData"))
+            proj <- if (inherits(x, "dimRedData"))
                         x@data
                     else 
                         x
@@ -77,12 +77,12 @@ FastICA <- setClass(
         }
 
         inv <- function(x){
-            appl.meta <- if(inherits(x, "dimRedData"))
+            appl.meta <- if (inherits(x, "dimRedData"))
                              x@meta
                          else  
                              matrix(numeric(0), 0,0)
             
-            proj <- if(inherits(x, "dimRedData"))
+            proj <- if (inherits(x, "dimRedData"))
                         x@data
                     else
                         x

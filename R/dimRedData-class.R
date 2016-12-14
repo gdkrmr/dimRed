@@ -68,19 +68,19 @@ dimRedData <- setClass(
     prototype = prototype(data = matrix(numeric(0), 0,0), meta = data.frame()),
     validity  = function (object) {
         retval <- NULL
-        if(!is.matrix(object@data)) {
+        if (!is.matrix(object@data)) {
             retval <- c(
                 retval,
                 c("data must be a matrix with observations in rows and dimensions in columns")
             )
         }
-        if(!is.numeric(object@data)) {
+        if (!is.numeric(object@data)) {
             retval <- c(
                 retval,
                 c("data must be numeric")
             )
         }
-        if((nrow(object@meta) != 0) && (nrow(object@meta) != nrow(object@data))){
+        if ((nrow(object@meta) != 0) && (nrow(object@meta) != nrow(object@data))){
             retval <- c(
                 retval,
                 c("data and meta must have the same numbers of rows")
@@ -119,7 +119,7 @@ setMethod(f = "as.data.frame",
                                 data.prefix = "") {
     tmp <- list()
 
-    if(nrow(x@meta) > 0){
+    if (nrow(x@meta) > 0){
         tmp$meta <- as.data.frame(x@meta, stringsAsFactors = FALSE)
         names(tmp$meta) <- paste0(meta.prefix, colnames(x@meta))
     }
@@ -181,10 +181,10 @@ setMethod("[", signature(x = "dimRedData",
                          i = "ANY"),
           function(x, i) {
     x@data <- x@data[i,,drop=FALSE]
-    if(nrow(x@meta) != 0)
+    if (nrow(x@meta) != 0)
         x@meta <- x@meta[i,,drop=FALSE]
     vv <- validObject(x)
-    if(vv == TRUE) return(x)
+    if (vv == TRUE) return(x)
     else stop("cannot subset dimRedData object: \n",
               paste(vv, collapse = "\n"))
 }) 

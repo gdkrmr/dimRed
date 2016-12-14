@@ -48,7 +48,7 @@ test_that("general data conversions", {
         ) )
 
     for(i in 1:length(irisRes)) {
-        if(inherits(irisRes[[i]], "character")){
+        if (inherits(irisRes[[i]], "character")){
             expect(grepl("singular", irisRes[[i]]),
                    "singular")
         } else {
@@ -58,7 +58,7 @@ test_that("general data conversions", {
     }
 
     for(i in 1:length(irisRes)){
-        if(inherits(irisRes[[i]], "dimRedResult")){
+        if (inherits(irisRes[[i]], "dimRedResult")){
             expect_equal(irisRes[[i]]@apply(irisData)@data[,1:2], irisRes[[i]]@data@data)
             ## the reverse is an approximate:
             expect(

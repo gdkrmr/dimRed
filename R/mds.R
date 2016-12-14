@@ -78,9 +78,9 @@ MDS <- setClass(
                                         # appl function, else it will stay in its environment
                                         # forever
 
-        appl <- if(!has.apply) function(x) NA else function(x) {
-            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame() 
-            proj <- if(inherits(x, "dimRedData")) x@data else x
+        appl <- if (!has.apply) function(x) NA else function(x) {
+            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame() 
+            proj <- if (inherits(x, "dimRedData")) x@data else x
 
             ## double center new data with respect to old: TODO: optimize
             ## this method, according to the de Silva, Tenenbaum(2004)

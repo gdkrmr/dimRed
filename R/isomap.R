@@ -72,7 +72,7 @@ Isomap <- setClass(
 
         message(Sys.time(), ": post processing")
         neig <- sum(cmdout$eig > 0)
-        if(neig < pars$ndim) {
+        if (neig < pars$ndim) {
             warning("Isomap: eigenvalues < 0, returning less dimensions!")
             cmdout$points <- cmdout$points[, seq_len(neig), drop = FALSE]
             cmdout$eig <- cmdout$eig[seq_len(neig)]
@@ -84,10 +84,10 @@ Isomap <- setClass(
         
         appl <- function (x) {
             message(Sys.time(), ": L-Isomap embed START")
-            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
-            indata    <- if(inherits(x, "dimRedData")) x@data else x
+            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+            indata    <- if (inherits(x, "dimRedData")) x@data else x
 
-            if(ncol(indata) != ncol(data@data))
+            if (ncol(indata) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
 
             nindata <- nrow(indata)

@@ -116,8 +116,8 @@ setMethod(
 
         args <- c(list(object = .data), list(...))
 
-        devnull <- if(Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
-        if("message" %in% .mute){
+        devnull <- if (Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
+        if ("message" %in% .mute){
             devnull1 <- file(devnull,  "wt")
             sink(devnull1, type = "message")
             on.exit({
@@ -125,7 +125,7 @@ setMethod(
                 close(devnull1)
             }, add = TRUE)
         }
-        if("output" %in% .mute) {
+        if ("output" %in% .mute) {
             devnull2 <- file(devnull,  "wt")
             sink(devnull2, type = "output")
             on.exit({
@@ -172,7 +172,7 @@ setMethod(
     "Q_local",
     "dimRedResult",
     function (object) {
-        if(!object@has.org.data) stop("object requires original data")
+        if (!object@has.org.data) stop("object requires original data")
         chckpkg("coRanking")
 
         Q <- coRanking::coranking(object@org.data, object@data@data)
@@ -208,7 +208,7 @@ setMethod(
     "Q_global",
     "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop("object requires original data")
+        if (!object@has.org.data) stop("object requires original data")
         chckpkg("coRanking")
         
         Q <- coRanking::coranking(object@org.data, object@data@data)
@@ -244,7 +244,7 @@ setMethod(
     "mean_R_NX",
     "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop("object requires original data")
+        if (!object@has.org.data) stop("object requires original data")
         chckpkg("coRanking")
 
         Q <- coRanking::coranking(object@org.data, object@data@data)
@@ -287,23 +287,23 @@ setMethod(
     "total_correlation",
     "dimRedResult",
     function(object, naxes = ndims(object), cor_method = "pearson", is.rotated = FALSE){
-        ## if(!hasArg(naxes))      naxes      <- ncol(object@data@data)
-        ## if(!hasArg(cor_method)) cor_method <- "pearson"
-        ## if(!hasArg(is.rotated)) is.rotated <- FALSE
+        ## if (!hasArg(naxes))      naxes      <- ncol(object@data@data)
+        ## if (!hasArg(cor_method)) cor_method <- "pearson"
+        ## if (!hasArg(is.rotated)) is.rotated <- FALSE
 
-        if(!object@has.org.data) stop("object requires original data")
-        if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
+        if (!object@has.org.data) stop("object requires original data")
+        if (length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
             stop("naxes must specify the numbers of axes to optimize for, ",
                  "i.e. a single integer between 1 and ncol(object@data@data)")
         ## try to partially match cor_method:
         cor_methods <- c("pearson", "kendall", "spearman")
         cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
-        if(is.na(cor_method))
+        if (is.na(cor_method))
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
                  "at least partially.")
         
-        if(!is.rotated) {
+        if (!is.rotated) {
             rotated_result <- maximize_correlation(
                 object, naxes, cor_method
             )
@@ -342,12 +342,12 @@ setMethod(
     "cophenetic_correlation",
     "dimRedResult", 
     function(object, d = stats::dist, cor_method = "pearson"){
-        ## if(missing(d)) d <- stats::dist
-        ## if(missing(cor_method)) cor_method <- "pearson"
-        if(!object@has.org.data) stop("object requires original data")
+        ## if (missing(d)) d <- stats::dist
+        ## if (missing(cor_method)) cor_method <- "pearson"
+        if (!object@has.org.data) stop("object requires original data")
         cor_methods <- c("pearson", "kendall", "spearman")
         cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
-        if(is.na(cor_method))
+        if (is.na(cor_method))
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
                  "at least partially.")
@@ -355,7 +355,7 @@ setMethod(
         d.org <- d(object@org.data)
         d.emb <- d(object@data@data)
 
-        if(!inherits(d.org, "dist") || !inherits(d.emb, "dist"))
+        if (!inherits(d.org, "dist") || !inherits(d.emb, "dist"))
             stop("d must return a dist object")
         
         res <- correlate(
@@ -387,8 +387,8 @@ setMethod(
     "distance_correlation",
     "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop("object requires original data")
-        if(!requireNamespace("energy")) stop("package energy required.")
+        if (!object@has.org.data) stop("object requires original data")
+        if (!requireNamespace("energy")) stop("package energy required.")
 
         energy::dcor(object@org.data, object@data@data)    
     }
@@ -415,8 +415,8 @@ setMethod(
     "reconstruction_rmse",
     "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop("object requires original data")
-        if(!object@has.inverse) stop("object requires an inverse function")
+        if (!object@has.org.data) stop("object requires original data")
+        if (!object@has.inverse) stop("object requires an inverse function")
 
         recon <- object@inverse(object@data)
 

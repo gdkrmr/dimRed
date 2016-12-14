@@ -121,10 +121,10 @@ DRR <- setClass(
         colnames(outdata) <- paste0("DRR", 1:ncol(outdata))
         
         appl <- function(x){
-            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
-            proj <- if(inherits(x, "dimRedData")) x@data else x
+            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+            proj <- if (inherits(x, "dimRedData")) x@data else x
             
-            if(ncol(proj) != ncol(data@data))
+            if (ncol(proj) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
 
             appl.out <- new("dimRedData", data = res$apply(proj), meta = appl.meta)
@@ -135,10 +135,10 @@ DRR <- setClass(
         }
 
         inv <- function(x) {
-            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
-            proj <- if(inherits(x, "dimRedData")) x@data else x
+            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+            proj <- if (inherits(x, "dimRedData")) x@data else x
             
-            if(ncol(proj) > ncol(data@data))
+            if (ncol(proj) > ncol(data@data))
                 stop("x must have less or equal number of dimensions as the original data")
 
             inv.out <- new("dimRedData", data = res$inverse(proj), meta = appl.meta)

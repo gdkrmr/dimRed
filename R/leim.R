@@ -57,13 +57,13 @@ LaplacianEigenmaps <- setClass(
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
 
-        if(is.null(pars$d))     pars$d    <- dist
-        if(is.null(pars$knn))   pars$knn  <- 50
-        if(is.null(pars$ndim))  pars$ndim <- 2
-        if(is.null(pars$t))     pars$t    <- Inf
-        if(is.null(pars$norm))  pars$norm <- TRUE
+        if (is.null(pars$d))     pars$d    <- dist
+        if (is.null(pars$knn))   pars$knn  <- 50
+        if (is.null(pars$ndim))  pars$ndim <- 2
+        if (is.null(pars$t))     pars$t    <- Inf
+        if (is.null(pars$norm))  pars$norm <- TRUE
         
-        if(is.infinite(pars$t)) {
+        if (is.infinite(pars$t)) {
             data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE)
         } else {
             data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE, weight = TRUE)
@@ -71,7 +71,7 @@ LaplacianEigenmaps <- setClass(
             data.adj[data.inds] <- exp(-(data.adj[data.inds]^2)/pars$t) + 1e-10
         }
         outdata <- loe::spec.emb(data.adj, pars$ndim, pars$norm)
-        if(is.null(dim(outdata))) {
+        if (is.null(dim(outdata))) {
             dim(outdata) <- c(length(outdata), 1)
         }
 

@@ -88,7 +88,7 @@ DiffusionMaps <- setClass(
         indata <- data@data
         
         distmat <- pars$d(indata)
-        if(pars$eps == "auto") pars$eps <- diffusionMap::epsilonCompute(distmat)
+        if (pars$eps == "auto") pars$eps <- diffusionMap::epsilonCompute(distmat)
         diffres <- diffusionMap::diffuse(
                                      D = distmat,
                                      t = pars$t,
@@ -100,10 +100,10 @@ DiffusionMaps <- setClass(
         outdata <- diffres$X
         
         appl <- function(x) {
-            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
-            proj <- if(inherits(x, "dimRedData")) x@data else x
+            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+            proj <- if (inherits(x, "dimRedData")) x@data else x
             
-            if(ncol(proj) != ncol(data@data))
+            if (ncol(proj) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
             
             dd <- sqrt(pdist2(proj, indata))
