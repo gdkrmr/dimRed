@@ -55,23 +55,23 @@ setMethod(
             type,
             "pairs"    = {
                 chckpkg("graphics")
-                graphics::pairs(x@data[,vars],      col = cols,   ... )
+                graphics::pairs(x@data[, vars],      col = cols,   ... )
             },
             "parpl"    = {
                 chckpkg("MASS")
-                MASS::parcoord(x@data[,vars],      col = cols,   ... )
+                MASS::parcoord(x@data[, vars],      col = cols,   ... )
             },
             "2vars"    = {
                 chckpkg("graphics")
-                graphics::plot(x@data[,vars[1:2]], col = cols,   ... )
+                graphics::plot(x@data[, vars[1:2]], col = cols,   ... )
             },
             "3vars"    = {
                 chckpkg("scatterplot3d")
-                scatterplot3d::scatterplot3d(x@data[,vars[1:3]], color = cols, ... )
+                scatterplot3d::scatterplot3d(x@data[, vars[1:3]], color = cols, ... )
             },
             "3varsrgl" = {
                 chckpkg("rgl")
-                rgl::plot3d(x@data[,vars[1:3]], col = cols,   ... )
+                rgl::plot3d(x@data[, vars[1:3]], col = cols,   ... )
             },
             stop("wrong argument to plot.dimRedData")
         )

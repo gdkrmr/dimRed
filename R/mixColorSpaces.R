@@ -10,17 +10,17 @@
 #'
 #' @importFrom grDevices colorRamp
 #' @examples
-#' cols <- expand.grid(x = seq(0,1, length.out = 10),
-#'                     y = seq(0,1, length.out = 10),
-#'                     z = seq(0,1, length.out = 10))
+#' cols <- expand.grid(x = seq(0, 1, length.out = 10),
+#'                     y = seq(0, 1, length.out = 10),
+#'                     z = seq(0, 1, length.out = 10))
 #' mixed <- mixColor3Ramps(cols)
 #'
 #' \dontrun{
 #' library(rgl)
 #' plot3d(cols$x, cols$y, cols$z, col = mixed, pch = 15)
 #'
-#' cols <- expand.grid(x = seq(0,1, length.out = 10),
-#'                     y = seq(0,1, length.out = 10))
+#' cols <- expand.grid(x = seq(0, 1, length.out = 10),
+#'                     y = seq(0, 1, length.out = 10))
 #' mixed <- mixColor2Ramps(cols)
 #' }
 #'
@@ -64,9 +64,9 @@ mixColor2Ramps <- function (vars,
 #' @rdname mixColorRamps
 #' @export
 mixColor3Ramps <- function (vars,
-                           ramps = list(colorRamp(c("#001A00","#00E600")),
-                                        colorRamp(c("#00001A","#0000E6")),
-                                        colorRamp(c("#1A0000","#E60000")))) {
+                           ramps = list(colorRamp(c("#001A00", "#00E600")),
+                                        colorRamp(c("#00001A", "#0000E6")),
+                                        colorRamp(c("#1A0000", "#E60000")))) {
     mixColorRamps(vars, ramps)
 }
 

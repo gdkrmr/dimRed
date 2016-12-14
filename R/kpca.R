@@ -81,14 +81,14 @@ kPCA <- setClass(
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
-            resrot <- res@rotated[,1:ncol(proj)]
+            resrot <- res@rotated[, 1:ncol(proj)]
             rot <- kernlab::kernelMatrix(kernel, proj, resrot)
             proj <- rot %*% dual_coef
 
             new("dimRedData", data = proj, meta = appl.meta)
         }
 
-        outdata <- res@rotated[,1:pars$ndim, drop = FALSE]
+        outdata <- res@rotated[, 1:pars$ndim, drop = FALSE]
         colnames(outdata) <- paste0("kPCA", 1:ncol(outdata))
 
         return(
@@ -113,8 +113,8 @@ kPCA <- setClass(
 
 ## get the kernel function out of the kernlab namespace:
 get_kernel_fun <- function (kernel, pars) {
-    if (!is(kernel,"kernel")) {
-        if (is(kernel,"function")) {
+    if (!is(kernel, "kernel")) {
+        if (is(kernel, "function")) {
             kernel <- deparse(substitute(kernel))
         } else {
            kernel <- get(kernel, asNamespace("kernlab"))

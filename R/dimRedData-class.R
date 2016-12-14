@@ -32,21 +32,21 @@ NULL
 #' ## Create using a constructor:
 #'
 #' ### without meta information:
-#' dimRedData(iris[,1:4])
+#' dimRedData(iris[, 1:4])
 #'
 #' ### with meta information:
-#' dimRedData(iris[,1:4], iris[,5])
+#' dimRedData(iris[, 1:4], iris[, 5])
 #'
 #' ### using slot names:
-#' dimRedData(data = iris[,1:4], meta = iris[,5])
+#' dimRedData(data = iris[, 1:4], meta = iris[, 5])
 #'
 #' ## Convert to a dimRedData objects:
-#' Iris <- as(iris[,1:4], "dimRedData")
+#' Iris <- as(iris[, 1:4], "dimRedData")
 #'
 #' ## Convert to data.frame:
 #' head(as(s3d, "data.frame"))
 #' head(as.data.frame(s3d))
-#' head(as.data.frame(as(iris[,1:4], "dimRedData")))
+#' head(as.data.frame(as(iris[, 1:4], "dimRedData")))
 #'
 #' ## Extract slots:
 #' head(getData(s3d))
@@ -56,7 +56,7 @@ NULL
 #' nrow(s3d)
 #'
 #' ## Subset:
-#' s3d[1:5,]
+#' s3d[1:5, ]
 #'
 #' @family dimRedData
 #' @import methods
@@ -65,7 +65,7 @@ NULL
 dimRedData <- setClass(
     "dimRedData",
     slots     = c(data = "matrix", meta = "data.frame"),
-    prototype = prototype(data = matrix(numeric(0), 0,0), meta = data.frame()),
+    prototype = prototype(data = matrix(numeric(0), 0, 0), meta = data.frame()),
     validity  = function (object) {
         retval <- NULL
         if (!is.matrix(object@data)) {
@@ -180,9 +180,9 @@ setMethod("nrow", "dimRedData", function(x) nrow(x@data))
 setMethod("[", signature(x = "dimRedData",
                          i = "ANY"),
           function(x, i) {
-    x@data <- x@data[i,,drop=FALSE]
+    x@data <- x@data[i, , drop=FALSE]
     if (nrow(x@meta) != 0)
-        x@meta <- x@meta[i,,drop=FALSE]
+        x@meta <- x@meta[i, , drop=FALSE]
     vv <- validObject(x)
     if (vv == TRUE) return(x)
     else stop("cannot subset dimRedData object: \n",

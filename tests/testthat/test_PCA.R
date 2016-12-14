@@ -3,7 +3,7 @@ data(iris)
 context("PCA")
 
 test_that("general data conversions", {
-    irisData <- as(iris[,1:4], "dimRedData")
+    irisData <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(irisData)[1], "dimRedData")
 
     irisParsCS <- list(center = TRUE,  scale. = TRUE)
@@ -30,4 +30,3 @@ test_that("general data conversions", {
     expect(sqrt(mean((irisResC@inverse(irisResC@data)@data   - irisData@data) ^ 2)) < 0.3, "error too large" )
     expect(sqrt(mean((irisRes@inverse(irisRes@data)@data     - irisData@data) ^ 2)) < 0.3, "error too large" )
 })
-

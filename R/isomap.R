@@ -162,7 +162,7 @@ makeKNNgraph <- function (x, k, eps = 0){
     g <- igraph::make_empty_graph(M, directed = FALSE)
     g[from = rep(seq_len(M), times = k),
       to   = as.vector(nn2res$nn.idx[, -1]),
-      attr = "weight"] <- as.vector(nn2res$nn.dists[,-1])
+      attr = "weight"] <- as.vector(nn2res$nn.dists[, -1])
 
     return(g)
 }

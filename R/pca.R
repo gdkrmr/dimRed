@@ -70,7 +70,7 @@ PCA <- setClass(
         data <- res$x[, seq_len(ndim), drop = FALSE]
         ce <- res$center
         sc <- res$scale
-        rot <- res$rotation[,seq_len(ndim)]
+        rot <- res$rotation[, seq_len(ndim)]
         rerot <- t(rot)
 
 
@@ -97,7 +97,7 @@ PCA <- setClass(
 
 
             d <- ncol(proj)
-            reproj <- proj %*% rerot[seq_len(d),]
+            reproj <- proj %*% rerot[seq_len(d), ]
 
             if (sc[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x * sc))
             if (ce[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x + ce))

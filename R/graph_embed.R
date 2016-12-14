@@ -281,7 +281,7 @@ construct_knn_graph <- function (data.dist, knn) {
     arr.ind = TRUE
   )
 
-  data.graph[ from = inds[,1], to = inds[,2] ] <- FALSE
+  data.graph[ from = inds[, 1], to = inds[, 2] ] <- FALSE
 
   return(data.graph)
 }

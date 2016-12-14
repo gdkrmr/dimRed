@@ -7,15 +7,15 @@
 # taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/
 
 pdist2 <- function (A, B) {
-    an = rowSums(A ^ 2) # apply(A, 1, function(rvec) crossprod(rvec,rvec))
-    bn = rowSums(B ^ 2) # apply(B, 1, function(rvec) crossprod(rvec,rvec))
+    an = rowSums(A ^ 2) # apply(A, 1, function(rvec) crossprod(rvec, rvec))
+    bn = rowSums(B ^ 2) # apply(B, 1, function(rvec) crossprod(rvec, rvec))
 
     m = nrow(A)
     n = nrow(B)
 
     matrix(rep(an, n), nrow=m) +
         matrix(rep(bn, m), nrow=m, byrow=TRUE) -
-        2 * tcrossprod(A,B)
+        2 * tcrossprod(A, B)
 }
 
 
@@ -151,7 +151,7 @@ setGeneric("ndims", function (object, ...) standardGeneric("ndims"), valueClass 
 #' @export
 installSuggests <- function () {
     "%w/o%" <- function(x, y) x[!x %in% y]
-    pkgString <- installed.packages()["dimRed","Suggests"]
+    pkgString <- installed.packages()["dimRed", "Suggests"]
     deps <- strsplit(pkgString, ", |,\n")[[1]]
     deps <- gsub("\n", "", deps)        # Windows needs this
 
@@ -163,7 +163,7 @@ installSuggests <- function () {
         cat(missingPkgs, "\n")
         message("installing ...")
         install.packages(missingPkgs)
-        pkgString <- installed.packages()["dimRed","Suggests"]
+        pkgString <- installed.packages()["dimRed", "Suggests"]
         installedPkgs <- rownames(installed.packages())
         missingPkgs <- deps %w/o% installedPkgs
         if (length(missingPkgs) > 0) {

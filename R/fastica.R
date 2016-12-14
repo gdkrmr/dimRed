@@ -65,7 +65,7 @@ FastICA <- setClass(
             appl.meta <- if (inherits(x, "dimRedData"))
                              x@meta
                          else
-                             matrix(numeric(0), 0,0)
+                             matrix(numeric(0), 0, 0)
 
             proj <- if (inherits(x, "dimRedData"))
                         x@data
@@ -80,14 +80,14 @@ FastICA <- setClass(
             appl.meta <- if (inherits(x, "dimRedData"))
                              x@meta
                          else
-                             matrix(numeric(0), 0,0)
+                             matrix(numeric(0), 0, 0)
 
             proj <- if (inherits(x, "dimRedData"))
                         x@data
                     else
                         x
 
-            out <- scale(proj %*% res$A[1:ncol(proj),], center = -orgdata.colmeans, scale = FALSE)
+            out <- scale(proj %*% res$A[1:ncol(proj), ], center = -orgdata.colmeans, scale = FALSE)
             reproj <- new("dimRedData", data = out, meta = appl.meta)
             return(reproj)
         }

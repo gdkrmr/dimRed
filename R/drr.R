@@ -79,7 +79,7 @@
 #'
 #' plot(dat, type = "3vars")
 #' plot(emb, type = "3vars")
-#' plot(emb@inverse(emb@data@data[,1,drop = FALSE]), type = "3vars")
+#' plot(emb@inverse(emb@data@data[, 1, drop = FALSE]), type = "3vars")
 #'
 #'
 #'

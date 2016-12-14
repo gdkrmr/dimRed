@@ -76,8 +76,8 @@ setMethod(
 
     nplanes <- xndim - length(without_axes)
     planes <- matrix(NA, 2, nplanes)
-    planes[1,] <- axis
-    planes[2,] <- (1:xndim)[-without_axes]
+    planes[1, ] <- axis
+    planes[2, ] <- (1:xndim)[-without_axes]
     if (ncol(planes) == 0)
       break
 
@@ -86,7 +86,7 @@ setMethod(
       fn = obj,
       ## method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "nlm",
       ##            "nlminb", "spg", "ucminf", "newuoa", "bobyqa", "nmkb",
-      ##            "hjkb", "Rcgmin","Rvmmin"),
+      ##            "hjkb", "Rcgmin", "Rvmmin"),
       lower = 0,
       upper = 2 * pi,
       control = list(all.methods = T),
@@ -151,7 +151,7 @@ rotate <- function (angs, planes, X) {
   ndim <- ncol(X)
   nplanes <- ncol(planes)
   if (length(angs) != nplanes)
-    stop("length(angs) not equal to chose(ndim,2)")
+    stop("length(angs) not equal to chose(ndim, 2)")
 
   ## loop over the planes to construct general rotation matrix
   rotmat <- diag(ndim)
@@ -167,7 +167,7 @@ rotate <- function (angs, planes, X) {
     p_rotmat <- diag(ndim)
     for (i in 1:2)
       for (j in 1:2)
-        p_rotmat[ planes[i,p], planes[j,p] ] <- rotmat2d[i,j]
+        p_rotmat[ planes[i, p], planes[j, p] ] <- rotmat2d[i, j]
     rotmat <- rotmat %*% p_rotmat
   }
 
@@ -177,8 +177,8 @@ rotate <- function (angs, planes, X) {
 get_planes <- function(ndims, axis, without_axes){
   nplanes <- ndims - length(without_axes)
   planes <- matrix(NA, 2, nplanes)
-  planes[1,] <- axis
-  planes[2,] <- (1:ndims)[c(-axis,-without_axes)]
+  planes[1, ] <- axis
+  planes[2, ] <- (1:ndims)[c(-axis, -without_axes)]
   planes
 }
 
@@ -192,7 +192,7 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = "pearson"){
   X2 <- rotate(alpha, planes, X)
 
 
-  ## cor(x,y) returns a matrix with the correlations between the
+  ## cor(x, y) returns a matrix with the correlations between the
   ## columns of x = X2 (rows) and the columns of y = Y (columns) we
   ## want the mean of squared correlations of all variables original
   ## variables with the first axis, i.e. we require the relevant
@@ -204,7 +204,7 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = "pearson"){
     X2, Y,
     #use = "pairwise.complete.obs",
     method = cor_method
-  )[axis,] ^ 2)
+  )[axis, ] ^ 2)
 }
 
 correlate <- function (x, y, method, ...) {
@@ -220,7 +220,7 @@ correlate <- function (x, y, method, ...) {
       )
       for (i in 1:ncol(x)) {
         for (j in 1:ncol(y)){
-          res[i,j] <- pcaPP::cor.fk(x[, i], y[, j])
+          res[i, j] <- pcaPP::cor.fk(x[, i], y[, j])
         }
       }
       return(res)
