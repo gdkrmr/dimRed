@@ -116,7 +116,10 @@ setMethod(
 
         args <- c(list(object = .data), list(...))
 
-        devnull <- if (Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
+        devnull <- if (Sys.info()["sysname"] != "Windows")
+                       "/dev/null"
+                   else
+                       "NUL"
         if ("message" %in% .mute){
             devnull1 <- file(devnull,  "wt")
             sink(devnull1, type = "message")
@@ -286,10 +289,10 @@ setGeneric(
 setMethod(
     "total_correlation",
     "dimRedResult",
-    function(object, naxes = ndims(object), cor_method = "pearson", is.rotated = FALSE){
-        ## if (!hasArg(naxes))      naxes      <- ncol(object@data@data)
-        ## if (!hasArg(cor_method)) cor_method <- "pearson"
-        ## if (!hasArg(is.rotated)) is.rotated <- FALSE
+    function(object,
+             naxes = ndims(object),
+             cor_method = "pearson",
+             is.rotated = FALSE){
 
         if (!object@has.org.data) stop("object requires original data")
         if (length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))

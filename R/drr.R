@@ -125,9 +125,12 @@ DRR <- setClass(
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
             if (ncol(proj) != ncol(data@data))
-                stop("x must have the same number of dimensions as the original data")
+                stop("x must have the same number of dimensions ",
+                     "as the original data")
 
-            appl.out <- new("dimRedData", data = res$apply(proj), meta = appl.meta)
+            appl.out <- new("dimRedData",
+                            data = res$apply(proj),
+                            meta = appl.meta)
             dimnames(appl.out@data) <- list(
                 rownames(x), paste0("DRR", seq_len(ncol(appl.out@data)))
             )
@@ -139,9 +142,12 @@ DRR <- setClass(
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
             if (ncol(proj) > ncol(data@data))
-                stop("x must have less or equal number of dimensions as the original data")
+                stop("x must have less or equal number of dimensions ",
+                     "as the original data")
 
-            inv.out <- new("dimRedData", data = res$inverse(proj), meta = appl.meta)
+            inv.out <- new("dimRedData",
+                           data = res$inverse(proj),
+                           meta = appl.meta)
             dimnames(inv.out@data) <- list(rownames(proj), colnames(data@data))
             return(inv.out)
         }

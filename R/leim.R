@@ -64,11 +64,17 @@ LaplacianEigenmaps <- setClass(
         if (is.null(pars$norm))  pars$norm <- TRUE
 
         if (is.infinite(pars$t)) {
-            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE)
+            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)),
+                                       pars$knn,
+                                       symm = TRUE)
         } else {
-            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)), pars$knn, symm = TRUE, weight = TRUE)
+            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)),
+                                       pars$knn,
+                                       symm = TRUE,
+                                       weight = TRUE)
             data.inds <- data.adj != 0
-            data.adj[data.inds] <- exp(-(data.adj[data.inds] ^ 2) / pars$t) + 1e-10
+            data.adj[data.inds] <-
+                exp(-(data.adj[data.inds] ^ 2) / pars$t) + 1e-10
         }
         outdata <- loe::spec.emb(data.adj, pars$ndim, pars$norm)
         if (is.null(dim(outdata))) {

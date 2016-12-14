@@ -7,14 +7,14 @@
 # taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/
 
 pdist2 <- function (A, B) {
-    an = rowSums(A ^ 2) # apply(A, 1, function(rvec) crossprod(rvec, rvec))
-    bn = rowSums(B ^ 2) # apply(B, 1, function(rvec) crossprod(rvec, rvec))
+    an <- rowSums(A ^ 2) # apply(A, 1, function(rvec) crossprod(rvec, rvec))
+    bn <- rowSums(B ^ 2) # apply(B, 1, function(rvec) crossprod(rvec, rvec))
 
-    m = nrow(A)
-    n = nrow(B)
+    m <- nrow(A)
+    n <- nrow(B)
 
-    matrix(rep(an, n), nrow=m) +
-        matrix(rep(bn, m), nrow=m, byrow=TRUE) -
+    matrix(rep(an, n), nrow = m) +
+        matrix(rep(bn, m), nrow = m, byrow = TRUE) -
         2 * tcrossprod(A, B)
 }
 
@@ -112,7 +112,8 @@ setGeneric("getOrgData", function (object, ...) standardGeneric("getOrgData"))
 #' Extract dimRedData.
 #' @param object The object to extract data from.
 #' @param ... other arguments.
-setGeneric("getDimRedData", function (object, ...) standardGeneric("getDimRedData"))
+setGeneric("getDimRedData",
+           function (object, ...) standardGeneric("getDimRedData"))
 
 #' Method print
 #'
@@ -129,7 +130,9 @@ setGeneric("print", function(x, ...) standardGeneric("print"))
 #'
 #' @param object To extract the number of dimensions from.
 #' @param ... Arguments for further methods
-setGeneric("ndims", function (object, ...) standardGeneric("ndims"), valueClass = "integer")
+setGeneric("ndims",
+           function (object, ...) standardGeneric("ndims"),
+           valueClass = "integer")
 
 
 #' getSuggests

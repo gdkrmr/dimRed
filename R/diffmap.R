@@ -88,7 +88,8 @@ DiffusionMaps <- setClass(
         indata <- data@data
 
         distmat <- pars$d(indata)
-        if (pars$eps == "auto") pars$eps <- diffusionMap::epsilonCompute(distmat)
+        if (pars$eps == "auto")
+            pars$eps <- diffusionMap::epsilonCompute(distmat)
         diffres <- diffusionMap::diffuse(
                                      D = distmat,
                                      t = pars$t,
@@ -104,11 +105,13 @@ DiffusionMaps <- setClass(
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
             if (ncol(proj) != ncol(data@data))
-                stop("x must have the same number of dimensions as the original data")
+                stop("x must have the same number of dimensions ",
+                     "as the original data")
 
             dd <- sqrt(pdist2(proj, indata))
 
-            appl.res <- diffusionMap::nystrom(diffres, dd, sigma = diffres$epsilon)
+            appl.res <-
+                diffusionMap::nystrom(diffres, dd, sigma = diffres$epsilon)
             dimnames(appl.res) <- list(
                 rownames(x), paste0("diffMap", seq_len(ncol(outdata)))
             )
@@ -131,4 +134,3 @@ DiffusionMaps <- setClass(
         ))
     })
 )
-

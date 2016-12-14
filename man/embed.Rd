@@ -73,7 +73,7 @@ for (e in embed_methods) {
   embedded_data[[e]] <- embed(dataset, e, .mute = c("message", "output"))
   for (q in quality_methods) {
     message("  quality: ", q)
-    quality_results[e,q] <- tryCatch(
+    quality_results[e, q] <- tryCatch(
       quality(embedded_data[[e]], q),
       error = function(e) NA
     )
@@ -89,10 +89,10 @@ head(as.data.frame(
 ))
 
 head(as.data.frame(
-  embed(iris[,1:4], "PCA")
+  embed(iris[, 1:4], "PCA")
 ))
 head(as.data.frame(
-  embed(as.matrix(iris[,1:4]), "PCA")
+  embed(as.matrix(iris[, 1:4]), "PCA")
 ))
 }
 

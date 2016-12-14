@@ -71,7 +71,8 @@ dimRedData <- setClass(
         if (!is.matrix(object@data)) {
             retval <- c(
                 retval,
-                c("data must be a matrix with observations in rows and dimensions in columns")
+                c("data must be a matrix with ",
+                  "observations in rows and dimensions in columns")
             )
         }
         if (!is.numeric(object@data)) {
@@ -80,7 +81,8 @@ dimRedData <- setClass(
                 c("data must be numeric")
             )
         }
-        if ((nrow(object@meta) != 0) && (nrow(object@meta) != nrow(object@data))){
+        if ((nrow(object@meta) != 0) &&
+            (nrow(object@meta) != nrow(object@data))){
             retval <- c(
                 retval,
                 c("data and meta must have the same numbers of rows")
@@ -93,7 +95,9 @@ dimRedData <- setClass(
 
 setMethod("initialize",
           signature = c("dimRedData"),
-          function (.Object, data = matrix(numeric(0), 0, 0), meta = data.frame()) {
+          function (.Object,
+                    data = matrix(numeric(0), 0, 0),
+                    meta = data.frame()) {
     data <- as.matrix(data)
     meta <- as.data.frame(meta)
     .Object <- callNextMethod()
@@ -105,7 +109,7 @@ setAs(from = "ANY", to = "dimRedData",
       def = function(from) new("dimRedData", data = as.matrix(from)))
 
 setAs(from = "dimRedData", to = "data.frame",
-      def = function(from) {as.data.frame(from)})
+      def = function(from) as.data.frame(from))
 
 #' @param meta.prefix Prefix for the columns of the meta data names.
 #' @param data.prefix Prefix for the columns of the variable names.
@@ -180,9 +184,9 @@ setMethod("nrow", "dimRedData", function(x) nrow(x@data))
 setMethod("[", signature(x = "dimRedData",
                          i = "ANY"),
           function(x, i) {
-    x@data <- x@data[i, , drop=FALSE]
+    x@data <- x@data[i, , drop = FALSE]
     if (nrow(x@meta) != 0)
-        x@meta <- x@meta[i, , drop=FALSE]
+        x@meta <- x@meta[i, , drop = FALSE]
     vv <- validObject(x)
     if (vv == TRUE) return(x)
     else stop("cannot subset dimRedData object: \n",

@@ -113,8 +113,3 @@ setMethod("matchPars",
     ## argument.
     return(res)
 })
-
-
-
-
-

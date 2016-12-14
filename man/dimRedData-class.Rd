@@ -94,21 +94,21 @@ s3d <- loadDataSet("3D S Curve")
 ## Create using a constructor:
 
 ### without meta information:
-dimRedData(iris[,1:4])
+dimRedData(iris[, 1:4])
 
 ### with meta information:
-dimRedData(iris[,1:4], iris[,5])
+dimRedData(iris[, 1:4], iris[, 5])
 
 ### using slot names:
-dimRedData(data = iris[,1:4], meta = iris[,5])
+dimRedData(data = iris[, 1:4], meta = iris[, 5])
 
 ## Convert to a dimRedData objects:
-Iris <- as(iris[,1:4], "dimRedData")
+Iris <- as(iris[, 1:4], "dimRedData")
 
 ## Convert to data.frame:
 head(as(s3d, "data.frame"))
 head(as.data.frame(s3d))
-head(as.data.frame(as(iris[,1:4], "dimRedData")))
+head(as.data.frame(as(iris[, 1:4], "dimRedData")))
 
 ## Extract slots:
 head(getData(s3d))
@@ -118,7 +118,7 @@ head(getMeta(s3d))
 nrow(s3d)
 
 ## Subset:
-s3d[1:5,]
+s3d[1:5, ]
 
 ## create a dimRedData object using a formula
 as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,

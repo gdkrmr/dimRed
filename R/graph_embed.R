@@ -285,4 +285,3 @@ construct_knn_graph <- function (data.dist, knn) {
 
   return(data.graph)
 }
-

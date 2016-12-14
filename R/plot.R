@@ -67,7 +67,9 @@ setMethod(
             },
             "3vars"    = {
                 chckpkg("scatterplot3d")
-                scatterplot3d::scatterplot3d(x@data[, vars[1:3]], color = cols, ... )
+                scatterplot3d::scatterplot3d(x@data[, vars[1:3]],
+                                             color = cols,
+                                             ...)
             },
             "3varsrgl" = {
                 chckpkg("rgl")

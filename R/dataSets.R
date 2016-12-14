@@ -200,7 +200,8 @@ noisyHelix <- function (n = 2000, sigma = 0.05) {
     max_noise <- 1.4
 
     new("dimRedData",
-        data = noisyHelixMapping(t, min_noise, max_noise) + stats::rnorm(3 * n, sd = sigma),
+        data = noisyHelixMapping(t, min_noise, max_noise) +
+            stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(t = t))
 }
 

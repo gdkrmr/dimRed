@@ -72,7 +72,7 @@ emb2 <- embed(dat, "DiffusionMaps")
 
 plot(emb, type = "2vars")
 
-samp <- sample(floor(nrow(dat)/10))
+samp <- sample(floor(nrow(dat) / 10))
 embsamp <- diffmap@fun(dat[samp], diffmap@stdpars)
 embother <- embsamp@apply(dat[-samp])
 plot(embsamp, type = "2vars")

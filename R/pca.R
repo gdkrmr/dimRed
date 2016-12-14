@@ -79,7 +79,8 @@ PCA <- setClass(
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
             if (ncol(proj) != ncol(orgdata))
-                stop("x must have the same number of dimensions as the original data")
+                stop("x must have the same number of dimensions ",
+                     "as the original data")
 
 
             if (ce[1]  != FALSE) proj <- t(apply(proj, 1, function(x) x - ce))
@@ -93,14 +94,17 @@ PCA <- setClass(
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
             if (ncol(proj) > ncol(data))
-                stop("x must have less or equal number of dimensions as the original data")
+                stop("x must have less or equal number of dimensions ",
+                     "as the original data")
 
 
             d <- ncol(proj)
             reproj <- proj %*% rerot[seq_len(d), ]
 
-            if (sc[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x * sc))
-            if (ce[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x + ce))
+            if (sc[1] != FALSE)
+                reproj <- t(apply(reproj, 1, function(x) x * sc))
+            if (ce[1] != FALSE)
+                reproj <- t(apply(reproj, 1, function(x) x + ce))
 
             reproj <- new("dimRedData", data = reproj, meta = appl.meta)
 

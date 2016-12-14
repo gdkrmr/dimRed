@@ -42,13 +42,17 @@ setMethod(
             stop("naxes must specify the numbers of axes to optimize for, ",
                  "i.e. a single integer between 1 and ncol(object@data@data)")
         ## try to partially match cor_method:
-        cor_method <- cor_method[pmatch(cor_method, c("pearson", "kendall", "spearman"))]
+        cor_method <-
+            cor_method[pmatch(cor_method, c("pearson", "kendall", "spearman"))]
         if (is.na(cor_method))
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
                  "at least partially.")
 
-        mcres <- .maximize_correlation(object@data@data, object@org.data, 1:naxes, cor_method)
+        mcres <- .maximize_correlation(object@data@data,
+                                       object@org.data,
+                                       1:naxes,
+                                       cor_method)
 
         res <- object
         res@data@data <- mcres$rotated
@@ -56,7 +60,9 @@ setMethod(
     }
 )
 
-.maximize_correlation <- function(X, Y, axes = 1:ncol(X), cor_method = "pearson"){
+.maximize_correlation <- function(X, Y,
+                                  axes = 1:ncol(X),
+                                  cor_method = "pearson"){
 
   if (nrow(X) != nrow(Y))
     stop("'X' and 'Y' must have the same number of rows")
@@ -209,25 +215,26 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = "pearson"){
 
 correlate <- function (x, y, method, ...) {
   if (method != "kendall"){
-    return(stats::cor(x, y, method = method, ...))
+      return(stats::cor(x, y, method = method, ...))
   } else {
-    if (!requireNamespace("pcaPP")) stop("package pcaPP required for method == 'kendall'.")
-    ## make the cor.fk method behave like cor for matrices:
-    if (is.matrix(x) && is.matrix(y)) {
-      res <- matrix(
-        NA, nrow = ncol(x), ncol = ncol(y),
-        dimnames = list(colnames(x), colnames(y))
-      )
-      for (i in 1:ncol(x)) {
-        for (j in 1:ncol(y)){
-          res[i, j] <- pcaPP::cor.fk(x[, i], y[, j])
-        }
+      if (!requireNamespace("pcaPP"))
+          stop("package pcaPP required for method == 'kendall'.")
+      ## make the cor.fk method behave like cor for matrices:
+      if (is.matrix(x) && is.matrix(y)) {
+          res <- matrix(
+              NA, nrow = ncol(x), ncol = ncol(y),
+              dimnames = list(colnames(x), colnames(y))
+          )
+          for (i in 1:ncol(x)) {
+              for (j in 1:ncol(y)){
+                  res[i, j] <- pcaPP::cor.fk(x[, i], y[, j])
+              }
+          }
+          return(res)
+      } else if (is.null(dim(x)) && is.null(dim(y))){
+          return(pcaPP::cor.fk(x, y))
+      } else {
+          stop("something is wrong with the input of 'correlate()'")
       }
-      return(res)
-    } else if (is.null(dim(x)) && is.null(dim(y))){
-      return(pcaPP::cor.fk(x, y))
-    } else {
-      stop("something is wrong with the input of 'correlate()'")
-    }
   }
 }

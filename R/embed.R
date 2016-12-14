@@ -107,7 +107,10 @@ setMethod(
         )
         args$pars <- matchPars(methodObject, list(...))
 
-        devnull <- if (Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
+        devnull <- if (Sys.info()["sysname"] != "Windows")
+                       "/dev/null"
+                   else
+                       "NUL"
         if ("message" %in% .mute){
             devnull1 <- file(devnull,  "wt")
             sink(devnull1, type = "message")
@@ -152,4 +155,3 @@ getMethodObject <- function (method) {
     method <- match.arg(method, dimRedMethodList())
     do.call(method, list())
 }
-

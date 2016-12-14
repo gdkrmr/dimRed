@@ -74,9 +74,10 @@ MDS <- setClass(
         res <- stats::cmdscale(D, k = pars$ndim)
         outdata <- res
 
-        D <- NULL  # Untested: remove that from environment before creating
-                                        # appl function, else it will stay in its environment
-                                        # forever
+        D <- NULL
+        ## Untested: remove that from environment before creating
+        ## appl function, else it will stay in its environment
+        ## forever
 
         appl <- if (!has.apply) function(x) NA else function(x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()

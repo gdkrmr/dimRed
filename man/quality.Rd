@@ -52,7 +52,7 @@ and \code{Q_global} determine the local/global quality of the
 embedding, while \code{mean_R_nx} determines the quality of the
 overall embedding. They are parameter free and return a single
 number. The object must include the original data.  The number
-returns is in the range [0,1], higher values mean a better
+returns is in the range [0, 1], higher values mean a better
 local/global embedding.
 }
 
@@ -95,7 +95,7 @@ for (e in embed_methods) {
   embedded_data[[e]] <- embed(scurve, e, .mute = c("message", "output"))
   for (q in quality_methods) {
     message("  quality: ", q)
-    quality_results[e,q] <- tryCatch(
+    quality_results[e, q] <- tryCatch(
       quality(embedded_data[[e]], q),
       error = function (e) NA
     )
