@@ -1,7 +1,7 @@
-## if(!isClassUnion('missingORnumeric'))   setClassUnion('missingORnumeric',   c('numeric', 'missing'))
-## if(!isClassUnion('missingORcharacter')) setClassUnion('missingORcharacter', c('character', 'missing'))
-## if(!isClassUnion('missingORlogical'))   setClassUnion('missingORlogical',   c('logical', 'missing'))
-## if(!isClassUnion('missingORfunction'))  setClassUnion('missingORfunction',  c('function', 'missing'))
+## if(!isClassUnion("missingORnumeric"))   setClassUnion("missingORnumeric",   c("numeric", "missing"))
+## if(!isClassUnion("missingORcharacter")) setClassUnion("missingORcharacter", c("character", "missing"))
+## if(!isClassUnion("missingORlogical"))   setClassUnion("missingORlogical",   c("logical", "missing"))
+## if(!isClassUnion("missingORfunction"))  setClassUnion("missingORfunction",  c("function", "missing"))
 
 # Squared euclidean distance between points in A and B
 # taken from http://blog.felixriedel.com/2013/05/pairwise-distances-in-r/ 
@@ -58,10 +58,10 @@ chckpkg <- function (pkg) {
 #' @param optional unused in \code{dimRed}
 #' @param ... other arguments.
 setGeneric(
-    'as.data.frame',
-    function(x, row.names, optional, ...) standardGeneric('as.data.frame'),
+    "as.data.frame",
+    function(x, row.names, optional, ...) standardGeneric("as.data.frame"),
     useAsDefault = base::as.data.frame,
-    valueClass = 'data.frame'
+    valueClass = "data.frame"
 )
 
 #' Converts to dimRedData
@@ -71,9 +71,9 @@ setGeneric(
 #' @param formula a formula object.
 #' @param ... other arguments.
 setGeneric(
-    'as.dimRedData',
-    function(formula, ...) standardGeneric('as.dimRedData'),
-    valueClass = 'dimRedData'
+    "as.dimRedData",
+    function(formula, ...) standardGeneric("as.dimRedData"),
+    valueClass = "dimRedData"
 )
 
 #' Method getData
@@ -81,7 +81,7 @@ setGeneric(
 #' Extracts the data slot.
 #' 
 #' @param object The object to be converted.
-setGeneric('getData', function(object) standardGeneric('getData'))
+setGeneric("getData", function(object) standardGeneric("getData"))
 
 #' Method getMeta 
 #'
@@ -89,7 +89,7 @@ setGeneric('getData', function(object) standardGeneric('getData'))
 #' 
 #' @param object The object to be converted.
 #' @param ... other arguments.
-setGeneric('getMeta', function(object, ...) standardGeneric('getMeta'))
+setGeneric("getMeta", function(object, ...) standardGeneric("getMeta"))
 
 #' Method getPars
 #'
@@ -97,7 +97,7 @@ setGeneric('getMeta', function(object, ...) standardGeneric('getMeta'))
 #' 
 #' @param object The object to be converted.
 #' @param ... other arguments.
-setGeneric('getPars', function (object, ...) standardGeneric('getPars'))
+setGeneric("getPars", function (object, ...) standardGeneric("getPars"))
 
 #' Method getOrgData
 #'
@@ -105,14 +105,14 @@ setGeneric('getPars', function (object, ...) standardGeneric('getPars'))
 #'
 #' @param object The object to extract data from.
 #' @param ... other arguments.
-setGeneric('getOrgData', function (object, ...) standardGeneric('getOrgData'))
+setGeneric("getOrgData", function (object, ...) standardGeneric("getOrgData"))
 
 #' Method getDimRedData
 #'
 #' Extract dimRedData.
 #' @param object The object to extract data from.
 #' @param ... other arguments.
-setGeneric('getDimRedData', function (object, ...) standardGeneric('getDimRedData'))
+setGeneric("getDimRedData", function (object, ...) standardGeneric("getDimRedData"))
 
 #' Method print
 #'
@@ -120,7 +120,7 @@ setGeneric('getDimRedData', function (object, ...) standardGeneric('getDimRedDat
 #'
 #' @param x The object to be printed.
 #' @param ... Other arguments for printing.
-setGeneric('print', function(x, ...) standardGeneric('print'))
+setGeneric("print", function(x, ...) standardGeneric("print"))
 
 
 #' Method ndims
@@ -129,7 +129,7 @@ setGeneric('print', function(x, ...) standardGeneric('print'))
 #'
 #' @param object To extract the number of dimensions from.
 #' @param ... Arguments for further methods
-setGeneric('ndims', function (object, ...) standardGeneric('ndims'), valueClass = "integer")
+setGeneric("ndims", function (object, ...) standardGeneric("ndims"), valueClass = "integer")
 
 
 #' getSuggests
@@ -160,7 +160,7 @@ installSuggests <- function () {
 
     if (length(missingPkgs) > 0) {
         message("The following packages are missing: ")
-        cat(missingPkgs, '\n')
+        cat(missingPkgs, "\n")
         message("installing ...")
         install.packages(missingPkgs)
         pkgString <- installed.packages()["dimRed","Suggests"]
@@ -168,7 +168,7 @@ installSuggests <- function () {
         missingPkgs <- deps %w/o% installedPkgs
         if (length(missingPkgs) > 0) {
             message("Could not install the following packages:")
-            cat(missingPkgs, '\n')
+            cat(missingPkgs, "\n")
             message("please install manually or some methods will not work.")
         } else {
             message("All necessary packages installed")

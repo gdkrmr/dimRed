@@ -71,8 +71,8 @@
 #' @export DiffusionMaps
 #' @exportClass DiffusionMaps
 DiffusionMaps <- setClass(
-    'DiffusionMaps',
-    contains  = 'dimRedMethod',
+    "DiffusionMaps",
+    contains  = "dimRedMethod",
     prototype = list(
         stdpars = list(d     = stats::dist,
                        ndim  = 2,
@@ -81,7 +81,7 @@ DiffusionMaps <- setClass(
                        delta = 1e-5),
         fun     = function (data, pars,
                             keep.org.data = TRUE) {
-        chckpkg('diffusionMap')
+        chckpkg("diffusionMap")
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -100,8 +100,8 @@ DiffusionMaps <- setClass(
         outdata <- diffres$X
         
         appl <- function(x) {
-            appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
-            proj <- if(inherits(x, 'dimRedData')) x@data else x
+            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
+            proj <- if(inherits(x, "dimRedData")) x@data else x
             
             if(ncol(proj) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
@@ -118,8 +118,8 @@ DiffusionMaps <- setClass(
         colnames(outdata) <- paste0("diffMap", seq_len(ncol(outdata)))
 
         return(new(
-            'dimRedResult',
-            data = new('dimRedData',
+            "dimRedResult",
+            data = new("dimRedData",
                        data = outdata,
                        meta = meta),
             org.data     = orgdata,

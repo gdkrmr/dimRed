@@ -94,7 +94,7 @@ setMethod(
     "embed",
     "dimRedData",
     function(.data, .method = dimRedMethodList(),
-             .mute = character(0), #c('message', 'output'),
+             .mute = character(0), #c("message", "output"),
              .keep.org.data = TRUE,
              ...){
         method <- match.arg(.method)
@@ -107,18 +107,18 @@ setMethod(
         )
         args$pars <- matchPars(methodObject, list(...))
         
-        devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
-        if('message' %in% .mute){
-            devnull1 <- file(devnull,  'wt')
-            sink(devnull1, type = 'message')
+        devnull <- if(Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
+        if("message" %in% .mute){
+            devnull1 <- file(devnull,  "wt")
+            sink(devnull1, type = "message")
             on.exit({
                 sink(file = NULL, type = "message")
                 close(devnull1)
             }, add = TRUE)
         }
-        if('output' %in% .mute) {
-            devnull2 <- file(devnull,  'wt')
-            sink(devnull2, type = 'output')
+        if("output" %in% .mute) {
+            devnull2 <- file(devnull,  "wt")
+            sink(devnull2, type = "output")
             on.exit({
                 sink()
                 close(devnull2)

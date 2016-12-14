@@ -44,14 +44,14 @@
 #' @export LaplacianEigenmaps
 #' @exportClass LaplacianEigenmaps
 LaplacianEigenmaps <- setClass(
-    'LaplacianEigenmaps',
-    contains = 'dimRedMethod',
+    "LaplacianEigenmaps",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(d = stats::dist, knn = 50, ndim = 2,
                        t = Inf, norm = TRUE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('loe')
+        chckpkg("loe")
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -79,8 +79,8 @@ LaplacianEigenmaps <- setClass(
         colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,

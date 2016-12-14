@@ -34,8 +34,8 @@
 #' emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
 #'
 #' 
-#' plot(emb, type = '2vars')
-#' plot(emb2, type = '2vars')
+#' plot(emb, type = "2vars")
+#' plot(emb2, type = "2vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -44,7 +44,7 @@
 #' @exportClass MDS
 MDS <- setClass(
     "MDS",
-    contains = 'dimRedMethod',
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(d = stats::dist, ndim = 2),
         fun = function (data, pars,
@@ -79,8 +79,8 @@ MDS <- setClass(
                                         # forever
 
         appl <- if(!has.apply) function(x) NA else function(x) {
-            appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame() 
-            proj <- if(inherits(x, 'dimRedData')) x@data else x
+            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame() 
+            proj <- if(inherits(x, "dimRedData")) x@data else x
 
             ## double center new data with respect to old: TODO: optimize
             ## this method, according to the de Silva, Tenenbaum(2004)
@@ -89,8 +89,8 @@ MDS <- setClass(
             ## distances.
             Kab <- as.matrix(pars$d(proj)^2)
             Exa <- colMeans(pdist2(indata, proj))
-            Kab <- sweep(Kab, 1, Exa)       #, '-')
-            Kab <- sweep(Kab, 2, Exa)       #, '-')
+            Kab <- sweep(Kab, 1, Exa)       #, "-")
+            Kab <- sweep(Kab, 2, Exa)       #, "-")
             Kab <- -0.5 * (Kab + mD2)
 
             ## Eigenvalue decomposition
@@ -108,7 +108,7 @@ MDS <- setClass(
             points <- evec * rep(sqrt(ev), each = nrow(proj))
             dimnames(points) <- list(NULL, paste0("MDS", seq_len(ncol(points))))
             
-            new('dimRedData', data = points, meta = appl.meta)
+            new("dimRedData", data = points, meta = appl.meta)
         }
         
         
@@ -116,8 +116,8 @@ MDS <- setClass(
         colnames(outdata) <- paste0("MDS", seq_len(ncol(outdata)))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,

@@ -48,8 +48,8 @@
 #' @export Isomap
 #' @exportClass Isomap
 Isomap <- setClass(
-    'Isomap',
-    contains = 'dimRedMethod',
+    "Isomap",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(knn = 50,
                        ndim = 2),
@@ -84,8 +84,8 @@ Isomap <- setClass(
         
         appl <- function (x) {
             message(Sys.time(), ": L-Isomap embed START")
-            appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
-            indata    <- if(inherits(x, 'dimRedData')) x@data else x
+            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
+            indata    <- if(inherits(x, "dimRedData")) x@data else x
 
             if(ncol(indata) != ncol(data@data))
                 stop("x must have the same number of dimensions as the original data")
@@ -107,12 +107,12 @@ Isomap <- setClass(
             out <- -0.5 * (dammu %*% Lsharp)
             
             message(Sys.time(), ": DONE")
-            return(new('dimRedData', data = out, meta = appl.meta))    
+            return(new("dimRedData", data = out, meta = appl.meta))    
         }
         
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = cmdout$points,
                                meta = meta),
             org.data     = orgdata,
@@ -168,13 +168,13 @@ makeKNNgraph <- function (x, k, eps = 0){
 }
 
 ## the original isomap method I'll keep it here for completeness: 
-## isomap <- new('dimRedMethod',
+## isomap <- new("dimRedMethod",
 ##               stdpars = list(knn  = 50,
 ##                              d    = dist,
 ##                              ndim = 2)
 ##               fun = function (data, pars,
 ##                               keep.org.data = TRUE) {
-##     chckpkg('vegan')
+##     chckpkg("vegan")
 
 ##     meta <- data@meta
 ##     orgdata <- if (keep.org.data) data@data else NULL
@@ -187,8 +187,8 @@ makeKNNgraph <- function (x, k, eps = 0){
 ##     colnames(outdata) <- paste0("Iso", 1:ncol(outdata))
 
 ##     return(new(
-##         'dimRedResult',
-##         data         = new('dimRedData',
+##         "dimRedResult",
+##         data         = new("dimRedData",
 ##                            data = outdata,
 ##                            meta = meta),
 ##         org.data     = orgdata,

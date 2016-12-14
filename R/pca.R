@@ -47,8 +47,8 @@
 #' @export PCA
 #' @exportClass PCA
 PCA <- setClass(
-    'PCA',
-    contains = 'dimRedMethod',
+    "PCA",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(ndim = 2,
                        center = TRUE,
@@ -75,8 +75,8 @@ PCA <- setClass(
 
         
         appl <- function(x) {
-            appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
-            proj <- if(inherits(x, 'dimRedData')) x@data else x
+            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
+            proj <- if(inherits(x, "dimRedData")) x@data else x
             
             if(ncol(proj) != ncol(orgdata))
                 stop("x must have the same number of dimensions as the original data")
@@ -86,12 +86,12 @@ PCA <- setClass(
             if(sc[1]  != FALSE) proj <- t(apply(proj, 1, function(x) x / sc))
             proj <- proj %*% rot
 
-            proj <- new('dimRedData', data = proj, meta = appl.meta)
+            proj <- new("dimRedData", data = proj, meta = appl.meta)
             return(proj)
         }
         inv  <- function(x) {
-            appl.meta <- if(inherits(x, 'dimRedData')) x@meta else data.frame()
-            proj <- if(inherits(x, 'dimRedData')) x@data else x
+            appl.meta <- if(inherits(x, "dimRedData")) x@meta else data.frame()
+            proj <- if(inherits(x, "dimRedData")) x@data else x
             if(ncol(proj) > ncol(data))
                 stop("x must have less or equal number of dimensions as the original data")
 
@@ -102,14 +102,14 @@ PCA <- setClass(
             if(sc[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x * sc))
             if(ce[1] != FALSE) reproj <- t(apply(reproj, 1, function(x) x + ce))
 
-            reproj <- new('dimRedData', data = reproj, meta = appl.meta)
+            reproj <- new("dimRedData", data = reproj, meta = appl.meta)
             
             return(reproj)
         }
 
         res <- new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = data,
                                meta = meta),
             org.data     = orgdata,

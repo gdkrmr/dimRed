@@ -7,9 +7,9 @@
 ## with the axis of the embeding and the final result is the sum_{axes} sum(squared(correlation(variables, axis)))
 
 setGeneric(
-    'maximize_correlation',
-    function(object, ...) standardGeneric('maximize_correlation'),
-    valueClass = 'dimRedResult'
+    "maximize_correlation",
+    function(object, ...) standardGeneric("maximize_correlation"),
+    valueClass = "dimRedResult"
 )
 
 #' Maximize Correlation with the Axes
@@ -31,18 +31,18 @@ setGeneric(
 #' @aliases maximize_correlation
 #' @export
 setMethod(
-    'maximize_correlation',
-    'dimRedResult',
-    function(object, naxes = ncol(object@data@data), cor_method = 'pearson'){
+    "maximize_correlation",
+    "dimRedResult",
+    function(object, naxes = ncol(object@data@data), cor_method = "pearson"){
         ## if(missing(naxes))      naxes      <- ncol(object@data@data)
-        ## if(missing(cor_method)) cor_method <- 'pearson'
+        ## if(missing(cor_method)) cor_method <- "pearson"
         
-        if(!object@has.org.data) stop('object requires original data')
+        if(!object@has.org.data) stop("object requires original data")
         if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
-            stop('naxes must specify the numbers of axes to optimize for, ',
-                 'i.e. a single integer between 1 and ncol(object@data@data)')
+            stop("naxes must specify the numbers of axes to optimize for, ",
+                 "i.e. a single integer between 1 and ncol(object@data@data)")
         ## try to partially match cor_method:
-        cor_method <- cor_method[pmatch(cor_method, c('pearson', 'kendall', 'spearman'))]
+        cor_method <- cor_method[pmatch(cor_method, c("pearson", "kendall", "spearman"))]
         if(is.na(cor_method))
             stop("cor_method must match one of ",
                  "'pearson', 'kendall', or 'spearman', ",
@@ -56,16 +56,16 @@ setMethod(
     }
 )
 
-.maximize_correlation <- function(X, Y, axes = 1:ncol(X), cor_method = 'pearson'){
+.maximize_correlation <- function(X, Y, axes = 1:ncol(X), cor_method = "pearson"){
 
   if (nrow(X) != nrow(Y))
-    stop('"X" and "Y" must have the same number of rows')
+    stop("'X' and 'Y' must have the same number of rows")
   if (max(axes) > ncol(X)){
     axes <- axes[ axes <= ncol(X) ]
-    warning('"max(axes)" must be <= "ncol(X)", removing some axes')
+    warning("'max(axes)' must be <= 'ncol(X)', removing some axes")
   }
 
-  chckpkg('optimx')
+  chckpkg("optimx")
 
   xndim <- ncol(X)
   without_axes <- integer(0)
@@ -84,9 +84,9 @@ setMethod(
     o <- optimx::optimx(
       par = rep(0, nplanes),
       fn = obj,
-      ## method = c('Nelder-Mead', 'BFGS', 'CG', 'L-BFGS-B', 'nlm',
-      ##            'nlminb', 'spg', 'ucminf', 'newuoa', 'bobyqa', 'nmkb',
-      ##            'hjkb', 'Rcgmin','Rvmmin'),
+      ## method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "nlm",
+      ##            "nlminb", "spg", "ucminf", "newuoa", "bobyqa", "nmkb",
+      ##            "hjkb", "Rcgmin","Rvmmin"),
       lower = 0,
       upper = 2*pi,
       control = list(all.methods = T),
@@ -151,7 +151,7 @@ rotate <- function (angs, planes, X) {
   ndim <- ncol(X)
   nplanes <- ncol(planes)
   if(length(angs) != nplanes)
-    stop('length(angs) not equal to chose(ndim,2)')
+    stop("length(angs) not equal to chose(ndim,2)")
 
   ## loop over the planes to construct general rotation matrix
   rotmat <- diag(ndim)
@@ -183,7 +183,7 @@ get_planes <- function(ndims, axis, without_axes){
 }
 
 
-obj <- function(alpha, X, Y, axis, without_axes, cor_method = 'pearson'){
+obj <- function(alpha, X, Y, axis, without_axes, cor_method = "pearson"){
   ## correlation with first axis
   xndim <- ncol(X)
 
@@ -202,16 +202,16 @@ obj <- function(alpha, X, Y, axis, without_axes, cor_method = 'pearson'){
 
   -mean(correlate(
     X2, Y,
-    #use = 'pairwise.complete.obs',
+    #use = "pairwise.complete.obs",
     method = cor_method
   )[axis,]^2)
 }
 
 correlate <- function (x, y, method, ...) {
-  if (method != 'kendall'){
+  if (method != "kendall"){
     return(stats::cor(x, y, method = method, ...))
   } else {
-    if(!requireNamespace('pcaPP')) stop("package pcaPP required for method == 'kendall'.")
+    if(!requireNamespace("pcaPP")) stop("package pcaPP required for method == 'kendall'.")
     ## make the cor.fk method behave like cor for matrices:
     if (is.matrix(x) && is.matrix(y)) {
       res <- matrix(

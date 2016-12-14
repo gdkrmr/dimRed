@@ -63,27 +63,27 @@ NULL
 #' @export dimRedData
 #' @exportClass dimRedData
 dimRedData <- setClass(
-    'dimRedData',
-    slots     = c(data = 'matrix', meta = 'data.frame'),
+    "dimRedData",
+    slots     = c(data = "matrix", meta = "data.frame"),
     prototype = prototype(data = matrix(numeric(0), 0,0), meta = data.frame()),
     validity  = function (object) {
         retval <- NULL
         if(!is.matrix(object@data)) {
             retval <- c(
                 retval,
-                c('data must be a matrix with observations in rows and dimensions in columns')
+                c("data must be a matrix with observations in rows and dimensions in columns")
             )
         }
         if(!is.numeric(object@data)) {
             retval <- c(
                 retval,
-                c('data must be numeric')
+                c("data must be numeric")
             )
         }
         if((nrow(object@meta) != 0) && (nrow(object@meta) != nrow(object@data))){
             retval <- c(
                 retval,
-                c('data and meta must have the same numbers of rows')
+                c("data and meta must have the same numbers of rows")
             )
         }
         
@@ -101,10 +101,10 @@ setMethod("initialize",
 })
 
             
-setAs(from = 'ANY', to = 'dimRedData',
-      def = function(from) new('dimRedData', data = as.matrix(from)))
+setAs(from = "ANY", to = "dimRedData",
+      def = function(from) new("dimRedData", data = as.matrix(from)))
 
-setAs(from = 'dimRedData', to = 'data.frame',
+setAs(from = "dimRedData", to = "data.frame",
       def = function(from) {as.data.frame(from)})
 
 #' @param meta.prefix Prefix for the columns of the meta data names.
@@ -113,8 +113,8 @@ setAs(from = 'dimRedData', to = 'data.frame',
 #' @family dimRedData
 #' @describeIn dimRedData convert to data.frame
 #' @export
-setMethod(f = 'as.data.frame',
-          signature = c('dimRedData'),
+setMethod(f = "as.data.frame",
+          signature = c("dimRedData"),
           definition = function(x, meta.prefix = "meta.",
                                 data.prefix = "") {
     tmp <- list()
@@ -144,8 +144,8 @@ setMethod(f = 'as.data.frame',
 #' @describeIn dimRedData Convert a \code{data.frame} to a dimRedData
 #'     object using a formula
 #' @export
-setMethod(f = 'as.dimRedData',
-          signature = c('formula'),
+setMethod(f = "as.dimRedData",
+          signature = c("formula"),
           definition = function(formula, data) {
     data <- as.data.frame(data)
     meta <- stats::model.frame(lhs(formula), data)
@@ -158,17 +158,17 @@ setMethod(f = 'as.dimRedData',
 #' @param object Of class dimRedData.
 #' @describeIn dimRedData Get the data slot.
 #' @export
-setMethod('getData', 'dimRedData', function(object) object@data)
+setMethod("getData", "dimRedData", function(object) object@data)
 
 
 #' @describeIn dimRedData Get the meta slot.
 #' @export
-setMethod('getMeta', 'dimRedData', function(object) object@meta)
+setMethod("getMeta", "dimRedData", function(object) object@meta)
 
 #' @param x Of class dimRedData
 #' @describeIn dimRedData Get the number of observations.
 #' @export
-setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
+setMethod("nrow", "dimRedData", function(x) nrow(x@data))
 
 #' @param i a valid index for subsetting rows.
 #' @examples
@@ -177,16 +177,16 @@ setMethod('nrow', 'dimRedData', function(x) nrow(x@data))
 #' 
 #' @describeIn dimRedData Subset rows.
 #' @export
-setMethod('[', signature(x = 'dimRedData',
-                         i = 'ANY'),
+setMethod("[", signature(x = "dimRedData",
+                         i = "ANY"),
           function(x, i) {
     x@data <- x@data[i,,drop=FALSE]
     if(nrow(x@meta) != 0)
         x@meta <- x@meta[i,,drop=FALSE]
     vv <- validObject(x)
     if(vv == TRUE) return(x)
-    else stop('cannot subset dimRedData object: \n',
-              paste(vv, collapse = '\n'))
+    else stop("cannot subset dimRedData object: \n",
+              paste(vv, collapse = "\n"))
 }) 
 
 
@@ -197,4 +197,4 @@ setMethod('[', signature(x = 'dimRedData',
 #' ndims(s3d)
 #'
 #' @export
-setMethod('ndims', 'dimRedData', function(object) ncol(object@data))
+setMethod("ndims", "dimRedData", function(object) ncol(object@data))

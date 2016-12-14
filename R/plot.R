@@ -37,7 +37,7 @@
 #' @aliases plot.dimRed
 #' @export
 setGeneric(
-    'plot', function(x, y, ...) standardGeneric('plot'),
+    "plot", function(x, y, ...) standardGeneric("plot"),
     useAsDefault = graphics::plot
 )
 
@@ -45,8 +45,8 @@ setGeneric(
 #' @aliases plot.dimRedData
 #' @export
 setMethod(
-    f = 'plot',
-    signature = c('dimRedData'),
+    f = "plot",
+    signature = c("dimRedData"),
     definition = function(x, type = "pairs",
                           vars = seq_len(ncol(x@data)),
                           col = seq_len(min(3, ncol(x@meta))), ...) {
@@ -83,8 +83,8 @@ setMethod(
 #' @aliases plot.dimRedResult
 #' @export
 setMethod(
-    f = 'plot',
-    signature = c('dimRedResult'),
+    f = "plot",
+    signature = c("dimRedResult"),
     definition = function (x, type = "pairs",
                            vars = seq_len(ncol(x@data@data)),
                            col = seq_len(min(3, ncol(x@data@meta))), ...) {

@@ -29,10 +29,10 @@
 #' @family dimensionality reduction methods
 #' @seealso \link{dimRedMethodList}
 #' @export 
-setClass('dimRedMethod',
+setClass("dimRedMethod",
          contains  = "VIRTUAL",
-         slots     = c(fun     = 'function',
-                       stdpars = 'list'))
+         slots     = c(fun     = "function",
+                       stdpars = "list"))
 
 
 #' dimRedMethodList
@@ -51,36 +51,36 @@ setClass('dimRedMethod',
 #' @export
 dimRedMethodList <- function () {
     ## return(c(
-    ##     'graph_kk',
-    ##     'graph_drl',
-    ##     'graph_fr',
-    ##     'drr',
-    ##     'isomap',
-    ##     'diffmap',
-    ##     'tsne',
-    ##     'nmds',
-    ##     'mds',
-    ##     'ica',
-    ##     'pca',
-    ##     'lle',
+    ##     "graph_kk",
+    ##     "graph_drl",
+    ##     "graph_fr",
+    ##     "drr",
+    ##     "isomap",
+    ##     "diffmap",
+    ##     "tsne",
+    ##     "nmds",
+    ##     "mds",
+    ##     "ica",
+    ##     "pca",
+    ##     "lle",
     ##     ## those two methods are buggy and can produce segfaults:
     ##     ## "loe", "soe",
-    ##     'leim',
-    ##     'kpca'
+    ##     "leim",
+    ##     "kpca"
     ## ))
-    names(completeClassDefinition('dimRedMethod', doExtends = FALSE)@subclasses)
+    names(completeClassDefinition("dimRedMethod", doExtends = FALSE)@subclasses)
 }
 
 
 # to put standard values for omitted arguments
 
-setGeneric('matchPars', function(object, pars) standardGeneric('matchPars'),
+setGeneric("matchPars", function(object, pars) standardGeneric("matchPars"),
            valueClass = c("list"))
 
 
-setMethod('matchPars',
-          signature(object = 'dimRedMethod',
-                    pars   = 'list'),
+setMethod("matchPars",
+          signature(object = "dimRedMethod",
+                    pars   = "list"),
           definition = function(object, pars) {
     nsp <- names(object@stdpars)
     ncp <- names(pars)
@@ -90,7 +90,7 @@ setMethod('matchPars',
     
     ## exists can deal with elements being NULL
     ## to assign list@el <- NULL do:
-    ## list['el'] <- list(NULL)
+    ## list["el"] <- list(NULL)
     for(np in nap) {
         miss.std <- !exists(np, where = object@stdpars)
         miss.par <- !exists(np, where = pars)

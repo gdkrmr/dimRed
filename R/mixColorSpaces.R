@@ -49,24 +49,24 @@ mixColorRamps <- function (vars, ramps) {
 #' @rdname mixColorRamps
 #' @export
 mixColor1Ramps <- function (vars,
-                            ramps = colorRamp(c('blue', 'black', 'red'))) {
+                            ramps = colorRamp(c("blue", "black", "red"))) {
     mixColorRamps(vars, list(ramps))
 }
 
 #' @rdname mixColorRamps
 #' @export
 mixColor2Ramps <- function (vars,
-                            ramps = list(colorRamp(c('blue', 'green')),
-                                         colorRamp(c('blue', 'red')))) {
+                            ramps = list(colorRamp(c("blue", "green")),
+                                         colorRamp(c("blue", "red")))) {
     mixColorRamps(vars, ramps)
 }
 
 #' @rdname mixColorRamps
 #' @export
 mixColor3Ramps <- function (vars,
-                           ramps = list(colorRamp(c('#001A00','#00E600')),
-                                        colorRamp(c('#00001A','#0000E6')),
-                                        colorRamp(c('#1A0000','#E60000')))) {
+                           ramps = list(colorRamp(c("#001A00","#00E600")),
+                                        colorRamp(c("#00001A","#0000E6")),
+                                        colorRamp(c("#1A0000","#E60000")))) {
     mixColorRamps(vars, ramps)
 }
 
@@ -76,7 +76,7 @@ colorize <- function (vars) {
     if(l == 1) return(mixColor1Ramps(vars))
     if(l == 2) return(mixColor2Ramps(vars))
     if(l == 3) return(mixColor3Ramps(vars))
-    return('#000000')
+    return("#000000")
 }
 
 scale01 <- function(x, low = min(x, na.rm = TRUE), high = max(x, na.rm = FALSE)) {

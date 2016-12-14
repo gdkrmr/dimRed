@@ -45,13 +45,13 @@
 #' @export LLE
 #' @exportClass LLE
 LLE <- setClass(
-    'LLE',
-    contains = 'dimRedMethod',
+    "LLE",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(knn = 50, ndim = 2),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('lle')
+        chckpkg("lle")
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
@@ -65,8 +65,8 @@ LLE <- setClass(
         colnames(outdata) <- paste0("LLE", 1:ncol(outdata))
         
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,

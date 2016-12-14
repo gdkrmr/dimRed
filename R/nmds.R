@@ -32,8 +32,8 @@
 #' emb2 <- embed(dat, "nMDS", d = function(x) exp(dist(x)))
 #'
 #' 
-#' plot(emb, type = '2vars')
-#' plot(emb2, type = '2vars')
+#' plot(emb, type = "2vars")
+#' plot(emb2, type = "2vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -41,13 +41,13 @@
 #' @export nMDS
 #' @exportClass nMDS
 nMDS <- setClass(
-    'nMDS',
-    contains = 'dimRedMethod',
+    "nMDS",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(d = stats::dist, ndim = 2),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('vegan')
+        chckpkg("vegan")
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -58,8 +58,8 @@ nMDS <- setClass(
         colnames(outdata) <- paste0("NMDS", 1:ncol(outdata))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,

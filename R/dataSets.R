@@ -27,7 +27,7 @@
 #' 
 #' ## Load a data set:
 #' swissRoll <- loadDataSet("Swiss Roll")
-#' \donttest{plot(swissRoll, type = '3vars')}
+#' \donttest{plot(swissRoll, type = "3vars")}
 #'
 #' ## Load Iris data set, partial matching:
 #' loadDataSet("I")
@@ -42,17 +42,17 @@ loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
     name <- match.arg(name)
     switch(
         name,
-        'Swiss Roll'           = swissRoll(n, sigma),
-        'Broken Swiss Roll'    = brokenSwissRoll(n, sigma),
-        'Helix'                = helix(n, sigma),
-        'Twin Peaks'           = twinPeaks(n, sigma),
-        'Sphere'               = sphere(n, sigma),
-        'FishBowl'             = fishbowl(n, sigma),
-        'Ball'                 = ball(n, sigma),
-        '3D S Curve'           = sCurve(n, sigma),
-        'variable Noise Helix' = noisyHelix(n, sigma),
-        'Cube'                 = cube(n, sigma),
-        'Iris'                 = irisdata()
+        "Swiss Roll"           = swissRoll(n, sigma),
+        "Broken Swiss Roll"    = brokenSwissRoll(n, sigma),
+        "Helix"                = helix(n, sigma),
+        "Twin Peaks"           = twinPeaks(n, sigma),
+        "Sphere"               = sphere(n, sigma),
+        "FishBowl"             = fishbowl(n, sigma),
+        "Ball"                 = ball(n, sigma),
+        "3D S Curve"           = sCurve(n, sigma),
+        "variable Noise Helix" = noisyHelix(n, sigma),
+        "Cube"                 = cube(n, sigma),
+        "Iris"                 = irisdata()
     )
 }
 
@@ -60,23 +60,23 @@ loadDataSet <- function (name = dataSetList(), n = 2000, sigma = 0.05) {
 #' @export
 dataSetList <- function () {
     return(c(
-        'Swiss Roll',
-        'Broken Swiss Roll',
-        'Helix',
-        'Twin Peaks',
-        'Sphere',
-        'Ball',
-        'FishBowl',
-        '3D S Curve',
-        'variable Noise Helix',
-        'Iris',
-        'Cube'
+        "Swiss Roll",
+        "Broken Swiss Roll",
+        "Helix",
+        "Twin Peaks",
+        "Sphere",
+        "Ball",
+        "FishBowl",
+        "3D S Curve",
+        "variable Noise Helix",
+        "Iris",
+        "Cube"
     ))
 }
 
 irisdata <- function() {
     dd <- as.matrix(datasets::iris[, 1:4])
-    new('dimRedData',
+    new("dimRedData",
         data = dd,
         meta = datasets::iris[, 5, drop = FALSE])
 }
@@ -84,8 +84,8 @@ irisdata <- function() {
 swissRoll <- function (n = 2000, sigma = 0.05) {
     x <- stats::runif(n, 1.5 * pi, 4.5 * pi)
     y <- stats::runif(n, 0, 30)
-    
-    new('dimRedData',
+
+    new("dimRedData",
         data = swissRollMapping(x, y) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(x = x, y = y))
 }
@@ -97,7 +97,7 @@ brokenSwissRoll <- function (n = 2000, sigma = 0.05) {
     )
     y <- stats::runif(n, 0, 30)
     
-    new('dimRedData',
+    new("dimRedData",
         data = swissRollMapping(x, y) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(x = x, y = y))
 }
@@ -111,7 +111,7 @@ swissRollMapping <- function (x, y) {
 
 helix <- function (n = 2000, sigma = 0.05) {
     t <- stats::runif(n, 0, 2 * pi)
-    new('dimRedData',
+    new("dimRedData",
         data = helixMapping(t) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(t = t))
 }
@@ -126,23 +126,23 @@ twinPeaks <- function (n = 2000, sigma = 0.05) {
     x <- stats::runif(n, -1, 1)
     y <- stats::runif(n, -1, 1)
 
-    new('dimRedData',
-        data = twinPeaksMapping(x, y) + stats::rnorm(3*n, sd = sigma),
+    new("dimRedData",
+        data = twinPeaksMapping(x, y) + stats::rnorm(3 * n, sd = sigma),
         meta = data.frame(x = x, y = y))
 }
 
 twinPeaksMapping <- function (x, y) {
     cbind(x = x,
           y = y,
-          z = sin(pi*x) * tanh(3*y))
+          z = sin(pi * x) * tanh(3 * y))
 }
 
 
 sphere <- function (n = 2000, sigma = 0.05) {
-    phi <- stats::runif(n, 0, 2*pi)
+    phi <- stats::runif(n, 0, 2 * pi)
     psi <- acos(stats::runif(n, -1, 1))
     
-    new('dimRedData',
+    new("dimRedData",
         data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(phi = phi, psi = psi))
 }
@@ -151,7 +151,7 @@ fishbowl <- function (n = 2000, sigma = 0.05) {
     phi <- stats::runif(n, 0, 2*pi)
     psi <- acos(stats::runif(n, -1, 0.8))
 
-    new('dimRedData',
+    new("dimRedData",
         data = sphereMapping(phi, psi) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(psi = psi))
 }
@@ -163,29 +163,12 @@ sphereMapping <- function (phi, psi) {
 }
 
 ball <- function (n = 2000, sigma = 0.05) {
-    ## ## the resampling method, not using it, because it destroys the
-    ## original dimensional information.
-    ## x <- numeric(n)
-    ## y <- numeric(n) z <- numeric(n) outside <- rep(TRUE, n)
-    ## repeat {
-    ##     no <- sum(outside)
-    ##     if (no == 0) break
-    ##     x[outside] <- stats::runif(no, -1, 1)
-    ##     y[outside] <- stats::runif(no, -1, 1)
-    ##     z[outside] <- stats::runif(no, -1, 1)
-    ##     outside <- sqrt(x^2 + y^2 + z^2) > 1
-    ## }
-    ## new('dimRedData',
-    ##     data = cbind(x = x, y = y, z = z) + stats::rnorm(3*n, sd = sigma)
-    ##     meta = )
-
-    ## the following method is the analytical one:
     phi <- stats::runif(n, 0, 2*pi)
     psi <- acos(stats::runif(n, -1, 1))
     ## make it uniformly distributed inside the sphere
     r <-  stats::runif(n)^(1/3)
-    
-    new('dimRedData',
+
+    new("dimRedData",
         data = ballMapping(phi, psi, r) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(phi = phi, psi = psi, r = r))
 }
@@ -200,7 +183,7 @@ sCurve <- function (n = 2000, sigma = 0.05) {
     t <- stats::runif(n, -1.5*pi, 1.5*pi)
     y <- stats::runif(n, 0, 2)
 
-    new('dimRedData',
+    new("dimRedData",
         data = sCurveMapping(t, y) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(x = t, y = y))
 }
@@ -216,7 +199,7 @@ noisyHelix <- function (n = 2000, sigma = 0.05) {
     min_noise <- 0.1
     max_noise <- 1.4
   
-    new('dimRedData',
+    new("dimRedData",
         data = noisyHelixMapping(t, min_noise, max_noise) + stats::rnorm(3*n, sd = sigma),
         meta = data.frame(t = t))
 }
@@ -236,5 +219,5 @@ cube <- function(n = 2000, sigma = 0.05){
                  y = stats::runif(n) + stats::rnorm(n, sd = sigma),
                  z = stats::runif(n) + stats::rnorm(n, sd = sigma))
 
-    new('dimRedData', data = tmp, meta = tmp)
+    new("dimRedData", data = tmp, meta = tmp)
 }

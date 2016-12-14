@@ -43,15 +43,15 @@
 #' @export KamadaKawai
 #' @exportClass KamadaKawai
 KamadaKawai <- setClass(
-    'KamadaKawai',
-    contains = 'dimRedMethod',
+    "KamadaKawai",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(ndim         = 2,
                        knn          = 100,
                        d            = stats::dist),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('igraph')
+        chckpkg("igraph")
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -69,8 +69,8 @@ KamadaKawai <- setClass(
         colnames(outdata) <- paste0("KK", 1:ncol(outdata))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,
@@ -128,15 +128,15 @@ KamadaKawai <- setClass(
 #' @export DrL
 #' @exportClass DrL
 DrL <- setClass(
-    'DrL',
-    contains = 'dimRedMethod',
+    "DrL",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(ndim         = 2,
                        knn          = 100,
                        d            = stats::dist),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('igraph')
+        chckpkg("igraph")
         
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -154,8 +154,8 @@ DrL <- setClass(
         colnames(outdata) <- paste0("DrL", 1:ncol(outdata))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,
@@ -207,15 +207,15 @@ DrL <- setClass(
 #' @export FruchtermanReingold
 #' @exportClass FruchtermanReingold
 FruchtermanReingold <- setClass(
-    'FruchtermanReingold',
-    contains = 'dimRedMethod',
+    "FruchtermanReingold",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(ndim         = 2,
                        knn          = 100,
                        d            = stats::dist),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('igraph')
+        chckpkg("igraph")
         
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -233,8 +233,8 @@ FruchtermanReingold <- setClass(
         colnames(outdata) <- paste0("FR", 1:ncol(outdata))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,
@@ -248,7 +248,7 @@ FruchtermanReingold <- setClass(
 em_graph_layout <- function(data, graph_em_method,
                             knn = 50, d = stats::dist,
                             ndim = 2, weight.trans = I){
-  chckpkg('igraph')
+  chckpkg("igraph")
   
   data.dist <- as.matrix(d(data))
   data.graph <- construct_knn_graph(data.dist, knn)
@@ -262,19 +262,19 @@ embed_graph <- function(graph, f, weight.trans = I, ndim = 2){
 
 
 construct_knn_graph <- function (data.dist, knn) {
-  chckpkg('igraph')
-  chckpkg('coRanking')
+  chckpkg("igraph")
+  chckpkg("coRanking")
   
   data.graph <- igraph::graph_from_adjacency_matrix(
     adjmatrix = data.dist,
-    mode = 'undirected',
+    mode = "undirected",
     weighted = T
   )
 
   if (is.infinite(knn) || is.na(knn))
     return(data.graph)
   ## else: remove all unnecessary edges
-  data.rankm <- coRanking::rankmatrix(data.dist, input = 'dist')
+  data.rankm <- coRanking::rankmatrix(data.dist, input = "dist")
   data.rankm.ind <- data.rankm <= knn + 1
   inds <- which(
     !(data.rankm.ind | t(data.rankm.ind)),

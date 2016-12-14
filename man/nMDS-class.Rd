@@ -57,8 +57,8 @@ emb <- nmds@fun(dat, nmds@stdpars)
 emb2 <- embed(dat, "nMDS", d = function(x) exp(dist(x)))
 
 
-plot(emb, type = '2vars')
-plot(emb2, type = '2vars')
+plot(emb, type = "2vars")
+plot(emb2, type = "2vars")
 
 }
 \seealso{

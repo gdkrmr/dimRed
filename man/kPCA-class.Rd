@@ -37,7 +37,7 @@ Kernel PCA can take the following parameters:
   \item{ndim}{the number of output dimensions, defaults to 2}
   \item{kernel}{The kernel function, either as a function or a
   character vector with the name of the kernel. Defaults to
-  \code{'rbfdot'}}
+  \code{"rbfdot"}}
   \item{kpar}{A list with the parameters for the kernel function} 
 }
 }
@@ -58,7 +58,7 @@ emb <- kpca@fun(dat, kpca@stdpars)
 ## simpler, use embed():
 emb2 <- embed(dat, "kPCA")
 
-plot(emb, type = '2vars')
+plot(emb, type = "2vars")
 
 }
 \seealso{

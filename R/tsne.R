@@ -45,8 +45,8 @@
 #' ## using embed()
 #' emb2 <- embed(dat, "tSNE", perplexity = 80)
 #' 
-#' plot(emb, type = '2vars')
-#' plot(emb2, type = '2vars')
+#' plot(emb, type = "2vars")
+#' plot(emb2, type = "2vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -54,8 +54,8 @@
 #' @export tSNE
 #' @exportClass tSNE
 tSNE <- setClass(
-    'tSNE',
-    contains = 'dimRedMethod',
+    "tSNE",
+    contains = "dimRedMethod",
     prototype = list(
         stdpars = list(d = stats::dist,
                        perplexity = 30,
@@ -63,7 +63,7 @@ tSNE <- setClass(
                        ndim = 2),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg('Rtsne')
+        chckpkg("Rtsne")
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -77,8 +77,8 @@ tSNE <- setClass(
         colnames(outdata) <- paste0("tSNE", 1:ncol(outdata))
 
         return(new(
-            'dimRedResult',
-            data         = new('dimRedData',
+            "dimRedResult",
+            data         = new("dimRedData",
                                data = outdata,
                                meta = meta),
             org.data     = orgdata,

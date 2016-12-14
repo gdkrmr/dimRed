@@ -10,8 +10,8 @@ test_that("constructor",{
 })
 
 test_that("conversion functions", {
-    expect_equal(as(iris[,1:4], 'dimRedData'), dimRedData(iris[,1:4]))
-    expect_error(as(iris, 'dimRedData'))
+    expect_equal(as(iris[,1:4], "dimRedData"), dimRedData(iris[,1:4]))
+    expect_error(as(iris, "dimRedData"))
     expect_equal(as(loadDataSet("Iris"), "data.frame"),
                  as.data.frame(loadDataSet("Iris")))
     expect_equivalent(as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, iris),

@@ -2,9 +2,9 @@
 #' @include dimRedData-class.R
 
 #' @export
-setGeneric('quality',
-           function (.data, ...) standardGeneric('quality'),
-           valueClass = 'numeric')
+setGeneric("quality",
+           function (.data, ...) standardGeneric("quality"),
+           valueClass = "numeric")
 
 #' Quality Criteria for dimensionality reduction.
 #'
@@ -105,8 +105,8 @@ setGeneric('quality',
 #' @describeIn quality Calculate a quality index from a dimRedResult object.
 #' @export
 setMethod(
-    'quality',
-    'dimRedResult',
+    "quality",
+    "dimRedResult",
     function (.data, .method = dimRedQualityList(),
               .mute = character(0), # c("output", "message"),
               ...) {
@@ -116,18 +116,18 @@ setMethod(
 
         args <- c(list(object = .data), list(...))
 
-        devnull <- if(Sys.info()['sysname'] != "Windows") "/dev/null" else "NUL"
-        if('message' %in% .mute){
-            devnull1 <- file(devnull,  'wt')
-            sink(devnull1, type = 'message')
+        devnull <- if(Sys.info()["sysname"] != "Windows") "/dev/null" else "NUL"
+        if("message" %in% .mute){
+            devnull1 <- file(devnull,  "wt")
+            sink(devnull1, type = "message")
             on.exit({
                 sink(file = NULL, type = "message")
                 close(devnull1)
             }, add = TRUE)
         }
-        if('output' %in% .mute) {
-            devnull2 <- file(devnull,  'wt')
-            sink(devnull2, type = 'output')
+        if("output" %in% .mute) {
+            devnull2 <- file(devnull,  "wt")
+            sink(devnull2, type = "output")
             on.exit({
                 sink()
                 close(devnull2)
@@ -154,9 +154,9 @@ getQualityFunction <- function (method) {
 
 #' @export
 setGeneric(
-    'Q_local',
-    function(object, ...) standardGeneric('Q_local'),
-    valueClass = 'numeric'
+    "Q_local",
+    function(object, ...) standardGeneric("Q_local"),
+    valueClass = "numeric"
 )
 
 
@@ -169,11 +169,11 @@ setGeneric(
 #' @aliases Q_local
 #' @export
 setMethod(
-    'Q_local',
-    'dimRedResult',
+    "Q_local",
+    "dimRedResult",
     function (object) {
-        if(!object@has.org.data) stop('object requires original data')
-        chckpkg('coRanking')
+        if(!object@has.org.data) stop("object requires original data")
+        chckpkg("coRanking")
 
         Q <- coRanking::coranking(object@org.data, object@data@data)
         nQ <- nrow(Q)
@@ -191,9 +191,9 @@ setMethod(
 
 #' @export
 setGeneric(
-    'Q_global',
-    function(object, ...) standardGeneric('Q_global'),
-    valueClass = 'numeric'
+    "Q_global",
+    function(object, ...) standardGeneric("Q_global"),
+    valueClass = "numeric"
 )
 
 #' Method Q_global
@@ -205,11 +205,11 @@ setGeneric(
 #' @aliases Q_global
 #' @export
 setMethod(
-    'Q_global',
-    'dimRedResult',
+    "Q_global",
+    "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop('object requires original data')
-        chckpkg('coRanking')
+        if(!object@has.org.data) stop("object requires original data")
+        chckpkg("coRanking")
         
         Q <- coRanking::coranking(object@org.data, object@data@data)
         nQ <- nrow(Q)
@@ -227,9 +227,9 @@ setMethod(
 
 #' @export
 setGeneric(
-    'mean_R_NX',
-    function(object, ...) standardGeneric('mean_R_NX'),
-    valueClass = 'numeric'
+    "mean_R_NX",
+    function(object, ...) standardGeneric("mean_R_NX"),
+    valueClass = "numeric"
 )
 
 #' Method mean_R_NX
@@ -241,11 +241,11 @@ setGeneric(
 #' @aliases mean_R_NX
 #' @export
 setMethod(
-    'mean_R_NX',
-    'dimRedResult',
+    "mean_R_NX",
+    "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop('object requires original data')
-        chckpkg('coRanking')
+        if(!object@has.org.data) stop("object requires original data")
+        chckpkg("coRanking")
 
         Q <- coRanking::coranking(object@org.data, object@data@data)
         nQ <- nrow(Q)
@@ -265,9 +265,9 @@ setMethod(
 
 #' @export
 setGeneric(
-    'total_correlation',
-    function(object, ...) standardGeneric('total_correlation'),
-    valueClass = 'numeric'
+    "total_correlation",
+    function(object, ...) standardGeneric("total_correlation"),
+    valueClass = "numeric"
 )
 
 #' Method total_correlation
@@ -284,19 +284,19 @@ setGeneric(
 #' @aliases total_correlation
 #' @export
 setMethod(
-    'total_correlation',
-    'dimRedResult',
-    function(object, naxes = ndims(object), cor_method = 'pearson', is.rotated = FALSE){
+    "total_correlation",
+    "dimRedResult",
+    function(object, naxes = ndims(object), cor_method = "pearson", is.rotated = FALSE){
         ## if(!hasArg(naxes))      naxes      <- ncol(object@data@data)
-        ## if(!hasArg(cor_method)) cor_method <- 'pearson'
+        ## if(!hasArg(cor_method)) cor_method <- "pearson"
         ## if(!hasArg(is.rotated)) is.rotated <- FALSE
 
-        if(!object@has.org.data) stop('object requires original data')
+        if(!object@has.org.data) stop("object requires original data")
         if(length(naxes) != 1 || naxes < 1 || naxes > ncol(object@data@data))
-            stop('naxes must specify the numbers of axes to optimize for, ',
-                 'i.e. a single integer between 1 and ncol(object@data@data)')
+            stop("naxes must specify the numbers of axes to optimize for, ",
+                 "i.e. a single integer between 1 and ncol(object@data@data)")
         ## try to partially match cor_method:
-        cor_methods <- c('pearson', 'kendall', 'spearman')
+        cor_methods <- c("pearson", "kendall", "spearman")
         cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
         if(is.na(cor_method))
             stop("cor_method must match one of ",
@@ -323,9 +323,9 @@ setMethod(
     }
 )
 
-setGeneric('cophenetic_correlation',
-           function(object, ...) standardGeneric('cophenetic_correlation'),
-           valueClass = 'numeric')
+setGeneric("cophenetic_correlation",
+           function(object, ...) standardGeneric("cophenetic_correlation"),
+           valueClass = "numeric")
 
 #' Method cophenetic_correlation
 #'
@@ -339,13 +339,13 @@ setGeneric('cophenetic_correlation',
 #' @family Quality scores for dimensionality reduction
 #' @export
 setMethod(
-    'cophenetic_correlation',
-    'dimRedResult', 
-    function(object, d = stats::dist, cor_method = 'pearson'){
+    "cophenetic_correlation",
+    "dimRedResult", 
+    function(object, d = stats::dist, cor_method = "pearson"){
         ## if(missing(d)) d <- stats::dist
-        ## if(missing(cor_method)) cor_method <- 'pearson'
-        if(!object@has.org.data) stop('object requires original data')
-        cor_methods <- c('pearson', 'kendall', 'spearman')
+        ## if(missing(cor_method)) cor_method <- "pearson"
+        if(!object@has.org.data) stop("object requires original data")
+        cor_methods <- c("pearson", "kendall", "spearman")
         cor_method <- cor_methods[pmatch(cor_method, cor_methods)]
         if(is.na(cor_method))
             stop("cor_method must match one of ",
@@ -355,8 +355,8 @@ setMethod(
         d.org <- d(object@org.data)
         d.emb <- d(object@data@data)
 
-        if(!inherits(d.org, 'dist') || !inherits(d.emb, 'dist'))
-            stop('d must return a dist object')
+        if(!inherits(d.org, "dist") || !inherits(d.emb, "dist"))
+            stop("d must return a dist object")
         
         res <- correlate(
             d(object@org.data),
@@ -369,9 +369,9 @@ setMethod(
 
 #' @export
 setGeneric(
-    'distance_correlation',
-    function(object) standardGeneric('distance_correlation'),
-    valueClass = 'numeric'
+    "distance_correlation",
+    function(object) standardGeneric("distance_correlation"),
+    valueClass = "numeric"
 )
 
 #' Method distance_correlation
@@ -384,11 +384,11 @@ setGeneric(
 #' @family Quality scores for dimensionality reduction
 #' @export
 setMethod(
-    'distance_correlation',
-    'dimRedResult',
+    "distance_correlation",
+    "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop('object requires original data')
-        if(!requireNamespace('energy')) stop('package energy required.')
+        if(!object@has.org.data) stop("object requires original data")
+        if(!requireNamespace("energy")) stop("package energy required.")
 
         energy::dcor(object@org.data, object@data@data)    
     }
@@ -398,9 +398,9 @@ setMethod(
 
 #' @export
 setGeneric(
-    'reconstruction_rmse',
-    function(object) standardGeneric('reconstruction_rmse'),
-    valueClass = 'numeric'
+    "reconstruction_rmse",
+    function(object) standardGeneric("reconstruction_rmse"),
+    valueClass = "numeric"
 )
 
 #' Method reconstruction_rmse
@@ -412,11 +412,11 @@ setGeneric(
 #' @family Quality scores for dimensionality reduction
 #' @export
 setMethod(
-    'reconstruction_rmse',
-    'dimRedResult',
+    "reconstruction_rmse",
+    "dimRedResult",
     function(object){
-        if(!object@has.org.data) stop('object requires original data')
-        if(!object@has.inverse) stop('object requires an inverse function')
+        if(!object@has.org.data) stop("object requires original data")
+        if(!object@has.inverse) stop("object requires an inverse function")
 
         recon <- object@inverse(object@data)
 
@@ -427,11 +427,11 @@ setMethod(
 #' 
 #' @export
 dimRedQualityList <- function () {
-    return(c('Q_local',
-             'Q_global',
-             'mean_R_NX',
-             'total_correlation',
-             'cophenetic_correlation',
-             'distance_correlation',
-             'reconstruction_rmse'))
+    return(c("Q_local",
+             "Q_global",
+             "mean_R_NX",
+             "total_correlation",
+             "cophenetic_correlation",
+             "distance_correlation",
+             "reconstruction_rmse"))
 }

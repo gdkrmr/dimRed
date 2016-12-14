@@ -63,8 +63,8 @@ emb <- tsne@fun(dat, tsne@stdpars)
 ## using embed()
 emb2 <- embed(dat, "tSNE", perplexity = 80)
 
-plot(emb, type = '2vars')
-plot(emb2, type = '2vars')
+plot(emb, type = "2vars")
+plot(emb2, type = "2vars")
 
 }
 \references{

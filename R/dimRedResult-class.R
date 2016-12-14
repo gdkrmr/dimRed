@@ -45,20 +45,20 @@ NULL
 #' @export dimRedResult
 #' @exportClass dimRedResult
 dimRedResult <- setClass(
-    'dimRedResult',
+    "dimRedResult",
     slots = c(
-        data         = 'dimRedData',
-        org.data     = 'matrix',
-        apply        = 'function',
-        inverse      = 'function',
-        has.org.data = 'logical',
-        has.apply    = 'logical',
-        has.inverse  = 'logical',
-        method       = 'character',
-        pars         = 'list'
+        data         = "dimRedData",
+        org.data     = "matrix",
+        apply        = "function",
+        inverse      = "function",
+        has.org.data = "logical",
+        has.apply    = "logical",
+        has.inverse  = "logical",
+        method       = "character",
+        pars         = "list"
     ),
     prototype = list(
-        data         = new('dimRedData'),
+        data         = new("dimRedData"),
         org.data     = matrix(numeric(0), 0, 0),
         apply        = function(x) NA,
         inverse      = function(x) NA,
@@ -71,15 +71,15 @@ dimRedResult <- setClass(
 )
 
 setAs(
-    from = 'dimRedResult',
-    to = 'data.frame',
+    from = "dimRedResult",
+    to = "data.frame",
     def = function(from){
         if(from@has.org.data) {
             org.data <- from@org.data
             names(org.data) <- paste("org", names(org.data), sep = ".")
-            cbind(as(from@data, 'data.frame'), as.data.frame(org.data))
+            cbind(as(from@data, "data.frame"), as.data.frame(org.data))
         } else {
-            as(from@data, 'data.frame')
+            as(from@data, "data.frame")
         }
     }
 )
@@ -92,8 +92,8 @@ setAs(
 #'
 #' @describeIn dimRedResult convert to \code{data.frame}
 #' @export
-setMethod(f = 'as.data.frame',
-          signature = c('dimRedResult'),
+setMethod(f = "as.data.frame",
+          signature = c("dimRedResult"),
           definition = function(x, org.data.prefix = "org.",
                                 meta.prefix = "meta.",
                                 data.prefix = "") {
@@ -121,8 +121,8 @@ setMethod(f = 'as.data.frame',
 #'     was called.
 #' @export
 setMethod(
-    f = 'getPars',
-    signature = 'dimRedResult',
+    f = "getPars",
+    signature = "dimRedResult",
     definition = function (object) {
         object@pars
     }
@@ -133,8 +133,8 @@ setMethod(
 #' @import utils
 #' @export
 setMethod(
-    f = 'print',
-    signature = 'dimRedResult',
+    f = "print",
+    signature = "dimRedResult",
     definition = function(x) {
         cat("Method:\n")
         cat(x@method, "\n")
@@ -146,10 +146,10 @@ setMethod(
 #' @describeIn dimRedResult Get the original data and meta.data
 #' @export
 setMethod(
-    f = 'getOrgData',
-    signature = 'dimRedResult',
+    f = "getOrgData",
+    signature = "dimRedResult",
     definition = function(object) {
-        return(new('dimRedData',
+        return(new("dimRedData",
                    data = object@org.data,
                    meta = object@data@meta))
     }
@@ -158,8 +158,8 @@ setMethod(
 #' @describeIn dimRedResult Get the embedded data
 #' @export
 setMethod(
-    f = 'getDimRedData',
-    signature = 'dimRedResult',
+    f = "getDimRedData",
+    signature = "dimRedResult",
     definition = function(object) {
         return(object@data)
     }
@@ -173,7 +173,7 @@ setMethod(
 #'
 #' @export
 setMethod(
-    'ndims',
-    'dimRedResult',
+    "ndims",
+    "dimRedResult",
     function(object) ncol(object@data@data)
 )
