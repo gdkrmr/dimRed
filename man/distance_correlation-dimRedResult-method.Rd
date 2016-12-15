@@ -16,8 +16,12 @@ Calculate the distance correlation between the distance matrices in
 high and low dimensioal space.
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{Q_global,dimRedResult-method}},
+Other Quality scores for dimensionality reduction: \code{\link{AUC_R_NX,dimRedResult-method}},
+  \code{\link{LCMC,dimRedResult-method}},
+  \code{\link{Q_NX,dimRedResult-method}},
+  \code{\link{Q_global,dimRedResult-method}},
   \code{\link{Q_local,dimRedResult-method}},
+  \code{\link{R_NX,dimRedResult-method}},
   \code{\link{cophenetic_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
   \code{\link{quality,dimRedResult-method}},

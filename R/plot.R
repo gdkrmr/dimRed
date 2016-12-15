@@ -93,3 +93,61 @@ setMethod(
         plot(x = x@data, type = type, vars = vars, col = col, ...)
     }
 )
+
+#' plot RN_X
+#'
+#' 
+#' 
+#' 
+#' @export
+plot_RN_X <- function(x) {
+    chckpkg("ggplot2")
+    chckpkg("tidyr")
+    chckpkg("scales")
+    lapply(
+        x,
+        function(x)
+        if (!inherits(x, "dimRedResult"))
+            stop("x must be a list and ",
+                 "all items must inherit from 'dimRedResult'")
+    )
+
+    rnx <- lapply(x, R_NX)
+    auc <- sapply(rnx, auc_lnK)
+
+    df <- as.data.frame(rnx)
+    names(df) <- paste(format(auc, digits = 4),
+                       names(x))
+    df$K <- seq_len(nrow(df))
+
+    qnxgrid <- expand.grid(K = df$K,
+                           rnx = seq(0.1, 0.9, by = 0.1))
+    ## TODO: FIND OUT WHY THIS AS IN THE PUBLICATION BUT IS WRONG!
+    qnxgrid$qnx <- qnx2rnx(qnxgrid$rnx, K = qnxgrid$K, N = nrow(df))
+    qnxgrid$rnx_group <- factor(qnxgrid$rnx)
+
+    df <- tidyr::gather(df, key = "embedding", value = "R_NX", -K)
+
+    ggplot2::ggplot(df) +
+        ggplot2::geom_line(ggplot2::aes(y = R_NX, x = K,
+                                        color = embedding)) +
+        ggplot2::geom_line(data = qnxgrid,
+                           mapping = ggplot2::aes(x = K, y = qnx,
+                                                  group = rnx_group),
+                           linetype = 2,
+                           size = 0.1) +
+        ggplot2::geom_line(data = qnxgrid,
+                           mapping = ggplot2::aes(x = K, y = rnx,
+                                                  group = rnx_group),
+                           linetype = 2,
+                           size = 0.1) +
+        ggplot2::scale_x_log10(
+            labels = scales::trans_format("log10",
+                                          scales::math_format(10 ^ .x)),
+            expand = c(0, 0)
+        ) +
+        ggplot2::scale_y_continuous(limits = c(0, 1),
+                           expand = c(0, 0)) +
+        ggplot2::annotation_logticks(sides = "b") +
+        ggplot2::theme_classic()
+}

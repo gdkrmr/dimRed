@@ -147,6 +147,7 @@ getQualityFunction <- function (method) {
         Q_local                = Q_local,
         Q_global               = Q_global,
         mean_R_NX              = mean_R_NX,
+        AUC_R_NX               = AUC_R_NX,
         total_correlation      = total_correlation,
         cophenetic_correlation = cophenetic_correlation,
         distance_correlation   = distance_correlation,
@@ -182,8 +183,8 @@ setMethod(
         nQ <- nrow(Q)
         N <- nQ + 1
 
-        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / (1:nQ) / N
-        lcmc <- Qnx - 1:nQ / nQ
+        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / seq_len(nQ) / N
+        lcmc <- Qnx - seq_len(nQ) / nQ
 
         Kmax <- which.max(lcmc)
 
@@ -218,8 +219,8 @@ setMethod(
         nQ <- nrow(Q)
         N <- nQ + 1
 
-        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / (1:nQ) / N
-        lcmc <- Qnx - 1:nQ / nQ
+        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / seq_len(nQ) / N
+        lcmc <- Qnx - seq_len(nQ) / nQ
 
         Kmax <- which.max(lcmc)
 
@@ -246,25 +247,39 @@ setGeneric(
 setMethod(
     "mean_R_NX",
     "dimRedResult",
-    function(object){
-        if (!object@has.org.data) stop("object requires original data")
-        chckpkg("coRanking")
+    function(object) mean(R_NX(object))
+)
 
-        Q <- coRanking::coranking(object@org.data, object@data@data)
-        nQ <- nrow(Q)
-        N <- nQ + 1
+#' @export
+setGeneric(
+    "AUC_R_NX",
+    function(object, ...) standardGeneric("AUC_R_NX"),
+    valueClass = "numeric"
+)
 
-        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / (1:nQ) / N
-
-        ## R_NX is only defined for 1 <= K <= N-2
-        Qnx <- Qnx[-length(Qnx)]
-        K <- 1:(nQ - 1)
-        Rnx <- (nQ * Qnx - K) / (nQ - K)
-
-        return(mean(Rnx))
+#' Method AUC_R_NX
+#'
+#' Calculate the Area under the R_NX(K) curve for logarithmic K,
+#' used in Lee et. al. (2013).
+#'
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
+#' @aliases AUC_lnK
+#' @export
+setMethod(
+    "AUC_R_NX",
+    "dimRedResult",
+    function(object) {
+        rnx <- R_NX(object)
+        auc_lnK(rnx)
     }
 )
 
+auc_lnK <- function(rnx) {
+    N <- length(rnx)
+    sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
+}
+    
 
 #' @export
 setGeneric(
@@ -424,7 +439,8 @@ setMethod(
         recon <- object@inverse(object@data)
 
         sqrt(mean((recon@data - object@org.data) ^ 2))
-    })
+    }
+)
 
 #' @rdname quality
 #'
@@ -433,8 +449,118 @@ dimRedQualityList <- function () {
     return(c("Q_local",
              "Q_global",
              "mean_R_NX",
+             "AUC_R_NX",
              "total_correlation",
              "cophenetic_correlation",
              "distance_correlation",
              "reconstruction_rmse"))
+}
+
+#' @export
+setGeneric(
+    "R_NX",
+    function(object) standardGeneric("R_NX"),
+    valueClass = "numeric"
+)
+
+#' Method R_NX
+#'
+#' Calculate the R_NX score from Lee et. al. (2013) which shows the
+#' neighborhood preservation for the Kth nearest neighbors,
+#' corrected for random point distributions and scaled to range [0, 1].
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
+#' @aliases R_NX
+#' @export
+setMethod(
+    "R_NX",
+    "dimRedResult",
+    function(object) {
+        chckpkg("coRanking")
+        if (!object@has.org.data) stop("object requires original data")
+
+        Q <- coRanking::coranking(object@org.data, object@data@data)
+        nQ <- nrow(Q)
+        N <- nQ + 1
+
+        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) /
+            seq_len(nQ) / N
+
+        Rnx <- ((N - 1) * Qnx - seq_len(nQ)) /
+            (N - 1 - seq_len(nQ))
+        Rnx[-nQ]
+    }
+)
+
+#' @export
+setGeneric(
+    "Q_NX",
+    function(object, ...) standardGeneric("Q_NX"),
+    valueClass = "numeric"
+)
+
+#' Method Q_NX
+#'
+#' Calculate the Q_NX score (Chen & Buja 2006, the notation in the
+#' publication is M_k). Which is the fraction of points that remain inside
+#' the same K-ary neighborhood in high and low dimensional space.
+#'
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
+#' @aliases Q_NX
+#' @export
+setMethod(
+    "Q_NX",
+    "dimRedResult",
+    function(object) {
+        chckpkg("coRanking")
+
+        Q <- coRanking::coranking(object@org.data, object@data@data)
+        nQ <- nrow(Q)
+        N <- nQ + 1
+
+        Qnx <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / seq_len(nQ) / N
+        Qnx
+    }
+)
+
+#'@export
+setGeneric(
+    "LCMC",
+    function(object, ...) standardGeneric("LCMC"),
+    valueClass = "numeric"
+)
+
+#' Method LCMC
+#'
+#' Calculates the Local Continuity Meta Criterion, which is
+#' \code{\link{Q_NX}} adjusted for random overlap inside the K-ary
+#' neighborhood.
+#'
+#' @param object of class dimRedResult
+#' @family Quality scores for dimensionality reduction
+#' @aliases LCMC
+#' @export
+setMethod(
+    "LCMC",
+    "dimRedResult",
+        function(object) {
+        chckpkg("coRanking")
+
+        Q <- coRanking::coranking(object@org.data, object@data@data)
+        nQ <- nrow(Q)
+        N <- nQ + 1
+
+        lcmc <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / 
+            seq_len(nQ) / N - 
+            seq_len(nQ) / nQ
+        lcmc
+    }
+)
+
+rnx2qnx <- function(rnx, K = seq_along(rnx), N = length(rnx) + 1) {
+    (rnx * (N - 1 - K) + K) / (N - 1)
+}
+qnx2rnx <- function(qnx, K = seq_along(qnx), N = length(qnx) + 1) {
+    ((N - 1) * qnx - K) / (N - 1 - K)
 }
