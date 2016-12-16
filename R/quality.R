@@ -147,7 +147,7 @@ getQualityFunction <- function (method) {
         Q_local                = Q_local,
         Q_global               = Q_global,
         mean_R_NX              = mean_R_NX,
-        AUC_R_NX               = AUC_R_NX,
+        AUC_lnK                = AUC_lnK,
         total_correlation      = total_correlation,
         cophenetic_correlation = cophenetic_correlation,
         distance_correlation   = distance_correlation,
@@ -252,12 +252,12 @@ setMethod(
 
 #' @export
 setGeneric(
-    "AUC_R_NX",
-    function(object, ...) standardGeneric("AUC_R_NX"),
+    "AUC_lnK",
+    function(object, ...) standardGeneric("AUC_lnK"),
     valueClass = "numeric"
 )
 
-#' Method AUC_R_NX
+#' Method AUC_lnK
 #'
 #' Calculate the Area under the R_NX(K) curve for logarithmic K,
 #' used in Lee et. al. (2013).
@@ -267,7 +267,7 @@ setGeneric(
 #' @aliases AUC_lnK
 #' @export
 setMethod(
-    "AUC_R_NX",
+    "AUC_lnK",
     "dimRedResult",
     function(object) {
         rnx <- R_NX(object)
@@ -449,7 +449,7 @@ dimRedQualityList <- function () {
     return(c("Q_local",
              "Q_global",
              "mean_R_NX",
-             "AUC_R_NX",
+             "AUC_lnK",
              "total_correlation",
              "cophenetic_correlation",
              "distance_correlation",

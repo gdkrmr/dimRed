@@ -94,13 +94,35 @@ setMethod(
     }
 )
 
-#' plot RN_X
+#' plot_R_NX
 #'
+#' Plot the R_NX curve for different embeddings. Takes a list of
+#' \code{\link{dimRedResult}} objects as input.
+#' Also the Area under the curve values are computed for logarithmic K
+#' (AUC_lnK) and appear in the legend.
+#'
+#' @param x a list of \code{\link{dimRedResult}} objects. The names of
+#'     the list will appear in the legend with the AUC_lnK value.
+#' @return A ggplot object, the design can be changed by appending
+#'     \code{theme(...)}
+#'
+#' @examples
 #' 
-#' 
+#' ## define which methods to apply
+#' embed_methods <- c("Isomap", "PCA")
+#' ## load test data set
+#' data_set <- loadDataSet("3D S Curve", n = 1000)
+#' ## apply dimensionality reduction
+#' data_emb <- lapply(embed_methods, function(x) embed(data_set, x))
+#' names(data_emb) <- embed_methods
+#' ## plot the R_NX curves:
+#' plot_R_NX(data_emb) +
+#'     ggplot2::theme(legend.title = ggplot2::element_blank(),
+#'                    legend.position = c(0.5, 0.1),
+#'                    legend.justification = c(0.5, 0.1))
 #' 
 #' @export
-plot_RN_X <- function(x) {
+plot_R_NX <- function(x) {
     chckpkg("ggplot2")
     chckpkg("tidyr")
     chckpkg("scales")
@@ -111,43 +133,50 @@ plot_RN_X <- function(x) {
             stop("x must be a list and ",
                  "all items must inherit from 'dimRedResult'")
     )
-
     rnx <- lapply(x, R_NX)
     auc <- sapply(rnx, auc_lnK)
 
     df <- as.data.frame(rnx)
-    names(df) <- paste(format(auc, digits = 4),
-                       names(x))
+    names(df) <- names(x)
     df$K <- seq_len(nrow(df))
 
     qnxgrid <- expand.grid(K = df$K,
                            rnx = seq(0.1, 0.9, by = 0.1))
     ## TODO: FIND OUT WHY THIS AS IN THE PUBLICATION BUT IS WRONG!
-    qnxgrid$qnx <- qnx2rnx(qnxgrid$rnx, K = qnxgrid$K, N = nrow(df))
+    qnxgrid$qnx <- qnx2rnx(qnxgrid$rnx, K = qnxgrid$K, N = nrow(df)) #
     qnxgrid$rnx_group <- factor(qnxgrid$rnx)
 
-    df <- tidyr::gather(df, key = "embedding", value = "R_NX", -K)
+    df <- tidyr::gather_(df,
+                         key_col = "embedding",
+                         value_col = "R_NX",
+                         names(x))
 
     ggplot2::ggplot(df) +
-        ggplot2::geom_line(ggplot2::aes(y = R_NX, x = K,
-                                        color = embedding)) +
+        ggplot2::geom_line(ggplot2::aes_string(y = "R_NX", x = "K",
+                                               color = "embedding")) +
+        ## TODO: find out if this is wrong:
+        ## ggplot2::geom_line(data = qnxgrid,
+        ##                    mapping = ggplot2::aes_string(x = "K", y = "qnx",
+        ##                                                  group = "rnx_group"),
+        ##                    linetype = 2,
+        ##                    size = 0.1) +
         ggplot2::geom_line(data = qnxgrid,
-                           mapping = ggplot2::aes(x = K, y = qnx,
-                                                  group = rnx_group),
-                           linetype = 2,
-                           size = 0.1) +
-        ggplot2::geom_line(data = qnxgrid,
-                           mapping = ggplot2::aes(x = K, y = rnx,
-                                                  group = rnx_group),
-                           linetype = 2,
+                           mapping = ggplot2::aes_string(x = "K", y = "rnx",
+                                                         group = "rnx_group"),
+                           linetype = 3,
                            size = 0.1) +
         ggplot2::scale_x_log10(
             labels = scales::trans_format("log10",
-                                          scales::math_format(10 ^ .x)),
+                                          scales::math_format()),
             expand = c(0, 0)
         ) +
-        ggplot2::scale_y_continuous(limits = c(0, 1),
-                           expand = c(0, 0)) +
+        ggplot2::scale_y_continuous(expression(R[NX]),
+                                    limits = c(0, 1),
+                                    expand = c(0, 0)) +
         ggplot2::annotation_logticks(sides = "b") +
+        ggplot2::scale_color_discrete(
+                     breaks = names(x),
+                     labels = paste(format(auc, digits = 3),
+                                    names(x))) +
         ggplot2::theme_classic()
 }

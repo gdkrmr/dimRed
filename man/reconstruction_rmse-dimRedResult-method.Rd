@@ -15,7 +15,7 @@
 Calculate the reconstruction root mean squared error a dimensionality reduction, the method must have an inverse mapping.
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{AUC_R_NX,dimRedResult-method}},
+Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK,dimRedResult-method}},
   \code{\link{LCMC,dimRedResult-method}},
   \code{\link{Q_NX,dimRedResult-method}},
   \code{\link{Q_global,dimRedResult-method}},

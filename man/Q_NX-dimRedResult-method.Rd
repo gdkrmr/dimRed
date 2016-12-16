@@ -17,7 +17,7 @@ publication is M_k). Which is the fraction of points that remain inside
 the same K-ary neighborhood in high and low dimensional space.
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{AUC_R_NX,dimRedResult-method}},
+Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK,dimRedResult-method}},
   \code{\link{LCMC,dimRedResult-method}},
   \code{\link{Q_global,dimRedResult-method}},
   \code{\link{Q_local,dimRedResult-method}},

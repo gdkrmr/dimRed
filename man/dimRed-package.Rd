@@ -21,7 +21,7 @@ Lee, J.A., Renard, E., Bernard, G., Dupont, P., Verleysen, M.,
 2013. Type 1 and 2 mixtures of Kullback-Leibler divergences as cost
 functions in dimensionality reduction based on similarity
 preservation. Neurocomputing. 112,
-92–108. doi:10.1016/j.neucom.2012.12.036
+92-107. doi:10.1016/j.neucom.2012.12.036
 
 Lee, J.A., Lee, J.A., Verleysen, M., 2008. Rank-based quality
 assessment of nonlinear dimensionality reduction. Proceedings of

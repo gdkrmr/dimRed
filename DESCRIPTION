@@ -29,7 +29,10 @@ Suggests:
     loe,
     scatterplot3d,
     vegan,
-    testthat
+    testthat,
+    ggplot2,
+    scales,
+    tidyr
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/DRR
 LazyData: true

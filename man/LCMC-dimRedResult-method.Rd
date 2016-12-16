@@ -17,7 +17,7 @@ Calculates the Local Continuity Meta Criterion, which is
 neighborhood.
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{AUC_R_NX,dimRedResult-method}},
+Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK,dimRedResult-method}},
   \code{\link{Q_NX,dimRedResult-method}},
   \code{\link{Q_global,dimRedResult-method}},
   \code{\link{Q_local,dimRedResult-method}},
