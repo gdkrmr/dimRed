@@ -15,7 +15,7 @@
 Calculate the Q_local score to assess the quality of a dimensionality reduction.
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK,dimRedResult-method}},
+Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
   \code{\link{LCMC,dimRedResult-method}},
   \code{\link{Q_NX,dimRedResult-method}},
   \code{\link{Q_global,dimRedResult-method}},

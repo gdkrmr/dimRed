@@ -143,7 +143,7 @@ plot_R_NX <- function(x) {
     qnxgrid <- expand.grid(K = df$K,
                            rnx = seq(0.1, 0.9, by = 0.1))
     ## TODO: FIND OUT WHY THIS AS IN THE PUBLICATION BUT IS WRONG!
-    qnxgrid$qnx <- qnx2rnx(qnxgrid$rnx, K = qnxgrid$K, N = nrow(df)) #
+    qnxgrid$qnx <- rnx2qnx(qnxgrid$rnx, K = qnxgrid$K, N = nrow(df)) #
     qnxgrid$rnx_group <- factor(qnxgrid$rnx)
 
     df <- tidyr::gather_(df,

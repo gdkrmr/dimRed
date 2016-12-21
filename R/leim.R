@@ -3,7 +3,7 @@
 #' An S4 Class implementing Laplacian Eigenmaps
 #'
 #' Laplacian Eigenmaps use a kernel and were originally developed to
-#' separate non-convex clusters.
+#' separate non-convex clusters under the name spectral clustering.
 #'
 #' @template dimRedMethodSlots
 #'
@@ -12,9 +12,15 @@
 #' @section Parameters:
 #' \code{LaplacianEigenmaps} can take the following parameters:
 #' \describe{
-#'   \item{d}{a distance function to calculate the distance matrix}
-#'   \item{knn}{The number of nearest neighbors to use for the knn graph.}
 #'   \item{ndim}{the number of output dimensions.}
+#' 
+#'   \item{sparse}{A character vector specifying hot to make the graph
+#'    sparse, \code{"knn"} means that a K-nearest neighbor graph is
+#'    constructed, \code{"eps"} an epsilon neighborhood graph is
+#'    constructed, else a dense distance matrix is used.}
+#' 
+#'   \item{knn}{The number of nearest neighbors to use for the knn graph.}
+#'   \item{eps}{The distance for the epsilon neighborhood graph.}
 #'
 #'   \item{t}{Parameter for the transformation of the distance matrix
 #'   by \eqn{w=exp(-d^2/t)}, larger values give less weight to
@@ -47,11 +53,13 @@ LaplacianEigenmaps <- setClass(
     "LaplacianEigenmaps",
     contains = "dimRedMethod",
     prototype = list(
-        stdpars = list(d = stats::dist, knn = 50, ndim = 2,
-                       t = Inf, norm = TRUE),
+        stdpars = list(ndim = 2, sparse = "knn", knn = 50, eps = 0.1,
+                       t = Inf, norm = T),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         chckpkg("loe")
+        chckpkg("RSpectra")
+        chckpkg("Matrix")
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -63,25 +71,58 @@ LaplacianEigenmaps <- setClass(
         if (is.null(pars$t))     pars$t    <- Inf
         if (is.null(pars$norm))  pars$norm <- TRUE
 
-        if (is.infinite(pars$t)) {
-            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)),
-                                       pars$knn,
-                                       symm = TRUE)
+
+        W <- if (pars$sparse == "knn") {
+            knng <- makeKNNgraph(indata, k = pars$knn, eps = 0, diag = TRUE)
+            if (is.infinite(pars$t)){
+                igraph::set_edge_attr(knng, name = "weight", value = 1)
         } else {
-            data.adj <- loe::make.kNNG(as.matrix(pars$d(indata)),
-                                       pars$knn,
-                                       symm = TRUE,
-                                       weight = TRUE)
-            data.inds <- data.adj != 0
-            data.adj[data.inds] <-
-                exp(-(data.adj[data.inds] ^ 2) / pars$t) + 1e-10
+            igraph::set_edge_attr(
+                        knng, name = "weight",
+                        value = exp(
+                            - (igraph::edge_attr(knng, name = "weight") ^ 2) /
+                            pars$t
+                        )
+                    )
         }
-        outdata <- loe::spec.emb(data.adj, pars$ndim, pars$norm)
-        if (is.null(dim(outdata))) {
-            dim(outdata) <- c(length(outdata), 1)
+            igraph::as_adj(knng, sparse = TRUE,
+                           attr = "weight", type = "both")
+        } else if (pars$sparse == "eps") {
+            tmp <- makeEpsSparseMatrix(indata, pars$eps)
+            tmp@x <- if (is.infinite(pars$t)) 1
+                     else exp(- (tmp@x ^ 2) / pars$t)
+            diag(tmp) <- 1
+            as(tmp, "dgCMatrix")
+        } else {                        # dense case
+            tmp <- dist(indata)
+            tmp[] <- if (is.infinite(pars$t)) 1
+                     else exp(- (tmp ^ 2) / pars$t)
+            tmp <- as.matrix(tmp)
+            diag(tmp) <- 1
+            tmp
         }
-
-
+ 
+        ## we don't need to test for symmetry, because we know the
+        ## matrix is symmetric
+        D <- Matrix::Diagonal(x = Matrix::rowSums(W))
+        L <- D - W
+        ## for the generalized eigenvalue problem, we do not have a solver
+        ## use A u = \lambda B u
+        ## Lgen <- Matrix::Diagonal(x = 1 / Matrix::diag(D) ) %*% L
+        ## but then we get negative eigenvalues and complex eigenvalues
+        Lgen <- L
+        outdata <- if (pars$norm) {
+                       DS <- Matrix::Diagonal(x = 1 / sqrt(Matrix::diag(D)))
+                       RSpectra::eigs(DS %*% Lgen %*% DS,
+                                      k = pars$ndim + 1,
+                                      which = "SM")
+                   } else {
+                       RSpectra::eigs(Lgen, k = pars$ndim + 1,
+                                      which  = "SM")
+                   }
+        ## The eigenvalues are in decreasing order and we remove the
+        ## smallest, which should be approx 0:
+        outdata <- outdata$vectors[, (pars$ndim + 1):2, drop = FALSE]
         colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
 
         return(new(

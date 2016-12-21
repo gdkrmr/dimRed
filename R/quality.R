@@ -147,7 +147,7 @@ getQualityFunction <- function (method) {
         Q_local                = Q_local,
         Q_global               = Q_global,
         mean_R_NX              = mean_R_NX,
-        AUC_lnK                = AUC_lnK,
+        AUC_lnK_R_NX           = AUC_lnK_R_NX,
         total_correlation      = total_correlation,
         cophenetic_correlation = cophenetic_correlation,
         distance_correlation   = distance_correlation,
@@ -252,12 +252,12 @@ setMethod(
 
 #' @export
 setGeneric(
-    "AUC_lnK",
-    function(object, ...) standardGeneric("AUC_lnK"),
+    "AUC_lnK_R_NX",
+    function(object, ...) standardGeneric("AUC_lnK_R_NX"),
     valueClass = "numeric"
 )
 
-#' Method AUC_lnK
+#' Method AUC_lnK_R_NX
 #'
 #' Calculate the Area under the R_NX(K) curve for logarithmic K,
 #' used in Lee et. al. (2013).
@@ -267,7 +267,7 @@ setGeneric(
 #' @aliases AUC_lnK
 #' @export
 setMethod(
-    "AUC_lnK",
+    "AUC_lnK_R_NX",
     "dimRedResult",
     function(object) {
         rnx <- R_NX(object)
@@ -276,8 +276,11 @@ setMethod(
 )
 
 auc_lnK <- function(rnx) {
-    N <- length(rnx)
-    sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
+    Ks <- seq_along(rnx)
+    return (sum(rnx / Ks) / sum(1 / Ks))
+    ## in my intuition it should be the folowing:
+    ## N <- length(rnx)
+    ## sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
 }
     
 
@@ -449,7 +452,7 @@ dimRedQualityList <- function () {
     return(c("Q_local",
              "Q_global",
              "mean_R_NX",
-             "AUC_lnK",
+             "AUC_lnK_R_NX",
              "total_correlation",
              "cophenetic_correlation",
              "distance_correlation",

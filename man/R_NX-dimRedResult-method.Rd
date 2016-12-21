@@ -17,7 +17,7 @@ neighborhood preservation for the Kth nearest neighbors,
 corrected for random point distributions and scaled to range [0, 1].
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK,dimRedResult-method}},
+Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
   \code{\link{LCMC,dimRedResult-method}},
   \code{\link{Q_NX,dimRedResult-method}},
   \code{\link{Q_global,dimRedResult-method}},

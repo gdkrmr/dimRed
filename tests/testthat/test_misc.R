@@ -16,3 +16,17 @@ test_that("formula functions", {
     expect_equal(rhs(a + b ~ c + d), ~ c + d + 0)
     expect_equal(lhs(a + b ~ c + d), ~ a + b + 0)
 })
+
+
+
+test_that("makeEpsGraph", {
+    check_makeEpsGraph <- function(x, eps){
+        naive <- as.matrix(dist(x))
+        naive[naive >= eps] <- 0
+        epsSp <- as.matrix(makeEpsSparseMatrix(x, eps))
+        all(naive == epsSp)
+    }
+    expect_true(check_makeEpsGraph(iris[1:4], 1000))
+    expect_true(check_makeEpsGraph(iris[1:4], 1))
+    expect_true(check_makeEpsGraph(iris[1:4], 0.5))    
+})

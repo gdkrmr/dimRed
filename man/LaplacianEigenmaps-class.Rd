@@ -10,7 +10,7 @@ An S4 Class implementing Laplacian Eigenmaps
 }
 \details{
 Laplacian Eigenmaps use a kernel and were originally developed to
-separate non-convex clusters.
+separate non-convex clusters under the name spectral clustering.
 }
 \section{Slots}{
 
@@ -35,9 +35,15 @@ missing parameters will be replaced by the ones in the
 
 \code{LaplacianEigenmaps} can take the following parameters:
 \describe{
-  \item{d}{a distance function to calculate the distance matrix}
-  \item{knn}{The number of nearest neighbors to use for the knn graph.}
   \item{ndim}{the number of output dimensions.}
+
+  \item{sparse}{A character vector specifying hot to make the graph
+   sparse, \code{"knn"} means that a K-nearest neighbor graph is
+   constructed, \code{"eps"} an epsilon neighborhood graph is
+   constructed, else a dense distance matrix is used.}
+
+  \item{knn}{The number of nearest neighbors to use for the knn graph.}
+  \item{eps}{The distance for the epsilon neighborhood graph.}
 
   \item{t}{Parameter for the transformation of the distance matrix
   by \eqn{w=exp(-d^2/t)}, larger values give less weight to

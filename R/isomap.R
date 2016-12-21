@@ -135,7 +135,7 @@ Isomap <- setClass(
 ## points and checking would neutralize the performance gain, so bd
 ## trees are not really usable.
 
-makeKNNgraph <- function (x, k, eps = 0){
+makeKNNgraph <- function (x, k, eps = 0, diag = FALSE){
     ## requireNamespace("RANN")
     ## requireNamespace("igraph")
 
@@ -159,12 +159,18 @@ makeKNNgraph <- function (x, k, eps = 0){
 
     ## create graph: the first ny nodes will be y, the last nx nodes
     ## will be x, if x != y
-    g <- igraph::make_empty_graph(M, directed = FALSE)
-    g[from = rep(seq_len(M), times = k),
-      to   = as.vector(nn2res$nn.idx[, -1]),
-      attr = "weight"] <- as.vector(nn2res$nn.dists[, -1])
+    ## it is not really pretty to create a
+    ## directed graph first and then make it undirected.
+    g <- igraph::make_empty_graph(M, directed = TRUE)
+    g[from = if (diag) rep(seq_len(M), times = k + 1)
+             else      rep(seq_len(M), times = k),
+      to   = if (diag) as.vector(nn2res$nn.idx)
+             else      as.vector(nn2res$nn.idx[, -1]),
+      attr = "weight"] <-
+        if (diag)  as.vector(nn2res$nn.dists)
+        else as.vector(nn2res$nn.dists[, -1])
 
-    return(g)
+    return(igraph::as.undirected(g, mode = "collapse", edge.attr.comb = "first"))
 }
 
 ## the original isomap method I'll keep it here for completeness:
