@@ -217,8 +217,7 @@ correlate <- function (x, y, method, ...) {
   if (method != "kendall"){
       return(stats::cor(x, y, method = method, ...))
   } else {
-      if (!requireNamespace("pcaPP"))
-          stop("package pcaPP required for method == 'kendall'.")
+      chckpkg("pcaPP")
       ## make the cor.fk method behave like cor for matrices:
       if (is.matrix(x) && is.matrix(y)) {
           res <- matrix(
