@@ -23,7 +23,7 @@
 #' @references
 #' Donoho, D.L., Grimes, C., 2003. Hessian eigenmaps: Locally linear
 #' embedding techniques for high-dimensional data. PNAS 100,
-#' 5591–5596. doi:10.1073/pnas.1031596100
+#' 5591-5596. doi:10.1073/pnas.1031596100
 #' 
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 1500)
@@ -54,6 +54,9 @@ HLLE <- setClass(
         chckpkg("Matrix")
         chckpkg("RANN")
 
+        if (is.null(pars$knn))   pars$knn  <- 50
+        if (is.null(pars$ndim))  pars$ndim <- 2
+
         indata <- data@data
         n <- nrow(indata)
         hs <- pars$ndim * (pars$ndim + 1) / 2
@@ -63,7 +66,7 @@ HLLE <- setClass(
         ## Identify neighbors:
         message(Sys.time(), ": Finding nearest neighbors", sep = "")
         nnidx <- RANN::nn2(data = indata, query = indata, k = pars$knn + 1,
-                           treetype = "kd", "standard", eps = 0)$nn.idx[, -1]
+                           treetype = "kd", "standard", eps = 0)$nn.idx#[, -1]
         message(Sys.time(), ": Calculating Hessian", sep = "")
         for (i in seq_len(n)) {
             cat(i, "/", n, "\r", sep = "")
@@ -94,14 +97,16 @@ HLLE <- setClass(
             x = unlist(ww, FALSE, FALSE),
             nrow = n, ncol = n * hs)
         ), "dgCMatrix")
-        
+
         ## Find null space:
         message(Sys.time(), ": Embedding", sep = "")
-        outdata <- RSpectra::eigs_sym(
-                                 H, k = pars$ndim + 1,, sigma = -1e-5
-                             )$vectors[, rev(seq_len(pars$ndim)), drop = FALSE]
-                                  ## which  = "SA")$vectors[, rev(seq_len(pars$ndim)),
-                                  ##                        drop = FALSE]
+        ## eigs and eigs_sym converges much more reliably and faster
+        ## with sigma = -eps than with which = "L*"
+        outdata <- RSpectra::eigs_sym(H, k = pars$ndim + 1, sigma = -1e-5)
+
+        message(paste(c("Eigenvalues:", format(outdata$values)), collapse = " "))
+        outdata <- outdata$vectors[, order(outdata$values)[-1], drop = FALSE]
+
         colnames(outdata) <- paste0("HLLE", seq_len(ncol(outdata)))
 
         message(Sys.time(), ": DONE", sep = "")

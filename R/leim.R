@@ -72,36 +72,39 @@ LaplacianEigenmaps <- setClass(
         if (is.null(pars$norm))  pars$norm <- TRUE
 
 
+        message(Sys.time(), ": Creating weight matrix")
         W <- if (pars$sparse == "knn") {
-            knng <- makeKNNgraph(indata, k = pars$knn, eps = 0, diag = TRUE)
-            if (is.infinite(pars$t)){
-                igraph::set_edge_attr(knng, name = "weight", value = 1)
-            } else {
-                igraph::set_edge_attr(
-                            knng, name = "weight",
-                            value = exp(
-                                - (igraph::edge_attr(knng, name = "weight") ^ 2) /
-                                pars$t
-                            )
-                        )
-            }
-            igraph::as_adj(knng, sparse = TRUE,
-                           attr = "weight", type = "both")
-        } else if (pars$sparse == "eps") {
-            tmp <- makeEpsSparseMatrix(indata, pars$eps)
-            tmp@x <- if (is.infinite(pars$t)) 1
-                     else exp(- (tmp@x ^ 2) / pars$t)
-            diag(tmp) <- 1
-            as(tmp, "dgCMatrix")
-        } else {                        # dense case
-            tmp <- dist(indata)
-            tmp[] <- if (is.infinite(pars$t)) 1
-                     else exp(- (tmp ^ 2) / pars$t)
-            tmp <- as.matrix(tmp)
-            diag(tmp) <- 1
-            tmp
-        }
- 
+                 knng <- makeKNNgraph(indata, k = pars$knn, eps = 0,
+                                      diag = TRUE)
+                 if (is.infinite(pars$t)){
+                     igraph::set_edge_attr(knng, name = "weight", value = 1)
+                 } else {
+                     igraph::set_edge_attr(
+                                 knng, name = "weight",
+                                 value = exp( -(
+                                     igraph::edge_attr(
+                                                 knng, name = "weight"
+                                             ) ^ 2
+                                 ) / pars$t )
+                             )
+                 }
+                 igraph::as_adj(knng, sparse = TRUE,
+                                attr = "weight", type = "both")
+             } else if (pars$sparse == "eps") {
+                 tmp <- makeEpsSparseMatrix(indata, pars$eps)
+                 tmp@x <- if (is.infinite(pars$t)) rep(1, length(tmp@i))
+                          else exp(- (tmp@x ^ 2) / pars$t)
+                 ## diag(tmp) <- 1
+                 as(tmp, "dgCMatrix")
+             } else {                        # dense case
+                 tmp <- dist(indata)
+                 tmp[] <- if (is.infinite(pars$t)) 1
+                          else exp( -(tmp ^ 2) / pars$t)
+                 tmp <- as.matrix(tmp)
+                 diag(tmp) <- 1
+                 tmp
+             }
+
         ## we don't need to test for symmetry, because we know the
         ## matrix is symmetric
         D <- Matrix::Diagonal(x = Matrix::rowSums(W))
@@ -111,20 +114,27 @@ LaplacianEigenmaps <- setClass(
         ## Lgen <- Matrix::Diagonal(x = 1 / Matrix::diag(D) ) %*% L
         ## but then we get negative eigenvalues and complex eigenvalues
         Lgen <- L
+        browser()
+        message(Sys.time(), ": Eigenvalue decomposition")
         outdata <- if (pars$norm) {
                        DS <- Matrix::Diagonal(x = 1 / sqrt(Matrix::diag(D)))
-                       RSpectra::eigs(DS %*% Lgen %*% DS,
-                                      k = pars$ndim + 1,
-                                      which = "SM")
+                       RSpectra::eigs_sym(DS %*% Lgen %*% DS,
+                                          k = pars$ndim + 1,
+                                          sigma = -1e-5)
                    } else {
-                       RSpectra::eigs(Lgen, k = pars$ndim + 1,
-                                      which  = "SM")
+                       RSpectra::eigs_sym(Lgen,
+                                          k = pars$ndim + 1,
+                                          sigma = -1e-5)
                    }
+        message("Eigenvalues: ", paste(format(outdata$values),
+                                       collapse = " "))
         ## The eigenvalues are in decreasing order and we remove the
         ## smallest, which should be approx 0:
-        outdata <- outdata$vectors[, (pars$ndim + 1):2, drop = FALSE]
+        outdata <- outdata$vectors[, order(outdata$values)[-1],
+                                   drop = FALSE]
         colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
 
+        message(Sys.time(), ": DONE")
         return(new(
             "dimRedResult",
             data         = new("dimRedData",

@@ -62,7 +62,7 @@ plot(emb2, type = "2vars")
 \references{
 Donoho, D.L., Grimes, C., 2003. Hessian eigenmaps: Locally linear
 embedding techniques for high-dimensional data. PNAS 100,
-5591–5596. doi:10.1073/pnas.1031596100
+5591-5596. doi:10.1073/pnas.1031596100
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},
