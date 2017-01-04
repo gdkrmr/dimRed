@@ -9,12 +9,12 @@ find . -type l -exec rm {} \;
 echo "BUILDING"
 R CMD build .
 
-echo "LINTING"
-Rscript -e 'lintr::lint_package()'
-
 pkgversion=$(cat DESCRIPTION | grep Version | sed 's|Version: \(.*\)|\1|')
 echo "INSTALLING version $pkgversion"
 R CMD INSTALL dimRed_$pkgversion.tar.gz
+
+echo "LINTING"
+Rscript -e 'lintr::lint_package()'
 
 echo ""
 echo 'CHECKING!!!'

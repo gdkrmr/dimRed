@@ -93,7 +93,7 @@ Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
 Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
-  \code{\link{Isomap-class}},
+  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{PCA-class}},
   \code{\link{dimRedMethod-class}},

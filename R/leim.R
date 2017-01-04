@@ -76,15 +76,15 @@ LaplacianEigenmaps <- setClass(
             knng <- makeKNNgraph(indata, k = pars$knn, eps = 0, diag = TRUE)
             if (is.infinite(pars$t)){
                 igraph::set_edge_attr(knng, name = "weight", value = 1)
-        } else {
-            igraph::set_edge_attr(
-                        knng, name = "weight",
-                        value = exp(
-                            - (igraph::edge_attr(knng, name = "weight") ^ 2) /
-                            pars$t
+            } else {
+                igraph::set_edge_attr(
+                            knng, name = "weight",
+                            value = exp(
+                                - (igraph::edge_attr(knng, name = "weight") ^ 2) /
+                                pars$t
+                            )
                         )
-                    )
-        }
+            }
             igraph::as_adj(knng, sparse = TRUE,
                            attr = "weight", type = "both")
         } else if (pars$sparse == "eps") {

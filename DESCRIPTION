@@ -48,6 +48,7 @@ Collate:
     'embed.R'
     'fastica.R'
     'graph_embed.R'
+    'hlle.R'
     'isomap.R'
     'kpca.R'
     'leim.R'
