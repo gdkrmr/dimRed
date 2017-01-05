@@ -114,7 +114,6 @@ LaplacianEigenmaps <- setClass(
         ## Lgen <- Matrix::Diagonal(x = 1 / Matrix::diag(D) ) %*% L
         ## but then we get negative eigenvalues and complex eigenvalues
         Lgen <- L
-        browser()
         message(Sys.time(), ": Eigenvalue decomposition")
         outdata <- if (pars$norm) {
                        DS <- Matrix::Diagonal(x = 1 / sqrt(Matrix::diag(D)))
