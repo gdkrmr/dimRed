@@ -48,10 +48,10 @@ chckpkg <- function (pkg) {
 
 #' Converts to data.frame
 #'
-#' General conversions of objects created by \code{dimRed} to
-#' \code{data.frame}. See class documentations for details. For the
-#' original documentation of this function see here:
-#' \code{\link[base]{as.data.frame.default}}.
+#' General conversions of objects created by \code{dimRed} to \code{data.frame}.
+#' See class documentations for details (\code{\link{dimRedData}},
+#' \code{\link{dimRedResult}}). For the documentation of this function in base
+#' package, see here: \code{\link[base]{as.data.frame.default}}.
 #'
 #' @param x The object to be converted
 #' @param row.names unused in \code{dimRed}
@@ -251,13 +251,13 @@ makeKNNgraph <- function(x, k, eps = 0, diag = FALSE){
 makeEpsSparseMatrix <- function(x, eps) {
     chckpkg("Matrix")
     n <- nrow(x)
-    dd <- dist(x)
+    dd <- stats::dist(x)
     ddind <- dd < eps
     rows <- unlist(lapply(2:n, function(x) x:n), use.names = FALSE)
     cols <- rep(seq_len(n - 1), times = (n - 1):1)
-    sparseMatrix(i = rows[ddind],
-                 j = cols[ddind],
-                 x = dd[ddind],
-                 dims = c(n, n),
-                 symmetric = TRUE)
+    Matrix::sparseMatrix(i         = rows[ddind],
+                         j         = cols[ddind],
+                         x         = dd[ddind],
+                         dims      = c(n, n),
+                         symmetric = TRUE)
 }

@@ -16,9 +16,9 @@ as.data.frame(x, row.names, optional, ...)
 \item{...}{other arguments.}
 }
 \description{
-General conversions of objects created by \code{dimRed} to
-\code{data.frame}. See class documentations for details. For the
-original documentation of this function see here:
-\code{\link[base]{as.data.frame.default}}.
+General conversions of objects created by \code{dimRed} to \code{data.frame}.
+See class documentations for details (\code{\link{dimRedData}},
+\code{\link{dimRedResult}}). For the documentation of this function in base
+package, see here: \code{\link[base]{as.data.frame.default}}.
 }
 

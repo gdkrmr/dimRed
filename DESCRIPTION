@@ -12,29 +12,31 @@ Depends:
     methods,
     DRR
 Suggests:
+    MASS,
+    Matrix,
     RANN,
+    RSpectra,
+    Rtsne,
     coRanking,
+    diffusionMap,
     energy,
     fastICA,
+    ggplot2,
     graphics,
     igraph,
-    optimx,
-    pcaPP,
-    stats,
-    MASS,
-    Rtsne,
-    diffusionMap,
     kernlab,
     lle,
     loe,
-    scatterplot3d,
-    vegan,
-    testthat,
-    ggplot2,
+    optimx,
+    pcaPP,
     scales,
-    tidyr
+    scatterplot3d,
+    stats,
+    testthat,
+    tidyr,
+    vegan
 License: GPL-3 | file LICENSE
-URL: https://github.com/gdkrmr/DRR
+URL: https://github.com/gdkrmr/dimRed
 LazyData: true
 Collate:
     'misc.R'

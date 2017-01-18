@@ -24,7 +24,7 @@
 #' Donoho, D.L., Grimes, C., 2003. Hessian eigenmaps: Locally linear
 #' embedding techniques for high-dimensional data. PNAS 100,
 #' 5591-5596. doi:10.1073/pnas.1031596100
-#' 
+#'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 1500)
 #'
@@ -60,7 +60,9 @@ HLLE <- setClass(
         indata <- data@data
         n <- nrow(indata)
         hs <- pars$ndim * (pars$ndim + 1) / 2
-        W <- Matrix::sparseMatrix(i = numeric(0), j = numeric(0), x = numeric(0),
+        W <- Matrix::sparseMatrix(i = numeric(0),
+                                  j = numeric(0),
+                                  x = numeric(0),
                                   dims = c(n, hs * n))
         ii <- jj <- ww <- list()
         ## Identify neighbors:
@@ -72,7 +74,7 @@ HLLE <- setClass(
             cat(i, "/", n, "\r", sep = "")
             ## get neighborhood
             Nui <- indata[nnidx[i, ], , drop = FALSE]
-            
+
             ## Form tangent coordinates:
             Nui <- sweep(Nui, 2, colMeans(Nui), "-")
             tc <- svd(Nui, nu = pars$ndim, nv = 0)$u
@@ -104,7 +106,8 @@ HLLE <- setClass(
         ## with sigma = -eps than with which = "L*"
         outdata <- RSpectra::eigs_sym(H, k = pars$ndim + 1, sigma = -1e-5)
 
-        message(paste(c("Eigenvalues:", format(outdata$values)), collapse = " "))
+        message(paste(c("Eigenvalues:", format(outdata$values)),
+                      collapse = " "))
         outdata <- outdata$vectors[, order(outdata$values)[-1], drop = FALSE]
 
         colnames(outdata) <- paste0("HLLE", seq_len(ncol(outdata)))

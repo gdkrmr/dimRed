@@ -28,5 +28,5 @@ test_that("makeEpsGraph", {
     }
     expect_true(check_makeEpsGraph(iris[1:4], 1000))
     expect_true(check_makeEpsGraph(iris[1:4], 1))
-    expect_true(check_makeEpsGraph(iris[1:4], 0.5))    
+    expect_true(check_makeEpsGraph(iris[1:4], 0.5))
 })

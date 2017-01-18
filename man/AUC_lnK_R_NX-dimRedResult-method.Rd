@@ -2,7 +2,7 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{AUC_lnK_R_NX,dimRedResult-method}
-\alias{AUC_lnK}
+\alias{AUC_lnK_R_NX}
 \alias{AUC_lnK_R_NX,dimRedResult-method}
 \title{Method AUC_lnK_R_NX}
 \usage{
@@ -12,8 +12,14 @@
 \item{object}{of class dimRedResult}
 }
 \description{
-Calculate the Area under the R_NX(K) curve for logarithmic K,
-used in Lee et. al. (2013).
+Calculate the Area under the R_NX(ln K), used in Lee et. al. (2013).
+}
+\references{
+Lee, J.A., Renard, E., Bernard, G., Dupont, P., Verleysen, M.,
+2013. Type 1 and 2 mixtures of Kullback-Leibler divergences as cost
+functions in dimensionality reduction based on similarity
+preservation. Neurocomputing. 112,
+92-107. doi:10.1016/j.neucom.2012.12.036
 }
 \seealso{
 Other Quality scores for dimensionality reduction: \code{\link{LCMC,dimRedResult-method}},

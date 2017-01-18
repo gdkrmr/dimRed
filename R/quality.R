@@ -259,12 +259,19 @@ setGeneric(
 
 #' Method AUC_lnK_R_NX
 #'
-#' Calculate the Area under the R_NX(K) curve for logarithmic K,
-#' used in Lee et. al. (2013).
+#' Calculate the Area under the R_NX(ln K), used in Lee et. al. (2013).
+#'
+#' @references
+#'
+#' Lee, J.A., Renard, E., Bernard, G., Dupont, P., Verleysen, M.,
+#' 2013. Type 1 and 2 mixtures of Kullback-Leibler divergences as cost
+#' functions in dimensionality reduction based on similarity
+#' preservation. Neurocomputing. 112,
+#' 92-107. doi:10.1016/j.neucom.2012.12.036
 #'
 #' @param object of class dimRedResult
 #' @family Quality scores for dimensionality reduction
-#' @aliases AUC_lnK
+#' @aliases AUC_lnK_R_NX
 #' @export
 setMethod(
     "AUC_lnK_R_NX",
@@ -282,7 +289,7 @@ auc_lnK <- function(rnx) {
     ## N <- length(rnx)
     ## sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
 }
-    
+
 
 #' @export
 setGeneric(
