@@ -78,6 +78,7 @@ setGeneric("quality",
 #' @return a number
 #'
 #' @examples
+#' \dontrun{
 #' embed_methods <- dimRedMethodList()
 #' quality_methods <- dimRedQualityList()
 #' scurve <- loadDataSet("3D S Curve", n = 500)
@@ -99,6 +100,7 @@ setGeneric("quality",
 #' }
 #'
 #' print(quality_results)
+#' }
 #' @author Guido Kraemer
 #' @aliases quality quality.dimRedResult
 #' @family Quality scores for dimensionality reduction

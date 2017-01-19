@@ -25,6 +25,7 @@
 #' forward and backward projections.
 #'
 #' @examples
+#' \dontrun{
 #' dat <- loadDataSet("3D S Curve")
 #'
 #' ## use the S4 class directly:
@@ -35,7 +36,7 @@
 #' emb2 <- embed(dat, "kPCA")
 #'
 #' plot(emb, type = "2vars")
-#'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods

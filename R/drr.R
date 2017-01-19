@@ -65,6 +65,7 @@
 #'     9, 1026-1036. doi:10.1109/JSTSP.2015.2417833
 #'
 #' @examples
+#' \dontrun{
 #' dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 #'
 #' ## use the S4 Class directly:
@@ -80,7 +81,7 @@
 #' plot(dat, type = "3vars")
 #' plot(emb, type = "3vars")
 #' plot(emb@inverse(emb@data@data[, 1, drop = FALSE]), type = "3vars")
-#'
+#' }
 #'
 #'
 #' @include dimRedResult-class.R

@@ -82,6 +82,7 @@ calculating the correlation of distances. For details see
 of the reconstrucion. \code{object} requires an inverse function.
 }
 \examples{
+\dontrun{
 embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
 scurve <- loadDataSet("3D S Curve", n = 500)
@@ -103,6 +104,7 @@ for (e in embed_methods) {
 }
 
 print(quality_results)
+}
 }
 \author{
 Guido Kraemer

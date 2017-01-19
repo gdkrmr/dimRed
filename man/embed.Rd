@@ -60,6 +60,7 @@ function with all arguments named, e.g. \code{embed(.data = dat,
 \item \code{dimRedData}: Embed a dimRedData object
 }}
 \examples{
+\dontrun{
 embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
 dataset <- loadDataSet("Iris")
@@ -81,7 +82,7 @@ for (e in embed_methods) {
 }
 
 print(quality_results)
-
+}
 ## embed a data.frame using a formula:
 head(as.data.frame(
   embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,

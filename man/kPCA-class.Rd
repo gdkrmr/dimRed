@@ -49,6 +49,7 @@ Wraps around \code{\link[kernlab]{kpca}}, but provides additionally
 forward and backward projections.
 }
 \examples{
+\dontrun{
 dat <- loadDataSet("3D S Curve")
 
 ## use the S4 class directly:
@@ -59,7 +60,7 @@ emb <- kpca@fun(dat, kpca@stdpars)
 emb2 <- embed(dat, "kPCA")
 
 plot(emb, type = "2vars")
-
+}
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},

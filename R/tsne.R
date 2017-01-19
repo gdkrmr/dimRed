@@ -36,6 +36,7 @@
 #' t-SNE. J. Mach. Learn. Res. 9, 2579-2605.
 #'
 #' @examples
+#' \dontrun{
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #'
 #' ## using the S4 class directly:
@@ -47,7 +48,7 @@
 #'
 #' plot(emb, type = "2vars")
 #' plot(emb2, type = "2vars")
-#'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods

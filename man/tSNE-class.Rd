@@ -54,6 +54,7 @@ scales much nicer with data size. Larger values for perplexity take
 larger neighborhoods into account.
 }
 \examples{
+\dontrun{
 dat <- loadDataSet("3D S Curve", n = 500)
 
 ## using the S4 class directly:
@@ -65,7 +66,7 @@ emb2 <- embed(dat, "tSNE", perplexity = 80)
 
 plot(emb, type = "2vars")
 plot(emb2, type = "2vars")
-
+}
 }
 \references{
 Maaten, L. van der, 2014. Accelerating t-SNE using Tree-Based

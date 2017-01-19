@@ -82,6 +82,7 @@ efficient way to search the parameter space but may also miss the
 global maximum, I have not ran tests on the accuracy of this method.
 }
 \examples{
+\dontrun{
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 
 ## use the S4 Class directly:
@@ -97,7 +98,7 @@ emb2 <- embed(dat, "DRR", ndim = 3)
 plot(dat, type = "3vars")
 plot(emb, type = "3vars")
 plot(emb@inverse(emb@data@data[, 1, drop = FALSE]), type = "3vars")
-
+}
 
 
 }

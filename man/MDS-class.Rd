@@ -49,6 +49,7 @@ provides an out-of-sample extension which is not completely
 optimized yet.
 }
 \examples{
+\dontrun{
 dat <- loadDataSet("3D S Curve")
 
 ## Use the S4 Class directly:
@@ -61,7 +62,7 @@ emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
 
 plot(emb, type = "2vars")
 plot(emb2, type = "2vars")
-
+}
 }
 \seealso{
 Other dimensionality reduction methods: \code{\link{DRR-class}},

@@ -21,6 +21,7 @@
 #' @return an object of class \code{dimRedResult}
 #'
 #' @examples
+#' \dontrun{
 #' embed_methods <- dimRedMethodList()
 #' quality_methods <- dimRedQualityList()
 #' dataset <- loadDataSet("Iris")
@@ -42,7 +43,7 @@
 #' }
 #'
 #' print(quality_results)
-#'
+#' }
 #' ## embed a data.frame using a formula:
 #' head(as.data.frame(
 #'   embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,

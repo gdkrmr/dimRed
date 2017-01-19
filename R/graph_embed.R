@@ -109,6 +109,7 @@ KamadaKawai <- setClass(
 #' graph which also may improve visualization quality.
 #'
 #' @examples
+#' \dontrun{
 #' dat <- loadDataSet("Swiss Roll", n = 500)
 #'
 #' ## use the S4 Class directly:
@@ -120,7 +121,7 @@ KamadaKawai <- setClass(
 #'
 #'
 #' plot(emb)
-#'
+#' }
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
