@@ -19,7 +19,7 @@ be used, but it is computationally more demanding.
 \item{\code{fun}}{A function that does the embedding and returns a
 dimRedResult object.}
 
-\item{\code{stdpars}}{The standard parameters for the funciton.}
+\item{\code{stdpars}}{The standard parameters for the function.}
 }}
 \section{General usage}{
 

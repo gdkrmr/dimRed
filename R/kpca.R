@@ -72,7 +72,7 @@ kPCA <- setClass(
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
             proj <- if (inherits(x, "dimRedData")) x@data else x
 
-            proj <- kernlab::predict(res, proj)
+            proj <- kernlab::predict(res, proj)[, 1:pars$ndim, drop = FALSE]
             colnames(proj) <- paste0("kPCA", 1:ncol(proj))
 
             new("dimRedData", data = proj, meta = appl.meta)
