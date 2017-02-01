@@ -61,13 +61,14 @@ Isomap <- setClass(
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
+        n <- nrow(indata)
 
         if (is.null(pars$eps)) pars$eps <- 0
 
         ## geodesic distances
         if(pars$verbose)
           message(Sys.time(), ": constructing knn graph")
-        knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
+        knng <- makeKNNgraph(x = indata, k = min(n, pars$knn), eps = pars$eps)
         if(pars$verbose)
           message(Sys.time(), ": calculating geodesic distances")
         geodist <- igraph::distances(knng, algorithm = "dijkstra")
@@ -102,7 +103,7 @@ Isomap <- setClass(
             if(pars$verbose)
               message(Sys.time(), ": constructing knn graph")
             lknng <- makeKNNgraph(rbind(indata, orgdata),
-                                  k = pars$knn, eps = pars$eps)
+                                  k = min(norg, pars$knn), eps = pars$eps)
             if(pars$verbose)
               message(Sys.time(), ": calculating geodesic distances")
             lgeodist <- igraph::distances(lknng,
