@@ -52,10 +52,12 @@ Isomap <- setClass(
     contains = "dimRedMethod",
     prototype = list(
         stdpars = list(knn = 50,
-                       ndim = 2),
+                       ndim = 2,
+                       verbose = TRUE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        message(Sys.time(), ": Isomap START")
+        if(pars$verbose)
+          message(Sys.time(), ": Isomap START")
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
@@ -63,14 +65,18 @@ Isomap <- setClass(
         if (is.null(pars$eps)) pars$eps <- 0
 
         ## geodesic distances
-        message(Sys.time(), ": constructing knn graph")
+        if(pars$verbose)
+          message(Sys.time(), ": constructing knn graph")
         knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
-        message(Sys.time(), ": calculating geodesic distances")
+        if(pars$verbose)
+          message(Sys.time(), ": calculating geodesic distances")
         geodist <- igraph::distances(knng, algorithm = "dijkstra")
-        message(Sys.time(), ": cmdscale")
+        if(pars$verbose)
+          message(Sys.time(), ": cmdscale")
         cmdout <- stats::cmdscale(geodist, k = pars$ndim, eig = TRUE)
 
-        message(Sys.time(), ": post processing")
+        if(pars$verbose)
+          message(Sys.time(), ": post processing")
         neig <- sum(cmdout$eig > 0)
         if (neig < pars$ndim) {
             warning("Isomap: eigenvalues < 0, returning less dimensions!")
@@ -93,20 +99,24 @@ Isomap <- setClass(
             nindata <- nrow(indata)
             norg <- nrow(orgdata)
 
-            message(Sys.time(), ": constructing knn graph")
+            if(pars$verbose)
+              message(Sys.time(), ": constructing knn graph")
             lknng <- makeKNNgraph(rbind(indata, orgdata),
                                   k = pars$knn, eps = pars$eps)
-            message(Sys.time(), ": calculating geodesic distances")
+            if(pars$verbose)
+              message(Sys.time(), ": calculating geodesic distances")
             lgeodist <- igraph::distances(lknng,
                                           seq_len(nindata),
                                           nindata + seq_len(norg))
 
-            message(Sys.time(), ": embedding")
+            if(pars$verbose)
+              message(Sys.time(), ": embedding")
             dammu <- sweep(lgeodist ^ 2, 2, colMeans(geodist ^ 2), "-")
             Lsharp <- sweep(cmdout$points, 2, cmdout$eig, "/")
             out <- -0.5 * (dammu %*% Lsharp)
 
-            message(Sys.time(), ": DONE")
+            if(pars$verbose)
+              message(Sys.time(), ": DONE")
             return(new("dimRedData", data = out, meta = appl.meta))
         }
 
