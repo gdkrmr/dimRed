@@ -84,6 +84,46 @@ setAs(
     }
 )
 
+#' @importFrom stats predict
+#' @export
+setGeneric(
+    "predict", function(object, ...) standardGeneric("predict"),
+    useAsDefault = stats::predict
+)
+
+#' @describeIn dimRedResult apply a trained method to new data, does not work
+#'     with all methods, will give an error if there is no \code{apply}.
+#'     In some cases the apply function may only be an approximation.
+#' @param xnew new data, of type \code{\link{dimRedData}}
+#'
+#' @export
+setMethod(f = "predict",
+          signature = "dimRedResult",
+          definition = function(object, xnew) {
+    if (object@has.apply) object@apply(xnew)
+    else                  stop("object does not have an apply function")
+})
+
+#' @export
+setGeneric(
+    "inverse",
+    function(object, ...) standardGeneric("inverse")
+)
+
+#' @describeIn dimRedResult inverse transformation of embedded data, does not
+#'     work with all methods, will give an error if there is no \code{inverse}.
+#'     In some cases the apply function may only be an approximation.
+#' @param ynew embedded data, of type \code{\link{dimRedData}}
+#'
+#' @aliases inverse
+#' @export
+setMethod(f = "inverse",
+          signature = c("dimRedResult"),
+          definition = function(object, ynew) {
+    if (object@has.inverse) object@inverse(ynew)
+    else                    stop("object does not have an inverse function")
+})
+
 
 #' @param x Of class \code{dimRedResult}
 #' @param org.data.prefix Prefix for the columns of the org.data slot.

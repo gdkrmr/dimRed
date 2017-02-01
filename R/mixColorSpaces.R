@@ -8,7 +8,6 @@
 #' @param vars a list of variables
 #' @param ramps a list of color ramps, one for each variable.
 #'
-#' @importFrom grDevices colorRamp
 #' @examples
 #' cols <- expand.grid(x = seq(0, 1, length.out = 10),
 #'                     y = seq(0, 1, length.out = 10),
