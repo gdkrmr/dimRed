@@ -1,0 +1,19 @@
+language: r
+cache: packages
+sudo: false
+
+r:
+  - oldrel
+  - release
+  - devel
+
+
+before_install:
+  - Rscript -e "update.packages(ask = FALSE)"
+
+after_success:
+  - Rscript -e "covr:codecov()"
+
+before_deploy:
+  - Rscript -e "dimRed::installSuggests()"
+  - Rscript -e "devtools::document()"
