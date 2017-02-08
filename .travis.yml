@@ -13,6 +13,8 @@ r_check_args:
 before_install:
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "install.packages('covr')"
+  - Rscript -e "install.packages('rgl')"
+
 
 after_success:
   - Rscript -e "covr::codecov()"
