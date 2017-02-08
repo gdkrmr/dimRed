@@ -94,7 +94,7 @@ setMethod(
 setMethod(
     "embed",
     "dimRedData",
-    function(.data, .method = dimRedMethodList(),
+    function(.data, .method = dimRed::dimRedMethodList(),
              .mute = character(0), #c("message", "output"),
              .keep.org.data = TRUE,
              ...){

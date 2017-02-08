@@ -16,7 +16,7 @@ embed(.data, ...)
 \S4method{embed}{ANY}(.data, .method = dimRedMethodList(),
   .mute = character(0), .keep.org.data = TRUE, ...)
 
-\S4method{embed}{dimRedData}(.data, .method = dimRedMethodList(),
+\S4method{embed}{dimRedData}(.data, .method = dimRed::dimRedMethodList(),
   .mute = character(0), .keep.org.data = TRUE, ...)
 }
 \arguments{
