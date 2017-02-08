@@ -8,9 +8,7 @@ r:
   - devel
 
 r_check_args:
-  - --run-donttest
-  - --run-dontrun
-  - --timings
+  "--run-donttest --run-dontrun --timings"
 
 before_install:
   - Rscript -e "update.packages(ask = FALSE)"
