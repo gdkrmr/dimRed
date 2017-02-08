@@ -98,9 +98,9 @@ setMethod(
              .mute = character(0), #c("message", "output"),
              .keep.org.data = TRUE,
              ...){
-        method <- match.arg(.method)
+        .method <- match.arg(.method)
 
-        methodObject <- getMethodObject(method)
+        methodObject <- getMethodObject(.method)
 
         args <- list(
             data          = as(.data, "dimRedData"),
