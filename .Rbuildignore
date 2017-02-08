@@ -21,3 +21,5 @@ notes\.org
 TAGS
 ^.*\.Rproj$
 ^\.Rproj\.user$
+
+^\.travis\.yml$
