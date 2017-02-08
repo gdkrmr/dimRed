@@ -7,12 +7,17 @@ r:
   - release
   - devel
 
+r_check_args
+  - --run-donttest
+  - --run-dontrun
+  - --timings
 
 before_install:
   - Rscript -e "update.packages(ask = FALSE)"
+  - Rscript -e "install.packages('covr')"
 
 after_success:
-  - Rscript -e "covr:codecov()"
+  - Rscript -e "covr::codecov()"
 
 before_deploy:
   - Rscript -e "dimRed::installSuggests()"
