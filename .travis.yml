@@ -7,7 +7,7 @@ r:
   - release
   - devel
 
-r_check_args
+r_check_args:
   - --run-donttest
   - --run-dontrun
   - --timings
