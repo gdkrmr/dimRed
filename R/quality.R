@@ -576,3 +576,77 @@ rnx2qnx <- function(rnx, K = seq_along(rnx), N = length(rnx) + 1) {
 qnx2rnx <- function(qnx, K = seq_along(qnx), N = length(qnx) + 1) {
     ((N - 1) * qnx - K) / (N - 1 - K)
 }
+
+#' @export
+setGeneric(
+  "reconstruction_error",
+  function(object, ...) standardGeneric("reconstruction_error"),
+  valueClass = "numeric"
+)
+
+#' Method reconstruction_error
+#'
+#' Calculate the error using only the first \code{n} dimensions of the embedded
+#' data. \code{error_fun} can either be one of \code{c("rmse", "mae")} to
+#' calculate the root mean square error or the mean absolute error respectively,
+#' or a function that takes to equally sized vectors as input and returns a
+#' single number as output.
+#'
+#' @param object of class dimRedResult
+#' @param n a positive integer or vector of integers \code{<= ndims(object)}
+#' @param error_fun a function or string indicating an error function.
+#' @return a vector of number with the same length as \code{n} with the
+#'
+#' @examples
+#'
+#' x <- loadDataSet("Iris")
+#' ir.drr <- embed(ir, "DRR", ndim = ndims(x))
+#' ir.pca <- embed(ir, "PCA", ndim = ndims(x))
+#'
+#' rmse <- data.frame(
+#'   'rmse_drr = get_rmse_by_ndim(ir.drr),
+#'   'rmse_pca = get_rmse_by_ndim(ir.pca)
+#' )
+#'
+#' matplot(rmse, type = "l")
+#' plot(ir)
+#' plot(ir.drr)
+#' plot(ir.pca)
+#'
+#' @author Guido Kraemer
+#' @family Quality scores for dimensionality reduction
+#' @aliases reconstruction_error
+#' @export
+setMethod(
+  "reconstruction_error",
+  c("dimRedResult"),
+  function (object, n = seq_len(ndims(object)), error_fun = "rmse") {
+    if (any(n > ndims(object))) stop("n > ndims(object)")
+    if (any(n < 1))             stop("n < 1")
+
+    if (inherits(error_fun, "character")) {
+      switch(
+        error_fun,
+        rmse = rmse,
+        mae  = mae
+      )
+    } else if (inherits(error_fun, "function")) {
+      error_fun
+    } else {
+      stop("error_fun must be a string or function, see documentation for details")
+    }
+
+    res <- numeric(length(n))
+    org <- getData(getOrgData(object))
+    for (i in n) {
+      rec <- getData(inverse(
+       object , getData(getDimRedData(object))[, seq_len(i), drop = FALSE]
+      ))
+      res[i] <- sqrt(mean((org - rec) ^ 2))
+    }
+    res
+  }
+)
+
+rmse <- function (x1, x2) sqrt(mean((x1 - x2) ^ 2))
+mae  <- function (x1, x2) mean(abs(x1 - x2))
