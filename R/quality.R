@@ -563,8 +563,8 @@ setMethod(
         nQ <- nrow(Q)
         N <- nQ + 1
 
-        lcmc <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) / 
-            seq_len(nQ) / N - 
+        lcmc <- diag(apply(apply(Q, 2, cumsum), 1, cumsum)) /
+            seq_len(nQ) / N -
             seq_len(nQ) / nQ
         lcmc
     }
