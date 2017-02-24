@@ -598,21 +598,21 @@ setGeneric(
 #' @return a vector of number with the same length as \code{n} with the
 #'
 #' @examples
-#'
-#' x <- loadDataSet("Iris")
-#' ir.drr <- embed(ir, "DRR", ndim = ndims(x))
-#' ir.pca <- embed(ir, "PCA", ndim = ndims(x))
+#' \dontrun{
+#' ir <- loadDataSet("Iris")
+#' ir.drr <- embed(ir, "DRR", ndim = ndims(ir))
+#' ir.pca <- embed(ir, "PCA", ndim = ndims(ir))
 #'
 #' rmse <- data.frame(
-#'   'rmse_drr = get_rmse_by_ndim(ir.drr),
-#'   'rmse_pca = get_rmse_by_ndim(ir.pca)
+#'   rmse_drr = reconstruction_error(ir.drr),
+#'   rmse_pca = reconstruction_error(ir.pca)
 #' )
 #'
 #' matplot(rmse, type = "l")
 #' plot(ir)
 #' plot(ir.drr)
 #' plot(ir.pca)
-#'
+#' }
 #' @author Guido Kraemer
 #' @family Quality scores for dimensionality reduction
 #' @aliases reconstruction_error

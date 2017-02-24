@@ -30,6 +30,7 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
   \code{\link{quality,dimRedResult-method}},
+  \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
