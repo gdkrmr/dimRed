@@ -15,7 +15,6 @@ devtools::install_github("gdkrmr/dimRed")
 
 Install from CRAN
 ```R
-## not yet possible, but once it is on there use:
 install.packages("dimRed")
 ```
 
