@@ -30,4 +30,14 @@ ESANN 2008 49-54.
 Chen, L., Buja, A., 2006. Local Multidimensional Scaling for
 Nonlinear Dimension Reduction, Graph Layout and Proximity Analysis.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/gdkrmr/dimRed}
+}
 
+}
+\author{
+\strong{Maintainer}: Guido Kraemer \email{gkraemer@bgc-jena.mpg.de}
+
+}

@@ -12,4 +12,3 @@ getData(object)
 \description{
 Extracts the data slot.
 }
-

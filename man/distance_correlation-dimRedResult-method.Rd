@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{distance_correlation,dimRedResult-method}
-\alias{distance_correlation}
 \alias{distance_correlation,dimRedResult-method}
+\alias{distance_correlation}
 \title{Method distance_correlation}
 \usage{
 \S4method{distance_correlation}{dimRedResult}(object)
@@ -29,4 +29,3 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-

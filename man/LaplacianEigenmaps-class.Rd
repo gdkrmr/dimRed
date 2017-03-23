@@ -2,8 +2,8 @@
 % Please edit documentation in R/leim.R
 \docType{class}
 \name{LaplacianEigenmaps-class}
-\alias{LaplacianEigenmaps}
 \alias{LaplacianEigenmaps-class}
+\alias{LaplacianEigenmaps}
 \title{Laplacian Eigenmaps}
 \description{
 An S4 Class implementing Laplacian Eigenmaps
@@ -20,6 +20,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -56,6 +57,7 @@ missing parameters will be replaced by the ones in the
 
 Wraps around \code{\link[loe]{spec.emb}}.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve")
 leim <- LaplacianEigenmaps()
@@ -71,4 +73,3 @@ Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for
 Dimensionality Reduction and Data Representation. Neural
 Computation 15, 1373.
 }
-

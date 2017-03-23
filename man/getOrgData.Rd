@@ -14,4 +14,3 @@ getOrgData(object, ...)
 \description{
 Extract the Original data.
 }
-

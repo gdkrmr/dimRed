@@ -39,7 +39,7 @@ Suggests:
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
 LazyData: true
-Collate:
+Collate: 
     'misc.R'
     'dimRedData-class.R'
     'dataSets.R'
@@ -50,6 +50,7 @@ Collate:
     'drr.R'
     'embed.R'
     'fastica.R'
+    'get_info.R'
     'graph_embed.R'
     'hlle.R'
     'isomap.R'
@@ -66,4 +67,4 @@ Collate:
     'rotate.R'
     'soe.R'
     'tsne.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

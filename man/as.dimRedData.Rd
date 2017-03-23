@@ -14,4 +14,3 @@ as.dimRedData(formula, ...)
 \description{
 Conversion functions to dimRedData.
 }
-

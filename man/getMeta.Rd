@@ -14,4 +14,3 @@ getMeta(object, ...)
 \description{
 Extracts the meta slot.
 }
-

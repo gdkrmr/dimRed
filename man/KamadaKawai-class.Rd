@@ -2,8 +2,8 @@
 % Please edit documentation in R/graph_embed.R
 \docType{class}
 \name{KamadaKawai-class}
-\alias{KamadaKawai}
 \alias{KamadaKawai-class}
+\alias{KamadaKawai}
 \title{Graph Embedding via the Kamada Kawai Algorithm}
 \description{
 An S4 Class implementing the Kamada Kawai Algorithm for graph embedding.
@@ -25,6 +25,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -54,6 +55,7 @@ cannot be set, this may change in a future release. The DimRed
 Package adds an extra sparsity parameter by constructing a knn
 graph which also may improve visualization quality.
 }
+
 \examples{
 dat <- loadDataSet("Swiss Roll", n = 500)
 kamada_kawai <- KamadaKawai()
@@ -75,4 +77,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

@@ -26,4 +26,3 @@ an object of type \code{\link[igraph]{igraph}} with edge
 Create a K-nearest neighbor graph from data x. Uses
 \code{\link[RANN]{nn2}} as a fast way to find the neares neighbors.
 }
-

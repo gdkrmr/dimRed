@@ -75,6 +75,7 @@ FastICA <- setClass(
             out <- scale(proj, center = orgdata.colmeans, scale = FALSE) %*%
                 res$K %*%
                 res$W
+            colnames(out) <- paste0("ICA", 1:ncol(out))
             return(new("dimRedData", data = out, meta = appl.meta))
         }
 
@@ -108,7 +109,7 @@ FastICA <- setClass(
             inverse      = inv,
             has.apply    = TRUE,
             has.inverse  = TRUE,
-            method       = "fastica",
+            method       = "FastICA",
             pars         = pars
         ))
     })

@@ -21,4 +21,3 @@ Returns the name of all classes that inherit from
 dimRedMethodList()
 
 }
-

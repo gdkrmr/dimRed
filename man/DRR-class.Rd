@@ -2,8 +2,8 @@
 % Please edit documentation in R/drr.R
 \docType{class}
 \name{DRR-class}
-\alias{DRR}
 \alias{DRR-class}
+\alias{DRR}
 \title{Dimensionality Reduction via Regression}
 \description{
 An S4 Class implementing Dimensionality Reduction via Regression (DRR).
@@ -19,6 +19,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -81,6 +82,7 @@ is to use \code{pars$fastcv = TRUE} which might provide a more
 efficient way to search the parameter space but may also miss the
 global maximum, I have not ran tests on the accuracy of this method.
 }
+
 \examples{
 \dontrun{
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
@@ -119,4 +121,3 @@ Other dimensionality reduction methods: \code{\link{DiffusionMaps-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

@@ -2,17 +2,17 @@
 % Please edit documentation in R/dimRedResult-class.R
 \docType{class}
 \name{dimRedResult-class}
-\alias{as.data.frame,dimRedResult-method}
-\alias{dimRedResult}
 \alias{dimRedResult-class}
-\alias{getDimRedData,dimRedResult-method}
-\alias{getOrgData,dimRedResult-method}
-\alias{getPars,dimRedResult-method}
-\alias{inverse}
-\alias{inverse,dimRedResult-method}
-\alias{ndims,dimRedResult-method}
+\alias{dimRedResult}
 \alias{predict,dimRedResult-method}
+\alias{inverse,dimRedResult-method}
+\alias{inverse}
+\alias{as.data.frame,dimRedResult-method}
+\alias{getPars,dimRedResult-method}
 \alias{print,dimRedResult-method}
+\alias{getOrgData,dimRedResult-method}
+\alias{getDimRedData,dimRedResult-method}
+\alias{ndims,dimRedResult-method}
 \title{Class "dimRedResult"}
 \usage{
 \S4method{predict}{dimRedResult}(object, xnew)
@@ -73,6 +73,7 @@ was called.
 
 \item \code{ndims}: Extract the number of embedding dimensions.
 }}
+
 \section{Slots}{
 
 \describe{
@@ -96,6 +97,7 @@ reduced space, may not exist.}
 
 \item{\code{pars}}{saves the parameters used.}
 }}
+
 \examples{
 ## Create object by embedding data
 iris.pca <- embed(loadDataSet("Iris"), "PCA")
@@ -123,4 +125,3 @@ getOrgData(iris.pca)
 ndims(iris.pca)
 
 }
-

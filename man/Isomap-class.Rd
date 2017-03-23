@@ -2,8 +2,8 @@
 % Please edit documentation in R/isomap.R
 \docType{class}
 \name{Isomap-class}
-\alias{Isomap}
 \alias{Isomap-class}
+\alias{Isomap}
 \title{Isomap embedding}
 \description{
 An S4 Class implementing the Isomap Algorithm
@@ -21,6 +21,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -52,6 +53,7 @@ a faster search of the neares neighbors.  If data are too large it
 may be useful to fit a subsample of the data and use the
 out-of-sample extension for the other points.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve", n = 500)
 
@@ -80,4 +82,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

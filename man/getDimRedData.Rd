@@ -14,4 +14,3 @@ getDimRedData(object, ...)
 \description{
 Extract dimRedData.
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/nmds.R
 \docType{class}
 \name{nMDS-class}
-\alias{nMDS}
 \alias{nMDS-class}
+\alias{nMDS}
 \title{Non-Metric Dimensional Scaling}
 \description{
 An S4 Class implementing Non-Metric Dimensional Scaling.
@@ -19,6 +19,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -45,6 +46,7 @@ Wraps around the
 \code{\link[vegan]{monoMDS}}. For parameters that are not
 available here, the standard configuration is used.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve", n = 1000)
 
@@ -72,4 +74,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{dimRedMethod-class}},
   \code{\link{kPCA-class}}, \code{\link{tSNE-class}}
 }
-

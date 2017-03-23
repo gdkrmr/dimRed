@@ -23,4 +23,3 @@ all the suggested packages.
 installSuggests()
 }
 }
-

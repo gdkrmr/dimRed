@@ -2,8 +2,8 @@
 % Please edit documentation in R/fastica.R
 \docType{class}
 \name{FastICA-class}
-\alias{FastICA}
 \alias{FastICA-class}
+\alias{FastICA}
 \title{Independent Component Analysis}
 \description{
 An S4 Class implementing the FastICA algorithm for Indepentend
@@ -21,6 +21,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -47,6 +48,7 @@ fast approximation for negentropy to estimate statistical
 independences between signals. Because it is a simple
 rotation/projection, forward and backward functions can be given.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve")
 
@@ -73,4 +75,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/tsne.R
 \docType{class}
 \name{tSNE-class}
-\alias{tSNE}
 \alias{tSNE-class}
+\alias{tSNE}
 \title{t-Distributed Stochastic Neighborhood Embedding}
 \description{
 An S4 Class for t-SNE.
@@ -22,6 +22,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -53,6 +54,7 @@ values for \code{theta < 1} use the Barnes-Hut algorithm which
 scales much nicer with data size. Larger values for perplexity take
 larger neighborhoods into account.
 }
+
 \examples{
 \dontrun{
 dat <- loadDataSet("3D S Curve", n = 500)
@@ -86,4 +88,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{dimRedMethod-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}}
 }
-

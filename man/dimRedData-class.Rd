@@ -2,15 +2,15 @@
 % Please edit documentation in R/dimRedData-class.R
 \docType{class}
 \name{dimRedData-class}
-\alias{[,dimRedData,ANY,ANY,ANY-method}
+\alias{dimRedData-class}
+\alias{dimRedData}
 \alias{as.data.frame,dimRedData-method}
 \alias{as.dimRedData,formula-method}
-\alias{dimRedData}
-\alias{dimRedData-class}
 \alias{getData,dimRedData-method}
 \alias{getMeta,dimRedData-method}
-\alias{ndims,dimRedData-method}
 \alias{nrow,dimRedData-method}
+\alias{[,dimRedData,ANY,ANY,ANY-method}
+\alias{ndims,dimRedData-method}
 \title{Class "dimRedData"}
 \usage{
 \S4method{as.data.frame}{dimRedData}(x, meta.prefix = "meta.",
@@ -76,6 +76,7 @@ object using a formula
 
 \item \code{ndims}: Extract the number of Variables from the data.
 }}
+
 \section{Slots}{
 
 \describe{
@@ -87,6 +88,7 @@ classes, internal manifold coordinates, or simply additional
 data of the data set. Must have the same number of rows as the
 \code{data} slot or be an empty data frame.}
 }}
+
 \examples{
 ## Load an example data set:
 s3d <- loadDataSet("3D S Curve")
@@ -131,4 +133,3 @@ s3 <- s3d[nrow(s3d)]
 ndims(s3d)
 
 }
-

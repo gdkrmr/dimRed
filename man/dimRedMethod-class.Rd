@@ -35,6 +35,7 @@ single parameters.
 \item{\code{stdpars}}{A list with the default parameters for the \code{fun}
 slot.}
 }}
+
 \seealso{
 \link{dimRedMethodList}
 
@@ -48,4 +49,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

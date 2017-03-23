@@ -14,4 +14,3 @@ print(x, ...)
 \description{
 Imports the print method into the package namespace.
 }
-

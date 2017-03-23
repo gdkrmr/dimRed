@@ -45,4 +45,22 @@ test_that("general data conversions", {
         )) < 0.3,
         "error too large"
     )
+
+    scale2 <- function(x, center, scale.) scale(x, center, scale.)
+    expect_equal(
+      do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResCS), irisParsCS),
+      getData( getDimRedData(irisResCS) )
+    )
+    expect_equal(
+      do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResS), irisParsS),
+      getData( getDimRedData(irisResS) )
+    )
+    expect_equal(
+      do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResC), irisParsC),
+      getData( getDimRedData(irisResC) )
+    )
+    expect_equal(
+      do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisRes), irisPars),
+      getData( getDimRedData(irisRes) )
+    )
 })

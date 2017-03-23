@@ -2,8 +2,8 @@
 % Please edit documentation in R/rotate.R
 \docType{methods}
 \name{maximize_correlation,dimRedResult-method}
-\alias{maximize_correlation}
 \alias{maximize_correlation,dimRedResult-method}
+\alias{maximize_correlation}
 \title{Maximize Correlation with the Axes}
 \usage{
 \S4method{maximize_correlation}{dimRedResult}(object,
@@ -28,4 +28,3 @@ variables with the data. \code{maximize_correlation} uses the
 way that the original variables have maximum correlation with the
 embedding axes.
 }
-

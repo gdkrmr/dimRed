@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{total_correlation,dimRedResult-method}
-\alias{total_correlation}
 \alias{total_correlation,dimRedResult-method}
+\alias{total_correlation}
 \title{Method total_correlation}
 \usage{
 \S4method{total_correlation}{dimRedResult}(object, naxes = ndims(object),
@@ -36,4 +36,3 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}}
 }
-

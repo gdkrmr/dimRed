@@ -2,8 +2,8 @@
 % Please edit documentation in R/mds.R
 \docType{class}
 \name{MDS-class}
-\alias{MDS}
 \alias{MDS-class}
+\alias{MDS}
 \title{Metric Dimensional Scaling}
 \description{
 An S4 Class implementing classical scaling (MDS).
@@ -21,6 +21,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -48,6 +49,7 @@ Wraps around \code{\link[stats]{cmdscale}}. The implementation also
 provides an out-of-sample extension which is not completely
 optimized yet.
 }
+
 \examples{
 \dontrun{
 dat <- loadDataSet("3D S Curve")
@@ -76,4 +78,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

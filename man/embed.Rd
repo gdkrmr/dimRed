@@ -3,9 +3,9 @@
 \docType{methods}
 \name{embed}
 \alias{embed}
+\alias{embed,formula-method}
 \alias{embed,ANY-method}
 \alias{embed,dimRedData-method}
-\alias{embed,formula-method}
 \title{dispatches the different methods for dimensionality reduction}
 \usage{
 embed(.data, ...)
@@ -59,6 +59,7 @@ function with all arguments named, e.g. \code{embed(.data = dat,
 
 \item \code{dimRedData}: Embed a dimRedData object
 }}
+
 \examples{
 \dontrun{
 embed_methods <- dimRedMethodList()
@@ -96,4 +97,3 @@ head(as.data.frame(
   embed(as.matrix(iris[, 1:4]), "PCA")
 ))
 }
-

@@ -14,4 +14,3 @@ getPars(object, ...)
 \description{
 Extracts the pars slot.
 }
-

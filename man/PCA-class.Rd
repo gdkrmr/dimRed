@@ -2,8 +2,8 @@
 % Please edit documentation in R/pca.R
 \docType{class}
 \name{PCA-class}
-\alias{PCA}
 \alias{PCA-class}
+\alias{PCA}
 \title{Principal Component Analysis}
 \description{
 S4 Class implementing PCA.
@@ -25,6 +25,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -53,6 +54,7 @@ Wraps around \code{\link{prcomp}}. Because PCA can be reduced to a
 simple rotation, forward and backward projection functions are
 supplied. .
 }
+
 \examples{
 dat <- loadDataSet("Iris")
 
@@ -79,4 +81,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

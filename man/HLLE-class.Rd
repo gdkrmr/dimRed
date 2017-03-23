@@ -2,8 +2,8 @@
 % Please edit documentation in R/hlle.R
 \docType{class}
 \name{HLLE-class}
-\alias{HLLE}
 \alias{HLLE-class}
+\alias{HLLE}
 \title{Hessian Locally Linear Embedding}
 \description{
 An S4 Class implementing Hessian Locally Linear Embedding (HLLE)
@@ -20,6 +20,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -45,6 +46,7 @@ HLLE can take the following parameters:
 Own implementation, sticks to the algorithm in Donoho and Grimes
 (2003). Makes use of sparsity to speed up final embedding.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve", n = 1500)
 
@@ -76,4 +78,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

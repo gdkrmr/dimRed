@@ -3,10 +3,10 @@
 \docType{methods}
 \name{plot}
 \alias{plot}
-\alias{plot,dimRedData,ANY-method}
-\alias{plot,dimRedResult,ANY-method}
 \alias{plot.dimRed}
+\alias{plot,dimRedData,ANY-method}
 \alias{plot.dimRedData}
+\alias{plot,dimRedResult,ANY-method}
 \alias{plot.dimRedResult}
 \title{Plotting of dimRed* objects}
 \usage{
@@ -56,6 +56,7 @@ functions for plotting.
 
 \item \code{x = dimRedResult,y = ANY}: Ploting of dimRedResult objects.
 }}
+
 \examples{
 scurve = loadDataSet("3D S Curve")
 plot(scurve, type = "pairs", main = "pairs plot of S curve")
@@ -64,4 +65,3 @@ plot(scurve, type = "2vars", vars = c("y", "z"))
 plot(scurve, type = "3vars")
 
 }
-

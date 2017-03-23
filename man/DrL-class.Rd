@@ -2,8 +2,8 @@
 % Please edit documentation in R/graph_embed.R
 \docType{class}
 \name{DrL-class}
-\alias{DrL}
 \alias{DrL-class}
+\alias{DrL}
 \title{Distributed Recursive Graph Layout}
 \description{
 An S4 Class implementing Distributed recursive Graph Layout.
@@ -20,6 +20,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -49,6 +50,7 @@ cannot be set, this may change in a future release. The DimRed
 Package adds an extra sparsity parameter by constructing a knn
 graph which also may improve visualization quality.
 }
+
 \examples{
 \dontrun{
 dat <- loadDataSet("Swiss Roll", n = 500)
@@ -77,4 +79,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

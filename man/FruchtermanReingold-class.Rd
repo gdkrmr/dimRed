@@ -2,8 +2,8 @@
 % Please edit documentation in R/graph_embed.R
 \docType{class}
 \name{FruchtermanReingold-class}
-\alias{FruchtermanReingold}
 \alias{FruchtermanReingold-class}
+\alias{FruchtermanReingold}
 \title{Fruchterman Reingold Graph Layout}
 \description{
 An S4 Class implementing the Fruchterman Reingold Graph Layout
@@ -17,6 +17,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -43,6 +44,7 @@ Wraps around \code{\link[igraph]{layout_with_fr}}, see there for
 details. The Fruchterman Reingold algorithm puts the data into
 a circle and puts connected points close to each other.
 }
+
 \examples{
 dat <- loadDataSet("Swiss Roll", n = 100)
 
@@ -69,4 +71,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{Q_global,dimRedResult-method}
-\alias{Q_global}
 \alias{Q_global,dimRedResult-method}
+\alias{Q_global}
 \title{Method Q_global}
 \usage{
 \S4method{Q_global}{dimRedResult}(object)
@@ -28,4 +28,3 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-

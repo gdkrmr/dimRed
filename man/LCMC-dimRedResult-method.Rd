@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{LCMC,dimRedResult-method}
-\alias{LCMC}
 \alias{LCMC,dimRedResult-method}
+\alias{LCMC}
 \title{Method LCMC}
 \usage{
 \S4method{LCMC}{dimRedResult}(object)
@@ -30,4 +30,3 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-

@@ -36,4 +36,3 @@ plot_R_NX(data_emb) +
                    legend.justification = c(0.5, 0.1))
 
 }
-

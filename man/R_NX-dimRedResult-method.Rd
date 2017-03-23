@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{R_NX,dimRedResult-method}
-\alias{R_NX}
 \alias{R_NX,dimRedResult-method}
+\alias{R_NX}
 \title{Method R_NX}
 \usage{
 \S4method{R_NX}{dimRedResult}(object)
@@ -30,4 +30,3 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-

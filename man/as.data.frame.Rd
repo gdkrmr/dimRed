@@ -21,4 +21,3 @@ See class documentations for details (\code{\link{dimRedData}},
 \code{\link{dimRedResult}}). For the documentation of this function in base
 package, see here: \code{\link[base]{as.data.frame.default}}.
 }
-

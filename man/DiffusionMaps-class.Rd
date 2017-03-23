@@ -2,8 +2,8 @@
 % Please edit documentation in R/diffmap.R
 \docType{class}
 \name{DiffusionMaps-class}
-\alias{DiffusionMaps}
 \alias{DiffusionMaps-class}
+\alias{DiffusionMaps}
 \title{Diffusion Maps}
 \description{
 An S4 Class implementing Diffusion Maps
@@ -20,6 +20,7 @@ dimRedResult object.}
 
 \item{\code{stdpars}}{The standard parameters for the function.}
 }}
+
 \section{General usage}{
 
 Dimensionality reduction methods are S4 Classes that either be used
@@ -60,6 +61,7 @@ slightly different from the one in the original paper (Coifman and
 Lafon, 2006) and there is no \eqn{\alpha} parameter.
 There is also an out-of-sample extension, see examples.
 }
+
 \examples{
 dat <- loadDataSet("3D S Curve")
 
@@ -100,4 +102,3 @@ Other dimensionality reduction methods: \code{\link{DRR-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
-

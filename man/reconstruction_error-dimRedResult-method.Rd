@@ -2,8 +2,8 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{reconstruction_error,dimRedResult-method}
-\alias{reconstruction_error}
 \alias{reconstruction_error,dimRedResult-method}
+\alias{reconstruction_error}
 \title{Method reconstruction_error}
 \usage{
 \S4method{reconstruction_error}{dimRedResult}(object,
@@ -43,9 +43,6 @@ plot(ir.drr)
 plot(ir.pca)
 }
 }
-\author{
-Guido Kraemer
-}
 \seealso{
 Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
   \code{\link{LCMC,dimRedResult-method}},
@@ -60,4 +57,6 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-
+\author{
+Guido Kraemer
+}

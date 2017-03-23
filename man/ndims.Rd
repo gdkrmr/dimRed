@@ -14,4 +14,3 @@ ndims(object, ...)
 \description{
 Extract the number of dimensions.
 }
-

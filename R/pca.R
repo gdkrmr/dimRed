@@ -122,7 +122,7 @@ PCA <- setClass(
             has.org.data = keep.org.data,
             has.apply    = TRUE,
             has.inverse  = TRUE,
-            method       = "pca",
+            method       = "PCA",
             pars         = pars
         )
 

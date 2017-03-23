@@ -2,10 +2,10 @@
 % Please edit documentation in R/quality.R
 \docType{methods}
 \name{quality,dimRedResult-method}
-\alias{dimRedQualityList}
-\alias{quality}
 \alias{quality,dimRedResult-method}
+\alias{quality}
 \alias{quality.dimRedResult}
+\alias{dimRedQualityList}
 \title{Quality Criteria for dimensionality reduction.}
 \usage{
 \S4method{quality}{dimRedResult}(.data, .method = dimRedQualityList(),
@@ -34,6 +34,7 @@ A collection of functions to compute quality measures on
 \itemize{
 \item \code{dimRedResult}: Calculate a quality index from a dimRedResult object.
 }}
+
 \section{Implemented methods}{
 
 
@@ -81,6 +82,7 @@ calculating the correlation of distances. For details see
 \code{reconstruction_rmse} calculates the root mean squared error
 of the reconstrucion. \code{object} requires an inverse function.
 }
+
 \examples{
 \dontrun{
 embed_methods <- dimRedMethodList()
@@ -105,9 +107,6 @@ for (e in embed_methods) {
 
 print(quality_results)
 }
-}
-\author{
-Guido Kraemer
 }
 \references{
 Lueks, W., Mokbel, B., Biehl, M., Hammer, B., 2011. How
@@ -138,4 +137,6 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
-
+\author{
+Guido Kraemer
+}
