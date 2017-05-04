@@ -35,7 +35,14 @@ test_that("rmse_by_ndim", {
     pca = reconstruction_error(ir.pca)
   )
 
-  expect_true(all((rmse_res$pca - rmse_res$drr) + 1e-12 > 0))
+  for (i in 1:length(rmse_res$pca)) {
+    expect_true(rmse_res$pca[i] - rmse_res$drr[i] + 1e-12 > 0, info = paste0(
+                                                           "ndim = ", i,
+                                                           ", rmse pca = ", rmse_res$pca[i],
+                                                           ", rmse drr = ", rmse_res$drr[i]
+                                                         ))
+  }
+  # expect_true(all((rmse_res$pca - rmse_res$drr) + 1e-12 > 0))
 
   expect_error(reconstruction_error(ir.pca, 5))
   expect_error(reconstruction_error(ir.pca, 0))

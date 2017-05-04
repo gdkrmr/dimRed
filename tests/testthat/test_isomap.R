@@ -25,6 +25,8 @@ test_that("check vs vegan isomap", {
     err2 <- max(abs(drdy - vegy))
     err <- min(err1, err2)
 
-    expect_true(err < eps)
+    expect_true(err < eps, info = paste0("err = ", err,
+                                         ", eps = ", eps,
+                                         ", expected err < eps"))
 
 })
