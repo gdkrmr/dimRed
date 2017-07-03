@@ -7,8 +7,12 @@ r:
   - release
   - devel
 
-r_check_args:
-  "--run-donttest --run-dontrun --timings"
+# r_check_args:
+#   "--run-donttest --run-dontrun --timings"
+
+env:
+  global:
+    - R_CHECK_ARGS = "--run-donttest --run-dontrun --timings"
 
 before_install:
   - Rscript -e "update.packages(ask = FALSE)"
@@ -21,6 +25,11 @@ before_install:
 before_script:
   - Rscript -e "devtools::document()"
 
+script: 
+  - |
+    R CMD build ${R_BUILD_ARGS} .
+    travis_wait 40 R CMD check ${PKG_TARBALL} ${R_CHECK_ARGS}
+  
 # Only report coverage for the release version
 after_success:
 - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
