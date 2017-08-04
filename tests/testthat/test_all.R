@@ -28,6 +28,8 @@ test_that("high level functions working?", {
         }
     }
 
+    lapply(embedded_data, function(x) expect_equal(2, getNDim(x)))
+
     expect(inherits(quality_results, "matrix"), "should be matrix")
     expect(storage.mode(quality_results) == "double",
            'storage should be "double"')

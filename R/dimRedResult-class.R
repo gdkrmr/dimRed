@@ -168,6 +168,16 @@ setMethod(
     }
 )
 
+#' @describeIn dimRedResult Get the number of embedding dimensions.
+#' @export
+setMethod(
+    f = "getNDim",
+    signature = "dimRedResult",
+    definition = function (object) {
+        result <- getPars(object)$ndim
+        if(is.null(result)) dim(object@data@data)[2] else result
+    }
+)
 
 #' @describeIn dimRedResult Method for printing.
 #' @import utils

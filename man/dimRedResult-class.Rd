@@ -9,6 +9,7 @@
 \alias{inverse}
 \alias{as.data.frame,dimRedResult-method}
 \alias{getPars,dimRedResult-method}
+\alias{getNDim,dimRedResult-method}
 \alias{print,dimRedResult-method}
 \alias{getOrgData,dimRedResult-method}
 \alias{getDimRedData,dimRedResult-method}
@@ -23,6 +24,8 @@
   meta.prefix = "meta.", data.prefix = "")
 
 \S4method{getPars}{dimRedResult}(object)
+
+\S4method{getNDim}{dimRedResult}(object)
 
 \S4method{print}{dimRedResult}(x)
 
@@ -64,6 +67,8 @@ In some cases the apply function may only be an approximation.
 
 \item \code{getPars}: Get the parameters with which the method
 was called.
+
+\item \code{getNDim}: Get the number of embedding dimensions.
 
 \item \code{print}: Method for printing.
 

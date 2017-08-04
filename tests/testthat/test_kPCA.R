@@ -62,6 +62,9 @@ test_that("general data conversions", {
         if (inherits(irisRes[[i]], "dimRedResult")){
           expect_equal(irisRes[[i]]@apply(irisData)@data[, 1:2],
                        irisRes[[i]]@data@data)
+
+          expect_equal(2, getNDim(irisRes[[i]]))
+
             ## the reverse is an approximate:
             expect(
                 max(

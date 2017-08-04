@@ -99,6 +99,14 @@ setGeneric("getMeta", function(object, ...) standardGeneric("getMeta"))
 #' @param ... other arguments.
 setGeneric("getPars", function (object, ...) standardGeneric("getPars"))
 
+#' Method getNDim
+#'
+#' Extract the number of embedding dimensions.
+#'
+#' @param object The object to get the dimensions from.
+#' @param ... other arguments.
+setGeneric("getNDim", function (object, ...) standardGeneric("getNDim"))
+
 #' Method getOrgData
 #'
 #' Extract the Original data.
