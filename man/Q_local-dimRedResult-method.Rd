@@ -6,10 +6,12 @@
 \alias{Q_local}
 \title{Method Q_local}
 \usage{
-\S4method{Q_local}{dimRedResult}(object)
+\S4method{Q_local}{dimRedResult}(object, ndim = getNDim(object))
 }
 \arguments{
-\item{object}{of class dimRedResult}
+\item{object}{of class dimRedResult.}
+
+\item{ndim}{use the first ndim columns of the embedded data for calculation.}
 }
 \description{
 Calculate the Q_local score to assess the quality of a dimensionality reduction.

@@ -170,18 +170,20 @@ setGeneric(
 #'
 #' Calculate the Q_local score to assess the quality of a dimensionality reduction.
 #'
-#' @param object of class dimRedResult
+#' @param object of class dimRedResult.
+#' @param ndim use the first ndim columns of the embedded data for calculation.
 #' @family Quality scores for dimensionality reduction
 #' @aliases Q_local
 #' @export
 setMethod(
     "Q_local",
     "dimRedResult",
-    function (object) {
+    function (object, ndim = getNDim(object)) {
         if (!object@has.org.data) stop("object requires original data")
         chckpkg("coRanking")
 
-        Q <- coRanking::coranking(object@org.data, object@data@data)
+        Q <- coRanking::coranking(object@org.data,
+                                  object@data@data[, seq_len(ndim), drop = FALSE])
         nQ <- nrow(Q)
         N <- nQ + 1
 
@@ -191,7 +193,7 @@ setMethod(
         Kmax <- which.max(lcmc)
 
         Qlocal <- sum(lcmc[1:Kmax]) / Kmax
-        return(Qlocal)
+        return(as.vector(Qlocal))
     }
 )
 

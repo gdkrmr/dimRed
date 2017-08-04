@@ -24,6 +24,17 @@ test_that("quality", {
     lapply(resQual, function(x) expect_true(is.numeric(x)))
 })
 
+test_that("Q_local ndim", {
+    irisData <- loadDataSet("Iris")
+    irisData <- irisData[!duplicated(irisData@data)]
+
+    parsPCA <- list(center = TRUE, scale. = TRUE, ndim = 4)
+    resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
+
+    tmp <- sapply(1:4, function(x) quality(resPCA, "Q_local", ndim = x))
+    expect_equal(rank(tmp), 1:4)
+})
+
 test_that("rmse_by_ndim", {
 
   ir <- loadDataSet("Iris")
