@@ -596,7 +596,9 @@ setGeneric(
 #'
 #' @param object of class dimRedResult
 #' @param n a positive integer or vector of integers \code{<= ndims(object)}
-#' @param error_fun a function or string indicating an error function.
+#' @param error_fun a function or string indicating an error function, if
+#'   indication a function it must take to matrices of the same size and return
+#'   a scalar.
 #' @return a vector of number with the same length as \code{n} with the
 #'
 #' @examples
@@ -626,7 +628,7 @@ setMethod(
     if (any(n > ndims(object))) stop("n > ndims(object)")
     if (any(n < 1))             stop("n < 1")
 
-    if (inherits(error_fun, "character")) {
+    ef <- if (inherits(error_fun, "character")) {
       switch(
         error_fun,
         rmse = rmse,
@@ -640,11 +642,11 @@ setMethod(
 
     res <- numeric(length(n))
     org <- getData(getOrgData(object))
-    for (i in n) {
+    for (i in seq_along(n)) {
       rec <- getData(inverse(
-       object , getData(getDimRedData(object))[, seq_len(i), drop = FALSE]
+        object, getData(getDimRedData(object))[, seq_len(n[i]), drop = FALSE]
       ))
-      res[i] <- sqrt(mean((org - rec) ^ 2))
+      res[i] <- ef(org, rec)
     }
     res
   }
