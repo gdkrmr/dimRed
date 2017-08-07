@@ -1,5 +1,4 @@
 
-data(iris)
 context("PCA")
 
 test_that("general data conversions", {

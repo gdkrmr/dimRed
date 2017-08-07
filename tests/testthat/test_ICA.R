@@ -1,5 +1,4 @@
 
-data(iris)
 context("FastICA")
 
 test_that("general data conversions", {

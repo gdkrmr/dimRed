@@ -26,7 +26,7 @@
 #'
 #' Wraps around \code{\link{prcomp}}. Because PCA can be reduced to a
 #' simple rotation, forward and backward projection functions are
-#' supplied. .
+#' supplied.
 #'
 #' @examples
 #' dat <- loadDataSet("Iris")
