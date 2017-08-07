@@ -14,7 +14,9 @@
 
 \item{n}{a positive integer or vector of integers \code{<= ndims(object)}}
 
-\item{error_fun}{a function or string indicating an error function.}
+\item{error_fun}{a function or string indicating an error function, if
+indication a function it must take to matrices of the same size and return
+a scalar.}
 }
 \value{
 a vector of number with the same length as \code{n} with the

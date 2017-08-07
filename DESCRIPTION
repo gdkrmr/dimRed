@@ -55,6 +55,7 @@ Collate:
     'hlle.R'
     'isomap.R'
     'kpca.R'
+    'l1pca.R'
     'leim.R'
     'lle.R'
     'loe.R'

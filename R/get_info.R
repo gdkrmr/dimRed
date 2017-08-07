@@ -28,6 +28,7 @@
 getRotationMatrix <- function(x) {
   if(!inherits(x, "dimRedResult")) stop("x must be of type 'dimRedResult'")
   if(x@method == "PCA")     return(environment(x@apply)$rot)
+  if(x@method == "PCA_L1")  return(environment(x@apply)$rot)
   if(x@method == "FastICA") return(environment(x@apply)$res$K %*% environment(x@apply)$res$W)
   stop(paste("Not implemented for", x@method))
 }
