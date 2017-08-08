@@ -11,7 +11,7 @@ r_check_args:
   "--run-donttest --run-dontrun --timings"
 
 before_install:
-  - Rscript -e '"pcaL1" %in% rownames(installed.packages()) || install.packages("pcaL1", ask = FALSE)'
+  - Rscript -e '("pcaL1" %in% rownames(installed.packages())) || install.packages("pcaL1", ask = FALSE)'
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
   - Rscript -e "if (!'rgl' %in% rownames(installed.packages())) install.packages('rgl')"
