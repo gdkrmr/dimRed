@@ -20,6 +20,8 @@ before_install:
 
 before_script:
   - Rscript -e "devtools::document()"
+  - Rscript -e "dimRed::installSuggests()"
+  - Rscript -e "update.packages(ask = FALSE)"
 
 # Only report coverage for the release version
 after_success:
