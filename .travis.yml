@@ -9,13 +9,39 @@ r:
 
 r_check_args:
   "--run-donttest --run-dontrun --timings"
+r_packages:
+  - MASS,
+  - Matrix,
+  - RANN,
+  - RSpectra,
+  - Rtsne,
+  - coRanking,
+  - diffusionMap,
+  - energy,
+  - fastICA,
+  - ggplot2,
+  - graphics,
+  - igraph,
+  - kernlab,
+  - lle,
+  - loe,
+  - optimx,
+  - pcaPP,
+  - pcaL1,
+  - rgl,
+  - scales,
+  - scatterplot3d,
+  - stats,
+  - testthat,
+  - tidyr,
+  - vegan
 
 before_install:
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
   - Rscript -e "if (!'rgl' %in% rownames(installed.packages())) install.packages('rgl')"
   - Rscript -e "if (!'roxygen2' %in% rownames(installed.packages())) install.packages('roxygen2')"
-# Set CXX1X for R-devel, as R-devel does not detect CXX1X support for gcc 4.6.3,
+  # Set CXX1X for R-devel, as R-devel does not detect CXX1X support for gcc 4.6.3,
   - if [[ "$TRAVIS_R_VERSION_STRING" = 'devel' ]]; then mkdir ~/.R && echo 'CXX1X=g++ -std=c++0x -g -O2 -fPIC' > ~/.R/Makevars; fi
 
 before_script:
