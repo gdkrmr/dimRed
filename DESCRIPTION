@@ -29,6 +29,7 @@ Suggests:
     loe,
     optimx,
     pcaPP,
+    pcaL1,
     rgl,
     scales,
     scatterplot3d,
