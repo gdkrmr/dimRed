@@ -2,6 +2,9 @@ language: r
 cache: packages
 sudo: false
 
+apt_packages:
+  - coinor-libclp-dev
+
 r:
   - oldrel
   - release
