@@ -9,32 +9,6 @@ r:
 
 r_check_args:
   "--run-donttest --run-dontrun --timings"
-r_packages:
-  - MASS,
-  - Matrix,
-  - RANN,
-  - RSpectra,
-  - Rtsne,
-  - coRanking,
-  - diffusionMap,
-  - energy,
-  - fastICA,
-  - ggplot2,
-  - graphics,
-  - igraph,
-  - kernlab,
-  - lle,
-  - loe,
-  - optimx,
-  - pcaPP,
-  - pcaL1,
-  - rgl,
-  - scales,
-  - scatterplot3d,
-  - stats,
-  - testthat,
-  - tidyr,
-  - vegan
 
 before_install:
   - Rscript -e "update.packages(ask = FALSE)"
