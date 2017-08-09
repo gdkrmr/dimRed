@@ -101,10 +101,13 @@ setMethod(
 #' Also the Area under the curve values are computed for logarithmic K
 #' (AUC_lnK) and appear in the legend.
 #'
-#' @param x a list of \code{\link{dimRedResult}} objects. The names of
-#'     the list will appear in the legend with the AUC_lnK value.
+#' @param x a list of \code{\link{dimRedResult}} objects. The names of the list
+#'   will appear in the legend with the AUC_lnK value.
+#' @param ndim the number of dimensions, if \code{NA} the original number of
+#'   embedding dimensions is used, can be a vector giving the embedding
+#'   dimensionality for each single list element of \code{x}.
 #' @return A ggplot object, the design can be changed by appending
-#'     \code{theme(...)}
+#'   \code{theme(...)}
 #'
 #' @examples
 #' 
@@ -122,7 +125,7 @@ setMethod(
 #'                    legend.justification = c(0.5, 0.1))
 #' 
 #' @export
-plot_R_NX <- function(x) {
+plot_R_NX <- function(x, ndim = NA) {
     chckpkg("ggplot2")
     chckpkg("tidyr")
     chckpkg("scales")
@@ -133,11 +136,12 @@ plot_R_NX <- function(x) {
             stop("x must be a list and ",
                  "all items must inherit from 'dimRedResult'")
     )
-    rnx <- lapply(x, R_NX)
-    auc <- sapply(rnx, auc_lnK)
+
+    rnx <- mapply(function(x, ndim) if(is.na(ndim)) R_NX(x) else R_NX(x, ndim),
+                  x = x, ndim = ndim)
+    auc <- apply(rnx, 2, auc_lnK)
 
     df <- as.data.frame(rnx)
-    names(df) <- names(x)
     df$K <- seq_len(nrow(df))
 
     qnxgrid <- expand.grid(K = df$K,
@@ -178,5 +182,12 @@ plot_R_NX <- function(x) {
                      breaks = names(x),
                      labels = paste(format(auc, digits = 3),
                                     names(x))) +
+        ggplot2::labs(title = paste0(
+                        "R_NX vs. K",
+                        if (length(ndim) == 1 && !is.na(ndim))
+                          paste0(", d = ", ndim)
+                        else
+                          ""
+                      )) +
         ggplot2::theme_classic()
 }

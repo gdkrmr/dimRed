@@ -473,27 +473,30 @@ dimRedQualityList <- function () {
 #' @export
 setGeneric(
     "R_NX",
-    function(object) standardGeneric("R_NX"),
+    function(object, ...) standardGeneric("R_NX"),
     valueClass = "numeric"
 )
 
 #' Method R_NX
 #'
-#' Calculate the R_NX score from Lee et. al. (2013) which shows the
-#' neighborhood preservation for the Kth nearest neighbors,
-#' corrected for random point distributions and scaled to range [0, 1].
+#' Calculate the R_NX score from Lee et. al. (2013) which shows the neighborhood
+#' preservation for the Kth nearest neighbors, corrected for random point
+#' distributions and scaled to range [0, 1].
 #' @param object of class dimRedResult
+#' @param ndim the number of dimensions to take from the embedded data.
 #' @family Quality scores for dimensionality reduction
 #' @aliases R_NX
 #' @export
 setMethod(
     "R_NX",
     "dimRedResult",
-    function(object) {
+    function(object, ndim = getNDim(object)) {
         chckpkg("coRanking")
         if (!object@has.org.data) stop("object requires original data")
 
-        Q <- coRanking::coranking(object@org.data, object@data@data)
+        Q <- coRanking::coranking(object@org.data,
+                                  object@data@data[, seq_len(ndim),
+                                                   drop = FALSE])
         nQ <- nrow(Q)
         N <- nQ + 1
 

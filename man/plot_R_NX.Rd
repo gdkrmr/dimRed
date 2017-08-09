@@ -4,15 +4,19 @@
 \alias{plot_R_NX}
 \title{plot_R_NX}
 \usage{
-plot_R_NX(x)
+plot_R_NX(x, ndim = NA)
 }
 \arguments{
-\item{x}{a list of \code{\link{dimRedResult}} objects. The names of
-the list will appear in the legend with the AUC_lnK value.}
+\item{x}{a list of \code{\link{dimRedResult}} objects. The names of the list
+will appear in the legend with the AUC_lnK value.}
+
+\item{ndim}{the number of dimensions, if \code{NA} the original number of
+embedding dimensions is used, can be a vector giving the embedding
+dimensionality for each single list element of \code{x}.}
 }
 \value{
 A ggplot object, the design can be changed by appending
-    \code{theme(...)}
+  \code{theme(...)}
 }
 \description{
 Plot the R_NX curve for different embeddings. Takes a list of

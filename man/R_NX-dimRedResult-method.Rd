@@ -6,15 +6,17 @@
 \alias{R_NX}
 \title{Method R_NX}
 \usage{
-\S4method{R_NX}{dimRedResult}(object)
+\S4method{R_NX}{dimRedResult}(object, ndim = getNDim(object))
 }
 \arguments{
 \item{object}{of class dimRedResult}
+
+\item{ndim}{the number of dimensions to take from the embedded data.}
 }
 \description{
-Calculate the R_NX score from Lee et. al. (2013) which shows the
-neighborhood preservation for the Kth nearest neighbors,
-corrected for random point distributions and scaled to range [0, 1].
+Calculate the R_NX score from Lee et. al. (2013) which shows the neighborhood
+preservation for the Kth nearest neighbors, corrected for random point
+distributions and scaled to range [0, 1].
 }
 \seealso{
 Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
