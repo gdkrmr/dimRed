@@ -289,7 +289,7 @@ setMethod(
 auc_lnK <- function(rnx) {
     Ks <- seq_along(rnx)
     return (sum(rnx / Ks) / sum(1 / Ks))
-    ## in my intuition it should be the folowing:
+    ## in my intuition this should be the following:
     ## N <- length(rnx)
     ## sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
 }
