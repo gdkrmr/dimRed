@@ -68,29 +68,29 @@ PCA_L1 <- setClass(
         data <- data@data
 
         fun2 <- if(!is.function(pars$fun)) {
-                  get(pars$fun, asNamespace("pcaL1"))
+                    get(pars$fun, asNamespace("pcaL1"))
                 } else {
-                  pars$fun
+                    pars$fun
                 }
 
         ce <- if (is.numeric(pars$center)) {
-          if (length(pars$center) != dim(data)[2])
-            error("center must be logical or have the same length as the data dimensions")
-          pars$center
-        } else if (is.logical(pars$center)) {
-          if (pars$center) colMeans(data) else FALSE
-        }
+                  if (length(pars$center) != dim(data)[2])
+                      error("center must be logical or have the same length as the data dimensions")
+                  pars$center
+              } else if (is.logical(pars$center)) {
+                  if (pars$center) colMeans(data) else FALSE
+              }
 
         sc <- if (is.numeric(pars$scale.)) {
-          if (length(pars$scale.) != dim(data)[2])
-            stop("center must be logical or have the same length as the data dimensions")
-          pars$scale.
-        } else if (is.logical(pars$scale.)) {
-          if (pars$scale.) apply(data, 2, sd) else FALSE
-        }
+                  if (length(pars$scale.) != dim(data)[2])
+                      stop("center must be logical or have the same length as the data dimensions")
+                  pars$scale.
+              } else if (is.logical(pars$scale.)) {
+                  if (pars$scale.) apply(data, 2, sd) else FALSE
+              }
 
         if(!(pars$center == FALSE && pars$scale. == FALSE))
-          data <- scale(data, ce, sc)
+            data <- scale(data, ce, sc)
 
 
         pars$center <- NULL
@@ -99,8 +99,8 @@ PCA_L1 <- setClass(
         pars$fun <- NULL
 
         res <- do.call(
-          fun2,
-          c(list(X = data, projDim = ndim, center = FALSE), pars)
+            fun2,
+            c(list(X = data, projDim = ndim, center = FALSE), pars)
         )
 
         ## evaluate results here for functions
