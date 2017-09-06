@@ -122,7 +122,15 @@ PCA_L1 <- setClass(
             if (ce[1]  != FALSE) proj <- t(apply(proj, 1, function(x) x - ce))
             if (sc[1]  != FALSE) proj <- t(apply(proj, 1, function(x) x / sc))
 
-            proj <- proj %*% rot
+            proj <- if (pars$projections == "l1") {
+                        tmp <- pcaL1::l1projection(proj, rot)$scores
+                        colnames(tmp) <- paste0("PC", seq_len(ndim))
+                        tmp
+                    } else if (pars$projections == "l2") {
+                        proj %*% rot
+                    } else {
+                        stop("projections must be eiter 'l1' or 'l2'")
+                    }
 
             proj <- new("dimRedData", data = proj, meta = appl.meta)
             return(proj)
