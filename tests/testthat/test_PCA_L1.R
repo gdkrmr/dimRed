@@ -57,7 +57,7 @@ test_that("general data conversions", {
               irisParsCS[c("center", "scale.")]),
       getData( getDimRedData(irisResCS) )
     )
-    
+
     expect_equal(
       do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResS),
               irisParsS[c("center", "scale.")]),
