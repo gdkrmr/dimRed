@@ -68,7 +68,8 @@ by Locally Linear Embedding. Science 290,
 2323-2326. doi:10.1126/science.290.5500.2323
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},

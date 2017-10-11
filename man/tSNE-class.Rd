@@ -78,7 +78,8 @@ van der Maaten, L., Hinton, G., 2008. Visualizing Data using
 t-SNE. J. Mach. Learn. Res. 9, 2579-2605.
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},

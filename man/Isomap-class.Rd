@@ -71,7 +71,8 @@ plot(emb3, type = "2vars")
 
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},

@@ -67,7 +67,8 @@ embedding techniques for high-dimensional data. PNAS 100,
 5591-5596. doi:10.1073/pnas.1031596100
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},

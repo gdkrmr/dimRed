@@ -92,8 +92,9 @@ Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
     5-30. doi:10.1016/j.acha.2006.04.006
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}}, \code{\link{DrL-class}},
+  \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
