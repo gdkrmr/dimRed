@@ -51,7 +51,7 @@
 #' embsamp <- autoenc@fun(dat[samp], autoenc@stdpars)
 #' embother <- embsamp@apply(dat[-samp])
 #' plot(embsamp, type = "2vars")
-#' points(embother)
+#' points(embother@data)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -180,7 +180,8 @@ AutoEncoder <- setClass(
 
           res <- sess$run(enc, feed_dict = tensorflow::dict(input = proj))
           colnames(res) <- paste0("nlPCA", seq_len(ncol(res)))
-          return(res)
+
+          new("dimRedData", data = res, meta = appl.meta)
         }
 
         inv <- function(x) {
@@ -193,7 +194,8 @@ AutoEncoder <- setClass(
 
           res <- sess$run(dec, feed_dict = tensorflow::dict(indec = proj))
           colnames(res) <- colnames(indata)
-          return(res)
+
+          new("dimRedData", data = res, meta = appl.meta)
         }
 
 

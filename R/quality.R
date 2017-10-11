@@ -452,7 +452,7 @@ setMethod(
 
         recon <- object@inverse(object@data)
 
-        rmse(recon, object@org.data)
+        rmse(recon@data, object@org.data)
     }
 )
 

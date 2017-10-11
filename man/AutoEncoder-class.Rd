@@ -78,7 +78,7 @@ samp <- sample(floor(nrow(dat) / 10))
 embsamp <- autoenc@fun(dat[samp], autoenc@stdpars)
 embother <- embsamp@apply(dat[-samp])
 plot(embsamp, type = "2vars")
-points(embother)
+points(embother@data)
 
 }
 \seealso{
