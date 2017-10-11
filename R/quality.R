@@ -452,7 +452,7 @@ setMethod(
 
         recon <- object@inverse(object@data)
 
-        sqrt(mean((recon@data - object@org.data) ^ 2))
+        rmse(recon, object@org.data)
     }
 )
 
