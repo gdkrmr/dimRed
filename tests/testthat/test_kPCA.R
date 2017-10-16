@@ -66,12 +66,12 @@ test_that("general data conversions", {
           expect_equal(2, getNDim(irisRes[[i]]))
 
             ## the reverse is an approximate:
-            expect(
-                max(
-                    irisRes[[i]]@inverse(irisRes[[i]]@data)@data - irisData@data
-                ) < 200,
-                paste0("inverse of kpca is an approximate, ",
-                       "so this may fail due to numerical inaccuracy")
+          expect(
+              max(
+                  irisRes[[i]]@inverse(irisRes[[i]]@data)@data - irisData@data
+              ) < 200,
+              paste0("inverse of kpca is an approximate, ",
+                     "so this may fail due to numerical inaccuracy")
             )
         }
     }
