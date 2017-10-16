@@ -138,8 +138,7 @@ AutoEncoder <- setClass(
                 stop("x must have the same number of dimensions ",
                      "as ndim data")
 
-            tf$
-            res <- sess$run(graph$decoder, feed_dict = tensorflow::dict(decoder_data_input = proj))
+            res <- sess$run(graph$decoder, feed_dict = tensorflow::dict(graph_decoder_input = proj))
             colnames(res) <- colnames(indata)
 
             new("dimRedData", data = res, meta = appl.meta)
