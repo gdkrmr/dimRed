@@ -63,6 +63,7 @@ Currently only a very simple Autoencoder is implemented.
 }
 
 \examples{
+\dontrun{
 dat <- loadDataSet("3D S Curve")
 
 ## use the S4 Class directly:
@@ -79,6 +80,7 @@ embsamp <- autoenc@fun(dat[samp], autoenc@stdpars)
 embother <- embsamp@apply(dat[-samp])
 plot(embsamp, type = "2vars")
 points(embother@data)
+}
 
 }
 \seealso{

@@ -64,13 +64,15 @@ AutoEncoder <- setClass(
     "AutoEncoder",
     contains  = "dimRedMethod",
     prototype = list(
-        stdpars = list(ndim       = 2,
-                       n_hidden   = c(10, 2, 10),
-                       activation = c("tanh", "lin", "tanh"),
-                       weight_decay = 0.001,
+        stdpars = list(ndim          = 2,
+                       n_hidden      = c(10, 2, 10),
+                       activation    = c("tanh", "lin", "tanh"),
+                       weight_decay  = 0.001,
                        learning_rate = 0.15,
-                       batchsize = NA,
-                       n_steps = 500),
+                       graph         = NULL,
+                       autoencoder   = NULL, # is.na() of an S4 class gives a warning
+                       batchsize     = NA,
+                       n_steps       = 500),
         fun     = function (data, pars,
                             keep.org.data = TRUE) {
         chckpkg("tensorflow")
@@ -79,44 +81,79 @@ AutoEncoder <- setClass(
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
 
-        graph <- with(pars, {
-            graph_params(
-                d_in          = ncol(indata),
-                n_hidden      = n_hidden,
-                activation    = activation,
-                weight_decay  = weight_decay,
-                learning_rate = learning_rate,
-                n_steps       = n_steps,
-                ndim          = ndim
-            )
-        })
-        graph_data_input <- graph$in_data
-        graph_decoder_input <- graph$in_dec
 
-        optimizer <- tensorflow::tf$train$GradientDescentOptimizer(pars$learning_rate)
+        graph <-
+            if (!is.null(pars$graph)) {
+                message("using predefined graph, ",
+                        "ignoring other parameters that define topology, ",
+                        "be sure to set ndim to the correct value ",
+                        "else you might run into trouble.")
+                pars$graph
+            } else if (!is.null(pars$autoencoder)) {
+                message("using predefined autoencoder object, ",
+                        " ignoring other parameters that define topology.")
+                if (!(inherits(pars$autoencoder, "dimRedResult") &&
+                      pars$autoencoder@method == "AutoEncoder"))
+                    stop("autoencoder must be NA, ",
+                         "or of type dimRedResult by an AutoEncoder object.")
+
+                ## setting topology related parameters from autoencoder
+                pars$ndim <- pars$autoencoder@pars$ndim
+                pars$n_hidden <- pars$autoencoder@pars$n_hidden
+                pars$activation <- pars$autoencoder@pars$activation
+
+                pars$autoencoder@pars$graph
+            } else {
+                with(pars, {
+                    graph_params(
+                        d_in          = ncol(indata),
+                        n_hidden      = n_hidden,
+                        activation    = activation,
+                        weight_decay  = weight_decay,
+                        learning_rate = learning_rate,
+                        n_steps       = n_steps,
+                        ndim          = ndim
+                    )
+                })
+            }
+
+        if (!"encoder"    %in% names(graph)) stop("no encoder in graph")
+        if (!"decoder"    %in% names(graph)) stop("no decoder in graph")
+        if (!"network"    %in% names(graph)) stop("no network in graph")
+        if (!"loss"       %in% names(graph)) stop("no loss in graph")
+        if (!"in_decoder" %in% names(graph)) stop("no in_decoder in graph")
+        if (!"in_data"    %in% names(graph)) stop("no in_data in graph")
+        if (!"session"    %in% names(graph)) stop("no session in graph")
+
+        ## TODO: I am not sure if there is a way to do this directly on the list
+        ## objects
+        graph_data_input    <- graph$in_data
+        graph_decoder_input <- graph$in_dec
+        sess                <- graph$session
+
+        optimizer <-
+            tensorflow::tf$train$GradientDescentOptimizer(pars$learning_rate)
         train <- optimizer$minimize(graph$loss)
 
-        sess <- tensorflow::tf$Session()
-        ## This closes sess if it is garbage collected.
-        reg.finalizer(sess, function(x) x$close())
-        sess$run(tensorflow::tf$global_variables_initializer())
-
-        ## feed <- dict(input = in_data) #[sort(sample(1:nrow(in_data), batchsize)), ])
-        ## cat("0 -", sess$run(loss, feed_dict = feed), "\n")
+        ## TODO: do proper batching and hold out
         for (step in 1:pars$n_steps) {
             sess$run(train, feed_dict =
                 tensorflow::dict(
                     graph_data_input =
-                        if(is.na(pars$batchsize)) {
+                        if (is.na(pars$batchsize)) {
                             indata
                         } else {
-                            indata[sample(seq_len(nrow(indata)), pars$batchsize), ]
+                            indata[
+                                sample(seq_len(nrow(indata)), pars$batchsize),
+                                ]
                         }
                 )
             )
         }
 
-        outdata <- sess$run(graph$encoder, feed_dict = tensorflow::dict(graph_data_input = indata))
+        outdata <-
+            sess$run(graph$encoder,
+                     feed_dict = tensorflow::dict(graph_data_input = indata))
 
         appl <- function(x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
@@ -126,7 +163,10 @@ AutoEncoder <- setClass(
                 stop("x must have the same number of dimensions ",
                      "as the original data")
 
-            res <- sess$run(graph$encoder, feed_dict = tensorflow::dict(graph_data_input = proj))
+            res <-
+                sess$run(graph$encoder,
+                         feed_dict = tensorflow::dict(graph_data_input = proj))
+
             colnames(res) <- paste0("AE", seq_len(ncol(res)))
 
             new("dimRedData", data = res, meta = appl.meta)
@@ -140,13 +180,19 @@ AutoEncoder <- setClass(
                 stop("x must have the same number of dimensions ",
                      "as ndim data")
 
-            res <- sess$run(graph$decoder, feed_dict = tensorflow::dict(graph_decoder_input = proj))
+            res <-
+                sess$run(graph$decoder,
+                         feed_dict = tensorflow::dict(graph_decoder_input = proj))
+
             colnames(res) <- colnames(indata)
 
             new("dimRedData", data = res, meta = appl.meta)
         }
 
 
+        ## TODO: this is a hack and there should be an "official" way to save
+        ## extra data in a dimRedResult object
+        pars$graph <- graph
 
         colnames(outdata) <- paste0("AE", seq_len(ncol(outdata)))
 
@@ -247,5 +293,18 @@ graph_params <- function(
     loss <- Reduce(`+`, lapply(b, function (x) tf$reduce_sum(tf$pow(x, 2))), loss)
     loss <- tf$reduce_mean((encdec - input) ^ 2) + weight_decay * loss
 
-    return(list(encoder = enc, decoder = dec, network = encdec, loss = loss, in_data = input, in_decoder = indec))
+    sess <- tensorflow::tf$Session()
+    ## This closes sess if it is garbage collected.
+    reg.finalizer(sess, function(x) x$close())
+    sess$run(tensorflow::tf$global_variables_initializer())
+
+    return(list(
+      encoder    = enc,
+      decoder    = dec,
+      network    = encdec,
+      loss       = loss,
+      in_data    = input,
+      in_decoder = indec,
+      session    = sess
+    ))
 }
