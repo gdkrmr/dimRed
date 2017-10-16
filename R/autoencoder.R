@@ -36,6 +36,7 @@
 #' #@references
 #'
 #' @examples
+#' \dontrun{
 #' dat <- loadDataSet("3D S Curve")
 #'
 #' ## use the S4 Class directly:
@@ -52,6 +53,7 @@
 #' embother <- embsamp@apply(dat[-samp])
 #' plot(embsamp, type = "2vars")
 #' points(embother@data)
+#' }
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
