@@ -1,5 +1,4 @@
 language: r
-cache: packages
 sudo: false
 
 # for pcaL1:
@@ -12,6 +11,12 @@ r:
   - oldrel
   - release
   - devel
+
+cache:
+  packages: true
+  directories:
+    - $HOME/.keras
+    - $HOME/.cache/pip
 
 r_check_args:
   "--run-donttest --run-dontrun --timings"
@@ -27,10 +32,11 @@ before_install:
 
 before_script:
   - Rscript -e "devtools::document()"
-  # TensorFlow stuff:
+  # Keras and TensorFlow stuff
   - pip2.7 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
+  - pip2.7 install --upgrade --ignore-installed --user travis keras h5py pyyaml requests Pillow scipy
   - Rscript -e "tensorflow::install_tensorflow()"
 
 # Only report coverage for the release version
 after_success:
-- test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
+  - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
