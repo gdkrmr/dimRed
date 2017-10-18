@@ -9,8 +9,9 @@ Description: A collection of dimensionality reduction
     interface for calling the methods.
 Depends:
     R (>= 3.0.0),
-    methods,
     DRR
+Imports:
+    methods
 Suggests:
     MASS,
     Matrix,
