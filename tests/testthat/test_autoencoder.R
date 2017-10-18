@@ -56,15 +56,15 @@ test_that("using autoencoder with keras", {
 
   encoder <- function(i) list(keras::layer_dense(units = 10, activation = "tanh"),
                               keras::layer_dense(units = i))
-  decoder <- list(keras::layer_dense(units = 10, activation = "tanh"),
-                  keras::layer_dense(units = 4))
+  decoder <- function() list(keras::layer_dense(units = 10, activation = "tanh"),
+                             keras::layer_dense(units = 4))
 
   iris_data <- as(iris[, 1:4], "dimRedData")
 
   ae1 <- lapply(1:4, function(x) embed(iris_data, "AutoEncoder",
                                        keras_graph = list(encoder = encoder(x),
-                                                          decoder = decoder),
-                                       steps = 2))
+                                                          decoder = decoder()),
+                                       n_steps = 2))
   aq1 <- lapply(ae1, function(x) quality(x, "reconstruction_rmse"))
 
   ae2 <- lapply(ae1, function(x) embed(iris_data, "AutoEncoder", autoencoder = x))
@@ -80,7 +80,9 @@ test_that("using autoencoder with keras", {
 
   lapply(1:length(ae1), function(x) expect_equal(x, getNDim(ae1[[x]])))
   lapply(1:length(ae2), function(x) expect_equal(x, getNDim(ae2[[x]])))
+
 })
+
 
 
 ## test_that("garbage collection", {

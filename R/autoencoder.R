@@ -1,3 +1,6 @@
+#' @importFrom magrittr %>%
+NULL
+
 #' AutoEncoder
 #'
 #' An S4 Class implementing an Autoencoder
@@ -58,6 +61,7 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
+#'
 #' @export AutoEncoder
 #' @exportClass AutoEncoder
 AutoEncoder <- setClass(
@@ -82,7 +86,6 @@ AutoEncoder <- setClass(
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
 
-
         graph <-
             if (!is.null(pars$graph)) {
                 message("using predefined graph, ",
@@ -95,7 +98,7 @@ AutoEncoder <- setClass(
                         " ignoring other parameters that define topology.")
                 if (!(inherits(pars$autoencoder, "dimRedResult") &&
                       pars$autoencoder@method == "AutoEncoder"))
-                    stop("autoencoder must be NA, ",
+                    stop("autoencoder must be NULL, ",
                          "or of type dimRedResult by an AutoEncoder object.")
 
                 ## setting topology related parameters from autoencoder
@@ -104,11 +107,15 @@ AutoEncoder <- setClass(
                 pars$activation <- pars$autoencoder@pars$activation
 
                 pars$autoencoder@pars$graph
-            } else if (!is.null(pars$graph_keras)) {
+            } else if (!is.null(pars$keras_graph)) {
               message("using predefined keras graph, ",
                       "ignoring parameters that define topology")
-              tmp <- do.call(graph_keras, keras_graph)
-              pars$ndim <- tmp$encoder$shape$dim[[2]]$value
+              tmp <- graph_keras(encoder = pars$keras_graph$encoder,
+                                 decoder = pars$keras_graph$decoder,
+                                 n_in    = ncol(indata))
+message("ndim = ", pars$ndim)
+              pars$ndim <- tmp$encoder$shape$dims[[2]]$value
+message("ndim = ", pars$ndim)
 
               tmp
             } else {
@@ -259,13 +266,16 @@ graph_keras <- function(encoder, decoder, n_in) {
   chckpkg("tensorflow")
 
   inenc <- keras::layer_input(shape = n_in)
-  indec <- keras::layer_input(shape = ndim)
   enc <- inenc %>% chain_list(encoder)
+
+  ndim <- enc$shape$dims[[2]]$value
+  indec <- keras::layer_input(shape = ndim)
   dec <- indec %>% chain_list(decoder)
+
   encdec <- inenc %>% chain_list(encoder) %>% chain_list(decoder)
 
   ## TODO: check if this uses weight decay, probably not:
-  loss <- tensorflow::tf$reduce_mean((encdec - input) ^ 2)
+  loss <- tensorflow::tf$reduce_mean((encdec - inenc) ^ 2)
 
   sess <- keras::backend()$get_session()
 
@@ -274,7 +284,7 @@ graph_keras <- function(encoder, decoder, n_in) {
     decoder    = dec,
     network    = encdec,
     loss       = loss,
-    in_data    = inenc
+    in_data    = inenc,
     in_decoder = indec,
     session    = sess
   ))
