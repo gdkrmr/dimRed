@@ -23,9 +23,8 @@ and returns an object of class \code{\link{dimRedResult}}.
 The \code{stdpars} slot should take a list that contains standard
 parameters for the implemented methods.
 
-This way the method can be called by \code{embed(data,
-"method-name", ...)}, where \code{...} can be used to to change
-single parameters.
+This way the method can be called by \code{embed(data, "method-name",
+...)}, where \code{...} can be used to to change single parameters.
 }
 \section{Slots}{
 

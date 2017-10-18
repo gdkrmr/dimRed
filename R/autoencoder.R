@@ -1,6 +1,3 @@
-#' @importFrom magrittr %>%
-NULL
-
 #' AutoEncoder
 #'
 #' An S4 Class implementing an Autoencoder
@@ -61,7 +58,6 @@ NULL
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#'
 #' @export AutoEncoder
 #' @exportClass AutoEncoder
 AutoEncoder <- setClass(

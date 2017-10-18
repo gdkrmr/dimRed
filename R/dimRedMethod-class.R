@@ -1,3 +1,7 @@
+#' @import methods
+#' @importFrom magrittr %>%
+"_PACKAGE"
+
 #' Class "dimRedMethod"
 #'
 #' A virtual class "dimRedMethod" to serve as a template to implement
@@ -17,9 +21,8 @@
 #' The \code{stdpars} slot should take a list that contains standard
 #' parameters for the implemented methods.
 #'
-#' This way the method can be called by \code{embed(data,
-#' "method-name", ...)}, where \code{...} can be used to to change
-#' single parameters.
+#' This way the method can be called by \code{embed(data, "method-name",
+#' ...)}, where \code{...} can be used to to change single parameters.
 #'
 #'
 #' @slot fun A function that does the embedding.
