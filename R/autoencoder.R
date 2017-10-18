@@ -70,6 +70,7 @@ AutoEncoder <- setClass(
                        weight_decay  = 0.001,
                        learning_rate = 0.15,
                        graph         = NULL,
+                       keras_graph   = NULL,
                        autoencoder   = NULL, # is.na() of an S4 class gives a warning
                        batchsize     = NA,
                        n_steps       = 500),
@@ -98,11 +99,18 @@ AutoEncoder <- setClass(
                          "or of type dimRedResult by an AutoEncoder object.")
 
                 ## setting topology related parameters from autoencoder
-                pars$ndim <- pars$autoencoder@pars$ndim
-                pars$n_hidden <- pars$autoencoder@pars$n_hidden
+                pars$ndim       <- pars$autoencoder@pars$ndim
+                pars$n_hidden   <- pars$autoencoder@pars$n_hidden
                 pars$activation <- pars$autoencoder@pars$activation
 
                 pars$autoencoder@pars$graph
+            } else if (!is.null(pars$graph_keras)) {
+              message("using predefined keras graph, ",
+                      "ignoring parameters that define topology")
+              tmp <- do.call(graph_keras, keras_graph)
+              pars$ndim <- tmp$encoder$shape$dim[[2]]$value
+
+              tmp
             } else {
                 with(pars, {
                     graph_params(
@@ -224,15 +232,63 @@ get_activation_function <- function(x) {
     )
 }
 
-graph_params <- function(
-      d_in,
-      n_hidden,
-      activation,
-      weight_decay,
-      learning_rate,
-      n_steps,
-      ndim
-  ) {
+## no idea why these and variants do not work:
+## chain_list <- function(x1, x2) Reduce(`%>%`, x2, init = x1)
+## chain_list <- function(x) Reduce(`%>%`, x)
+chain_list <- function (x1, x2 = NULL) {
+
+  if(is.null(x2)) {
+    stopifnot(is.list(x1))
+    result <- x1[[1]]
+    if(length(x1) > 1) for (i in 2:length(x1)) {
+      result <- result %>% (x1[[i]])
+    }
+  } else {
+    stopifnot(is.list(x2))
+    result <- x1
+    for (i in 1:length(x2)) {
+      result <- result %>% (x2[[i]])
+    }
+  }
+
+  return(result)
+}
+
+graph_keras <- function(encoder, decoder, n_in) {
+  chckpkg("keras")
+  chckpkg("tensorflow")
+
+  inenc <- keras::layer_input(shape = n_in)
+  indec <- keras::layer_input(shape = ndim)
+  enc <- inenc %>% chain_list(encoder)
+  dec <- indec %>% chain_list(decoder)
+  encdec <- inenc %>% chain_list(encoder) %>% chain_list(decoder)
+
+  ## TODO: check if this uses weight decay, probably not:
+  loss <- tensorflow::tf$reduce_mean((encdec - input) ^ 2)
+
+  sess <- keras::backend()$get_session()
+
+  return(list(
+    encoder    = enc,
+    decoder    = dec,
+    network    = encdec,
+    loss       = loss,
+    in_data    = inenc
+    in_decoder = indec,
+    session    = sess
+  ))
+}
+
+graph_params <- function (
+    d_in,
+    n_hidden,
+    activation,
+    weight_decay,
+    learning_rate,
+    n_steps,
+    ndim
+) {
 
     if (length(n_hidden) != length(activation))
         stop("declare an activation for each layer")

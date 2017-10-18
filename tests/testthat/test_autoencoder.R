@@ -4,6 +4,10 @@ skip_if_no_tensorflow <- function() {
   if (!reticulate::py_module_available("tensorflow"))
     skip("TensorFlow not available for testing")
 }
+skip_if_no_keras <- function() {
+  if (!keras::is_keras_available())
+    skip("Keras not available for testing")
+}
 
 context("AutoEncoder")
 
@@ -46,6 +50,38 @@ test_that("using autoencoder with autoencoder results", {
     lapply(1:length(ae1), function(x) expect_equal(x, getNDim(ae1[[x]])))
     lapply(1:length(ae2), function(x) expect_equal(x, getNDim(ae2[[x]])))
 })
+
+test_that("using autoencoder with keras", {
+  skip_if_no_keras()
+
+  encoder <- function(i) list(keras::layer_dense(units = 10, activation = "tanh"),
+                              keras::layer_dense(units = i))
+  decoder <- list(keras::layer_dense(units = 10, activation = "tanh"),
+                  keras::layer_dense(units = 4))
+
+  iris_data <- as(iris[, 1:4], "dimRedData")
+
+  ae1 <- lapply(1:4, function(x) embed(iris_data, "AutoEncoder",
+                                       keras_graph = list(encoder = encoder(x),
+                                                          decoder = decoder),
+                                       steps = 2))
+  aq1 <- lapply(ae1, function(x) quality(x, "reconstruction_rmse"))
+
+  ae2 <- lapply(ae1, function(x) embed(iris_data, "AutoEncoder", autoencoder = x))
+  aq2 <- lapply(ae2, function(x) quality(x, "reconstruction_rmse"))
+
+  lapply(ae1, function(x) expect_s4_class(x, "dimRedResult"))
+  lapply(ae2, function(x) expect_s4_class(x, "dimRedResult"))
+
+  expect(aq1[[1]] > aq2[[1]], "the error should decrease with more steps")
+  expect(aq1[[2]] > aq2[[2]], "the error should decrease with more steps")
+  expect(aq1[[3]] > aq2[[3]], "the error should decrease with more steps")
+  expect(aq1[[4]] > aq2[[4]], "the error should decrease with more steps")
+
+  lapply(1:length(ae1), function(x) expect_equal(x, getNDim(ae1[[x]])))
+  lapply(1:length(ae2), function(x) expect_equal(x, getNDim(ae2[[x]])))
+})
+
 
 ## test_that("garbage collection", {
 ##   skip_if_no_tensorflow()
