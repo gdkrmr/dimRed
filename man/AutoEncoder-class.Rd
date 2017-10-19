@@ -47,19 +47,33 @@ Autoencoder can take the following parameters:
   \item{weight_decay}{the coefficient for weight decay,
       set to 0 if no weight decay desired.}
   \item{learning_rate}{The learning rate for gradient descend}
+  \item{graph}{Optional: A list of bits and pieces that define the
+     autoencoder in tensorflow, see details.}
+  \item{keras_graph}{Optional: A list of keras layers that define
+     the encoder and decoder, specifying this, will ignore all
+     other topology related variables, see details.}
   \item{batchsize}{If NA, all data will be used for training,
       else only a random subset of size batchsize will be used}
   \item{n_steps}{the number of training steps.}
 }
 }
 
-\section{Implementation}{
+\section{Details}{
 
-Uses \pkg{tensorflow} as a backend, for details an
-  problems relating tensorflow, see \url{https://tensorflow.rstudio.com}.
-Currently only a very simple Autoencoder is implemented.
 
-#@references
+There are several ways to specify an autoencoder, the simplest is to pass the
+number of neurons per layer in \code{n_hidden}, this must be a vector of
+integers of impair length and it must be symmetric and the middle number must
+be equal to \code{ndim}, For every layer an activation function can be specified
+with \code{activation}.
+
+For regularization weight decay can be specified by setting
+\code{weight_decay} > 0.
+
+Currently only a gradient descent optimizer is used, the learning rate can be
+specified by setting \code{learning_rate}.
+The learner can operate on batches if \code{batchsize} is not \code{NA}.
+The number of steps the learner uses is specified using \code{n_steps}.
 }
 
 \examples{
