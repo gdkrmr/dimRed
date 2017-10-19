@@ -31,8 +31,7 @@ before_install:
   - if [[ "$TRAVIS_R_VERSION_STRING" = 'devel' ]]; then mkdir ~/.R && echo 'CXX1X=g++ -std=c++0x -g -O2 -fPIC' > ~/.R/Makevars; fi
 
 before_script:
-  - Rscript -e "dimRed::installSuggests()"
-  - Rscript -e "devtools::document()"
+  # - Rscript -e "devtools::document()"
   # Keras and TensorFlow stuff
   - pip2.7 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
   - pip2.7 install --upgrade --ignore-installed --user keras h5py pyyaml requests Pillow scipy
