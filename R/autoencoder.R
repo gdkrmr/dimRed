@@ -206,7 +206,7 @@ AutoEncoder <- setClass(
                         } else {
                             indata[
                                 sample(seq_len(nrow(indata)), pars$batchsize),
-                                ]
+                            ]
                         }
                 )
             )
@@ -241,15 +241,16 @@ AutoEncoder <- setClass(
                 stop("x must have the same number of dimensions ",
                      "as ndim data")
 
-            res <-
-                sess$run(graph$decoder,
-                         feed_dict = tensorflow::dict(graph_decoder_input = proj))
+            res <- sess$run(
+              graph$decoder,
+              feed_dict = tensorflow::dict(
+                graph_decoder_input = proj
+            ))
 
             colnames(res) <- colnames(indata)
 
             new("dimRedData", data = res, meta = appl.meta)
         }
-
 
         ## TODO: this is a hack and there should be an "official" way to save
         ## extra data in a dimRedResult object
