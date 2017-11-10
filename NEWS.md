@@ -7,6 +7,10 @@
 
   * Added an `ndim` parameter to many quality functions.
 
+  * fixed bug in kPCA if inverse was not computable.
+
+  * added autoencoder
+
 # dimRed 0.1.0
 
   * Fixed kPCA predict function and documentation typos (@topepo #2)
