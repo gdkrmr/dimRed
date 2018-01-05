@@ -16,7 +16,7 @@
 #'     mute (\code{c("message", "output")}), defaults to
 #'     \code{character(0)}.
 #' @param .keep.org.data TRUE/FALSE keep the original data.
-#' @param ... the pameters, internally passed as a list to the
+#' @param ... the parameters, internally passed as a list to the
 #'     dimensionality reduction method as \code{pars = list(...)}
 #' @return an object of class \code{dimRedResult}
 #'
