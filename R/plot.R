@@ -16,7 +16,7 @@
 #' @param x dimRedResult/dimRedData class, e.g. output of
 #'     embedded/loadDataSet
 #' @param y Ignored
-#' @param type plot type, one of \code{c("pairs", "parallel", "2vars",
+#' @param type plot type, one of \code{c("pairs", "parpl", "2vars",
 #'     "3vars", "3varsrgl")}
 #' @param col the columns of the meta slot to use for coloring, can be
 #'     referenced as the column names or number of x@data
