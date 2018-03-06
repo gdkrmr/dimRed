@@ -1,6 +1,9 @@
 
 # dimRed 0.1.0.9001
 
+  * Added the possibility to return other data such as distance
+    matrices/eigenvalues
+
   * Added l1 PCA
 
   * Added `getNDim`

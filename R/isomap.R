@@ -52,7 +52,8 @@ Isomap <- setClass(
     contains = "dimRedMethod",
     prototype = list(
         stdpars = list(knn = 50,
-                       ndim = 2),
+                       ndim = 2,
+                       get_geod = FALSE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
         message(Sys.time(), ": Isomap START")
@@ -60,7 +61,8 @@ Isomap <- setClass(
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
 
-        if (is.null(pars$eps)) pars$eps <- 0
+        if (is.null(pars$eps))      pars$eps <- 0
+        if (is.null(pars$get_geod)) pars$get_geod <- FALSE
 
         ## geodesic distances
         message(Sys.time(), ": constructing knn graph")
@@ -120,7 +122,9 @@ Isomap <- setClass(
             apply        = appl,
             has.apply    = TRUE,
             method       = "Isomap",
-            pars         = pars
+            pars         = pars,
+            other.data   = if (pars$get_geod) list(geod = as.dist(geodist))
+                           else               list()
         ))
 
 

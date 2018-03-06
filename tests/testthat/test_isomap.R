@@ -30,3 +30,10 @@ test_that("check vs vegan isomap", {
                                          ", expected err < eps"))
 
 })
+
+
+test_that("check other.data", {
+  a <- loadDataSet("3D S Curve", n = 200)
+  drdiso <- embed(a, "Isomap", knn = 8, ndim = 2, get_geod = TRUE)
+  expect_true(inherits(getOtherData(drdiso)$geod, "dist"))
+})

@@ -123,6 +123,16 @@ setGeneric("getOrgData", function (object, ...) standardGeneric("getOrgData"))
 setGeneric("getDimRedData",
            function (object, ...) standardGeneric("getDimRedData"))
 
+#' Method getOtherData
+#'
+#' Extract other data produced by a dimRedMethod
+#'
+#' @param object The object to extract data from.
+#' @param ... other arguments.
+setGeneric("getOtherData",
+           function (object, ...) standardGeneric("getOtherData"),
+           valueClass = "list")
+
 #' Method print
 #'
 #' Imports the print method into the package namespace.
