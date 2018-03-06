@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "BUILDING DOCUMENTATION"
-Rscript -e 'devtools::document()'
+Rscript --vanilla --default-packages=methods,utils \
+        -e 'devtools::document()'
 
 echo "REMOVING emacs lockfiles"
 find . -type l -exec rm {} \;
