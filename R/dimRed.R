@@ -1,5 +1,4 @@
-#' @title
-#' The dimRed package
+#' @title The dimRed package
 #'
 #' @description This package simplifies dimensionality reduction in R by
 #'   providing a framework of S4 classes and methods. dimRed collects

@@ -9,7 +9,7 @@
 \title{dimRed: A Framework for Dimensionality Reduction}
 \description{
 A collection of dimensionality reduction
-techniques from R packages and provides a common
+techniques from R packages and a common
 interface for calling the methods.
 
 This package simplifies dimensionality reduction in R by
