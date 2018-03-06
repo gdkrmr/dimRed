@@ -12,6 +12,7 @@ skip_if_no_keras <- function() {
 
 test_that("errors when building autoencoder", {
   skip_if_no_tensorflow()
+  iris_data <- as(iris[, 1:4], "dimRedData")
   expect_error(embed(iris_data, activation = "sigmoid"),
                "declare an activation function for each layer")
   expect_error(embed(iris_data, n_hidden = c(1, 2, 2, 1)),

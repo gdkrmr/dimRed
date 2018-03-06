@@ -4,6 +4,8 @@
   * Added the possibility to return other data such as distance
     matrices/eigenvalues
 
+  * Added Autoencoder
+
   * Added l1 PCA
 
   * Added `getNDim`

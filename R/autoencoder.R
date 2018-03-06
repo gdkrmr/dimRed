@@ -34,12 +34,11 @@
 #' }
 #'
 #' @section Details:
-#'
 #' There are several ways to specify an autoencoder, the simplest is to pass the
 #' number of neurons per layer in \code{n_hidden}, this must be a vector of
 #' integers of impair length and it must be symmetric and the middle number must
-#' be equal to \code{ndim}, For every layer an activation function can be specified
-#' with \code{activation}.
+#' be equal to \code{ndim}, For every layer an activation function can be
+#' specified with \code{activation}.
 #'
 #' For regularization weight decay can be specified by setting
 #' \code{weight_decay} > 0.
@@ -49,24 +48,22 @@
 #' The learner can operate on batches if \code{batchsize} is not \code{NA}.
 #' The number of steps the learner uses is specified using \code{n_steps}.
 #'
-#' @section Further training a model
-#'
+#' @section Further training a model:
 #' If the model did not converge in the first training phase or training with
 #' different data is desired, the \code{\link{dimRedResult}} object may be
 #' passed as \code{autoencoder} parameter; In this case all topology related
 #' parameters will be ignored.
 #'
-#' @section Using Keras layers
-#'
+#' @section Using Keras layers:
 #' The encoder and decoder part can be specified using a list of \pkg{keras}
 #' layers. This requires a list with two entries, \code{encoder} should contain
-#' a LIST of keras layers WITHOUT the \link{\code{layer_input}} that will be
-#' concatenated in order to form the encoder part. \code{decoder} should be
+#' a LIST of keras layers WITHOUT the \code{\link[keras]{layer_input}}
+#' that will be concatenated in order to form the encoder part.
+#' \code{decoder} should be
 #' defined accordingly, the output of \code{decoder} must have the same number
 #' of dimensions as the input data.
 #'
-#' @section Using Tensorflow
-#'
+#' @section Using Tensorflow:
 #' The model can be entirely defined in \pkg{tensorflow}, it must contain a
 #' list with the following entries:
 #' \describe{
@@ -122,7 +119,8 @@ AutoEncoder <- setClass(
                        learning_rate = 0.15,
                        graph         = NULL,
                        keras_graph   = NULL,
-                       autoencoder   = NULL, # is.na() of an S4 class gives a warning
+                       ## is.na() of an S4 class gives a warning
+                       autoencoder   = NULL,
                        batchsize     = NA,
                        n_steps       = 500),
         fun     = function (data, pars,
