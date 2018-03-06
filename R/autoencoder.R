@@ -347,18 +347,20 @@ graph_params <- function (
     ndim
 ) {
 
-    if (length(n_hidden) != length(activation))
-        stop("declare an activation for each layer")
     if (length(n_hidden) %% 2 == 0)
-        stop("the number of layers must be impair")
+      stop("the number of layers must be impair")
+    if (ndim != n_hidden[ceiling(length(n_hidden) / 2)])
+      stop("the middle of n_hidden must be equal to ndim")
+    if (length(n_hidden) != length(activation))
+      stop("declare an activation function for each layer:",
+           "\nn_hidden: ", paste(n_hidden, collapse = " "),
+           "\nactivation functions: ", paste(activation, collapse = " "))
     if (weight_decay < 0)
         stop("weight decay must be > 0")
     if (learning_rate <= 0)
         stop("learning rate must be > 0")
     if (n_steps <= 0)
         stop("n_steps must be > 0")
-    if (ndim != n_hidden[ceiling(length(n_hidden) / 2)])
-        stop("the middle of n_hidden must be equal to ndim")
 
     tf <- tensorflow::tf
 
