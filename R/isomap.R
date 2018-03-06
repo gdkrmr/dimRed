@@ -56,6 +56,9 @@ Isomap <- setClass(
                        get_geod = FALSE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
+        chckpkg("RSpectra")
+        chckpkg("igraph")
+        chckpkg("RANN")
         message(Sys.time(), ": Isomap START")
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -69,7 +72,8 @@ Isomap <- setClass(
         knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
         message(Sys.time(), ": calculating geodesic distances")
         geodist <- igraph::distances(knng, algorithm = "dijkstra")
-        message(Sys.time(), ": cmdscale")
+
+        message(Sys.time(), ": Classical Scaling")
         ## TODO: add regularization
         k <- geodist ^ 2
         k <- .Call(stats:::C_DoubleCentre, k)
