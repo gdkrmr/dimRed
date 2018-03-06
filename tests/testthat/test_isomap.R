@@ -8,7 +8,7 @@ context("isomap")
 
 test_that("check vs vegan isomap", {
 
-    eps <- 1e-13
+    eps <- 1e-8
     a <- loadDataSet("3D S Curve", n = 200)
 
     vegiso <- vegan::isomap(dist(getData(a)), k = 8, ndim = 2)
