@@ -119,7 +119,7 @@ Isomap <- setClass(
             has.org.data = keep.org.data,
             apply        = appl,
             has.apply    = TRUE,
-            method       = "isomap",
+            method       = "Isomap",
             pars         = pars
         ))
 
