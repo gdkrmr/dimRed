@@ -15,7 +15,8 @@ test_that("high level functions working?", {
     for (e in embed_methods) {
         message("embedding: ", e)
 
-        if(e == "AutoEncoder" && reticulate::py_module_available("tensorflow")) {
+        if (e != "AutoEncoder" ||
+            reticulate::py_module_available("tensorflow")) {
 
           suppressWarnings(
             embedded_data[[e]] <- embed(

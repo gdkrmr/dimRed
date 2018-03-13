@@ -102,6 +102,8 @@ test_that("using autoencoder with parameters", {
 
 test_that("using autoencoder with autoencoder results", {
     skip_if_no_tensorflow()
+
+    tf$set_random_seed(1)
     iris_data <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(iris_data)[1], "dimRedData")
 
@@ -111,7 +113,7 @@ test_that("using autoencoder with autoencoder results", {
     aq1 <- lapply(ae1, function(x) quality(x, "reconstruction_rmse"))
 
     ae2 <- lapply(ae1, function(x) embed(iris_data, "AutoEncoder",
-                                         autoencoder = x), n_steps = 1000)
+                                         autoencoder = x, n_steps = 1000))
     aq2 <- lapply(ae2, function(x) quality(x, "reconstruction_rmse"))
 
     lapply(ae1, function(x) expect_s4_class(x, "dimRedResult"))
@@ -127,6 +129,7 @@ test_that("using autoencoder with autoencoder results", {
 })
 
 test_that("using autoencoder with keras", {
+  skip_if_no_tensorflow()
   skip_if_no_keras()
 
   encoder <- function(i) list(keras::layer_dense(units = 10,
