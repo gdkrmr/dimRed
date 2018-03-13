@@ -23,7 +23,7 @@
 #' comes with an out of sample extension (known as landmark
 #' Isomap). The default Isomap algorithm scales computationally not
 #' very well, the implementation here uses \code{\link[RANN]{nn2}} for
-#' a faster search of the neares neighbors.  If data are too large it
+#' a faster search of the nearest neighbors.  If data are too large it
 #' may be useful to fit a subsample of the data and use the
 #' out-of-sample extension for the other points.
 #'
