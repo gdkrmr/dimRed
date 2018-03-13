@@ -103,7 +103,7 @@ test_that("using autoencoder with parameters", {
 test_that("using autoencoder with autoencoder results", {
     skip_if_no_tensorflow()
 
-    tf$set_random_seed(1)
+    tensorflow::tf$set_random_seed(2)
     iris_data <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(iris_data)[1], "dimRedData")
 

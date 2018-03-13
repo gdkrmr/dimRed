@@ -37,6 +37,8 @@ test_that("Q_local ndim", {
 
 test_that("rmse_by_ndim", {
 
+  set.seed(1)
+
   ir <- loadDataSet("Iris")
   ir.drr <- embed(ir, "DRR", ndim = ndims(ir))
   ir.pca <- embed(ir, "PCA", ndim = ndims(ir))
