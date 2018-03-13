@@ -98,14 +98,17 @@ setMethod(
 #'
 #' Plot the R_NX curve for different embeddings. Takes a list of
 #' \code{\link{dimRedResult}} objects as input.
-#' Also the Area under the curve values are computed for logarithmic K
-#' (AUC_lnK) and appear in the legend.
+#' Also the Area under the curve values are computed for a weighted K
+#' (see \link{AUC_lnK_R_NX} for details) and appear in the legend.
 #'
 #' @param x a list of \code{\link{dimRedResult}} objects. The names of the list
 #'   will appear in the legend with the AUC_lnK value.
 #' @param ndim the number of dimensions, if \code{NA} the original number of
 #'   embedding dimensions is used, can be a vector giving the embedding
 #'   dimensionality for each single list element of \code{x}.
+#' @param weight the weight function used for K when calculating the AUC, one of
+#'   \code{c("inv", "log", "log10")}
+#' @family Quality scores for dimensionality reduction
 #' @return A ggplot object, the design can be changed by appending
 #'   \code{theme(...)}
 #'
@@ -123,9 +126,9 @@ setMethod(
 #'     ggplot2::theme(legend.title = ggplot2::element_blank(),
 #'                    legend.position = c(0.5, 0.1),
 #'                    legend.justification = c(0.5, 0.1))
-#' 
+#'
 #' @export
-plot_R_NX <- function(x, ndim = NA) {
+plot_R_NX <- function(x, ndim = NA, weight = "inv") {
     chckpkg("ggplot2")
     chckpkg("tidyr")
     chckpkg("scales")
@@ -139,7 +142,17 @@ plot_R_NX <- function(x, ndim = NA) {
 
     rnx <- mapply(function(x, ndim) if(is.na(ndim)) R_NX(x) else R_NX(x, ndim),
                   x = x, ndim = ndim)
-    auc <- apply(rnx, 2, auc_lnK)
+
+    weight <- match.arg(weight, c("inv", "ln", "log", "log10"))
+    w_fun <- switch(
+      weight,
+      inv   = auc_ln_k_inv,
+      log   = auc_log_k,
+      ln    = auc_log_k,
+      log10 = auc_log10_k,
+      stop("wrong parameter for weight")
+    )
+    auc <- apply(rnx, 2, w_fun)
 
     df <- as.data.frame(rnx)
     df$K <- seq_len(nrow(df))

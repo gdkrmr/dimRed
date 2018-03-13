@@ -263,35 +263,55 @@ setGeneric(
 
 #' Method AUC_lnK_R_NX
 #'
-#' Calculate the Area under the R_NX(ln K), used in Lee et. al. (2013).
+#' Calculate the Area under the R_NX(ln K), used in Lee et. al. (2015). Note
+#' that despite the name, this does not weight the mean by the logarithm, but by
+#' 1/K. If explicit weighting by the logarithm is desired use \code{weight =
+#' "log"} or \code{weight = "log10"}
 #'
-#' @references
+#' The naming confusion originated from equation 17 in Lee et al (2015) and the
+#' name of this method may change in the future to avoid confusion.
 #'
-#' Lee, J.A., Renard, E., Bernard, G., Dupont, P., Verleysen, M.,
-#' 2013. Type 1 and 2 mixtures of Kullback-Leibler divergences as cost
-#' functions in dimensionality reduction based on similarity
-#' preservation. Neurocomputing. 112,
-#' 92-107. doi:10.1016/j.neucom.2012.12.036
+#' @references Lee, J.A., Peluffo-Ordonez, D.H., Verleysen, M., 2015.
+#'   Multi-scale similarities in stochastic neighbour embedding: Reducing
+#'   dimensionality while preserving both local and global structure.
+#'   Neurocomputing 169, 246-261. https://doi.org/10.1016/j.neucom.2014.12.095
 #'
 #' @param object of class dimRedResult
+#' @param weight the weight function used, one of \code{c("inv", "log", "log10")}
 #' @family Quality scores for dimensionality reduction
 #' @aliases AUC_lnK_R_NX
 #' @export
 setMethod(
     "AUC_lnK_R_NX",
     "dimRedResult",
-    function(object) {
+    function(object, weight = "inv") {
         rnx <- R_NX(object)
-        auc_lnK(rnx)
+
+        weight <- match.arg(weight, c("inv", "ln", "log", "log10"))
+        switch(
+          weight,
+          inv   = auc_ln_k_inv(rnx),
+          log   = auc_log_k(rnx),
+          ln    = auc_log_k(rnx),
+          log10 = auc_log10_k(rnx),
+          stop("wrong parameter for weight")
+        )
     }
 )
 
-auc_lnK <- function(rnx) {
+auc_ln_k_inv <- function(rnx) {
     Ks <- seq_along(rnx)
     return (sum(rnx / Ks) / sum(1 / Ks))
-    ## in my intuition this should be the following:
-    ## N <- length(rnx)
-    ## sum((rnx[-N] + rnx[-1]) / 2 * (log(2:N) - log(seq_len(N - 1))))
+}
+
+auc_log_k <- function(rnx) {
+    Ks <- seq_along(rnx)
+    return (sum(rnx * log(Ks)) / sum(log(Ks)))
+}
+
+auc_log10_k <- function(rnx) {
+  Ks <- seq_along(rnx)
+  return (sum(rnx * log10(Ks)) / sum(log10(Ks)))
 }
 
 
