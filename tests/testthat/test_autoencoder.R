@@ -111,7 +111,7 @@ test_that("using autoencoder with autoencoder results", {
     aq1 <- lapply(ae1, function(x) quality(x, "reconstruction_rmse"))
 
     ae2 <- lapply(ae1, function(x) embed(iris_data, "AutoEncoder",
-                                         autoencoder = x), n_steps = 100)
+                                         autoencoder = x), n_steps = 1000)
     aq2 <- lapply(ae2, function(x) quality(x, "reconstruction_rmse"))
 
     lapply(ae1, function(x) expect_s4_class(x, "dimRedResult"))
