@@ -94,9 +94,10 @@ NNMF <- setClass(
         if(!is.matrix(proj))
           proj <- as.matrix(proj)
         
-        if (ncol(proj) != ncol(orgdata))
+        if (ncol(proj) != other.data$p)
           stop("x must have the same number of dimensions ",
-               "as the original data")
+               "as the original data (", other.data$p, ")", 
+               call. = FALSE)
         pars$x <- t(other.data$H)
         pars$y <- t(proj)
         pars$ndim <- NULL
