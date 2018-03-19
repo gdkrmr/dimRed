@@ -70,6 +70,7 @@ Collate:
     'mds.R'
     'mixColorSpaces.R'
     'nmds.R'
+    'nnmf.R'
     'pca.R'
     'plot.R'
     'quality.R'
