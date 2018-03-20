@@ -185,6 +185,6 @@ test_that("3D projection via KL div", {
 
 test_that("Bad args", {
   
-  expect_failure(embed(iris, "NNMF"))
-  expect_failure(embed(iris[,1], "NNMF"))
+  expect_error(embed(iris, "NNMF"))
+  expect_error(embed(iris[,1], "NNMF"))
 })  
