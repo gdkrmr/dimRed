@@ -32,6 +32,7 @@ Suggests:
     kernlab,
     lle,
     loe,
+    NNLM,
     optimx,
     pcaPP,
     pcaL1,

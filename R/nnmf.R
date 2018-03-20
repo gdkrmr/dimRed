@@ -17,7 +17,7 @@
 #'   \item{method}{character, should be either "scd" for (sequential 
 #'    coordinate-wise descent) or "lee" (for Lee's multiplicative algorithm).}
 #'   \item{loss}{character, should be either  "mse" for mean square error 
-#'    or "mkl" for mean Kullback–Leibler-divergence.}
+#'    or "mkl" for mean Kullback-Leibler-divergence.}
 #'   \item{max.iter}{integer, maximum number of iterations (default: 500).}
 #'   \item{n.threads}{integer, number of threads (default: no parallelism)}
 #'   \item{verbose}{integer between 0 and 2, for amount of logging. Defaults
@@ -46,7 +46,6 @@
 #' @family dimensionality reduction methods
 #' @export NNMF
 #' @exportClass NNMF
-#' @importFrom NNLM nnmf nnlm
 NNMF <- setClass(
   "NNMF",
   contains = "dimRedMethod",

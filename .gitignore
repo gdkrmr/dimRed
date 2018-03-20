@@ -25,3 +25,4 @@ server.R
 ui.R
 *.jl
 /.dir-locals.el
+.DS_Store
