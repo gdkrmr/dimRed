@@ -57,7 +57,6 @@ test_that("2D projection", {
     .Dim = c(2L, 5L)
   )
 
-  expect_equivalent(dim_2_defaults@other.data$W, dim_2_W)
   expect_equivalent(dim_2_defaults@other.data$H, dim_2_H)
 
   set.seed(5197)
@@ -81,6 +80,9 @@ test_that("2D projection", {
                2L)
     )
   expect_equivalent(dim_2_proj@data, dim_2_pred, tolerance = 0.01)
+  expect_equivalent(getData(getDimRedData(dim_2_defaults)), dim_2_W,
+                    tolerance = 0.01)
+
   expect_equivalent(inverse(dim_2_defaults, dim_2_W), input_trn)
   expect_equivalent(inverse(dim_2_defaults, dimRedData(dim_2_pred)), input_tst)
 
@@ -157,7 +159,6 @@ test_that("3D projection via KL div", {
       .Dim = c(3L, 5L)
     )
 
-  expect_equivalent(dim_3_defaults@other.data$W, dim_3_W)
   expect_equivalent(dim_3_defaults@other.data$H, dim_3_H)
 
   set.seed(2141)

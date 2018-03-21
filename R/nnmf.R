@@ -69,7 +69,7 @@ NNMF <- setClass(
         stop("`ndim` should be less than the number of columns.",
              call. = FALSE)
 
-      other.data <-
+      nnmf_result <-
         NNLM::nnmf(
           A = data,
           k = pars$ndim,
@@ -80,8 +80,10 @@ NNMF <- setClass(
           verbose = pars$verbose,
           rel.tol = pars$rel.tol
         )
-      other.data <-
-        list(W = other.data$W, H = other.data$H, p = ncol(data))
+      other.data <- list(H = nnmf_result$H, p = ncol(data))
+
+      W <- nnmf_result$W
+      colnames(W) <- paste0("NNMF", 1:ncol(W))
 
       # evaluate results here for functions
 
@@ -90,7 +92,7 @@ NNMF <- setClass(
         appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
         proj <- if (inherits(x, "dimRedData")) x@data else x
 
-        if(!is.matrix(proj))
+        if (!is.matrix(proj))
           proj <- as.matrix(proj)
 
         if (ncol(proj) != other.data$p)
@@ -126,7 +128,7 @@ NNMF <- setClass(
       res <- new(
         "dimRedResult",
         data         = new("dimRedData",
-                           data = data,
+                           data = W,
                            meta = meta),
         org.data     = orgdata,
         apply        = appl,
