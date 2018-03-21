@@ -6,14 +6,14 @@ input_trn <- dimRedData(as.data.frame(ints_trn))
 input_tst <- dimRedData(ints_trn[1:3,] + 1)
 
 test_that("2D projection", {
-  
+
   set.seed(6569)
   dim_2_defaults <- embed(input_trn, "NNMF")
 
   # Expected results from
   # set.seed(6569)
   # tmp <- NNLM::nnmf(ints_trn, k = 2, verbose = 0)
-  
+
   dim_2_W <-
     structure(
       c(
@@ -56,18 +56,18 @@ test_that("2D projection", {
     ),
     .Dim = c(2L, 5L)
   )
-  
+
   expect_equivalent(dim_2_defaults@other.data$W, dim_2_W)
   expect_equivalent(dim_2_defaults@other.data$H, dim_2_H)
-  
+
   set.seed(5197)
   dim_2_proj <- dim_2_defaults@apply(input_tst)
-  
+
   # Expected results from
   # set.seed(9770)
   # predict(tmp, ints_trn[1:3,] + 1, which = "W")$coefficients
-  
-  dim_2_pred <- 
+
+  dim_2_pred <-
     structure(
       c(
         421.049880386134,
@@ -85,16 +85,16 @@ test_that("2D projection", {
 
 
 test_that("3D projection via KL div", {
-  
+
   set.seed(2106)
-  dim_3_defaults <- embed(input_trn, "NNMF", 
+  dim_3_defaults <- embed(input_trn, "NNMF",
                           ndim = 3, loss = "mkl",
-                          rel.tol = 1e-10) 
-  
+                          rel.tol = 1e-10)
+
   # Expected results from
   # set.seed(2106)
   # tmp <- NNLM::nnmf(ints_trn, k = 3, loss = "mkl", verbose = 0, rel.tol = 1e-10)
-  
+
   dim_3_W <-
     structure(
       c(
@@ -131,7 +131,7 @@ test_that("3D projection via KL div", {
       ),
       .Dim = c(10L, 3L)
     )
-  
+
   dim_3_H <-
     structure(
       c(
@@ -153,18 +153,18 @@ test_that("3D projection via KL div", {
       ),
       .Dim = c(3L, 5L)
     )
-  
+
   expect_equivalent(dim_3_defaults@other.data$W, dim_3_W)
   expect_equivalent(dim_3_defaults@other.data$H, dim_3_H)
-  
+
   set.seed(2141)
   dim_3_proj <- dim_3_defaults@apply(input_tst)
-  
+
   # Expected results from
   # set.seed(2141)
   # predict(tmp, ints_trn[1:3,] + 1, which = "W")$coefficients
-  
-  dim_3_pred <- 
+
+  dim_3_pred <-
     structure(
       c(
         4.62380751248276,
@@ -179,12 +179,12 @@ test_that("3D projection via KL div", {
       ),
       .Dim = c(3L, 3L)
     )
-  
+
   expect_equivalent(dim_3_proj@data, dim_3_pred, tolerance = 0.01)
 })
 
 test_that("Bad args", {
-  
+
   expect_error(embed(iris, "NNMF"))
   expect_error(embed(iris[,1], "NNMF"))
-})  
+})
