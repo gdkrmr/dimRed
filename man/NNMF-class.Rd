@@ -9,8 +9,8 @@
 S4 Class implementing NNMF.
 }
 \details{
-NNMF is a method for decomposing a matrix into a smaller 
- dimension such that the constraint that the data (and the 
+NNMF is a method for decomposing a matrix into a smaller
+ dimension such that the constraint that the data (and the
  projection) are not negative is taken into account.
 }
 \section{Slots}{
@@ -38,9 +38,9 @@ missing parameters will be replaced by the ones in the
 The method can take the following parameters:
 \describe{
   \item{ndim}{The number of output dimensions.}
-  \item{method}{character, should be either "scd" for (sequential 
+  \item{method}{character, should be either "scd" for (sequential
    coordinate-wise descent) or "lee" (for Lee's multiplicative algorithm).}
-  \item{loss}{character, should be either  "mse" for mean square error 
+  \item{loss}{character, should be either  "mse" for mean square error
    or "mkl" for mean Kullback-Leibler-divergence.}
   \item{max.iter}{integer, maximum number of iterations (default: 500).}
   \item{n.threads}{integer, number of threads (default: no parallelism)}
