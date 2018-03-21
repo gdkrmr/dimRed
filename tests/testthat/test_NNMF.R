@@ -81,6 +81,9 @@ test_that("2D projection", {
                2L)
     )
   expect_equivalent(dim_2_proj@data, dim_2_pred, tolerance = 0.01)
+  expect_equivalent(inverse(dim_2_defaults, dim_2_W), input_trn)
+  expect_equivalent(inverse(dim_2_defaults, dimRedData(dim_2_pred)), input_tst)
+
 })
 
 
@@ -181,10 +184,14 @@ test_that("3D projection via KL div", {
     )
 
   expect_equivalent(dim_3_proj@data, dim_3_pred, tolerance = 0.01)
+
+  expect_equivalent(inverse(dim_3_defaults, dim_3_W), input_trn)
+  expect_equivalent(inverse(dim_3_defaults, dimRedData(dim_3_pred)), input_tst)
 })
 
 test_that("Bad args", {
 
   expect_error(embed(iris, "NNMF"))
   expect_error(embed(iris[,1], "NNMF"))
+
 })

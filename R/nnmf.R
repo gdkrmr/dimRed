@@ -110,6 +110,19 @@ NNMF <- setClass(
         return(proj)
       }
 
+      inv <- function(x) {
+        appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+        proj <- if (inherits(x, "dimRedData")) x@data else x
+        if (ncol(proj) > ncol(data))
+          stop("x must have less or equal number of dimensions ",
+               "as the original data")
+
+        reproj <- proj %*% other.data$H
+        reproj <- new("dimRedData", data = reproj, meta = appl.meta)
+
+        return(reproj)
+      }
+
       res <- new(
         "dimRedResult",
         data         = new("dimRedData",
@@ -117,9 +130,10 @@ NNMF <- setClass(
                            meta = meta),
         org.data     = orgdata,
         apply        = appl,
+        inverse      = inv,
         has.org.data = keep.org.data,
         has.apply    = TRUE,
-        has.inverse  = FALSE,
+        has.inverse  = TRUE,
         method       = "NNMF",
         pars         = pars,
         other.data   = other.data
