@@ -80,5 +80,6 @@ Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{MDS-class}}, \code{\link{NNMF-class}},
   \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
   \code{\link{dimRedMethod-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+  \code{\link{dimRedMethodList}}, \code{\link{nMDS-class}},
+  \code{\link{tSNE-class}}
 }
