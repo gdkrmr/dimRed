@@ -25,4 +25,8 @@
 #' Chen, L., Buja, A., 2006. Local Multidimensional Scaling for
 #' Nonlinear Dimension Reduction, Graph Layout and Proximity Analysis.
 #'
+#'
+#' @import methods
+#' @importFrom magrittr %>%
+#'
 "_PACKAGE"

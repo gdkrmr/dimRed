@@ -1,7 +1,3 @@
-#' @import methods
-#' @importFrom magrittr %>%
-"_PACKAGE"
-
 #' Class "dimRedMethod"
 #'
 #' A virtual class "dimRedMethod" to serve as a template to implement
