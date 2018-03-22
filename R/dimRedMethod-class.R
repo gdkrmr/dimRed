@@ -26,7 +26,6 @@
 #'     slot.
 #'
 #' @family dimensionality reduction methods
-#' @seealso \link{dimRedMethodList}
 #' @export
 setClass("dimRedMethod",
          contains  = "VIRTUAL",
@@ -47,6 +46,7 @@ setClass("dimRedMethod",
 #' @examples
 #' dimRedMethodList()
 #'
+#' @family dimensionality reduction methods
 #' @export
 dimRedMethodList <- function () {
     ## return(c(
