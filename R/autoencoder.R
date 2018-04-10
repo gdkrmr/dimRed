@@ -2,7 +2,8 @@
 #'
 #' An S4 Class implementing an Autoencoder
 #'
-#' Autoencoders are neural networks that try to reproduce their input.
+#' Autoencoders are neural networks that try to reproduce their input. Consider
+#' this method unstable, as the internals may still be changed.
 #'
 #' @template dimRedMethodSlots
 #'
