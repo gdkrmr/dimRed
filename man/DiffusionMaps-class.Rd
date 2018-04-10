@@ -78,7 +78,7 @@ samp <- sample(floor(nrow(dat) / 10))
 embsamp <- diffmap@fun(dat[samp], diffmap@stdpars)
 embother <- embsamp@apply(dat[-samp])
 plot(embsamp, type = "2vars")
-points(embother)
+points(embother@data)
 
 }
 \references{
@@ -92,14 +92,15 @@ Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
     5-30. doi:10.1016/j.acha.2006.04.006
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}}, \code{\link{DrL-class}},
+  \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}},
+  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
+  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
   \code{\link{dimRedMethod-class}},
-  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
-  \code{\link{tSNE-class}}
+  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }

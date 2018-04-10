@@ -16,8 +16,13 @@
 #'   \item{kernel}{The kernel function, either as a function or a
 #'   character vector with the name of the kernel. Defaults to
 #'   \code{"rbfdot"}}
-#'   \item{kpar}{A list with the parameters for the kernel function}
+#'   \item{kpar}{A list with the parameters for the kernel function,
+#'     defaults to \code{list(sigma = 0.1)}}
 #' }
+#'
+#' The most comprehensive collection of kernel functions can be found in
+#' \code{\link[kernlab]{kpca}}. In case the function does not take any
+#' parameters \code{kpar} has to be an empty list.
 #'
 #' @section Implementation:
 #'
@@ -51,22 +56,24 @@ kPCA <- setClass(
                        ndim = 2),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
+
         chckpkg("kernlab")
-        if (is.null(pars$ndim))
-            pars$ndim <- 2
+
+        if (is.null(pars$ndim)) pars$ndim <- 2
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
 
+        message(Sys.time(), ": Calculating kernel PCA")
         res <- do.call(kernlab::kpca, c(list(x = indata), pars))
 
         kernel <- get_kernel_fun(pars$kernel, pars$kpar)
 
-                                        # for the inverse:
+        message(Sys.time(), ": Trying to calculate reverse")
         K_rev <- kernlab::kernelMatrix(kernel, res@rotated)
         diag(K_rev) <- 0.1 + diag(K_rev)
-        dual_coef <- solve(K_rev, indata)
+        dual_coef <- try(solve(K_rev, indata), silent = TRUE)
 
         appl <- function (x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
@@ -78,20 +85,29 @@ kPCA <- setClass(
             new("dimRedData", data = proj, meta = appl.meta)
         }
 
-        inv <- function (x) {
-            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
-            proj <- if (inherits(x, "dimRedData")) x@data else x
+        inv <-
+          if (inherits(dual_coef, "try-error")) {
+            message("No inverse function.")
+            function(x) NA
+          } else {
+            function (x) {
+              appl.meta <-
+                if (inherits(x, "dimRedData")) x@meta else data.frame()
+              proj <- if (inherits(x, "dimRedData")) x@data else x
 
-            resrot <- res@rotated[, 1:ncol(proj)]
-            rot <- kernlab::kernelMatrix(kernel, proj, resrot)
-            proj <- rot %*% dual_coef
+              resrot <- res@rotated[, 1:ncol(proj)]
+              rot <- kernlab::kernelMatrix(kernel, proj, resrot)
+              proj <- rot %*% dual_coef
 
-            new("dimRedData", data = proj, meta = appl.meta)
-        }
+              new("dimRedData", data = proj, meta = appl.meta)
+            }
+          }
+
 
         outdata <- res@rotated[, 1:pars$ndim, drop = FALSE]
         colnames(outdata) <- paste0("kPCA", 1:ncol(outdata))
 
+        message(Sys.time(), ": DONE")
         return(
             new(
                 "dimRedResult",

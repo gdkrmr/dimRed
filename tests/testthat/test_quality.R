@@ -37,6 +37,8 @@ test_that("Q_local ndim", {
 
 test_that("rmse_by_ndim", {
 
+  set.seed(1)
+
   ir <- loadDataSet("Iris")
   ir.drr <- embed(ir, "DRR", ndim = ndims(ir))
   ir.pca <- embed(ir, "PCA", ndim = ndims(ir))
@@ -57,4 +59,22 @@ test_that("rmse_by_ndim", {
 
   expect_error(reconstruction_error(ir.pca, 5))
   expect_error(reconstruction_error(ir.pca, 0))
+})
+
+test_that("AUC_lnK_R_NX", {
+
+  irisData <- loadDataSet("Iris")
+  irisData <- irisData[!duplicated(irisData@data)]
+
+  parsPCA <- list(center = TRUE, scale. = TRUE, ndim = 4)
+  resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
+
+  expect(AUC_lnK_R_NX(resPCA, weight = "inv")   %>% length %>% {. == 1})
+  expect(AUC_lnK_R_NX(resPCA, weight = "log")   %>% length %>% {. == 1})
+  expect(AUC_lnK_R_NX(resPCA, weight = "ln")    %>% length %>% {. == 1})
+  expect(AUC_lnK_R_NX(resPCA, weight = "log10") %>% length %>% {. == 1})
+
+  expect_true(AUC_lnK_R_NX(resPCA, weight = "log") == AUC_lnK_R_NX(resPCA, weight = "ln"))
+  expect_error(AUC_lnK_R_NX(resPCA, weight = "asdf"))
+
 })

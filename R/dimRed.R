@@ -1,5 +1,4 @@
-#' @title
-#' The dimRed package
+#' @title The dimRed package
 #'
 #' @description This package simplifies dimensionality reduction in R by
 #'   providing a framework of S4 classes and methods. dimRed collects
@@ -25,5 +24,9 @@
 #'
 #' Chen, L., Buja, A., 2006. Local Multidimensional Scaling for
 #' Nonlinear Dimension Reduction, Graph Layout and Proximity Analysis.
+#'
+#'
+#' @import methods
+#' @importFrom magrittr %>%
 #'
 "_PACKAGE"

@@ -1,7 +1,8 @@
 #!/bin/bash
 
 echo "BUILDING DOCUMENTATION"
-Rscript -e 'devtools::document()'
+Rscript --vanilla --default-packages=methods,utils \
+        -e 'devtools::document()'
 
 echo "REMOVING emacs lockfiles"
 find . -type l -exec rm {} \;
@@ -21,6 +22,6 @@ echo 'CHECKING AS CRAN!!!'
 R CMD check dimRed_$pkgversion.tar.gz --as-cran --timings
 
 echo 'CHECK everything!!!'
-optirun R CMD check dimRed_$pkgversion.tar.gz --run-donttest --run-dontrun --timings
+R CMD check dimRed_$pkgversion.tar.gz --run-donttest --run-dontrun --timings
 # echo "INSTALLING on cluster!"
 # ssh pc026 R_LIBS=/User/homes/gkraemer/.R_libs /usr/local/apps/R/R-3.2.2/bin/R CMD INSTALL gkraemer/progs/dimRed/dimRed_$pkgversion.tar.gz

@@ -23,7 +23,7 @@
 #' comes with an out of sample extension (known as landmark
 #' Isomap). The default Isomap algorithm scales computationally not
 #' very well, the implementation here uses \code{\link[RANN]{nn2}} for
-#' a faster search of the neares neighbors.  If data are too large it
+#' a faster search of the nearest neighbors.  If data are too large it
 #' may be useful to fit a subsample of the data and use the
 #' out-of-sample extension for the other points.
 #'
@@ -52,35 +52,48 @@ Isomap <- setClass(
     contains = "dimRedMethod",
     prototype = list(
         stdpars = list(knn = 50,
-                       ndim = 2),
+                       ndim = 2,
+                       get_geod = FALSE),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
+        chckpkg("RSpectra")
+        chckpkg("igraph")
+        chckpkg("RANN")
         message(Sys.time(), ": Isomap START")
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
         indata <- data@data
 
-        if (is.null(pars$eps)) pars$eps <- 0
+        if (is.null(pars$eps))      pars$eps <- 0
+        if (is.null(pars$get_geod)) pars$get_geod <- FALSE
 
         ## geodesic distances
         message(Sys.time(), ": constructing knn graph")
         knng <- makeKNNgraph(x = indata, k = pars$knn, eps = pars$eps)
         message(Sys.time(), ": calculating geodesic distances")
         geodist <- igraph::distances(knng, algorithm = "dijkstra")
-        message(Sys.time(), ": cmdscale")
-        cmdout <- stats::cmdscale(geodist, k = pars$ndim, eig = TRUE)
 
-        message(Sys.time(), ": post processing")
-        neig <- sum(cmdout$eig > 0)
+        message(Sys.time(), ": Classical Scaling")
+        ## TODO: add regularization
+        k <- geodist ^ 2
+        k <- .Call(stats:::C_DoubleCentre, k)
+        k <- - k / 2
+        ## TODO: explicit symmetrizing
+        ## TODO: return eigenvectors?
+        e <- RSpectra::eigs_sym(k, pars$ndim, which = "LA",
+                                opts = list(retvec = TRUE))
+        e_values <- e$values
+        e_vectors <- e$vectors
+        neig <- sum(e_values > 0)
         if (neig < pars$ndim) {
-            warning("Isomap: eigenvalues < 0, returning less dimensions!")
-            cmdout$points <- cmdout$points[, seq_len(neig), drop = FALSE]
-            cmdout$eig <- cmdout$eig[seq_len(neig)]
-        } else {
-            cmdout$eig <- cmdout$eig[seq_len(pars$ndim)]
+          warning("Isomap: eigenvalues < 0, returning less dimensions!")
+          e_values <- e_values[seq_len(neig)]
+          e_vectors <- e_vectors[, seq_len(neig), drop = FALSE]
         }
 
-        colnames(cmdout$points) <- paste0("iso", seq_len(ncol(cmdout$points)))
+        e_vectors <- e_vectors * rep(sqrt(e_values), each = nrow(e_vectors))
+
+        colnames(e_vectors) <- paste("iso", seq_len(neig))
 
         appl <- function (x) {
             message(Sys.time(), ": L-Isomap embed START")
@@ -103,7 +116,7 @@ Isomap <- setClass(
 
             message(Sys.time(), ": embedding")
             dammu <- sweep(lgeodist ^ 2, 2, colMeans(geodist ^ 2), "-")
-            Lsharp <- sweep(cmdout$points, 2, cmdout$eig, "/")
+            Lsharp <- sweep(e_vectors, 2, e_values, "/")
             out <- -0.5 * (dammu %*% Lsharp)
 
             message(Sys.time(), ": DONE")
@@ -113,14 +126,16 @@ Isomap <- setClass(
         return(new(
             "dimRedResult",
             data         = new("dimRedData",
-                               data = cmdout$points,
+                               data = e_vectors,
                                meta = meta),
             org.data     = orgdata,
             has.org.data = keep.org.data,
             apply        = appl,
             has.apply    = TRUE,
-            method       = "isomap",
-            pars         = pars
+            method       = "Isomap",
+            pars         = pars,
+            other.data   = if (pars$get_geod) list(geod = as.dist(geodist))
+                           else               list()
         ))
 
 

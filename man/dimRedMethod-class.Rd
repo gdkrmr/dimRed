@@ -23,9 +23,8 @@ and returns an object of class \code{\link{dimRedResult}}.
 The \code{stdpars} slot should take a list that contains standard
 parameters for the implemented methods.
 
-This way the method can be called by \code{embed(data,
-"method-name", ...)}, where \code{...} can be used to to change
-single parameters.
+This way the method can be called by \code{embed(data, "method-name",
+...)}, where \code{...} can be used to to change single parameters.
 }
 \section{Slots}{
 
@@ -37,15 +36,15 @@ slot.}
 }}
 
 \seealso{
-\link{dimRedMethodList}
-
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}}, \code{\link{kPCA-class}},
+  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
+  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
+  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
   \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }

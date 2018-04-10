@@ -14,6 +14,7 @@
 \alias{getOrgData,dimRedResult-method}
 \alias{getDimRedData,dimRedResult-method}
 \alias{ndims,dimRedResult-method}
+\alias{getOtherData,dimRedResult-method}
 \title{Class "dimRedResult"}
 \usage{
 \S4method{predict}{dimRedResult}(object, xnew)
@@ -34,6 +35,8 @@
 \S4method{getDimRedData}{dimRedResult}(object)
 
 \S4method{ndims}{dimRedResult}(object)
+
+\S4method{getOtherData}{dimRedResult}(object)
 }
 \arguments{
 \item{object}{Of class \code{dimRedResult}}
@@ -77,6 +80,8 @@ was called.
 \item \code{getDimRedData}: Get the embedded data
 
 \item \code{ndims}: Extract the number of embedding dimensions.
+
+\item \code{getOtherData}: Get other data produced by the method
 }}
 
 \section{Slots}{
@@ -101,6 +106,8 @@ reduced space, may not exist.}
 \item{\code{method}}{saves the method used.}
 
 \item{\code{pars}}{saves the parameters used.}
+
+\item{\code{other.data}}{other data produced by the method, e.g. a distance matrix.}
 }}
 
 \examples{

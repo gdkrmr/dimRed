@@ -22,7 +22,7 @@ embed(.data, ...)
 \arguments{
 \item{.data}{object of class \code{dimRedData}}
 
-\item{...}{the pameters, internally passed as a list to the
+\item{...}{the parameters, internally passed as a list to the
 dimensionality reduction method as \code{pars = list(...)}}
 
 \item{.formula}{a formula, see \code{\link{as.dimRedData}}.}

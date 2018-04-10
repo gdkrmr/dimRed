@@ -1,5 +1,4 @@
 language: r
-cache: packages
 sudo: false
 
 # for pcaL1:
@@ -13,6 +12,12 @@ r:
   - release
   - devel
 
+cache:
+  packages: true
+  directories:
+    - $HOME/.keras
+    - $HOME/.cache/pip
+
 r_check_args:
   "--run-donttest --run-dontrun --timings"
 
@@ -21,12 +26,18 @@ before_install:
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
   - Rscript -e "if (!'rgl' %in% rownames(installed.packages())) install.packages('rgl')"
   - Rscript -e "if (!'roxygen2' %in% rownames(installed.packages())) install.packages('roxygen2')"
+  # - Rscript -e "if (!'tensorflow' %in% rownames(installed.packages())) install.packages('tensorflow')"
   # Set CXX1X for R-devel, as R-devel does not detect CXX1X support for gcc 4.6.3,
   - if [[ "$TRAVIS_R_VERSION_STRING" = 'devel' ]]; then mkdir ~/.R && echo 'CXX1X=g++ -std=c++0x -g -O2 -fPIC' > ~/.R/Makevars; fi
 
 before_script:
-  - Rscript -e "devtools::document()"
+  # - Rscript -e "devtools::document()"
+  # Keras and TensorFlow stuff
+  - pip2.7 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
+  - pip2.7 install --upgrade --ignore-installed --user keras h5py pyyaml requests Pillow scipy
+  - Rscript -e "tensorflow::install_tensorflow()"
+  - Rscript -e "keras::install_keras()"
 
 # Only report coverage for the release version
 after_success:
-- test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'
+  - test $TRAVIS_R_VERSION_STRING = 'release' && Rscript -e 'covr::codecov()'

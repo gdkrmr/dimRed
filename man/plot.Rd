@@ -27,7 +27,7 @@ embedded/loadDataSet}
 
 \item{...}{handed over to the underlying plotting function.}
 
-\item{type}{plot type, one of \code{c("pairs", "parallel", "2vars",
+\item{type}{plot type, one of \code{c("pairs", "parpl", "2vars",
 "3vars", "3varsrgl")}}
 
 \item{vars}{the axes of the embedding to use for plotting}

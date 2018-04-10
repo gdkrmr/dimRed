@@ -49,7 +49,7 @@ The dimRed package uses its own implementation of Isomap which also
 comes with an out of sample extension (known as landmark
 Isomap). The default Isomap algorithm scales computationally not
 very well, the implementation here uses \code{\link[RANN]{nn2}} for
-a faster search of the neares neighbors.  If data are too large it
+a faster search of the nearest neighbors.  If data are too large it
 may be useful to fit a subsample of the data and use the
 out-of-sample extension for the other points.
 }
@@ -71,15 +71,16 @@ plot(emb3, type = "2vars")
 
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{DRR-class}},
+Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
+  \code{\link{DRR-class}},
   \code{\link{DiffusionMaps-class}},
   \code{\link{DrL-class}}, \code{\link{FastICA-class}},
   \code{\link{FruchtermanReingold-class}},
   \code{\link{HLLE-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{MDS-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}},
+  \code{\link{MDS-class}}, \code{\link{NNMF-class}},
+  \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
   \code{\link{dimRedMethod-class}},
-  \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
-  \code{\link{tSNE-class}}
+  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
+  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }

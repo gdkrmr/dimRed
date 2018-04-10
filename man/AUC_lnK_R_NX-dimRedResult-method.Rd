@@ -6,20 +6,28 @@
 \alias{AUC_lnK_R_NX}
 \title{Method AUC_lnK_R_NX}
 \usage{
-\S4method{AUC_lnK_R_NX}{dimRedResult}(object)
+\S4method{AUC_lnK_R_NX}{dimRedResult}(object, weight = "inv")
 }
 \arguments{
 \item{object}{of class dimRedResult}
+
+\item{weight}{the weight function used, one of \code{c("inv", "log", "log10")}}
 }
 \description{
-Calculate the Area under the R_NX(ln K), used in Lee et. al. (2013).
+Calculate the Area under the R_NX(ln K), used in Lee et. al. (2015). Note
+that despite the name, this does not weight the mean by the logarithm, but by
+1/K. If explicit weighting by the logarithm is desired use \code{weight =
+"log"} or \code{weight = "log10"}
+}
+\details{
+The naming confusion originated from equation 17 in Lee et al (2015) and the
+name of this method may change in the future to avoid confusion.
 }
 \references{
-Lee, J.A., Renard, E., Bernard, G., Dupont, P., Verleysen, M.,
-2013. Type 1 and 2 mixtures of Kullback-Leibler divergences as cost
-functions in dimensionality reduction based on similarity
-preservation. Neurocomputing. 112,
-92-107. doi:10.1016/j.neucom.2012.12.036
+Lee, J.A., Peluffo-Ordonez, D.H., Verleysen, M., 2015.
+  Multi-scale similarities in stochastic neighbour embedding: Reducing
+  dimensionality while preserving both local and global structure.
+  Neurocomputing 169, 246-261. https://doi.org/10.1016/j.neucom.2014.12.095
 }
 \seealso{
 Other Quality scores for dimensionality reduction: \code{\link{LCMC,dimRedResult-method}},
@@ -30,6 +38,7 @@ Other Quality scores for dimensionality reduction: \code{\link{LCMC,dimRedResult
   \code{\link{cophenetic_correlation,dimRedResult-method}},
   \code{\link{distance_correlation,dimRedResult-method}},
   \code{\link{mean_R_NX,dimRedResult-method}},
+  \code{\link{plot_R_NX}},
   \code{\link{quality,dimRedResult-method}},
   \code{\link{reconstruction_error,dimRedResult-method}},
   \code{\link{reconstruction_rmse,dimRedResult-method}},

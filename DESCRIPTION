@@ -1,16 +1,20 @@
 Package: dimRed
 Title: A Framework for Dimensionality Reduction
 Version: 0.1.0.9001
-Authors@R: person("Guido", "Kraemer",
-    email = "gkraemer@bgc-jena.mpg.de",
-    role = c("aut", "cre"))
+Authors@R: c(
+    person("Guido", "Kraemer",
+           email = "gkraemer@bgc-jena.mpg.de",
+           role = c("aut", "cre"))
+    )
 Description: A collection of dimensionality reduction
-    techniques from R packages and provides a common
+    techniques from R packages and a common
     interface for calling the methods.
 Depends:
     R (>= 3.0.0),
-    methods,
     DRR
+Imports:
+    magrittr,
+    methods
 Suggests:
     MASS,
     Matrix,
@@ -24,9 +28,11 @@ Suggests:
     ggplot2,
     graphics,
     igraph,
+    keras,
     kernlab,
     lle,
     loe,
+    NNLM,
     optimx,
     pcaPP,
     pcaL1,
@@ -34,6 +40,7 @@ Suggests:
     scales,
     scatterplot3d,
     stats,
+    tensorflow,
     testthat,
     tidyr,
     vegan
@@ -41,11 +48,12 @@ License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
 LazyData: true
 Collate: 
+    'dimRedMethod-class.R'
     'misc.R'
     'dimRedData-class.R'
-    'dataSets.R'
-    'dimRedMethod-class.R'
     'dimRedResult-class.R'
+    'autoencoder.R'
+    'dataSets.R'
     'diffmap.R'
     'dimRed.R'
     'drr.R'
@@ -63,6 +71,7 @@ Collate:
     'mds.R'
     'mixColorSpaces.R'
     'nmds.R'
+    'nnmf.R'
     'pca.R'
     'plot.R'
     'quality.R'

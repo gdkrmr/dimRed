@@ -17,9 +17,8 @@
 #' The \code{stdpars} slot should take a list that contains standard
 #' parameters for the implemented methods.
 #'
-#' This way the method can be called by \code{embed(data,
-#' "method-name", ...)}, where \code{...} can be used to to change
-#' single parameters.
+#' This way the method can be called by \code{embed(data, "method-name",
+#' ...)}, where \code{...} can be used to to change single parameters.
 #'
 #'
 #' @slot fun A function that does the embedding.
@@ -27,7 +26,6 @@
 #'     slot.
 #'
 #' @family dimensionality reduction methods
-#' @seealso \link{dimRedMethodList}
 #' @export
 setClass("dimRedMethod",
          contains  = "VIRTUAL",
@@ -48,6 +46,7 @@ setClass("dimRedMethod",
 #' @examples
 #' dimRedMethodList()
 #'
+#' @family dimensionality reduction methods
 #' @export
 dimRedMethodList <- function () {
     ## return(c(
