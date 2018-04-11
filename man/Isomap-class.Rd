@@ -70,6 +70,11 @@ plot(emb2, type = "2vars")
 plot(emb3, type = "2vars")
 
 }
+\references{
+Tenenbaum, J.B., Silva, V. de, Langford, J.C., 2000. A Global Geometric
+Framework for Nonlinear Dimensionality Reduction. Science 290, 2319-2323.
+https://doi.org/10.1126/science.290.5500.2319
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

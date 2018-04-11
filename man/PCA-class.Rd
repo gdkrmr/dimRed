@@ -69,6 +69,10 @@ plot(emb, type = "2vars")
 plot(emb@inverse(emb@data), type = "3vars")
 
 }
+\references{
+Pearson, K., 1901. On lines and planes of closest fit to systems of points in
+space. Philosophical Magazine 2, 559-572.
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

@@ -23,6 +23,11 @@
 #' provides an out-of-sample extension which is not completely
 #' optimized yet.
 #'
+#' @references
+#'
+#' Torgerson, W.S., 1952. Multidimensional scaling: I. Theory and method.
+#' Psychometrika 17, 401-419. https://doi.org/10.1007/BF02288916
+#'
 #' @examples
 #' \dontrun{
 #' dat <- loadDataSet("3D S Curve")

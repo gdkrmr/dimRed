@@ -32,6 +32,7 @@
 #' Wraps around \code{\link[loe]{spec.emb}}.
 #'
 #' @references
+#' 
 #' Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for
 #' Dimensionality Reduction and Data Representation. Neural
 #' Computation 15, 1373.

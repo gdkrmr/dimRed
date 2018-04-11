@@ -69,6 +69,11 @@ emb2 <- embed(dat, "kPCA")
 plot(emb, type = "2vars")
 }
 }
+\references{
+Sch\"olkopf, B., Smola, A., M\"uller, K.-R., 1998. Nonlinear Component Analysis
+as a Kernel Eigenvalue Problem. Neural Computation 10, 1299-1319.
+https://doi.org/10.1162/089976698300017467
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

@@ -22,6 +22,7 @@
 #' exposes the parameters \code{k} and \code{m}.
 #'
 #' @references
+#'
 #' Roweis, S.T., Saul, L.K., 2000. Nonlinear Dimensionality Reduction
 #' by Locally Linear Embedding. Science 290,
 #' 2323-2326. doi:10.1126/science.290.5500.2323

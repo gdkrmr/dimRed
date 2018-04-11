@@ -63,6 +63,11 @@ emb2 <- embed(dat, "FastICA", ndim = 2)
 plot(emb@data@data)
 
 }
+\references{
+Hyvarinen, A., 1999. Fast and robust fixed-point algorithms for independent
+component analysis. IEEE Transactions on Neural Networks 10, 626-634.
+https://doi.org/10.1109/72.761722
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

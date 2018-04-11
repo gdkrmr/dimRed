@@ -31,6 +31,11 @@
 #'  numbers. To create reproducible results, set the random number seed prior
 #'  to execution.
 #'
+#' @references
+#'
+#' Lee, D.D., Seung, H.S., 1999. Learning the parts of objects by non-negative
+#' matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
+#'
 #' @examples
 #' dat <- loadDataSet("Iris")
 #'

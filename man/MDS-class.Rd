@@ -66,6 +66,10 @@ plot(emb, type = "2vars")
 plot(emb2, type = "2vars")
 }
 }
+\references{
+Torgerson, W.S., 1952. Multidimensional scaling: I. Theory and method.
+Psychometrika 17, 401-419. https://doi.org/10.1007/BF02288916
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},
