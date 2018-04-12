@@ -5,10 +5,10 @@ test_that("general data conversions", {
     irisData <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(irisData)[1], "dimRedData")
 
-    irisParsCS <- list(center = TRUE,  ndim = 4, scale. = TRUE,  projections = "l1", fun = "l1pca")
-    irisParsC  <- list(center = TRUE,  ndim = 4, scale. = FALSE, projections = "l1", fun = "l1pca")
-    irisParsS  <- list(center = TRUE,  ndim = 4, scale. = TRUE,  projections = "l1", fun = "l1pcahp")
-    irisPars   <- list(center = FALSE, ndim = 4, scale. = FALSE, projections = "l1", fun = "l1pcastar")
+    irisParsCS <- list(center = TRUE,  .mute = c("message", "output"), ndim = 4, scale. = TRUE,  projections = "l1", fun = "l1pca")
+    irisParsC  <- list(center = TRUE,  .mute = c("message", "output"), ndim = 4, scale. = FALSE, projections = "l1", fun = "l1pca")
+    irisParsS  <- list(center = TRUE,  .mute = c("message", "output"), ndim = 4, scale. = TRUE,  projections = "l1", fun = "l1pcahp")
+    irisPars   <- list(center = FALSE, .mute = c("message", "output"), ndim = 4, scale. = FALSE, projections = "l1", fun = "l1pcastar")
 
     irisResCS <- do.call(function(...) embed(irisData, "PCA_L1", ...), irisParsCS)
     irisResS  <- do.call(function(...) embed(irisData, "PCA_L1", ...), irisParsS)
