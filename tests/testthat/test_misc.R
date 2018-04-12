@@ -30,3 +30,13 @@ test_that("makeEpsGraph", {
     expect_true(check_makeEpsGraph(iris[1:4], 1))
     expect_true(check_makeEpsGraph(iris[1:4], 0.5))
 })
+
+
+test_that("getRotationMatrixFail", {
+  irisData <- as(iris[, 1:4], "dimRedData")
+  expect_equal(class(irisData)[1], "dimRedData")
+
+  irisRes <- embed(irisData, "tSNE")
+
+  expect_error(getRotationMatrix(irisRes), "Not implemented for")
+})
