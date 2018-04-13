@@ -69,6 +69,10 @@ proj_dat <- factorization@apply(dat)
 plot(proj_dat@data[, 1], proj_dat@data[, 2])
 
 }
+\references{
+Lee, D.D., Seung, H.S., 1999. Learning the parts of objects by non-negative
+matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

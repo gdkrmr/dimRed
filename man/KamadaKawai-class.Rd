@@ -65,6 +65,11 @@ plot(kk@data@data)
 
 
 }
+\references{
+Kamada, T., Kawai, S., 1989. An algorithm for drawing general undirected
+graphs. Information Processing Letters 31, 7-15.
+https://doi.org/10.1016/0020-0190(89)90102-6
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

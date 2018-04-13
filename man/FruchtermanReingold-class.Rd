@@ -60,6 +60,11 @@ emb2 <- embed(dat, "FruchtermanReingold", knn = 5)
 plot(emb, type = "2vars")
 
 }
+\references{
+Fruchterman, T.M.J., Reingold, E.M., 1991. Graph drawing by force-directed
+placement. Softw: Pract. Exper. 21, 1129-1164.
+https://doi.org/10.1002/spe.4380211102
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

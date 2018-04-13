@@ -29,6 +29,12 @@
 #' Package adds an extra sparsity parameter by constructing a knn
 #' graph which also may improve visualization quality.
 #'
+#' @references
+#'
+#' Kamada, T., Kawai, S., 1989. An algorithm for drawing general undirected
+#' graphs. Information Processing Letters 31, 7-15.
+#' https://doi.org/10.1016/0020-0190(89)90102-6
+#'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 500)
 #' kamada_kawai <- KamadaKawai()
@@ -107,6 +113,11 @@ KamadaKawai <- setClass(
 #' cannot be set, this may change in a future release. The DimRed
 #' Package adds an extra sparsity parameter by constructing a knn
 #' graph which also may improve visualization quality.
+#'
+#' @references
+#'
+#' Martin, S., Brown, W.M., Wylie, B.N., 2007. Dr.l: Distributed Recursive
+#' (graph) Layout (No. dRl; 002182MLTPL00). Sandia National Laboratories.
 #'
 #' @examples
 #' \dontrun{
@@ -187,6 +198,12 @@ DrL <- setClass(
 #' Wraps around \code{\link[igraph]{layout_with_fr}}, see there for
 #' details. The Fruchterman Reingold algorithm puts the data into
 #' a circle and puts connected points close to each other.
+#'
+#' @references
+#'
+#' Fruchterman, T.M.J., Reingold, E.M., 1991. Graph drawing by force-directed
+#' placement. Softw: Pract. Exper. 21, 1129-1164.
+#' https://doi.org/10.1002/spe.4380211102
 #'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 100)

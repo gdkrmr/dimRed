@@ -63,6 +63,10 @@ plot(emb, type = "2vars")
 plot(emb2, type = "2vars")
 
 }
+\references{
+Kruskal, J.B., 1964. Nonmetric multidimensional scaling: A numerical method.
+Psychometrika 29, 115-129. https://doi.org/10.1007/BF02289694
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

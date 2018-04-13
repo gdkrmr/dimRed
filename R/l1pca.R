@@ -27,6 +27,12 @@
 #' can be reduced to a simple rotation, forward and backward projection
 #' functions are supplied.
 #'
+#' @references
+#'
+#' Park, Y.W., Klabjan, D., 2016. Iteratively Reweighted Least Squares
+#' Algorithms for L1-Norm Principal Component Analysis, in: Data Mining (ICDM),
+#' 2016 IEEE 16th International Conference On. IEEE, pp. 430-438.
+#'
 #' @examples
 #' dat <- loadDataSet("Iris")
 #'

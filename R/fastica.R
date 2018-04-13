@@ -22,6 +22,11 @@
 #' independences between signals. Because it is a simple
 #' rotation/projection, forward and backward functions can be given.
 #'
+#' @references
+#'
+#' Hyvarinen, A., 1999. Fast and robust fixed-point algorithms for independent
+#' component analysis. IEEE Transactions on Neural Networks 10, 626-634.
+#' https://doi.org/10.1109/72.761722
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")

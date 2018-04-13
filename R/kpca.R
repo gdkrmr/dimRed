@@ -29,6 +29,12 @@
 #' Wraps around \code{\link[kernlab]{kpca}}, but provides additionally
 #' forward and backward projections.
 #'
+#' @references
+#'
+#' Sch\"olkopf, B., Smola, A., M\"uller, K.-R., 1998. Nonlinear Component Analysis
+#' as a Kernel Eigenvalue Problem. Neural Computation 10, 1299-1319.
+#' https://doi.org/10.1162/089976698300017467
+#'
 #' @examples
 #' \dontrun{
 #' dat <- loadDataSet("3D S Curve")

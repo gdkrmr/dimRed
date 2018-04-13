@@ -68,6 +68,11 @@ plot(emb, type = "2vars")
 plot(emb@inverse(emb@data), type = "3vars")
 
 }
+\references{
+Park, Y.W., Klabjan, D., 2016. Iteratively Reweighted Least Squares
+Algorithms for L1-Norm Principal Component Analysis, in: Data Mining (ICDM),
+2016 IEEE 16th International Conference On. IEEE, pp. 430-438.
+}
 \seealso{
 Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{DRR-class}},

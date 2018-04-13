@@ -27,6 +27,11 @@
 #' may be useful to fit a subsample of the data and use the
 #' out-of-sample extension for the other points.
 #'
+#' @references
+#' Tenenbaum, J.B., Silva, V. de, Langford, J.C., 2000. A Global Geometric
+#' Framework for Nonlinear Dimensionality Reduction. Science 290, 2319-2323.
+#' https://doi.org/10.1126/science.290.5500.2319
+#'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #'
