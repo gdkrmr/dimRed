@@ -95,7 +95,7 @@ setMethod(
       ##            "hjkb", "Rcgmin", "Rvmmin"),
       lower = 0,
       upper = 2 * pi,
-      control = list(all.methods = T),
+      control = list(all.methods = TRUE),
       X = as.matrix(X),
       Y = as.matrix(Y),
       axis = axis,
