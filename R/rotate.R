@@ -169,7 +169,7 @@ rotate <- function (angs, planes, X) {
     rotmat2d <- matrix(
       c(cos(angs[p]), -sin(angs[p]),
         sin(angs[p]),  cos(angs[p])),
-      2, 2, byrow = T
+      2, 2, byrow = TRUE
     )
     p_rotmat <- diag(ndim)
     for (i in 1:2)
