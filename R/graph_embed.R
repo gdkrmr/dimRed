@@ -286,7 +286,7 @@ construct_knn_graph <- function (data.dist, knn) {
   data.graph <- igraph::graph_from_adjacency_matrix(
     adjmatrix = data.dist,
     mode = "undirected",
-    weighted = T
+    weighted = TRUE
   )
 
   if (is.infinite(knn) || is.na(knn))

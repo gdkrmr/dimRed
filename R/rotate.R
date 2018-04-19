@@ -90,34 +90,29 @@ setMethod(
     o <- optimx::optimx(
       par = rep(0, nplanes),
       fn = obj,
-      ## method = c("Nelder-Mead", "BFGS", "CG", "L-BFGS-B", "nlm",
-      ##            "nlminb", "spg", "ucminf", "newuoa", "bobyqa", "nmkb",
-      ##            "hjkb", "Rcgmin", "Rvmmin"),
+      method = "L-BFGS-B",
       lower = 0,
       upper = 2 * pi,
-      control = list(all.methods = T),
       X = as.matrix(X),
       Y = as.matrix(Y),
       axis = axis,
       without_axes = without_axes,
       cor_method = cor_method
     )
+    ## The result looks like this:
+    ##          p1      value fevals gevals niter convcode  kkt1 kkt2 xtimes
+    ## L-BFGS-B  0 -0.1613494      1      1    NA        0 FALSE   NA  0.016
 
-    best_idx <- which.min(o$value)
-
-    if (length(best_idx) == 0)
-      best_idx <- NA
+    if (o$convcode > 0) stop("rotation did not converge.")
 
     res_idx <- length(res) + 1
     res[[res_idx]] <- list()
     res[[res_idx]]$axis <- axis
     res[[res_idx]]$without_axes <- without_axes
-    res[[res_idx]]$angs <- unname( unlist(o[best_idx, 1:nplanes]) )
+    res[[res_idx]]$angs <- unname( unlist(o[1, 1:nplanes]) )
     res[[res_idx]]$planes <- planes
     res[[res_idx]]$X <- rotate(res[[res_idx]]$angs, planes, X)
-    ## this is the mean squared correlation of the original variables
-    ## with "axis", see return value of "obj":
-    res[[res_idx]]$cor <- -o$value[best_idx]
+    res[[res_idx]]$cor <- -o$value
   }
 
   ## calculate the correlation for axes
@@ -168,7 +163,7 @@ rotate <- function (angs, planes, X) {
     rotmat2d <- matrix(
       c(cos(angs[p]), -sin(angs[p]),
         sin(angs[p]),  cos(angs[p])),
-      2, 2, byrow = T
+      2, 2, byrow = TRUE
     )
     p_rotmat <- diag(ndim)
     for (i in 1:2)
