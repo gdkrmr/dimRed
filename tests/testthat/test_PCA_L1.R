@@ -2,6 +2,7 @@
 context("PCA L1")
 
 test_that("general data conversions", {
+    skip_if_not_installed("pcaL1")
     irisData <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(irisData)[1], "dimRedData")
 
