@@ -7,181 +7,95 @@ input_tst <- dimRedData(ints_trn[1:3,] + 1)
 
 test_that("2D projection", {
   
-  set.seed(6569)
-  dim_2_defaults <- embed(input_trn, "NNMF")
+  dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 10)
 
   # Expected results from
-  # set.seed(6569)
-  # tmp <- NNLM::nnmf(ints_trn, k = 2, verbose = 0)
+  # tmp <- NMF::nmf(t(ints_trn), rank = 2, nrun = 10, seed = 13)
+  # coefs <- t(basis(tmp))
+  # colnames(coefs) <- paste0("V", 1:5)
   
-  dim_2_W <-
-    structure(
-      c(
-        2.42572749239833e-07,
-        842.09976067527,
-        1684.1995209438,
-        2526.2992812106,
-        3368.39904147689,
-        4210.49880174279,
-        5052.59856200863,
-        5894.69832225697,
-        6736.79808251701,
-        7578.89784277869,
-        9214.12987669352,
-        8801.71261456881,
-        8389.29535258438,
-        7976.87809060143,
-        7564.46082861892,
-        7152.04356663674,
-        6739.62630465461,
-        6327.20904268744,
-        5914.79178071026,
-        5502.37451873169
-      ),
-      .Dim = c(10L, 2L)
-    )
-  dim_2_H <-
-  structure(
+  dim_2_coef <- structure(
     c(
-      0.00237501551979808,
-      0,
-      0.00343805393051527,
-      0.00217057934569909,
-      0.00450109234110581,
-      0.00434115869149624,
-      0.00556413075169635,
-      0.00651173803729339,
-      0.00662716916228689,
-      0.00868231738309053
+      24.8398963516693,
+      2.22044604925031e-16,
+      35.5902150792044,
+      29.2373463142194,
+      46.3405338067393,
+      58.4746926284389,
+      57.0908525342742,
+      87.7120389426585,
+      67.8411712618091,
+      116.949385256878
     ),
-    .Dim = c(2L, 5L)
+    .Dim = c(2L, 5L),
+    .Dimnames = list(NULL, c("V1", "V2", "V3", "V4", "V5"))
   )
   
-  expect_equivalent(dim_2_defaults@other.data$W, dim_2_W)
-  expect_equivalent(dim_2_defaults@other.data$H, dim_2_H)
+  expect_equivalent(dim_2_defaults@other.data$proj, dim_2_coef)
   
-  set.seed(5197)
-  dim_2_proj <- dim_2_defaults@apply(input_tst)
+  dim_2_apply <- dim_2_defaults@apply(input_tst)@data
+  dim_2_pred <- predict(dim_2_defaults, input_tst)@data
   
   # Expected results from
-  # set.seed(9770)
-  # predict(tmp, ints_trn[1:3,] + 1, which = "W")$coefficients
+  # preds <- input_tst@data %*% basis(tmp)
+  # colnames(preds) <- paste0("NNMF", 1:2)
   
-  dim_2_pred <- 
+  dim_2_exp <- 
     structure(
-      c(
-        421.049880386134,
-        1263.14964068643,
-        2105.24940098787,
-        9007.92124569017,
-        8595.503983678,
-        8183.08672166484
-      ),
-      .Dim = c(3L,
-               2L)
-    )
-  expect_equivalent(dim_2_proj@data, dim_2_pred, tolerance = 0.01)
+      c(11649.8731758885, 12113.2785139559, 12576.6838520233, 
+        17834.7812516739, 18419.5281779583, 19004.2751042427), 
+      .Dim = 3:2, 
+      .Dimnames = list(NULL, c("NNMF1", "NNMF2"))
+      )
+  expect_equivalent(dim_2_apply, dim_2_exp, tolerance = 0.01)
+  expect_equivalent(dim_2_pred,  dim_2_exp, tolerance = 0.01)  
 })
 
-
-test_that("3D projection via KL div", {
+test_that("other arguments", {
   
-  set.seed(2106)
-  dim_3_defaults <- embed(input_trn, "NNMF", 
-                          ndim = 3, loss = "mkl",
-                          rel.tol = 1e-10) 
+  dim_3_args <- embed(input_trn, "NNMF", seed = 13, nrun = 10,
+                      ndim = 3, method = "KL", 
+                      options = list(.pbackend = NULL))
   
   # Expected results from
-  # set.seed(2106)
-  # tmp <- NNLM::nnmf(ints_trn, k = 3, loss = "mkl", verbose = 0, rel.tol = 1e-10)
+  # tmp <- NMF::nmf(t(ints_trn), rank = 3, nrun = 10, seed = 13,
+  #                 method = "KL", .pbackend = NULL)
+  # coefs <- t(basis(tmp))
+  # colnames(coefs) <- paste0("V", 1:5)
   
-  dim_3_W <-
+  dim_2_coef <- 
     structure(
-      c(
-        5.18063005099169,
-        3.61928482599978,
-        3.23874387453718,
-        3.79740487024406,
-        3.69872376193331,
-        2.99237501197329,
-        1.95823119713848,
-        2.25481853296027,
-        0.62561468275278,
-        1.17359023793198,
-        4.45166623232659,
-        6.59192039569594,
-        6.77618627417522,
-        5.40467525804366,
-        5.12204364677915,
-        5.84600628218366,
-        7.11295755771834,
-        6.1755684532383,
-        8.42822962506597,
-        7.07441891452535,
-        0,
-        1.48872378516316,
-        2.97744757032668,
-        4.46617135549625,
-        5.95489514066389,
-        7.44361892582682,
-        8.93234271098553,
-        10.4210664961581,
-        11.909790281308,
-        13.3985140664849
-      ),
-      .Dim = c(10L, 3L)
+      c(11.624951277152, 2.22044604925031e-16, 22.4019808842378, 
+        31.2554213278975, 36.4357899711133, 42.1081005773292, 50.8858913786408, 
+        72.8715799422292, 61.8142202704197, 70.5163614293837, 109.307369913346, 
+        81.52033996351, 90.1468314801264, 145.743159884462, 101.2264596566
+      ), 
+      .Dim = c(3L, 5L), 
+      .Dimnames = list(NULL, c("V1", "V2", "V3", "V4", "V5"))
     )
   
-  dim_3_H <-
-    structure(
-      c(
-        0,
-        0,
-        1.34343255607936,
-        2.54192843793978,
-        1.53452859904805,
-        1.80325365438537,
-        5.083856875899,
-        3.06905719807887,
-        2.2630747526993,
-        7.62578531385728,
-        4.60358579711049,
-        2.72289585101288,
-        10.1677137518434,
-        6.13811439611691,
-        3.18271694933827
-      ),
-      .Dim = c(3L, 5L)
-    )
+  expect_equivalent(dim_3_args@other.data$proj, dim_2_coef)
   
-  expect_equivalent(dim_3_defaults@other.data$W, dim_3_W)
-  expect_equivalent(dim_3_defaults@other.data$H, dim_3_H)
-  
-  set.seed(2141)
-  dim_3_proj <- dim_3_defaults@apply(input_tst)
+  dim_3_apply <- dim_3_args@apply(input_tst)@data
+  dim_3_pred <- predict(dim_3_args, input_tst)@data
   
   # Expected results from
-  # set.seed(2141)
-  # predict(tmp, ints_trn[1:3,] + 1, which = "W")$coefficients
+  # preds <- input_tst@data %*% basis(tmp)
+  # colnames(preds) <- paste0("NNMF", 1:3)
   
-  dim_3_pred <- 
+  dim_3_exp <- 
     structure(
-      c(
-        4.62380751248276,
-        4.05189652465168,
-        3.43947500335433,
-        5.15098831939291,
-        5.65225639510719,
-        6.2206296894075,
-        0.744361892582574,
-        2.23308567774797,
-        3.72180946290805
-      ),
-      .Dim = c(3L, 3L)
+      c(14357.7017427699, 14866.5606565563, 15375.4195703427, 
+        22225.8318823803, 22954.5476818026, 23683.2634812249, 
+        16613.1390940541, 17231.2812967583, 17849.4234994625), 
+      .Dim = c(3L, 3L), 
+      .Dimnames = list(NULL, c("NNMF1", "NNMF2", "NNMF3"))
     )
   
-  expect_equivalent(dim_3_proj@data, dim_3_pred, tolerance = 0.01)
+  expect_equivalent(dim_3_apply, dim_3_exp, tolerance = 0.01)
+  expect_equivalent(dim_3_pred,  dim_3_exp, tolerance = 0.01)  
 })
+
 
 test_that("Bad args", {
   
