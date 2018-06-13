@@ -26,8 +26,10 @@
 #' @section Implementation:
 #'
 #' Wraps around \code{\link[NMF]{nmf}}. Note that the estimation uses random
-#'  numbers. To create reproducible results, set the random number seed prior
-#'  to execution.
+#'  numbers. To create reproducible results, set the random number seed in the
+#'  function call. Also, in many cases, the computations will be conducted
+#'  in parallel using multiple cores. To disable this, use the option
+#'  \code{.pbackend = NULL}.
 #'
 #' @references
 #'
@@ -46,23 +48,24 @@
 #'
 #' # project new values:
 #' 
-#' nn_proj <- predict(emb, iris[1:7, 1:4])
+#' nn_proj <- predict(factorization, iris[1:7, 1:4])
 #' nn_proj
 #' 
-#' inverse(emb, nn_proj)
+#' inverse(factorization, nn_proj)
 #' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
+#' @importFrom NMF nmf
 #' @export NNMF
 #' @exportClass NNMF
 NNMF <- setClass(
   "NNMF",
   contains = "dimRedMethod",
   prototype = list(
-    stdpars = list(ndim = 4L,
+    stdpars = list(ndim = 2L,
                    method = "brunet",
-                   nrun = 3,
+                   nrun = 10,
                    seed = sample.int(10^5, 1),
                    options = list()),
     fun = function (data, pars, keep.org.data = TRUE) {
@@ -92,7 +95,7 @@ NNMF <- setClass(
       # call <- c(list(quote(NMF::nmf)), args)
 
       proj <- t(basis(nmf_result))
-      other.data <- list(p = nrow(data))
+      other.data <- list(p = nrow(data), proj = proj)
       scores <- t(data) %*% t(proj)
       scores <- as.data.frame(scores)
       names(scores) <- paste0("NNMF", 1:ncol(scores))
@@ -111,24 +114,23 @@ NNMF <- setClass(
                "as the original data (", other.data$p, ")",
                call. = FALSE)
 
-        scores <- as.data.frame(dat %*% t(proj))
+        scores <- as.data.frame(dat %*% t(other.data$proj))
         names(scores) <- paste0("NNMF", 1:ncol(scores))
 
-        proj <- new("dimRedData", data = scores, meta = appl.meta)
-        return(proj)
+        scores <- new("dimRedData", data = scores, meta = appl.meta)
+        return(scores)
       }
 
       inv <- function(x) {
         appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
         dat <- if (inherits(x, "dimRedData")) x@data else x
-        
         if (!is.matrix(dat))
           dat <- as.matrix(dat)
 
-        reproj <- x %*% proj
-        reproj <- new("dimRedData", data = reproj, meta = appl.meta)
+        scores <- dat %*% other.data$proj
+        scores <- new("dimRedData", data = scores, meta = appl.meta)
 
-        return(reproj)
+        return(scores)
       }
 
       res <- new(
