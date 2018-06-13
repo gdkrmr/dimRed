@@ -51,8 +51,6 @@
 #' nn_proj <- predict(factorization, iris[1:7, 1:4])
 #' nn_proj
 #' 
-#' inverse(factorization, nn_proj)
-#' 
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -121,18 +119,6 @@ NNMF <- setClass(
         return(scores)
       }
 
-      inv <- function(x) {
-        appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
-        dat <- if (inherits(x, "dimRedData")) x@data else x
-        if (!is.matrix(dat))
-          dat <- as.matrix(dat)
-
-        scores <- dat %*% other.data$proj
-        scores <- new("dimRedData", data = scores, meta = appl.meta)
-
-        return(scores)
-      }
-
       res <- new(
         "dimRedResult",
         data         = new("dimRedData",
@@ -140,10 +126,9 @@ NNMF <- setClass(
                            meta = meta),
         org.data     = orgdata,
         apply        = appl,
-        inverse      = inv,
         has.org.data = keep.org.data,
         has.apply    = TRUE,
-        has.inverse  = TRUE,
+        has.inverse  = FALSE,
         method       = "NNMF",
         pars         = pars,
         other.data   = other.data
