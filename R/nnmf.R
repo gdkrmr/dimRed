@@ -15,11 +15,11 @@
 #' \describe{
 #'   \item{ndim}{The number of output dimensions.}
 #'   \item{method}{character, which algorithm should be used. See
-#'    \code{\link[NMF]{nmf}} for possible values. Defaults to 
+#'    \code{\link[NMF]{nmf}} for possible values. Defaults to
 #'    "brunet"}
-#'   \item{nrun}{integer, the number of times the computations are 
+#'   \item{nrun}{integer, the number of times the computations are
 #'    conducted. See \code{\link[NMF]{nmf}}}
-#'   \item{seed}{integer, a value to control the random numbers used.}   
+#'   \item{seed}{integer, a value to control the random numbers used.}
 #'   \item{options}{named list, other options to pass to  \code{\link[NMF]{nmf}}}
 #' }
 #'
@@ -47,10 +47,10 @@
 #' plot(proj_dat@data[, 1], proj_dat@data[, 2])
 #'
 #' # project new values:
-#' 
+#'
 #' nn_proj <- predict(factorization, iris[1:7, 1:4])
 #' nn_proj
-#' 
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -79,56 +79,73 @@ NNMF <- setClass(
       if (pars$ndim > nrow(data))
         stop("`ndim` should be less than the number of columns.",
              call. = FALSE)
-      
-      args <- list(x = quote(data), rank = pars$ndim, method = pars$method, 
-                   nrun = pars$nrun, seed = pars$seed)
-      
+      if (length(pars$method) != 1)
+        stop("only supply one `method`", call. = FALSE)
 
-      if(length(pars$options) > 0) 
+      args <- list(x = quote(data), rank = pars$ndim, method = pars$method,
+                   nrun = pars$nrun, seed = pars$seed)
+
+      if (length(pars$options) > 0)
         args <- c(args, pars$options)
 
       nmf_result <- do.call(NMF::nmf, args)
-      
-      # this should work but doesn't 
+
+      # this should work but doesn't
       # call <- c(list(quote(NMF::nmf)), args)
 
-      proj <- t(basis(nmf_result))
-      other.data <- list(p = nrow(data), proj = proj)
-      scores <- t(data) %*% t(proj)
-      scores <- as.data.frame(scores)
-      names(scores) <- paste0("NNMF", 1:ncol(scores))
-      
+      w <- basis(nmf_result)
+      h <- t(coef(nmf_result))
+
+      other.data <- list(w = w)
+      colnames(h) <- paste0("NNMF", 1:ncol(h))
+
       # evaluate results here for functions
 
-      appl <- function(x) {
+      appl <- function (x) {
         appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
         dat <- if (inherits(x, "dimRedData")) x@data else x
 
         if (!is.matrix(dat))
           dat <- as.matrix(dat)
 
-        if (ncol(dat) != other.data$p)
+        if (ncol(dat) != nrow(w))
           stop("x must have the same number of columns ",
-               "as the original data (", other.data$p, ")",
+               "as the original data (", nrow(w), ")",
                call. = FALSE)
 
-        scores <- as.data.frame(dat %*% t(other.data$proj))
-        names(scores) <- paste0("NNMF", 1:ncol(scores))
+        res <- t(solve(crossprod(w), t(dat %*% w)))
+        colnames(res) <- paste0("NNMF", 1:ncol(res))
 
-        scores <- new("dimRedData", data = scores, meta = appl.meta)
+        scores <- new("dimRedData", data = res, meta = appl.meta)
         return(scores)
+      }
+
+      inv <- function (x) {
+        appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+        proj <- if (inherits(x, "dimRedData")) x@data else x
+
+        if (ncol(proj) > ncol(w))
+          stop("x must have less or equal number of dimensions ",
+               "as the original data")
+
+        res <- tcrossprod(proj, w)
+        colnames(res) <- colnames(data)
+
+        res <- new("dimRedData", data = res, meta = appl.meta)
+        return(res)
       }
 
       res <- new(
         "dimRedResult",
         data         = new("dimRedData",
-                           data = scores,
+                           data = h,
                            meta = meta),
         org.data     = orgdata,
         apply        = appl,
+        inverse      = inv,
         has.org.data = keep.org.data,
         has.apply    = TRUE,
-        has.inverse  = FALSE,
+        has.inverse  = TRUE,
         method       = "NNMF",
         pars         = pars,
         other.data   = other.data
