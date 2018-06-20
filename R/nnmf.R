@@ -68,13 +68,14 @@ NNMF <- setClass(
                    options = list()),
     fun = function (data, pars, keep.org.data = TRUE) {
       chckpkg("NMF")
+      require("NMF")
 
       meta <- data@meta
       orgdata <- if (keep.org.data) data@data else NULL
       data <- data@data
       if (!is.matrix(data))
         data <- as.matrix(data)
-      # NMF expects variables in rows and samples in columns ¯\_(ツ)_/¯
+      # NMF expects variables in rows and samples in columns
       data <- t(data)
       if (pars$ndim > nrow(data))
         stop("`ndim` should be less than the number of columns.",
