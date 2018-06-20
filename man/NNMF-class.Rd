@@ -39,11 +39,11 @@ The method can take the following parameters:
 \describe{
   \item{ndim}{The number of output dimensions.}
   \item{method}{character, which algorithm should be used. See
-   \code{\link[NMF]{nmf}} for possible values. Defaults to 
+   \code{\link[NMF]{nmf}} for possible values. Defaults to
    "brunet"}
-  \item{nrun}{integer, the number of times the computations are 
+  \item{nrun}{integer, the number of times the computations are
    conducted. See \code{\link[NMF]{nmf}}}
-  \item{seed}{integer, a value to control the random numbers used.}   
+  \item{seed}{integer, a value to control the random numbers used.}
   \item{options}{named list, other options to pass to  \code{\link[NMF]{nmf}}}
 }
 }
