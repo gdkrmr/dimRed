@@ -68,6 +68,7 @@ NNMF <- setClass(
                    options = list()),
     fun = function (data, pars, keep.org.data = TRUE) {
       chckpkg("NMF")
+      chckpkg("MASS")
       require("NMF")
 
       meta <- data@meta
@@ -116,7 +117,8 @@ NNMF <- setClass(
                "as the original data (", nrow(w), ")",
                call. = FALSE)
 
-        res <- t(solve(crossprod(w), t(dat %*% w)))
+        res <- dat %*% t(MASS::ginv(w))
+
         colnames(res) <- paste0("NNMF", 1:ncol(res))
 
         scores <- new("dimRedData", data = res, meta = appl.meta)
