@@ -95,8 +95,8 @@ NNMF <- setClass(
       # this should work but doesn't
       # call <- c(list(quote(NMF::nmf)), args)
 
-      w <- basis(nmf_result)
-      h <- t(coef(nmf_result))
+      w <- NMF::basis(nmf_result)
+      h <- t(NMF::coef(nmf_result))
 
       colnames(w) <- paste0("NNMF", 1:ncol(w))
 
