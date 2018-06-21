@@ -97,6 +97,8 @@ NNMF <- setClass(
       w <- basis(nmf_result)
       h <- t(coef(nmf_result))
 
+      colnames(w) <- paste0("NNMF", 1:ncol(w))
+
       other.data <- list(w = w)
       colnames(h) <- paste0("NNMF", 1:ncol(h))
 
