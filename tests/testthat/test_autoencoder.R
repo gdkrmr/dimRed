@@ -13,17 +13,17 @@ skip_if_no_keras <- function() {
 test_that("errors when building autoencoder", {
   skip_if_no_tensorflow()
   iris_data <- as(iris[, 1:4], "dimRedData")
-  expect_error(embed(iris_data, activation = "sigmoid"),
+  expect_error(embed(iris_data, "AutoEncoder", activation = "sigmoid"),
                "declare an activation function for each layer")
-  expect_error(embed(iris_data, n_hidden = c(1, 2, 2, 1)),
+  expect_error(embed(iris_data, "AutoEncoder", n_hidden = c(1, 2, 2, 1)),
                "the number of layers must be impair")
-  expect_error(embed(iris_data, weight_decay = -1),
+  expect_error(embed(iris_data, "AutoEncoder", weight_decay = -1),
                "weight decay must be > 0")
-  expect_error(embed(iris_data, learning_rate = -1),
+  expect_error(embed(iris_data, "AutoEncoder", learning_rate = -1),
                "learning rate must be > 0")
-  expect_error(embed(iris_data, n_steps = -1),
+  expect_error(embed(iris_data, "AutoEncoder", n_steps = -1),
                "n_steps must be > 0")
-  expect_error(embed(iris_data, n_hidden = c(4, 2, 4), ndim = 3),
+  expect_error(embed(iris_data, "AutoEncoder", n_hidden = c(4, 2, 4), ndim = 3),
                "the middle of n_hidden must be equal to ndim")
 })
 

@@ -94,11 +94,12 @@ setMethod(
 setMethod(
     "embed",
     "dimRedData",
-    function(.data, .method = dimRed::dimRedMethodList(),
+    function(.data, .method = dimRedMethodList(),
              .mute = character(0), #c("message", "output"),
              .keep.org.data = TRUE,
-             ...){
-        .method <- match.arg(.method)
+             ...) {
+      .method <- if (all(.method == dimRedMethodList())) "PCA"
+                 else match.arg(.method)
 
         methodObject <- getMethodObject(.method)
 

@@ -69,6 +69,7 @@ NNMF <- setClass(
     fun = function (data, pars, keep.org.data = TRUE) {
       chckpkg("NMF")
       chckpkg("MASS")
+      ## TODO: remove this, depends on https://github.com/renozao/NMF/issues/114
       require("NMF")
 
       meta <- data@meta

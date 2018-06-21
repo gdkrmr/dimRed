@@ -9,6 +9,8 @@ test_that("2D projection", {
 
   dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 1)
 
+  expect_equal(dim_2_defaults@method, "NNMF")
+
   ## Expected results from
   ## tmp <- NMF::nmf(t(ints_trn), rank = 2, nrun = 1, seed = 13)
   ## coefs <- basis(tmp)
