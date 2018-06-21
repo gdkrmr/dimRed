@@ -129,5 +129,10 @@ test_that("other arguments", {
 test_that("Bad args", {
 
   expect_error(embed(iris, "NNMF"))
-  expect_error(embed(iris[, 1], "NNMF"))
+  expect_error(embed(iris[, 1], "NNMF"),
+               "`ndim` should be less than the number of columns")
+  expect_error(embed(iris[1:4], "NNMF", method = c("a", "b")),
+               "only supply one `method`")
+  expect_error(embed(scale(iris[1:4]), "NNMF"), "negative entries")
+
 })
