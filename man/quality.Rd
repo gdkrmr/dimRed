@@ -87,7 +87,7 @@ of the reconstrucion. \code{object} requires an inverse function.
 \dontrun{
 embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
-scurve <- loadDataSet("3D S Curve", n = 500)
+scurve <- loadDataSet("Iris")
 
 quality_results <- matrix(NA, length(embed_methods), length(quality_methods),
                               dimnames = list(embed_methods, quality_methods))

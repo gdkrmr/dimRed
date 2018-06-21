@@ -7,192 +7,129 @@ input_tst <- dimRedData(ints_trn[1:3,] + 1)
 
 test_that("2D projection", {
 
-  set.seed(6569)
-  dim_2_defaults <- embed(input_trn, "NNMF")
+  dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 1)
 
-  # Expected results from
-  # set.seed(6569)
-  # tmp <- NNLM::nnmf(ints_trn, k = 2, verbose = 0)
+  ## Expected results from
+  ## tmp <- NMF::nmf(t(ints_trn), rank = 2, nrun = 1, seed = 13)
+  ## coefs <- basis(tmp)
+  ## rownames(coefs) <- paste0("V", 1:5)
+  ## colnames(coefs) <- paste0("NNMF", 1:2)
+  ## coefs
+  ## dput(coefs)
 
-  dim_2_W <-
-    structure(
-      c(
-        2.42572749239833e-07,
-        842.09976067527,
-        1684.1995209438,
-        2526.2992812106,
-        3368.39904147689,
-        4210.49880174279,
-        5052.59856200863,
-        5894.69832225697,
-        6736.79808251701,
-        7578.89784277869,
-        9214.12987669352,
-        8801.71261456881,
-        8389.29535258438,
-        7976.87809060143,
-        7564.46082861892,
-        7152.04356663674,
-        6739.62630465461,
-        6327.20904268744,
-        5914.79178071026,
-        5502.37451873169
-      ),
-      .Dim = c(10L, 2L)
-    )
-  dim_2_H <-
-  structure(
-    c(
-      0.00237501551979808,
-      0,
-      0.00343805393051527,
-      0.00217057934569909,
-      0.00450109234110581,
-      0.00434115869149624,
-      0.00556413075169635,
-      0.00651173803729339,
-      0.00662716916228689,
-      0.00868231738309053
-    ),
-    .Dim = c(2L, 5L)
+  dim_2_coef <- structure(
+    c(18.807241710186, 30.2191667888959,
+      32.1069052462692, 9.53490906878683,
+      164.109205703974, 0.00064246562138093,
+      24.3924277525021, 56.4301459918642,
+      108.103923297376, 17.566220349863),
+    .Dim = c(5L, 2L),
+    .Dimnames = list(c("V1", "V2", "V3", "V4", "V5"),
+                     c("NNMF1", "NNMF2")))
+
+  expect_equivalent(dim_2_defaults@other.data$w, dim_2_coef)
+
+  dim_2_apply <- dim_2_defaults@apply(input_tst)@data
+  dim_2_pred <- predict(dim_2_defaults, input_tst)@data
+
+  ## Expected results from
+  ## t(solve(crossprod(basis(tmp)), t(input_tst@data %*% basis(tmp))))
+  ## preds <- getData(input_tst) %*% t(MASS::ginv(basis(tmp)))
+  ## getData(getDimRedData(dim_2_defaults))
+  ## colnames(preds) <- paste0("NNMF", 1:2)
+  ## dput(preds)
+
+  dim_2_exp <- structure(
+    c(0.427476458116875, 0.440237021147746, 0.452997584178617,
+      0.512256378881175, 0.5332094651398, 0.554162551398426),
+    .Dim = c(3L, 2L),
+    .Dimnames = list(NULL, c("NNMF1", "NNMF2"))
   )
 
-  expect_equivalent(dim_2_defaults@other.data$H, dim_2_H)
-
-  set.seed(5197)
-  dim_2_proj <- dim_2_defaults@apply(input_tst)
-
-  # Expected results from
-  # set.seed(9770)
-  # predict(tmp, ints_trn[1:3,] + 1, which = "W")$coefficients
-
-  dim_2_pred <-
-    structure(
-      c(
-        421.049880386134,
-        1263.14964068643,
-        2105.24940098787,
-        9007.92124569017,
-        8595.503983678,
-        8183.08672166484
-      ),
-      .Dim = c(3L,
-               2L)
-    )
-  expect_equivalent(dim_2_proj@data, dim_2_pred, tolerance = 0.01)
-  expect_equivalent(getData(getDimRedData(dim_2_defaults)), dim_2_W,
-                    tolerance = 0.01)
-
-  expect_equivalent(inverse(dim_2_defaults, dim_2_W), input_trn)
-  expect_equivalent(inverse(dim_2_defaults, dimRedData(dim_2_pred)), input_tst)
-
+  expect_equivalent(dim_2_apply, dim_2_exp, tolerance = 0.01)
+  expect_equivalent(dim_2_pred,  dim_2_exp, tolerance = 0.01)
 })
 
+test_that("other arguments", {
 
-test_that("3D projection via KL div", {
+  dim_3_args <- embed(input_trn, "NNMF", seed = 13, nrun = 10,
+                      ndim = 3, method = "KL",
+                      options = list(.pbackend = NULL))
 
-  set.seed(2106)
-  dim_3_defaults <- embed(input_trn, "NNMF",
-                          ndim = 3, loss = "mkl",
-                          rel.tol = 1e-10)
+  ## Expected results from
+  ## tmp <- NMF::nmf(t(ints_trn), rank = 3, nrun = 10, seed = 13,
+  ##                 method = "KL", .pbackend = NULL)
+  ## coefs <- t(NMF::coef(tmp))
+  ## colnames(coefs) <- paste0("NNMF", 1:ncol(coefs))
+  ## coefs
+  ## dput(coefs)
+  ## rot <- NMF::basis(tmp)
+  ## rownames(rot) <- paste0("V", 1:nrow(rot))
+  ## dput(rot)
 
-  # Expected results from
-  # set.seed(2106)
-  # tmp <- NNLM::nnmf(ints_trn, k = 3, loss = "mkl", verbose = 0, rel.tol = 1e-10)
+  dim_3_rot <- structure(
+    c(11.624951277152, 31.2554213278975, 50.8858913786408,
+      70.5163614293837, 90.1468314801264, 2.22044604925031e-16,
+      36.4357899711133, 72.8715799422292, 109.307369913346,
+      145.743159884462, 22.4019808842378, 42.1081005773292,
+      61.8142202704197, 81.52033996351, 101.2264596566),
+    .Dim = c(5L, 3L),
+    .Dimnames = list(c("V1", "V2", "V3", "V4", "V5"), NULL)
+  )
+  dim_3_pred <- structure(
+    c(2.22044604925031e-16, 0.0731742704517501, 0.194863499580201,
+      0.50224638618713, 0.557517908619563, 0.197219538171418,
+      0.0860784848917408, 0.159094934700865, 0.10366866301249,
+      0.216483929440989, 0.54891083782883, 0.481738298195276, 0.40204352636632,
+      0.274419226004639, 0.211867578024856, 0.256578985276104,
+      0.236980211423017, 0.16984840699324, 0.135869049278152,
+      0.0584647425861749, 2.22044604925031e-16, 0.0513058500137363,
+      0.0774360678481537, 0.00720517673339281, 0.0678012129377125,
+      0.344046917890136, 0.49099862480747, 0.542386371921862, 0.660426277478513,
+      0.691161417731563),
+    .Dim = c(10L, 3L),
+    .Dimnames = list(NULL, c("NNMF1", "NNMF2", "NNMF3"))
+  )
 
-  dim_3_W <-
-    structure(
-      c(
-        5.18063005099169,
-        3.61928482599978,
-        3.23874387453718,
-        3.79740487024406,
-        3.69872376193331,
-        2.99237501197329,
-        1.95823119713848,
-        2.25481853296027,
-        0.62561468275278,
-        1.17359023793198,
-        4.45166623232659,
-        6.59192039569594,
-        6.77618627417522,
-        5.40467525804366,
-        5.12204364677915,
-        5.84600628218366,
-        7.11295755771834,
-        6.1755684532383,
-        8.42822962506597,
-        7.07441891452535,
-        0,
-        1.48872378516316,
-        2.97744757032668,
-        4.46617135549625,
-        5.95489514066389,
-        7.44361892582682,
-        8.93234271098553,
-        10.4210664961581,
-        11.909790281308,
-        13.3985140664849
-      ),
-      .Dim = c(10L, 3L)
-    )
+  expect_equivalent(dim_3_args@other.data$w, dim_3_rot)
+  expect_equivalent(getData(getDimRedData(dim_3_args)), dim_3_pred)
 
-  dim_3_H <-
-    structure(
-      c(
-        0,
-        0,
-        1.34343255607936,
-        2.54192843793978,
-        1.53452859904805,
-        1.80325365438537,
-        5.083856875899,
-        3.06905719807887,
-        2.2630747526993,
-        7.62578531385728,
-        4.60358579711049,
-        2.72289585101288,
-        10.1677137518434,
-        6.13811439611691,
-        3.18271694933827
-      ),
-      .Dim = c(3L, 5L)
-    )
+  dim_3_apply <- dim_3_args@apply(input_tst)@data
+  dim_3_pred <- predict(dim_3_args, input_tst)@data
 
-  expect_equivalent(dim_3_defaults@other.data$H, dim_3_H)
+  ## Expected results from
+  ## crossprod(basis(tmp)) does not have full rank!!! This needs to be considered
+  ## w <- getOtherData(dim_3_args)$w
+  ## preds <- t(solve(crossprod(w), t(input_trn@data %*% w)))
+  ## preds <- t(qr.solve(crossprod(w), t(input_trn@data %*% w)))
+  ## preds <- getData(input_tst) %*% t(MASS::ginv(w))
+  ## preds
+  ## dput(preds)
+  ## getData(getDimRedData(dim_3_args))
+  ## preds - getData(getDimRedData(dim_3_args))
+  ## input_trn@data
+  ## input_tst@data %*% basis(tmp)
+  ## colnames(preds) <- paste0("NNMF", 1:3)
 
-  set.seed(2141)
-  dim_3_proj <- dim_3_defaults@apply(input_tst)
+  dim_3_exp <- structure(
+    c(0.118730450278164, 0.144080695556738, 0.169430940835312,
+      0.494122495652466, 0.439293850852014, 0.384465206051563,
+      -0.0169733070286198, 0.0591496323928872, 0.135272571814394),
+    .Dim = c(3L, 3L)
+  )
 
-  # Expected results from
-  # set.seed(2141)
-  # predict(tmp, ints_trn[1:3,] + 1, which = "W")$coefficients
-
-  dim_3_pred <-
-    structure(
-      c(
-        4.62380751248276,
-        4.05189652465168,
-        3.43947500335433,
-        5.15098831939291,
-        5.65225639510719,
-        6.2206296894075,
-        0.744361892582574,
-        2.23308567774797,
-        3.72180946290805
-      ),
-      .Dim = c(3L, 3L)
-    )
-
-  expect_equivalent(dim_3_proj@data, dim_3_pred, tolerance = 0.01)
-
-  expect_equivalent(inverse(dim_3_defaults, dim_3_W), input_trn)
-  expect_equivalent(inverse(dim_3_defaults, dimRedData(dim_3_pred)), input_tst)
+  expect_equivalent(dim_3_apply, dim_3_exp, tolerance = 0.01)
+  expect_equivalent(dim_3_pred,  dim_3_exp, tolerance = 0.01)
 })
+
 
 test_that("Bad args", {
 
   expect_error(embed(iris, "NNMF"))
-  expect_error(embed(iris[,1], "NNMF"))
+  expect_error(embed(iris[, 1], "NNMF"),
+               "`ndim` should be less than the number of columns")
+  expect_error(embed(iris[1:4], "NNMF", method = c("a", "b")),
+               "only supply one `method`")
+  expect_error(embed(scale(iris[1:4]), "NNMF"), "negative entries")
 
 })

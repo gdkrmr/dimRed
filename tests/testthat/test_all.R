@@ -6,6 +6,9 @@ test_that("high level functions working?", {
     embed_methods <- dimRedMethodList()
     quality_methods <- dimRedQualityList()
     scurve <- loadDataSet("3D S Curve", n = 500)
+    for(i in 1:ncol(scurve@data)){
+      scurve@data[, i] <- scurve@data[, i] - min(scurve@data[, i])
+    }
 
     quality_results <- matrix(NA, length(embed_methods),
                               length(quality_methods),
