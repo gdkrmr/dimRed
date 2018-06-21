@@ -7,48 +7,44 @@ input_tst <- dimRedData(ints_trn[1:3,] + 1)
 
 test_that("2D projection", {
 
-  dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 10)
+  dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 1)
 
   ## Expected results from
-  ## tmp <- NMF::nmf(t(ints_trn), rank = 2, nrun = 10, seed = 13)
-  ## coefs <- t(basis(tmp))
-  ## colnames(coefs) <- paste0("V", 1:5)
+  ## tmp <- NMF::nmf(t(ints_trn), rank = 2, nrun = 1, seed = 13)
+  ## coefs <- basis(tmp)
+  ## rownames(coefs) <- paste0("V", 1:5)
+  ## colnames(coefs) <- paste0("NNMF", 1:2)
+  ## coefs
+  ## dput(coefs)
 
   dim_2_coef <- structure(
-    c(
-      24.8398963516693,
-      2.22044604925031e-16,
-      35.5902150792044,
-      29.2373463142194,
-      46.3405338067393,
-      58.4746926284389,
-      57.0908525342742,
-      87.7120389426585,
-      67.8411712618091,
-      116.949385256878
-    ),
-    .Dim = c(2L, 5L),
-    .Dimnames = list(NULL, c("V1", "V2", "V3", "V4", "V5"))
-  )
+    c(18.807241710186, 30.2191667888959,
+      32.1069052462692, 9.53490906878683,
+      164.109205703974, 0.00064246562138093,
+      24.3924277525021, 56.4301459918642,
+      108.103923297376, 17.566220349863),
+    .Dim = c(5L, 2L),
+    .Dimnames = list(c("V1", "V2", "V3", "V4", "V5"),
+                     c("NNMF1", "NNMF2")))
 
-  expect_equivalent(dim_2_defaults@other.data$w, t(dim_2_coef))
+  expect_equivalent(dim_2_defaults@other.data$w, dim_2_coef)
 
   dim_2_apply <- dim_2_defaults@apply(input_tst)@data
   dim_2_pred <- predict(dim_2_defaults, input_tst)@data
 
   ## Expected results from
   ## t(solve(crossprod(basis(tmp)), t(input_tst@data %*% basis(tmp))))
-  ## getData(input_tst) %*% t(MASS::ginv(basis(tmp)))
+  ## preds <- getData(input_tst) %*% t(MASS::ginv(basis(tmp)))
   ## getData(getDimRedData(dim_2_defaults))
-  ## preds <- input_tst@data %*% basis(tmp)
   ## colnames(preds) <- paste0("NNMF", 1:2)
+  ## dput(preds)
 
-  dim_2_exp <- t(structure(
-    c(0.0402578169346043, 0.669254159607562, 0.120773450803807,
-      0.639649259171627, 0.201289084673012, 0.610044358735691),
-    .Dim = 2:3,
-    .Dimnames = list(c("NNMF1", "NNMF2"), NULL)
-  ))
+  dim_2_exp <- structure(
+    c(0.427476458116875, 0.440237021147746, 0.452997584178617,
+      0.512256378881175, 0.5332094651398, 0.554162551398426),
+    .Dim = c(3L, 2L),
+    .Dimnames = list(NULL, c("NNMF1", "NNMF2"))
+  )
 
   expect_equivalent(dim_2_apply, dim_2_exp, tolerance = 0.01)
   expect_equivalent(dim_2_pred,  dim_2_exp, tolerance = 0.01)
