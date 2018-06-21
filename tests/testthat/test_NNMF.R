@@ -9,10 +9,10 @@ test_that("2D projection", {
 
   dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 10)
 
-  # Expected results from
+  ## Expected results from
   ## tmp <- NMF::nmf(t(ints_trn), rank = 2, nrun = 10, seed = 13)
-  # coefs <- t(basis(tmp))
-  # colnames(coefs) <- paste0("V", 1:5)
+  ## coefs <- t(basis(tmp))
+  ## colnames(coefs) <- paste0("V", 1:5)
 
   dim_2_coef <- structure(
     c(
@@ -36,10 +36,12 @@ test_that("2D projection", {
   dim_2_apply <- dim_2_defaults@apply(input_tst)@data
   dim_2_pred <- predict(dim_2_defaults, input_tst)@data
 
-  # Expected results from
-  ## dput(solve(crossprod(basis(tmp)), t(input_tst@data %*% basis(tmp))))
-  # preds <- input_tst@data %*% basis(tmp)
-  # colnames(preds) <- paste0("NNMF", 1:2)
+  ## Expected results from
+  ## t(solve(crossprod(basis(tmp)), t(input_tst@data %*% basis(tmp))))
+  ## getData(input_tst) %*% t(MASS::ginv(basis(tmp)))
+  ## getData(getDimRedData(dim_2_defaults))
+  ## preds <- input_tst@data %*% basis(tmp)
+  ## colnames(preds) <- paste0("NNMF", 1:2)
 
   dim_2_exp <- t(structure(
     c(0.0402578169346043, 0.669254159607562, 0.120773450803807,
@@ -47,14 +49,6 @@ test_that("2D projection", {
     .Dim = 2:3,
     .Dimnames = list(c("NNMF1", "NNMF2"), NULL)
   ))
-
-  ## dim_2_exp <-
-  ##   structure(
-  ##     c(11649.8731758885, 12113.2785139559, 12576.6838520233,
-  ##       17834.7812516739, 18419.5281779583, 19004.2751042427),
-  ##     .Dim = 3:2,
-  ##     .Dimnames = list(NULL, c("NNMF1", "NNMF2"))
-  ##   )
 
   expect_equivalent(dim_2_apply, dim_2_exp, tolerance = 0.01)
   expect_equivalent(dim_2_pred,  dim_2_exp, tolerance = 0.01)
@@ -66,7 +60,7 @@ test_that("other arguments", {
                       ndim = 3, method = "KL",
                       options = list(.pbackend = NULL))
 
-  # Expected results from
+  ## Expected results from
   ## tmp <- NMF::nmf(t(ints_trn), rank = 3, nrun = 10, seed = 13,
   ##                 method = "KL", .pbackend = NULL)
   ## coefs <- t(NMF::coef(tmp))
@@ -79,9 +73,10 @@ test_that("other arguments", {
 
   dim_3_rot <- structure(
     c(11.624951277152, 31.2554213278975, 50.8858913786408,
-      70.5163614293837, 90.1468314801264, 2.22044604925031e-16, 36.4357899711133,
-      72.8715799422292, 109.307369913346, 145.743159884462, 22.4019808842378,
-      42.1081005773292, 61.8142202704197, 81.52033996351, 101.2264596566),
+      70.5163614293837, 90.1468314801264, 2.22044604925031e-16,
+      36.4357899711133, 72.8715799422292, 109.307369913346,
+      145.743159884462, 22.4019808842378, 42.1081005773292,
+      61.8142202704197, 81.52033996351, 101.2264596566),
     .Dim = c(5L, 3L),
     .Dimnames = list(c("V1", "V2", "V3", "V4", "V5"), NULL)
   )
@@ -106,20 +101,26 @@ test_that("other arguments", {
   dim_3_apply <- dim_3_args@apply(input_tst)@data
   dim_3_pred <- predict(dim_3_args, input_tst)@data
 
-  # Expected results from
+  ## Expected results from
   ## crossprod(basis(tmp)) does not have full rank!!! This needs to be considered
-  preds <- t(solve(t(basis(tmp)) %*% basis(tmp), t(input_trn@data %*% basis(tmp))))
-  # input_tst@data %*% basis(tmp)
-  # colnames(preds) <- paste0("NNMF", 1:3)
+  ## w <- getOtherData(dim_3_args)$w
+  ## preds <- t(solve(crossprod(w), t(input_trn@data %*% w)))
+  ## preds <- t(qr.solve(crossprod(w), t(input_trn@data %*% w)))
+  ## preds <- getData(input_tst) %*% t(MASS::ginv(w))
+  ## preds
+  ## dput(preds)
+  ## getData(getDimRedData(dim_3_args))
+  ## preds - getData(getDimRedData(dim_3_args))
+  ## input_trn@data
+  ## input_tst@data %*% basis(tmp)
+  ## colnames(preds) <- paste0("NNMF", 1:3)
 
-  dim_3_exp <-
-    structure(
-      c(14357.7017427699, 14866.5606565563, 15375.4195703427,
-        22225.8318823803, 22954.5476818026, 23683.2634812249,
-        16613.1390940541, 17231.2812967583, 17849.4234994625),
-      .Dim = c(3L, 3L),
-      .Dimnames = list(NULL, c("NNMF1", "NNMF2", "NNMF3"))
-    )
+  dim_3_exp <- structure(
+    c(0.118730450278164, 0.144080695556738, 0.169430940835312,
+      0.494122495652466, 0.439293850852014, 0.384465206051563,
+      -0.0169733070286198, 0.0591496323928872, 0.135272571814394),
+    .Dim = c(3L, 3L)
+  )
 
   expect_equivalent(dim_3_apply, dim_3_exp, tolerance = 0.01)
   expect_equivalent(dim_3_pred,  dim_3_exp, tolerance = 0.01)
