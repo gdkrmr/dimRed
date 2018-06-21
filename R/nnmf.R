@@ -63,7 +63,7 @@ NNMF <- setClass(
   prototype = list(
     stdpars = list(ndim = 2L,
                    method = "brunet",
-                   nrun = 10,
+                   nrun = 1,
                    seed = sample.int(10^5, 1),
                    options = list()),
     fun = function (data, pars, keep.org.data = TRUE) {
