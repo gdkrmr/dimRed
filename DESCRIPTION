@@ -34,8 +34,8 @@ Suggests:
     lle,
     loe,
     optimx,
-    pcaPP,
     pcaL1,
+    pcaPP,
     rgl,
     scales,
     scatterplot3d,
@@ -43,6 +43,7 @@ Suggests:
     tensorflow,
     testthat,
     tidyr,
+    umap,
     vegan
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
@@ -78,4 +79,5 @@ Collate:
     'rotate.R'
     'soe.R'
     'tsne.R'
+    'umap.R'
 RoxygenNote: 6.0.1
