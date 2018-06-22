@@ -37,9 +37,17 @@ missing parameters will be replaced by the ones in the
 
 UMAP can take the follwing parameters:
 \describe{
-  \item{}{}
-  \item{}{}
+  \item{ndim}{The number of embedding dimensions.}
+  \item{knn}{The number of neighbors to be used.}
+  \item{d}{The distance metric to use.}
+  \item{method}{\code{"naive"} for an R implementation, \code{"python"}
+    for the reference implementation.}
 }
+
+Other method parameters can also be passed, see
+\code{\link[umap]{umap.defaults}} for details. The ones above have been
+standardized for the use with \code{dimRed} and will get automatically
+translated for \code{\link[umap]{umap}}.
 }
 
 \section{Implementation}{
@@ -48,22 +56,27 @@ UMAP can take the follwing parameters:
 The dimRed package wraps the \code{\link[umap]{umap}} packages which provides
 an implementation in pure R and also a wrapper around the original python
 package \code{umap-learn} (https://github.com/lmcinnes/umap/)
+
+The \code{"naive"} implementation is a pure R implementation and considered
+experimental at the point of writing this, it is also much slower than the
+python implementation.
+
+The \code{"python"} implementation is the reference implementation used by
+McInees et. al. (2018). It requires the \code{\link[reticulate]{reticulate}}
+package for the interaction with python and the python package
+\code{umap-learn} installed (use \code{pip install umap-learn}).
 }
 
 \examples{
 dat <- loadDataSet("3D S Curve", n = 500)
 
 ## use the S4 Class directly:
-umap <- Isomap()
+umap <- UMAP()
 emb <- umap@fun(dat, umap@stdpars)
 
 ## or simpler, use embed():
-samp <- sample(nrow(dat), size = 200)
-emb2 <- embed(dat[samp], "UMAP", mute = NULL, knn = 10)
-emb3 <- emb2@apply(dat[-samp])
-
+emb2 <- embed(dat, "UMAP", .mute = NULL, knn = 10)
 plot(emb2, type = "2vars")
-plot(emb3, type = "2vars")
 
 }
 \references{
