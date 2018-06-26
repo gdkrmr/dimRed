@@ -41,7 +41,7 @@
 #'
 #' ## or simpler, use embed():
 #' samp <- sample(nrow(dat), size = 200)
-#' emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+#' emb2 <- embed(dat[samp], "Isomap", .mute = NULL, knn = 10)
 #' emb3 <- emb2@apply(dat[-samp])
 #'
 #' plot(emb2, type = "2vars")

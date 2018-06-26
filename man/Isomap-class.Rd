@@ -63,7 +63,7 @@ emb <- isomap@fun(dat, isomap@stdpars)
 
 ## or simpler, use embed():
 samp <- sample(nrow(dat), size = 200)
-emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+emb2 <- embed(dat[samp], "Isomap", .mute = NULL, knn = 10)
 emb3 <- emb2@apply(dat[-samp])
 
 plot(emb2, type = "2vars")
@@ -85,6 +85,7 @@ Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{NNMF-class}},
   \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
+  \code{\link{UMAP-class}},
   \code{\link{dimRedMethod-class}},
   \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
   \code{\link{nMDS-class}}, \code{\link{tSNE-class}}

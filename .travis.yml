@@ -35,6 +35,7 @@ before_script:
   # Keras and TensorFlow stuff
   - pip2.7 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
   - pip2.7 install --upgrade --ignore-installed --user keras h5py pyyaml requests Pillow scipy
+  - pip2.7 install --upgrade --ignore-installed --user umap-learn
   - Rscript -e "tensorflow::install_tensorflow()"
   - Rscript -e "keras::install_keras()"
 
