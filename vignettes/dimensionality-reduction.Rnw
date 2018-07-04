@@ -1223,7 +1223,7 @@ The following code produces a matrix of quality scores and methods,
 \code{dimRedMethodList} returns a character vector with all methods, a
 visualization of the matrix can be found in fig.~\ref{fig:qualityexample}. %
 
-\begin{figure}[htp] 
+\begin{figure}[htp]
   \centering
 <<"plot_quality",include=FALSE>>=
 embed_methods <- dimRedMethodList()
@@ -1237,9 +1237,9 @@ quality_results <- matrix(
 embedded_data <- list()
 
 for (e in embed_methods) {
-    embedded_data[[e]] <- embed(iris_data, e)
-    for (q in quality_methods)
-        try(quality_results[e,q] <- quality(embedded_data[[e]], q))
+  try(embedded_data[[e]] <- embed(iris_data, e))
+  for (q in quality_methods)
+    try(quality_results[e,q] <- quality(embedded_data[[e]], q))
 }
 
 quality_results <- quality_results[order(rowMeans(quality_results)), ]

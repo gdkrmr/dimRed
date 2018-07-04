@@ -68,6 +68,7 @@ package for the interaction with python and the python package
 }
 
 \examples{
+\dontrun{
 dat <- loadDataSet("3D S Curve", n = 500)
 
 ## use the S4 Class directly:
@@ -77,6 +78,7 @@ emb <- umap@fun(dat, umap@stdpars)
 ## or simpler, use embed():
 emb2 <- embed(dat, "UMAP", .mute = NULL, knn = 10)
 plot(emb2, type = "2vars")
+}
 
 }
 \references{
