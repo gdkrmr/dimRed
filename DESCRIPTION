@@ -45,6 +45,7 @@ Suggests:
     tensorflow,
     testthat,
     tidyr,
+    tinytex,
     umap,
     vegan
 VignetteBuilder:
