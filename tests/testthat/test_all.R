@@ -1,5 +1,3 @@
-
-
 context("high level functions")
 
 test_that("high level functions working?", {

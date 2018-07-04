@@ -38,6 +38,7 @@ Suggests:
     optimx,
     pcaL1,
     pcaPP,
+    reticulate,
     rgl,
     scales,
     scatterplot3d,
