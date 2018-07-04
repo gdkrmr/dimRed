@@ -2,6 +2,7 @@
 
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Dimensionality Reduction}
+%\VignetteKeyword{Dimensionality Reduction}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
