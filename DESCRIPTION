@@ -17,6 +17,7 @@ Imports:
     magrittr,
     methods
 Suggests:
+    cccd,
     MASS,
     Matrix,
     RANN,
@@ -31,6 +32,7 @@ Suggests:
     igraph,
     keras,
     kernlab,
+    knitr,
     lle,
     loe,
     optimx,
@@ -45,6 +47,8 @@ Suggests:
     tidyr,
     umap,
     vegan
+VignetteBuilder:
+    knitr
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
 LazyData: true

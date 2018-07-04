@@ -26,3 +26,4 @@ ui.R
 *.jl
 /.dir-locals.el
 .DS_Store
+vignettes/auto*
