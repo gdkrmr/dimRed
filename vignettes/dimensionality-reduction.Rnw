@@ -50,11 +50,17 @@
 \maketitle
 
 \abstract{ %
+
+  This document is based on the manuscript of \citet{kraemer_dimred_2018} which
+  was published in the R-Journal and has been modified and extended to fit the
+  format of a package vignette and to match the extended functionality of the
+  \pkg{dimRed} package.
+
   ``Dimensionality reduction'' (DR) is a widely used approach to find low
   dimensional and interpretable representations of data that are natively
   embedded in high-dimensional spaces. %
   DR can be realized by a plethora of methods with different properties,
-  objectives and hence (dis)advantages, resulting low-dimensional data
+  objectives, and, hence, (dis)advantages. The resulting low-dimensional data
   embeddings are often difficult to compare with objective criteria. %
   Here, we introduce the \CRANpkg{dimRed} and \CRANpkg{coRanking} packages for
   the R language. %
@@ -62,13 +68,13 @@
   classical and advanced DR methods using a common interface. %
   The packages also provide quality indicators for the embeddings and easy
   visualization of high dimensional data. %
-  \CRANpkg{coRanking} provides the functionality for assessing DR methods in the
+  The \pkg{coRanking} package provides the functionality for assessing DR methods in the
   co-ranking matrix framework. %
   In tandem, these packages allow for uncovering complex structures high
   dimensional data. %
   Currently 15 DR methods are available in the package, some of which were not
   previously available to R users. %
-  Here, we outline the \CRANpkg{dimRed} and \CRANpkg{coRanking} packages and
+  Here, we outline the \pkg{dimRed} and \pkg{coRanking} packages and
   make the implemented methods understandable to the interested reader. %
 }
 
@@ -82,19 +88,19 @@ maximizing the variance or the statistical independence of the projected data, %
 minimizing the reconstruction error under different constraints, %
 or optimizing for different error metrics, %
 just to name a few. %
-Either way choosing an inadequate method may imply that much of the underlying structure
+Choosing an inadequate method may imply that much of the underlying structure
 remains undiscovered. %
-Often the structures of interest in a data set can be well represented by less
+Often the structures of interest in a data set can be well represented by fewer
 dimensions than exist in the original data. %
 Data compression of this kind has the additional benefit of making the encoded
-information better conceivable to our brains and for further analysis tasks
+information better conceivable to our brains  for further analysis tasks
 like classification or regression problems. %
 
-For example the morphology of a plant's leaves, stems, and seeds reflect the
-environmental conditions the species usually grow in, e.g.\ plants with large
+For example, the morphology of a plant's leaves, stems, and seeds reflect the
+environmental conditions the species usually grow in (e.g.,\ plants with large
 soft leaves will never grow in a desert but might have an advantage in a humid
-and shadowy environment. %
-Because the morphology of the entire plant depends on the environment many
+and shadowy environment). %
+Because the morphology of the entire plant depends on the environment, many
 morphological combinations will never occur in nature and the morphological
 space of all plant species is tightly constrained. %
 \citet{diaz_global_2016} found that out of six observed morphological characteristics
@@ -103,24 +109,25 @@ observed variability. %
 
 DR is a widely used approach for the detection of structure in multivariate
 data, and has applications in a variety of fields. %
-In climatology DR is used to find the modes of some phenomenon, e.g.\ the first
+In climatology, DR is used to find the modes of some phenomenon, e.g.,\ the first
 Empirical Orthogonal Function of monthly mean sea surface temperature of a given
-region over the Pacific is often linked to the El Ni\~no Southern Oscillation,
-ENSO \citep[e.g.\ ][]{hsieh_nonlinear_2004}. %
-In Ecology the comparison of sites with different species abundances is a
-classical multivariate problem: Each observed species adds an extra dimension,
+region over the Pacific is often linked to the El Ni\~no Southern
+Oscillation or
+ENSO \citep[e.g.,\ ][]{hsieh_nonlinear_2004}. %
+In ecology the comparison of sites with different species abundances is a
+classical multivariate problem: each observed species adds an extra dimension,
 and because species are often bound to certain habitats, there is a lot of
 redundant information. Using DR is a popular technique to represent the sites in
-few dimensions, e.g.\ \citet{aart_distribution_1972} matches wolfspider
+few dimensions, e.g.,\ \citet{aart_distribution_1972} matches wolfspider
 communities to habitat and \citet{morrall_soil_1974} match soil fungi data to
-soil types (In ecology the general name for DR is ordination or indirect
-gradient analysis.). %
+soil types. (In ecology the general name for DR is ordination or indirect
+gradient analysis.) %
 Today, hyperspectral satellite imagery collects so many bands that it is very
 difficult to analyze and interpret the data directly. %
-Resuming the data into a set of few yet independent components is one way to
-reduce complexity \citep[e.g.\ see][]{laparra_dimensionality_2015}. %
+Resuming the data into a set of few, yet independent, components is one way to
+reduce complexity \citep[e.g.,\ see][]{laparra_dimensionality_2015}. %
 DR can also be used to visualize the interiors of deep neural networks
-\citep[e.g.\ see ][]{han_deep_2016}, where the high dimensionality comes from
+\citep[e.g.,\ see ][]{han_deep_2016}, where the high dimensionality comes from
 the large number of weights used in a neural network and convergence can be
 visualized by means of DR\@. %
 We could find many more example applications here but this is not the main focus
@@ -129,19 +136,19 @@ of this publication. %
 The difficulty in applying DR is that each DR method is designed to maintain
 certain aspects of the original data and therefore may be appropriate for one
 task and inappropriate for another. %
-Most methods also have parameters to tune and follow different assumptions, the
+Most methods also have parameters to tune and follow different assumptions. The
 quality of the outcome may strongly depend on their tuning, which adds
 additional complexity. %
 DR methods can be modeled after physical models with attracting and repelling
 forces (Force Directed Methods), projections onto low dimensional planes (PCA,
-ICA), divergence of statistical distributions (SNE family), the reconstruction
+ICA), divergence of statistical distributions (SNE family), or the reconstruction
 of local spaces or points by their neighbors (LLE). %
 
 As an example for how changing internal parameters of a method can have a great
-impact: The breakthrough for Stochastic Neighborhood Embedding (SNE) methods
+impact, the breakthrough for Stochastic Neighborhood Embedding (SNE) methods
 came when a Student's $t$-distribution was used instead of a normal distribution
 to model probabilities in low dimensional space to avoid the ``crowding
-problem'', i.e.\ a sphere in high dimensional space has a much larger volume
+problem'', that is,\ a sphere in high dimensional space has a much larger volume
 than in low dimensional space and may contain too many points to be represented
 accurately in few dimensions. %
 The $t$-distribution, allows medium distances to be accurately represented in
@@ -151,62 +158,66 @@ structures in very few dimensions, this feature made $t$-SNE useful for a wide
 array of data visualization tasks and the method became much more popular than
 standard SNE (around six times more citations of
 \citet{van_der_maaten_visualizing_2008} compared to
-\citet{hinton_stochastic_2003} in scopus \citep{noauthor_scopus_nodate}). %
+\citet{hinton_stochastic_2003} in Scopus \citep{noauthor_scopus_nodate}). %
 
-There are a number of software package that provide collections of methods: In
-Python there is scikit-learn \citep{scikit-learn} which contains a module for
-DR, in Julia we currently find ManifoldLearning.jl for nonlinear and
+There are a number of software packages for other languages providing collections of methods: In
+Python there is scikit-learn \citep{scikit-learn}, which contains a module for
+DR. In Julia we currently find ManifoldLearning.jl for nonlinear and
 MultivariateStats.jl for linear DR methods. %
 There are several toolboxes for DR implemented in Matlab
-\citep{van_der_maaten_dimensionality_2009, arenas-garcia_kernel_2013} and the Shogun
+\citep{van_der_maaten_dimensionality_2009,
+  arenas-garcia_kernel_2013}. The Shogun
 toolbox \citep{soeren_sonnenburg_2017_1067840} implements a variety of methods for
 dimensionality reduction in C++ and offers bindings for a many common high level
-languages (including R, but the installation is everything but simple, i.e.\
+languages (including R, but the installation is anything but simple, as
 there is no CRAN package). %
 However, there is no comprehensive package for R and none of the former
 mentioned software packages provides means to consistently compare the quality
-of methods for DR. %
+of different methods for DR. %
 
 For many applications it can be difficult to objectively find the right method
 or parameterization for the DR task. %
-This paper presents \CRANpkg{dimRed} and \CRANpkg{coRanking}, both are are
-software package in the popular programming language R and
-provide a standardized interface to dimensionality reduction methods and quality
-metrics for embeddings using the S4 class system making the package packages
+This paper presents the \pkg{dimRed} and \pkg{coRanking} packages for
+the popular programming language R. Together, they 
+provide a standardized interface to various dimensionality reduction methods and quality
+metrics for embeddings. They are implemented using the S4 class system
+of R, making the packages
 both easy to use and to extend.
 
-The goal is to enable researchers who may not necessarily be experts in DR to
-apply the methods in their own work to get and objectively identify suitable
-methods. %
-This paper aims to an overview of the methods collected in the package and how
+The design goal for these packages is to enable researchers, who may not necessarily be experts in DR, to
+apply the methods in their own work and to objectively identify the
+most suitable
+methods for their data. %
+This paper provides an overview of the methods collected in the
+packages and contains examples as to how
 to use the packages. %
 
 The notation in this paper will be as follows: $X = [x_i]_{1\leq i \leq n}^T \in
-\mathbb{R}^{n\times p}$ and the observations $x_i \in \mathbb{R}^p$. %
-These observations may be transformed previously to the dimensionality reduction
-step, e.g.\ centering and/or standardization, resulting in $X' = [x'_i]_{1\leq i
+\mathbb{R}^{n\times p}$, and the observations $x_i \in \mathbb{R}^p$. %
+These observations may be transformed prior to the dimensionality reduction
+step (e.g.,\ centering and/or standardization) resulting in $X' = [x'_i]_{1\leq i
   \leq n}^T \in \mathbb{R}^{n\times p}$. %
 A DR method then embeds each vector in $X'$ onto a vector in $Y = [y_i]_{1\leq i
   \leq n}^T \in \mathbb{R}^{n\times q}$ with $y_i \in \mathbb{R}^q$, ideally
 with $q \ll p$. %
-Some methods provide an explicit mapping $f(x'_i) = y_i$ and some even offer a
-inverse mapping $f^{-1}(y_{i}) = \hat x'_{i}$ such that one can reconstruct a,
-usually approximate, sample from the low-dimensional representation. %
-For some methods pairwise distances between points are needed, then $d_{ij} =
-d(x_{i}, x_{j})$ and $\hat{d}_{ij} = d(y_i, y_j)$ where $d$ is some appropriate
+Some methods provide an explicit mapping $f(x'_i) = y_i$. Some even offer a
+inverse mapping $f^{-1}(y_{i}) = \hat x'_{i}$, such that one can reconstruct a
+(usually approximate) sample from the low-dimensional representation. %
+For some methods, pairwise distances between points are needed, we set $d_{ij} =
+d(x_{i}, x_{j})$ and $\hat{d}_{ij} = d(y_i, y_j)$, where $d$ is some appropriate
 distance function.
 
-When referring to \code{functions} in the \CRANpkg{dimRed} package or base R simply the
+When referring to \code{functions} in the \pkg{dimRed} package or base R simply the
 function name is mentioned, functions from other packages are
-referenced with \code{package::function}.
+referenced with their namespace, as with \code{package::function}.
 
 \begin{figure}[htbp]
   \centering
   \input{classification_tree.tex}
   \caption{%
-    Classification of dimensionality reduction methods, methods
-    in bold face are implemented in \CRANpkg{dimRed}.
-    modified from \citet{van_der_maaten_dimensionality_2009}.
+    Classification of dimensionality reduction methods. Methods
+    in bold face are implemented in \pkg{dimRed}.
+    Modified from \citet{van_der_maaten_dimensionality_2009}.
   }\label{fig:classification}
 \end{figure}
 
@@ -215,28 +226,28 @@ referenced with \code{package::function}.
 \label{sec:dimredtec}
 
 In the following section we do not aim for an exhaustive explanation to every
-method in \CRANpkg{dimRed} but rather to provide a general idea on how the
-methods work; %
+method in \pkg{dimRed} but rather to provide a general idea on how the
+methods work. %
 An overview and classification of the most commonly used DR methods can be found
-in fig.~\ref{fig:classification}.
+in Figure~\ref{fig:classification}.
 
-In all methods parameters have to be optimized or decisions have to be made,
+In all methods, parameters have to be optimized or decisions have to be made,
 even if it is just about the preprocessing steps of data. %
-\CRANpkg{dimRed} tries to make the optimization process for parameters as easy as
-possible, but if possible the parameter space should be narrowed down using
+The \pkg{dimRed} package tries to make the optimization process for parameters as easy as
+possible, but, if possible, the parameter space should be narrowed down using
 prior knowledge. %
-Often decisions can be made based on theoretical knowledge, e.g.\ sometimes an
+Often decisions can be made based on theoretical knowledge. For example,\ sometimes an
 analysis requires data to be kept in their original scales and sometimes this is
-exactly what has to be avoided (e.g.\ when comparing different physical
-units). %
-Sometimes decisions based on the experience of others can be made, e.g.\ the
+exactly what has to be avoided as when comparing different physical
+units. %
+Sometimes decisions based on the experience of others can be made, e.g.,\ the
 Gaussian kernel is probably the most universal kernel and therefore should be
 tested first if there is a choice. %
 
 All methods presented here have the embedding dimensionality, $q$, as a
 parameter (or \code{ndim} as a parameter for \code{embed}). %
 For methods based on eigenvector decomposition, the result generally does not
-depend on the number of dimensions, i.e.\ the first dimension will be the same,
+depend on the number of dimensions, i.e.,\ the first dimension will be the same,
 no matter if we decide to calculate only two dimensions or more. %
 If more dimensions are added, more information is maintained, the first
 dimension is the most important and higher dimensions are successively less
@@ -246,24 +257,24 @@ once if one wishes to compare the embedding in different dimensions. %
 In optimization based methods this is generally not the case, the number of
 dimensions has to be chosen a priori, an embedding of 2 and 3 dimensions may
 vary significantly, and there is no ordered importance of dimensions. %
-This means that comparing dimensions of optimization based methods is
+This means that comparing dimensions of optimization-based methods is
 computationally much more expensive. %
 
-We try to give the computational complexity of the methods but because of the
-actual implementation computation times may differ largely. %
+We try to give the computational complexity of the methods. Because of the
+actual implementation, computation times may differ largely. %
 R is an interpreted language, so all parts of an algorithm that are implemented
-in R often will tend to be slow compared to methods shiped with efficient
+in R often will tend to be slow compared to methods that call efficient
 implementations in a compiled language. %
 Methods where most of the computing time is spent for eigenvalue decomposition
-do have very efficient implementations because R uses optimized linear algebra
-libraries, although eigenvalue decomposition itself does not scale very well in
+do have very efficient implementations as R uses optimized linear algebra
+libraries.  Although, eigenvalue decomposition itself does not scale very well in
 naive implementations ($\mathcal{O}(n^3)$).
 
 \subsection{PCA}
 \label{sec:pca}
 
 Principal Component Analysis (PCA) is the most basic technique for reducing
-dimensions and dates back to \citet{pearson_lines_1901}. PCA finds a linear
+dimensions. It dates back to \citet{pearson_lines_1901}. PCA finds a linear
 projection ($U$) of the high dimensional space into a low dimensional space $Y =
 XU$, maintaining maximum variance of the data. It is based on solving the
 following eigenvalue problem:
@@ -276,29 +287,29 @@ are the $k$-th eigenvalue and eigenvector, and $I$ is the identity matrix. %
 The equation has several solutions for different values of $\lambda_k$ (leaving
 aside the trivial solution $u_k = 0$). %
 PCA can be efficiently applied to large data sets, because it computationally
-scales $\mathcal{O}(np^2 + p^3)$, i.e.\ it scales linearly with the number of
+scales as $\mathcal{O}(np^2 + p^3)$, that is, it scales linearly with the number of
 samples and R uses specialized linear algebra libraries for such kind of
 computations.
 
 PCA is a rotation around the origin and there exist a forward and inverse
 mapping. %
-PCA may suffer from a scale problem, i.e.\ when one variable dominates the
-variance simply because it is in a higher scale, to remedy this the data can be
-scaled to zero mean and unit variance, it depends on the use case if this is
+PCA may suffer from a scale problem, i.e.,\ when one variable dominates the
+variance simply because it is in a higher scale, to remedy this, the data can be
+scaled to zero mean and unit variance, depending on the use case, if this is
 necessary or desired. %
 
 Base R implements PCA in the functions \code{prcomp} and \code{princomp}; but
-several other implementations exist i.e. \BIOpkg{pcaMethods} from Bioconductor
+several other implementations exist i.e., \BIOpkg{pcaMethods} from Bioconductor
 which implements versions of PCA that can deal with missing data. %
-The \CRANpkg{dimRed} package wraps around \code{prcomp}.
+The \pkg{dimRed} package wraps \code{prcomp}.
 
 \subsection{kPCA}
 \label{sec:kpca}
 
 Kernel Principal Component Analysis (kPCA) extends PCA to deal with nonlinear
 dependencies among variables. %
-The idea behind kPCA is to maps the data into a high dimensional space using a
-possibly non-linear function $\phi$ and to perform a PCA in this high
+The idea behind kPCA is to map the data into a high dimensional space using a
+possibly non-linear function $\phi$ and then to perform a PCA in this high
 dimensional space. %
 Some mathematical tricks are used for efficient computation. %
 
@@ -309,7 +320,7 @@ into the high dimensional space and do the calculations there, it is enough to
 obtain the inner product matrix or kernel matrix $K \in \mathbb{R}^{n\times n}$
 of the mapped points \citep{scholkopf_nonlinear_1998}. %
 
-Here is an example calculating the kernel matrix using a Gaussian kernel,
+Here is an example calculating the kernel matrix using a Gaussian kernel:
 \begin{equation}\label{eq:gauss}
   K = \phi(x_i)^T \phi(x_j) = \kappa(x_i, x_j) = \exp\left(
     -\frac{\| x_i- x_j\|^2}{2 \sigma^2}
@@ -317,12 +328,12 @@ Here is an example calculating the kernel matrix using a Gaussian kernel,
 \end{equation}
 where $\sigma$ is a length scale parameter accounting for the width of the
 kernel. %
-The other trick used is known as the ``representers theorem'' and the interested
+The other trick used is known as the ``representers theorem.'' The interested
 reader is referred to \citet{scholkopf_generalized_2001}.
 
-kPCA is very flexible and there exist many kernels for special
-purposes, the most common kernel function is the Gaussian kernel
-(eq.\ \ref{eq:gauss}). %
+The kPCA method is very flexible and there exist many kernels for special
+purposes. The most common kernel function is the Gaussian kernel
+(Equation\ \ref{eq:gauss}). %
 The flexibility comes at the price that the method has to be finely
 tuned for the data set because some parameter combinations are simply
 unsuitable for certain data. %
@@ -330,50 +341,50 @@ The method is not suitable for very large data sets, because memory
 scales with $\mathcal{O}(n^2)$ and computation time with
 $\mathcal{O}(n^3)$. %
 
-Diffusion Maps, Isomap, Locally Linear Embedding and some other techniques can
-be seen as special cases of kPCA and an out-of-sample extension using the Nystöm
+Diffusion Maps, Isomap, Locally Linear Embedding, and some other techniques can
+be seen as special cases of kPCA. In which case, an out-of-sample extension using the Nystöm
 formula can be applied \citep{bengio_learning_2004}. %
 This can also yield applications for bigger data, where an embedding is trained
 with a sub-sample of all data and then the data is embedded using the Nyström
 formula.
 
-Kernel PCA in R is implemented using the function
+Kernel PCA in R is implemented in the \CRANpkg{kernlab} package using the function
 \code{kernlab::kpca}, and supports a number of kernels and
-user defined functions, for details see \code{?kernlab::kpca}.
+user defined functions. For details see the help page for \code{kernlab::kpca}.
 
-The \CRANpkg{dimRed} package wraps around \code{kernlab::kpca} but additionally
-provides forward and inverse \citep{bakir_learning_2004} methods which can be
+The \pkg{dimRed} package wraps  \code{kernlab::kpca} but additionally
+provides forward and inverse methods \citep{bakir_learning_2004} which can be
 used to fit out-of sample data or to visualize the transformation of the data
 space. %
 
 \subsection{Classical Scaling}
 \label{sec:classscale}
 
-What today is called classical scaling was first introduced by
-\citet{torgerson_multidimensional_1952} and uses an eigenvalue decomposition of
+What today is called Classical Scaling was first introduced by
+\citet{torgerson_multidimensional_1952}. It uses an eigenvalue decomposition of
 a transformed distance matrix to find an embedding that maintains the distances
 of the distance matrix. %
-The method works because of the same reason that kPCA works, i.e.\ classical
+The method works because of the same reason that kPCA works, i.e.,\ classical
 scaling can be seen as a kPCA with kernel $x^Ty$. %
 A matrix of Euclidean distances can be transformed into an inner product matrix
 by some simple transformations and therefore yields the same result as a
 PCA\@. %
 Classical scaling is conceptually more general than PCA in that arbitrary
-distance matrices can be used, i.e.\ the method does not even need the original
-coordinates just a distance matrix $D$. %
+distance matrices can be used, i.e.,\ the method does not even need the original
+coordinates, just a distance matrix $D$. %
 Then it tries to find and embedding $Y$ so that $\hat d_{ij}$ is as similar to
 $d_{ij}$ as possible.
 
-The disadvantage is that is computationally much more demanding, i.e.\
-an eigenvalue decomposition of a $n\times n$ matrix has to be computed
-which requires $\mathcal{O}(n^2)$ memory and $\mathcal{O}(n^3)$
+The disadvantage is that is computationally much more demanding, i.e.,\
+an eigenvalue decomposition of a $n\times n$ matrix has to be computed.
+This step requires $\mathcal{O}(n^2)$ memory and $\mathcal{O}(n^3)$
 computation time, while PCA requires only the eigenvalue decomposition
 of a $d\times d$ matrix and usually $n \gg d$. %
 R implements classical scaling in the \code{cmdscale}
 function. %
 
-The \CRANpkg{dimRed} package wraps around \code{cmdscale} and allows the specification
-of arbitrary distance functions for calculating the distance matrix additionally
+The \pkg{dimRed} package wraps \code{cmdscale} and allows the specification
+of arbitrary distance functions for calculating the distance matrix. Additionally
 a forward method is implemented.
 
 \subsection{Isomap}
@@ -387,35 +398,36 @@ produce a $k$-nearest neighbor graph ($k$-NNG), or simply by keeping all
 distances smaller than a value $\varepsilon$ producing an
 $\varepsilon$-neighborhood graph ($\varepsilon$-NNG). %
 Geodesic distances are obtained by recording the distance on the
-graph and classical scaling is used to find an embedding in less
+graph and classical scaling is used to find an embedding in fewer
 dimensions. This leads to an ``unfolding'' of possibly convoluted
-structures (see fig.~\ref{fig:knn}).
+structures (see Figure~\ref{fig:knn}).
 
 Isomap's computational cost is dominated by the eigenvalue decomposition and
 therefore scales with $\mathcal{O}(n^3)$. %
-the distance matrix, other related techniques can use more efficient algorithms
+Other related techniques can use more efficient algorithms
 because the distance matrix becomes sparse due to a different preprocessing.
 
-In R Isomap is implemented in the function \code{vegan::isomap} and the
-calculation of geodesic distances in \code{vegan::isomapdist}. %
-The \CRANpkg{dimRed} package uses its own implementation which is faster mainly
-due to using a KD-tree for the nearest neighbor search (from the \CRANpkg{RANN}
-package) and a faster implementation for the shortest path search in the $k$-NNG
-(from the \CRANpkg{igraph} package). %
-The implementation in \CRANpkg{dimRed} also includes a forward method that can
-be used to train the embedding on a subset of data points and then use these
-points to approximate an embedding for the remaining points, this technique is
+In R, Isomap is implemented in the \CRANpkg{vegan} package. The
+\code{vegan::isomap} calculates an Isomap embedding and \code{vegan::isomapdist}
+calculates a geodesic distance matrix. %
+The \pkg{dimRed} package uses its own implementation. This implementation is
+faster mainly due to using a KD-tree for the nearest neighbor search (from the
+\CRANpkg{RANN} package) and to a faster implementation for the shortest path
+search in the $k$-NNG (from the \CRANpkg{igraph} package). %
+The implementation in \pkg{dimRed} also includes a forward method that can be
+used to train the embedding on a subset of data points and then use these points
+to approximate an embedding for the remaining points. This technique is
 generally referred to as landmark Isomap \citep{de_silva_sparse_2004}. %
 
 \subsection{Locally Linear Embedding}
 \label{sec:lle}
 
 Points that lie on a manifold in a high dimensional space can be
-reconstructed through linear combinations of their neighborhood if the
-manifold is well sampled and the neighbohood lies on a locally linear
+reconstructed through linear combinations of their neighborhoods if the
+manifold is well sampled and the neighbohoods lie on a locally linear
 patch. %
-These reconstruction weights $W$ are the same in the high dimensional
-space and the internal coordinates of the manifold. %
+These reconstruction weights, $W$, are the same in the high dimensional
+space as the internal coordinates of the manifold. %
 Locally Linear Embedding \citep[LLE; ][]{roweis_nonlinear_2000} is a
 technique that constructs a weight matrix
 $W \in \mathbb{R}^{n\times n}$ with elements $w_{ij}$ so that
@@ -423,21 +435,22 @@ $W \in \mathbb{R}^{n\times n}$ with elements $w_{ij}$ so that
     \sum_{i=1}^n \bigg\| x_i-
         \sum_{j=1}^{n} w_{ij}x_j \bigg\|^2\label{eq:lle}
 \end{equation}
-is minimized under the constraints that $w_{ij} = 0 $ if $x_j$ does not belong
-to the neighborhood and that $\sum_{j=1}^n w_{ij} = 1$. %
+is minimized under the constraint that $w_{ij} = 0 $ if $x_j$ does not belong
+to the neighborhood and the constraint that $\sum_{j=1}^n w_{ij} = 1$. %
 Finally the embedding is made in such a way that the following cost function is
 minimized for $Y$,
 \begin{equation}
     \sum_{i=1}^n\bigg\| y_i - \sum_{j=1}^n w_{ij}y_j
-    \bigg\|^2,\label{eq:lle2}
+    \bigg\|^2.\label{eq:lle2}
 \end{equation}
-which can be solved using an eigenvalue decomposition.
+This can be solved using an eigenvalue decomposition.
 
 Conceptually the method is similar to Isomap but it is
 computationally much nicer because the weight matrix is
 sparse and there exist efficient solvers. %
-In R LLE is implemented by the function \code{lle::lle}, which
-unfortunately does not make use of the sparsity of the weight matrix
+In R, LLE is implemented by the package \CRANpkg{lle}, the embedding can be
+calculated with \code{lle::lle}.
+Unfortunately the implementation does not make use of the sparsity of the weight matrix
 $W$. %
 The manifold must be well sampled and the neighborhood size must be
 chosen appropriately for LLE to give good results. %
@@ -451,21 +464,21 @@ Later it was also used for graph embedding and DR
 \citep{belkin_laplacian_2003}. %
 
 A number of variants have been proposed. %
-First a graph is constructed, usually from a distance matrix, the graph can be
+First, a graph is constructed, usually from a distance matrix, the graph can be
 made sparse by keeping only the $k$ nearest neighbors, or by specifying an
 $\varepsilon$ neighborhood. %
-Then a similarity matrix $W$ is calculated by using a Gaussian kernel (see eq.
+Then, a similarity matrix $W$ is calculated by using a Gaussian kernel (see Equation
 \ref{eq:gauss}), if $c = 2 \sigma^2 = \infty$, then all distances are treated
 equally, the smaller $c$ the more emphasis is given to differences in
 distance. %
-The degree of vertex $i$ is $d_i = \sum_{j=1}^n w_{ij}$ and the degree matrix is
-the matrix $D$ is the matrix with the entries $d_i$ in the diagonal. %
-Then we can form the graph Laplacian $L = D - W$ and there are several ways how
+The degree of vertex $i$ is $d_i = \sum_{j=1}^n w_{ij}$ and the degree
+matrix, $D$, is the diagonal matrix with entries $d_i$. %
+Then we can form the graph Laplacian $L = D - W$ and, then, there are several ways how
 to proceed, an overview can be found in \citet{luxburg_tutorial_2007}. %
 
-The \CRANpkg{dimRed} package implements the algorithm from
-\citet{belkin_laplacian_2003}, analogously to LLE, Laplacian eigenmaps
-avoids computational complexity by creating a sparse matrix and not
+The \pkg{dimRed} package implements the algorithm from
+\citet{belkin_laplacian_2003}. Analogously to LLE, Laplacian eigenmaps
+avoid computational complexity by creating a sparse matrix and not
 having to estimate the distances between all pairs of points. %
 Then the eigenvectors corresponding to the lowest eigenvalues larger
 than $0$ of either the matrix $L$ or the normalized Laplacian
@@ -473,7 +486,7 @@ $D^{-1/2}LD^{-1/2}$ are computed and form the embedding.
 
 \subsection{Diffusion Maps}
 \label{sec:isodiffmaplle}
-Diffusion Maps \citep{coifman_diffusion_2006} takes a distance matrix
+Diffusion Maps \citep{coifman_diffusion_2006} take a distance matrix
 as input and calculates the transition probability matrix $P$ of a
 diffusion process between the points to approximate the manifold. %
 Then the embedding is done by an eigenvalue decompositon of $P$ to
@@ -486,12 +499,13 @@ and do the embedding on this probability matrix.
 
 The idea is to simulate a diffusion process between the nodes of the
 graph, which is more robust to short-circuiting than the $k$-NNG from
-Isomap (see bottom right fig. \ref{fig:knn}). %
+Isomap (see bottom right Figure \ref{fig:knn}). %
 Diffusion maps in R are accessible via the
-\code{diffusionMap::diffuse()} function. %
+\code{diffusionMap::diffuse()} function, which is available in the
+\CRANpkg{diffusionMap} package. %
 Additional points can be approximated into an existing embedding using
 the Nyström formula \citep{bengio_learning_2004}. %
-The implementation in \CRANpkg{dimRed} is based on the
+The implementation in \pkg{dimRed} is based on the
 \code{diffusionMap::diffuse} function.
 % , which does not contain an
 % approximation for unequally sampled manifolds
@@ -506,11 +520,11 @@ While Classical Scaling and derived methods (see section
 such a way that the given distances are maintained, non-Metric Dimensional
 Scaling \citep[nMDS, ][]{kruskal_multidimensional_1964,kruskal_nonmetric_1964}
 uses optimization methods to reach the same goal. %
-Therefore a Stress function,
+Therefore a stress function,
 \begin{equation}
     \label{eq:stress}
     S = \sqrt{\frac{\sum_{i<j} {( d_{ij} - \hat{d}_{ij} )}^2}
-                   {\sum_{i<j}d_{ij}^2}}
+                   {\sum_{i<j}d_{ij}^2}},
 \end{equation}
 is used, and the algorithm tries to embed $y_i$ in such a way that the order of
 the $d_{ij}$ is the same as the order of the $\hat d_{ij}$ Because optimization
@@ -522,39 +536,41 @@ patterns. %
 Because of the flexibility of nMDS, there is a whole package in R devoted to
 Multidimensional Scaling, \code{smacof} \citep{leeuw_multidimensional_2009}. %
 
-R implements nMDS by \code{MASS::isoMDS} and
-\code{vegan::monoMDS}, related methods include Sammons Mapping which
+Several packages provide implementations for nMDS in R, for example
+\CRANpkg{MASS} and \pkg{vegan} with the functions \code{MASS::isoMDS} and
+\code{vegan::monoMDS}. Related methods include Sammons Mapping which
 con be found as \code{MASS::sammon}. %
-The \CRANpkg{dimRed} package wraps around \code{vegan::monoMDS}.
+The \pkg{dimRed} package wraps \code{vegan::monoMDS}.
 
 \subsection{Force Directed Methods}
 \label{sec:graph}
 
 The data $X$ can be considered as a graph with weighted edges, where the weights
 are the distances between points. %
-Force directed algorithm see the edges of the graphs as springs or the result of
+Force directed algorithms see the edges of the graphs as springs or the result of
 an electric charge of the nodes that result in an attractive or repulsive force
 between the nodes, the algorithms then try to minimize the overall energy of the
 graph. %
 \begin{equation}
     \label{eq:graphenergy}
-    E = \sum_{i<j}k_{ij} {( d_{ij} - \hat{d}_{ij} )}^2
+    E = \sum_{i<j}k_{ij} {( d_{ij} - \hat{d}_{ij} )}^2,
 \end{equation}
 where $k_{ij}$ is the spring constant for the spring connecting points
 $i$ and $j$.
 
-Graph embedding algorithm generally suffer from long running times (compared to
+Graph embedding algorithms generally suffer from long running times
+(though compared to
 other methods presented here they do not scale as badly) and many local
 optima. %
 This is why a number of methods have been developed that try to deal with some
-of the shortcomings, e.g.\ the Kamada-Kawai \citep{kamada_algorithm_1989}, the
+of the shortcomings, for example, the Kamada-Kawai \citep{kamada_algorithm_1989}, the
 Fruchtermann-Reingold \citep{fruchterman_graph_1991}, or the DrL
 \citep{martin_dr.l:_2007} algorithms. %
 
 There are a number of graph embedding algorithms included in the
-\code{igraph} package, they can be accessed using the
-\code{igraph::layout\_with\_*} function family. The \CRANpkg{dimRed} package
-only wraps the three algorithms mentioned above, there are many others
+\CRANpkg{igraph} package, they can be accessed using the
+\code{igraph::layout\_with\_*} function family. The \pkg{dimRed} package
+only wraps the three algorithms mentioned above; there are many others
 which are not interesting for dimensionality reduction. %
 
 \subsection{$t$-SNE}
@@ -562,14 +578,15 @@ which are not interesting for dimensionality reduction. %
 
 Stochastic Neighbor Embedding  \citep[SNE; ][]{hinton_stochastic_2003} is a
 technique that minimizes the Kullback-Leibler divergence of scaled
-similarities of the points $i$ and $j$ in high dimensional space, $p_{ij}$, and low
+similarities of the points $i$ and $j$ in a high dimensional space,
+$p_{ij}$, and a low
 dimensional space, $q_{ij}$:
 
 \begin{equation}\label{eq:kldivergence}
     KL(P \| Q) = \sum_{i\neq j} p_{ij}\log\frac{p_{ij}}{q_{ij}}.
 \end{equation}
-SNE uses a Gaussian kernel (see eq.~\ref{eq:gauss}) to compute similarities in
-high and low dimensional space. $t$-Distributed Stochastic Neighborhood
+SNE uses a Gaussian kernel (see Equation~\ref{eq:gauss}) to compute similarities in
+a high and a low dimensional space. The $t$-Distributed Stochastic Neighborhood
 Embedding \citep[$t$-SNE; ][]{van_der_maaten_visualizing_2008} improves on SNE by
 using a $t$-Distribution as a kernel in low dimensional space. %
 Because of the heavy-tailed $t$-distribution, $t$-SNE maintains local
@@ -578,18 +595,18 @@ points. %
 This property makes it especially suitable to represent clustered data and
 complex structures in few dimensions.
 
-$t$-SNE has one parameter, perplexity, to tune which determines the
+The $t$-SNE method has one parameter, perplexity, to tune. This determines the
 neighborhood size of the kernels used.
 
 The general runtime of $t$-SNE is $\mathcal{O}(n^2)$, but an efficient
-implementation using tree search algorithms that scales $\mathcal{O}(n\log n)$
-exists and can be found in the \code{Rtsne} package in R. %
-The $t$-SNE implementation in \CRANpkg{dimRed} wraps around the \CRANpkg{Rtsne}
+implementation using tree search algorithms that scales as $\mathcal{O}(n\log n)$
+exists and can be found in the \CRANpkg{Rtsne} package in R. %
+The $t$-SNE implementation in \pkg{dimRed} wraps  the \pkg{Rtsne}
 package.
 
-There exist a number of derived techniques for dimensionality reduction, e.g.\
-NeRV \citep{venna_information_2010}, and JNE \citep{lee_type_2013}, that improve
-results but there do not exist packages implementing them on CRAN yet.
+There exist a number of derived techniques for dimensionality reduction, e.g.,\
+NeRV \citep{venna_information_2010} and JNE \citep{lee_type_2013}, that improve
+results but for which there do not yet exist packages on CRAN implementing them.
 
 
 % \begin{figure}[tb]
@@ -605,11 +622,11 @@ results but there do not exist packages implementing them on CRAN yet.
 \subsection{ICA}
 \label{sec:ica}
 
-Independent Component Analysis (ICA) interpretes the data $X$ as a mixture
-of independent signals, e.g.\ a number of sound sources recorded by
-several microphones and tries to ``un-mix'' them and find the original
+Independent Component Analysis (ICA) interprets the data $X$ as a mixture
+of independent signals, e.g.,\ a number of sound sources recorded by
+several microphones, and tries to ``un-mix'' them to find the original
 signals in the recorded signals. %
-ICA is a linear rotation of the data just as PCA but instead of
+ICA is a linear rotation of the data, just as PCA, but instead of
 recovering the maximum variance, it recovers statistically independent
 components. %
 % To do so a pre-whitening is performed on $X$, so that $x_{\cdot i}$
@@ -624,8 +641,8 @@ way to estimate $A$ and $S$.
 % independent if they are non-gaussian, the algorithm uses a fast
 % approximation of the negentropy \citep{comon_independent_1994} measure to make two
 % variables independent.
-FastICA maximizes a measure for nongaussianity called negentropy $J$
-\citep{comon_independent_1994}, which is equivalent to minimizing
+FastICA maximizes a measure for non-Gaussianity called negentropy $J$
+\citep{comon_independent_1994}. This is equivalent to minimizing
 mutual information between the resulting components. %
 Negentropy $J$ is defined as follows:
 %mutual information $i$ is defined as:
@@ -637,13 +654,13 @@ Negentropy $J$ is defined as follows:
 % $$I(y_1, y_2, \ldots, y_n) = J(\mathbf{y}) - \sum_i J(y_i)$$
 where $u = (u_1, \ldots, u_n)^T$ is a random vector with density $f(\cdot)$ and
 $u_{\text{gauss}}$ is a Gaussian random variable with the same covariance
-structure as $u$. FastICA uses a very efficient approximations to calculate
+structure as $u$. FastICA uses a very efficient approximation to calculate
 negentropy. Because ICA can be translated into a simple linear projection, a
-forward an inverse method can be supplied.
+forward and an inverse method can be supplied.
 
 There are a number of packages in R that implement algorithms for
-ICA, the \CRANpkg{dimRed} package wraps around the
-\texttt{fastICA::fastICA()} function.
+ICA, the \pkg{dimRed} package wraps  the
+\texttt{fastICA::fastICA()} function from \CRANpkg{fastICA}.
 
 
 \subsection{DRR}
@@ -658,7 +675,7 @@ information from the remaining components using non-linear regression.
 \end{equation}
 with $x_{\cdot i}$ and $y_{\cdot i}$ being the loading of observations on the
 $i$-th axis. %
-In theory any kind of regression can be used, the
+In theory, any kind of regression can be used. the
 authors of the original paper choose Kernel Ridge Regression 
 \citep[KRR; ][]{saunders_ridge_1998} because it is a flexible nonlinear
 regression technique and computational optimizations for a fast
@@ -668,9 +685,9 @@ presented here, because it provides an exact forward and inverse function.
 The use of KRR also has the advantage of making the method convex, here we list
 it under non-convex methods, because other types of regression may make it non-convex.
 
-Mathematicaly functions are limited to map one input to a single output point,
-therefore DRR reduces to PCA if manifolds are too complex.
-But it seems very useful for slightly curved manifolds. The initial rotation is
+Mathematicaly, functions are limited to map one input to a single output point.
+Therefore, DRR reduces to PCA if manifolds are too complex;
+but it seems very useful for slightly curved manifolds. The initial rotation is
 important, because the result strongly depends on the order of dimensions in
 high dimensional space.
 
@@ -682,32 +699,35 @@ subset.
 \section{Quality criteria}
 \label{sec:quality}
 
-The advantage of unsupervised learning is that one does not need to specify
-classes or a target variable for the data under scrutiny. Instead the chosen
-algorithm arranges the input data e.g.\ into clusters or a lower dimensional
+The advantage of unsupervised learning is that one does not need to
+specify classes or a target variable for the data under
+scrutiny. Instead the chosen algorithm arranges the input data. For
+example, arranged into clusters or into a lower dimensional
 representation. %
-In contrast to a supervised problem, there is no natural way to directly measure
-the quality of any output or to compare two methods by an objective measure like
-for instance modeling efficiency or classification error. %
-The reason is that every method optimizes a different error function, and it
-would be unfair to compare $t$-SNE and PCA by means of either recovered variance
-or KL-Divergence. %
-One fair measure would be the reconstruction error, i.e.\ reconstructing the
-original data from a limited number of dimensions, but as shown above not many
-methods provide forward and inverse mappings. %
+In contrast to a supervised problem, there is no natural way to
+directly measure the quality of any output or to compare two methods
+by an objective measure like for instance modeling efficiency or
+classification error. %
+The reason is that every method optimizes a different error function,
+and it would be unfair to compare $t$-SNE and PCA by means of either
+recovered variance or KL-Divergence. %
+One fair measure would be the reconstruction error, i.e.,\
+reconstructing the original data from a limited number of dimensions,
+but as discussed above not many methods provide forward and inverse
+mappings. %
 
 However, there are a series of independent estimators on the quality of a
 low-dimensional embedding. %
-The \CRANpkg{dimRed} package provides a number of quality measures which have
-been proposed in literature to measure performance of dimensionality
+The \pkg{dimRed} package provides a number of quality measures which have
+been proposed in the literature to measure performance of dimensionality
 reduction techniques.
 
 \subsection{Co-ranking matrix based measures}
 \label{sec:coranking}
 
 The co-ranking matrix \citep{lee_quality_2009} is a way to capture the
-changes in ordinal distance, just as before, let $d_{ij} = d(x_i,x_j)$
-be the distances between $x_i$ and $x_j$, i.e.\ in high dimensional
+changes in ordinal distance. As before, let $d_{ij} = d(x_i,x_j)$
+be the distances between $x_i$ and $x_j$, i.e.,\ in high dimensional
 space and $\hat d_{ij} = d(y_i,y_j)$ the distances in low dimensional
 space, then we can define the rank of $y_j$ with respect to $y_i$
 
@@ -716,13 +736,13 @@ space, then we can define the rank of $y_j$ with respect to $y_i$
   \hat r_{ij} = |\{k : \hat d_{ik} < \hat d_{ij} \text{ or } (\hat
   d_{ik} = \hat d_{ij} \text{ and } 1 \leq k < j \leq n)\}|,
 \end{equation}
-and analogously the rank in high-dimensional space as
+and, analogously, the rank in high-dimensional space as:
 \begin{equation}
   \label{eq:rankmatrix-high-dim}
   r_{ij} = |\{k : d_{ik} < d_{ij} \text{ or } (d_{ik} = d_{ij} \text{
-    and } 1 \leq k < j \leq n)\}|. 
+    and } 1 \leq k < j \leq n)\}|,
 \end{equation}
-Where $|A|$ is the number of elements in a set $A$. %
+where the notation $|A|$ denotes the number of elements in a set $A$. %
 This means that we simply replace the distances in a distance matrix column
 wise by their ranks. %
 This means, that $r_{ij}$ is an integer which indicates that $x_i$ is the
@@ -733,11 +753,11 @@ The co-ranking matrix $Q$ then has elements
   \label{eq:coranking}
   q_{kl} = |\{(i,j) : \hat r_{ij} = k \text{ and } r_{ij} = l\}|,
 \end{equation}
-which is the 2d-histogram of the ranks, i.e.\ $q_{ij}$ is an integer which counts
+which is the 2d-histogram of the ranks. That is, $q_{ij}$ is an integer which counts
 how many points of distance rank $j$ became rank $i$. %
 In a perfect DR, this matrix will only have non-zero entries in the diagonal, if
 most of the non-zero entries are in the lower triangle, then the DR collapsed
-far away points onto each other and if most of the non-zero entries are in the
+far away points onto each other; if most of the non-zero entries are in the
 upper triangle, then the DR teared close points apart. % 
 For a detailed description of the properties of the co-ranking matrix the reader
 is referred to \citet{lueks_how_2011}. % 
@@ -745,16 +765,16 @@ is referred to \citet{lueks_how_2011}. %
 The co-ranking matrix can be computed using function
 \code{coRanking::coranking()} and can be visualized using
 \code{coRanking::imageplot()}. %
-A good embedding should scatter the values around the diagonal of the matrix; If
-the values a in the lower triangle, then the embedding collapses the original
-structure causing far away points to be much closer if the values are
+A good embedding should scatter the values around the diagonal of the matrix. If
+the values are predominantly in the lower triangle, then the embedding collapses the original
+structure causing far away points to be much closer; if the values are
 predominantly in the upper triangle the points from the original structure are
 torn apart. %
 Nevertheless this method requires visual inspection of the matrix. %
-For an automated assessment of quality a scalar value that assigns a quality to
+For an automated assessment of quality, a scalar value that assigns a quality to
 an embedding is needed. %
 
-A number of metrics can be computed from the co-ranking matrix:
+A number of metrics can be computed from the co-ranking matrix. For example:
 
 \begin{equation}\label{eq:qnx}
     Q_{N\!X}(k) = \frac{1}{kn} \sum_{i=1}^k\sum_{j=1}^k q_{ij},
@@ -762,26 +782,26 @@ A number of metrics can be computed from the co-ranking matrix:
 which is the number of points that belong to the $k$-th nearest neighbors in
 both high- and low-dimensional space, normalized to give a maximum of $1$
 \citep{lee_quality_2009}. %
-This quantity can be adjusted for random embeddings, which gives the Local
+This quantity can be adjusted for random embeddings, giving the Local
 Continuity Meta Criterion \citep{chen_local_2006}:
 \begin{equation}\label{eq:lcmc}
 \text{LCMC}(k) = Q_{N\!X}(k) - \frac{k}{n-1}
 \end{equation}
 The above measures still depend on $k$, but LCMC has a well defined
 maximum at $k_{\max} $. %
-Two measures without parameters can be defined, then:
+Two measures without parameters are then defined:
 
 \begin{align}\label{eq:qlocalglobal}
   Q_{\text{local}}  &= \frac{1}{k_{\max}}     \sum_{k=1}^{k_{\max}}
-                      Q_{N\!X}(k) \text{, and} \\
+                      Q_{N\!X}(k) \text{ and} \\
   Q_{\text{global}} &= \frac{1}{n - k_{\max}} \sum_{k=k_{\max}}^{n-1} 
-                      Q_{N\!X}(k),
+                      Q_{N\!X}(k).
 \end{align}
-which measure the preservation of local and global distances respectively, the
+These measure the preservation of local and global distances respectively. The
 original authors advised using $Q_{\text{local}}$ over $Q_{\text{global}}$, but
 this depends on the application.
 
-LCMC($k$) can be normalized to a maximum of $1$, which yields the
+LCMC($k$) can be normalized to a maximum of $1$, yielding the
 following measure for a quality embedding \citep{lee_type_2013}:
 \begin{equation}\label{eq:rnx}
     R_{NX}(k) = \frac{(n-1) Q_{NX}(k) - k}{n-1-k},
@@ -795,24 +815,24 @@ the curve can be used:
     R_{NX}(k) \right) \Bigg/ \left( \sum_{k=1}^{n-2} 1/k  \right).
 \end{equation}
 
-This measure is normalized to one and takes $K$ at a log-scale. %
+This measure is normalized to one and takes $k$ at a log-scale. %
 Therefore it prefers methods that preserve local distances. %
 
-In R the co-ranking matrix can be calculated using the the
+In R, the co-ranking matrix can be calculated using the the
 \code{coRanking::coranking} function. %
-The \CRANpkg{dimRed} package contains the functions \code{Q\_local},
+The \pkg{dimRed} package contains the functions \code{Q\_local},
 \code{Q\_global}, \code{Q\_NX}, \code{LCMC}, and \code{R\_NX} to
-calculate the above quality measures and \code{AUC\_lnK\_R\_NX}. %
+calculate the above quality measures in addition to \code{AUC\_lnK\_R\_NX}. %
 
 Calculating the co-ranking matrix is a relatively expensive operation
-because it requires sorting every row or the distance matrix twice
-and therefore scales with $\mathcal{O}(n^2\log n)$. %
+because it requires sorting every row of the distance matrix twice.
+It therefore scales with $\mathcal{O}(n^2\log n)$. %
 There is also a plotting function \code{plot\_R\_NX}, which plots the
 $R_{NX}$ values with log-scaled $K$ and adds the $AUC_{\ln K}$ to the
-legend (see fig. \ref{fig:plotexample}). %
+legend (see Figure \ref{fig:plotexample}). %
 
 There are a number of other measures that can be computed from a co-ranking
-matrix, e.g.\ see \citet{lueks_how_2011,lee_quality_2009}, or
+matrix, e.g.,\ see \citet{lueks_how_2011,lee_quality_2009}, or
 \citet{babaee_assessment_2013}.
 
 
@@ -823,10 +843,10 @@ An old measure originally developed to compare clustering methods in the field
 of phylogenetics is cophenetic correlation \citep{sokal_comparison_1962}. %
 This method consists simply of the correlation between the upper or lower
 triangles of the distance matrices (in dendrograms they are called cophenetic
-matrices, hence the name) in high and low dimensional space. Additionally the
+matrices, hence the name) in a high and low dimensional space. Additionally the
 distance measure and correlation method can be varied. %
-In the \CRANpkg{dimRed} package this is implemented in the
-\code{cophenetic\_correlation}. %
+In the \pkg{dimRed} package this is implemented in the
+\code{cophenetic\_correlation} function. %
 
 Some studies use a measure called ``residual variance''
 \citep{tenenbaum_global_2000,mahecha_nonlinear_2007}, which is defined as
@@ -839,17 +859,17 @@ matrices consisting of elements $d_{ij}$ and $\hat d_{ij}$ respectively. %
 \label{sec:reconerror}
 
 The fairest  and most common way to assess the quality of a dimensionality
-reduction if the method provides a inverse mapping is 
+reduction when the method provides a inverse mapping is 
 the reconstruction error.
-The \CRANpkg{dimRed} package includes a function to calculate the root mean
+The \pkg{dimRed} package includes a function to calculate the root mean
 squared error which is defined as:
 \begin{equation}\label{eq:rmse}
 \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^n {d(x'_i, x_i)}^2}
 \end{equation}
-with $x'_i = f^{-1}(y_{i})$, and $f^{-1}$ being the
+with $x'_i = f^{-1}(y_{i})$, $f^{-1}$ being the
 function that maps an embedded value back to feature space. %
 
-The \CRANpkg{dimRed} package provides the \code{reconstruction\_rmse} and
+The \pkg{dimRed} package provides the \code{reconstruction\_rmse} and
 \code{reconstruction\_error} functions.
 
 
@@ -858,8 +878,8 @@ The \CRANpkg{dimRed} package provides the \code{reconstruction\_rmse} and
 \label{sec:testdata}
 
 There are a number of test data sets that are often used to showcase a
-dimensionality reduction technique. Common ones being the 3d S-curve, the Swiss
-roll among others. %
+dimensionality reduction technique. Common ones being the 3d S-curve and the Swiss
+roll, among others. %
 These data sets have in common that they usually have three dimensions, and well
 defined manifolds. %
 Real world examples usually have more dimensions and often are much noisier, the
@@ -867,7 +887,7 @@ manifolds may not be well sampled and exhibit holes and large pieces may be
 missing. %
 Additionally, we cannot be sure if we can observe all the relevant variables. %
 
-The \CRANpkg{dimRed} package implements a number of test datasets that are being
+The \pkg{dimRed} package implements a number of test datasets that are being
 used in literature to benchmark methods with the function
 \code{dimRed::loadDataSet()}. %
 For artificial datasets the number of points and the noise level can be
@@ -876,19 +896,19 @@ adjusted, the function also returns the internal coordinates.
 \section{The \pkg{dimRed} Package}
 
 
-The \CRANpkg{dimRed} package collects DR methods readily implemented in R,
+The \pkg{dimRed} package collects DR methods readily implemented in R,
 implements missing methods and offers means to compare the quality of
 embeddings. %
-The package is open source and available under the GPL3 license on github
-(\url{https://github.com/gdkrmr/dimRed}) and CRAN
-(\url{https://cran.r-project.org/package=dimRed}). %
-\CRANpkg{dimRed} provides a common interface and convenience functions for a variety of
+The package is open source and available under the GPL3
+license. Released versions of the package are
+available through CRAN
+(\url{https://cran.r-project.org/package=dimRed})  and development
+versions are hosted on GitHub (\url{https://github.com/gdkrmr/dimRed}). %
+The \pkg{dimRed} package provides a common interface and convenience functions for a variety of
 different DR methods so that it is made easier to use and compare different
-methods. An overview can be found in table~\ref{tab:interfacefun}. %
+methods. An overview of the packages main functions can be found in Table~\ref{tab:interfacefun}. %
 
 \begin{table}[h]
-    \caption[Main interface functions.]{The main interface functions
-      of the \CRANpkg{dimRed} package.}\label{tab:interfacefun}
     \centering
     \begin{tabular}{l p{8cm}}
       \toprule
@@ -897,11 +917,11 @@ methods. An overview can be found in table~\ref{tab:interfacefun}. %
       \code{embed}             & Embed data using a DR method. \\
       \code{quality}           & Calculate a quality score from
                                  the result of \code{embed}. \\
-      \code{plot}              & Plot a \code{dimRedData} or
-                                 \code{dimRedResult} object, colors
+      \code{plot}              & Plot a \code{"dimRedData"} or
+                                 \code{"dimRedResult"} object, colors
                                  the points automatically, for
                                  exploring the data. \\
-      \code{plot\_R\_NX}       & For comparing the quality of various
+      \code{plot\_R\_NX}       & Compares the quality of various
                                  embeddings. \\
       \code{dimRedMethodList}  & Returns a character vector that
                                  contains all implemented DR
@@ -911,75 +931,78 @@ methods. An overview can be found in table~\ref{tab:interfacefun}. %
                                  measures. \\
       \bottomrule
     \end{tabular}
+    \caption[Main interface functions.]{The main interface functions
+      of the \pkg{dimRed} package.}\label{tab:interfacefun}
 \end{table}
 
 Internally, the package uses S4 classes but for normal usage the user
 does not need to have any knowledge on the inner workings of the S4 class
-system in R (s.\ table~\ref{tab:s4classes}). %
+system in R (cf.\ table~\ref{tab:s4classes}). %
 The package contains simple conversion functions from and to standard
-R-objects like \code{data.frame} and \code{matrix}. %
-The \code{dimRedData} class provides an container for the data to be
+R-objects like a data.frame or a matrix. %
+The \code{"dimRedData"} class provides an container for the data to be
 processed. %
-The slot \code{data} contains a \code{matrix} with dimensions in columns and
-observations in rows, the slot \code{meta} may contain a \code{data.frame} with
-additional information, e.g.\ categories or other information of the data
+The slot \code{data} contains a matrix with dimensions in columns and
+observations in rows, the slot \code{meta} may contain a data frame with
+additional information, e.g.,\ categories or other information of the data
 points. %
 
 \begin{table}[h]
-    \caption[S4 Classes]{The S4 classes used in the
-      \CRANpkg{dimRed} package}\label{tab:s4classes}
     \centering
     \begin{tabular}{l p{9cm}}
       \toprule
       Class Name          & Function \\
       \midrule
-      \code{dimRedData}   & Holds the data for a DR.
+      \code{"dimRedData"}   & Holds the data for a DR.
                             Fed to \code{embed()}.
-                            \code{as.dimRedData()} for 
-                            \code{data.frame}, 
-                            \code{matrix}, and
-                            \code{formula} exist.\\
-      \code{dimRedMethod} & Virtual class, ancestor of all DR
+                            An \code{as.dimRedData()} methods exists for 
+                            \code{"data.frame"}, 
+                            \code{"matrix"}, and
+                            \code{"formula"} exist.\\
+      \code{"dimRedMethod"} & Virtual class, ancestor of all DR
                             methods. \\
-      \code{dimRedResult} & The result of \code{embed()}, 
+      \code{"dimRedResult"} & The result of \code{embed()}, 
                             the embedded data. \\
       \bottomrule
     \end{tabular}
+    \caption[S4 Classes]{The S4 classes used in the
+      \pkg{dimRed} package.}\label{tab:s4classes}
+
 \end{table}
 
-Each embedding method is a class which inherits from \code{dimRedMethod} which
-means that it contains a function to generate \code{dimRedResult} objects and a
-\code{list} of standard parameters. %
-The class \code{dimRedResult} contains the data in reduced dimensions, the
+Each embedding method is a class which inherits from \code{"dimRedMethod"} which
+means that it contains a function to generate \code{"dimRedResult"} objects and a
+list of standard parameters. %
+The class \code{"dimRedResult"} contains the data in reduced dimensions, the
 original meta information along with the original data, and, if possible,
 functions for the forward and inverse mapping. %
 
 From a user-perspective the central function of the package is \code{embed}
 which is called in the form \code{embed(data, method, \ldots)}, \code{data} can
-take standard R objects like \code{data.frame}, \code{matrix}, or \code{formula}
-as input which are automatically coerced to the internal S4 classes. %
-The \code{method} is given as a character vector, all available methods can be
-listed by calling \code{dimRedMethodList()}. %
-Method specific parameters in \code{\ldots} can be given, if no method specific
-parameters are given defaults are chosen. %
-\code{embed} returns an object of class \code{dimRedResult}
+take standard R objects such as instances of \code{"data.frame"}, \code{"matrix"}, or \code{"formula"},
+as input. %
+The \code{method} is given as a character vector. All available methods can be
+listed by calling \samp{dimRedMethodList()}. %
+Method-specific parameters can be passed through \code{...}; when no method-specific
+parameters are given, defaults are chosen. %
+The \code{embed} function returns an object of class \code{"dimRedResult"}.
 
-For comparing different embeddings \CRANpkg{dimRed} contains the function
+For comparing different embeddings, \pkg{dimRed} contains the function
 \code{quality} which relies on the output of \code{embed} and a method name. %
 This function returns a scalar quality score; a vector that contains the names
-of all quality functions is returned by calling \code{dimRedQualityList()}. %
+of all quality functions is returned by calling \samp{dimRedQualityList()}. %
 
-For easy visual examination the package contains \code{plot} functions for
-\code{dimRedData} and \code{dimRedResult} objects in order to plot high
-dimensional data like parallel plots and pairwise scatter plots. %
-Automatic coloring of data points is done using the meta data. %
+For easy visual examination, the package contains \code{plot} methods for
+\code{"dimRedData"} and \code{"dimRedResult"} objects in order to plot high
+dimensional data using parallel plots and pairwise scatter plots. %
+Automatic coloring of data points is done using the available metadata. %
 
 \section{Examples}
 \label{sec:examples}
 
 The comparison of different DR methods, choosing the right parameters for a
-method and the inspection of the results is made very simple by
-\CRANpkg{dimRed}. %
+method, and the inspection of the results is simplified by
+\pkg{dimRed}. %
 This section contains a number of examples to highlight the use of the package. %
 
 % Example 1:
@@ -988,15 +1011,17 @@ using \code{loadDataSet}, then the \code{embed} function is used for DR
 (\code{embed} can also handle standard R types like \code{matrix} and
 \code{data.frame}). %
 This makes it very simple to apply different methods of DR to the same data
-e.g.\ by defining a character vector of method names and calling
+e.g.,\ by defining a character vector of method names and then
+iterating over these, say with
 \code{lapply}. %
-For inspection \CRANpkg{dimRed} provides methods for the \code{plot} function to
-visualize the resulting embedding (fig.~\ref{fig:plotexample} b and d), internal
+For inspection, \pkg{dimRed} provides methods for the \code{plot} function to
+visualize the resulting embedding (Figure~\ref{fig:plotexample} b and d), internal
 coordinates of the manifold are represented by color gradients. %
 To visualize how well embeddings represent different neighborhood sizes, the
 function \code{plot\_R\_NX} is used on a list of embedding results
-(fig.~\ref{fig:plotexample}~c). %
+(Figure~\ref{fig:plotexample}~c). %
 The plots in figure~\ref{fig:plotexample} are produced by the following code: %
+
 
 \begin{figure}[htp]
   \centering
@@ -1042,12 +1067,12 @@ add_label("c")
   \includegraphics[page=1,width=.45\textwidth]{figure/pca_isomap_example-4.pdf}
 
   \caption[dimRed example]{%
-    Comparing PCA and Isomap, %
+    Comparing PCA and Isomap: %
     (a) An S-shaped manifold, colors represent the internal coordinates of the
     manifold. %
     (b) Isomap embedding, the S-shaped manifold is unfolded. %
     (c) $R_{NX}$ plotted agains neighborhood sizes, Isomap is much better at
-    preserving local distances and PCA is better at preserving global euclidean
+    preserving local distances and PCA is better at preserving global Euclidean
     distances. %
     The numbers on the legend are the $\text{AUC}_{1 / K}$.
     (d) PCA projection of the data, the directions of maximum variance are preserved. %
@@ -1062,17 +1087,19 @@ data_set <- loadDataSet("3D S Curve", n = 1000)
 ## apply dimensionality reduction
 data_emb <- lapply(embed_methods, function(x) embed(data_set, x))
 names(data_emb) <- embed_methods
-## plot data set, embeddings, and quality analysis
+## figure \ref{fig:plotexample}a, the data set
 plot(data_set, type = "3vars")
+## figures \ref{fig:plotexample}b (Isomap) and \ref{fig:plotexample}d (PCA)
 lapply(data_emb, plot, type = "2vars")
+## figure \ref{fig:plotexample}c, quality analysis
 plot_R_NX(data_emb)
-@ 
+@
 
 The function \code{plot\_R\_NX} produces a figure that plots the neighborhood
-size ($K$ at a log-scale) against the quality measure $\text{R}_{NX}(K)$ (see
-eq. \ref{eq:rnx}). %
-This gives an overview of the general behavior of methods, if $\text{R}_{NX}$ is
-high for low values of $K$, then local neighborhoods are maintained well, if
+size ($k$ at a log-scale) against the quality measure $\text{R}_{NX}(k)$ (see
+Equation \ref{eq:rnx}). %
+This gives an overview of the general behavior of methods: if $\text{R}_{NX}$ is
+high for low values of $K$, then local neighborhoods are maintained well; if
 $\text{R}_{NX}$ is high for large values of $K$, then global gradients are
 maintained well. %
 It also provides a way to directly compare methods by plotting more than one
@@ -1080,8 +1107,8 @@ $\text{R}_{NX}$ curve and an overall quality of the embedding by taking the area
 under the curve as an indicator for the overall quality of the embedding (see
 fig~\ref{eq:auclnk}) which is shown as a number in the legend.
 
-Therefore we can see from fig.~\ref{fig:plotexample}c that $t$-SNE is very good a
-maintaining close and medium distances for the given data set, PCA is only
+Therefore we can see from Figure~\ref{fig:plotexample}c that $t$-SNE is very good a
+maintaining close and medium distances for the given data set, whereas PCA is only
 better at maintaining the very large distances. %
 The large distances are dominated by the overall bent shape of the S in 3D
 space, while the close distances are not affected by this bending. %
@@ -1091,16 +1118,16 @@ the inner structure of the manifold.
 
 % Example 2:
 Often the quality of an embedding strongly depends on the choice of parameters,
-the interface of \CRANpkg{dimRed} can be used to facilitate searching the
+the interface of \pkg{dimRed} can be used to facilitate searching the
 parameter space.
 
-Isomap (see sec.~\nameref{sec:isomap}) has one parameter $k$ which determines
+Isomap has one parameter $k$ which determines
 the number of neighbors used to construct the $k$-NNG\@. %
 If this number is too large, then Isomap will resemble an MDS
-(fig.~\ref{fig:knn} e), if the number is too small, the resulting embedding
-contains holes (fig.~\ref{fig:knn} c). %
+(Figure~\ref{fig:knn} e), if the number is too small, the resulting embedding
+contains holes (Figure~\ref{fig:knn} c). %
 The following code finds the optimal value, $k_{\text{max}}$, for $k$ using the
-$Q_{\text{local}}$ criterion, the results are visualized in fig.~\ref{fig:knn}
+$Q_{\text{local}}$ criterion, the results are visualized in Figure~\ref{fig:knn}
 a:
 
 \begin{figure}[htp]
@@ -1174,14 +1201,14 @@ add_label("e")
     \includegraphics[width=.95\textwidth]{figure/select_k-1.pdf}
     \includegraphics[width=.95\textwidth]{figure/knngraphs-1.pdf}
     \caption[estimating $k$ using @Q_\text{local}]{%
-      Using \CRANpkg{dimRed} and the $Q_\text{local}$ indicator to estimate a
+      Using \pkg{dimRed} and the $Q_\text{local}$ indicator to estimate a
       good value for the parameter $k$ in Isomap. %
       (a) $Q_\text{local}$ for different values of $k$, the vertical red
       line indicates the maximum $k_{\text{max}}$. %
       (b) The original data set, a 2 dimensional manifold bent in an
       S-shape in 3 dimensional space. %
       Bottom row: Embeddings and $k$-NNG for different values of $k$. %
-      (c) $k = 5$, the value for $k$ is too small resulting in holes in the
+      (c) When $k = 5$, the value for $k$ is too small resulting in holes in the
       embedding, the manifold itself is still unfolded correctly. %
       (d) Choose $k = k_\text{max}$, the best representation of the original
       manifold in two dimensions achievable with Isomap. %
@@ -1204,24 +1231,24 @@ ind_max <- which.max(qual)
 k_max <- kk[ind_max]
 @
 
-Fig.~\ref{fig:knn}a shows how the $Q_{\text{local}}$ criterion changes when
+Figure~\ref{fig:knn}a shows how the $Q_{\text{local}}$ criterion changes when
 varying the neighborhood size $k$ for Isomap, the gray lines in
-fig.~\ref{fig:knn} represent the edges of the $k$-NN Graph. %
+Figure~\ref{fig:knn} represent the edges of the $k$-NN Graph. %
 If the value for $k$ is too low, the inner structure of the manifold will still
-be recovered, but it will be imperfect (fig.~\ref{fig:knn}c, note that the holes
+be recovered, but it will be imperfect (Figure~\ref{fig:knn}c, note that the holes
 appear in places that are not covered by the edges of the $k$-NN Graph),
 therefore the $Q_{\text{local}}$ score is lower than optimal. %
 If $k$ is too large, the error of the embedding is much larger due to short
 circuiting and we observe a very steep drop in the $Q_{\text{local}}$ score. %
-The short circuiting can be observed in fig.~\ref{fig:knn}e with the edges that
+The short circuiting can be observed in Figure~\ref{fig:knn}e with the edges that
 cross the gap between the tips and the center of the S-shape. %
 
 % Example 3:
 
 It is also very easy to compare across methods and quality scores. %
 The following code produces a matrix of quality scores and methods,
-\code{dimRedMethodList} returns a character vector with all methods, a
-visualization of the matrix can be found in fig.~\ref{fig:qualityexample}. %
+where \code{dimRedMethodList} returns a character vector with all methods. A
+visualization of the matrix can be found in Figure~\ref{fig:qualityexample}. %
 
 \begin{figure}[htp]
   \centering
@@ -1263,7 +1290,7 @@ barplot(t(quality_results), beside = TRUE, col = 1:4,
     a worse embedding, while in the present methods a higher score
     means a better embedding. %
     Parameters were not tuned for the example, therefore it should not
-    be seen as a general quality assessment of methods. %
+    be seen as a general quality assessment of the methods. %
   }\label{fig:qualityexample}
 \end{figure}
 
@@ -1285,32 +1312,31 @@ for (q in quality_methods)
 }
 @
 
-This showcases the simplicity with which different methods and quality criteria
+This example showcases the simplicity with which different methods and quality criteria
 can be combined. %
 Because of the strong dependencies on parameters it is not advised to apply this
 kind of analysis without tuning the parameters for each method separately. %
-There is no automatized way to tune parameters in \CRANpkg{dimRed}. %
+There is no automatized way to tune parameters in \pkg{dimRed}. %
 
 \section{Conclusion}
 \label{sec:conc}
 
-This paper presented the \CRANpkg{dimRed} and \CRANpkg{coRanking} packages and
-provides a brief overview of the methods implemented therein. %
-\CRANpkg{dimRed} is written in the R language, which is one of the most popular
-languages for data analysis and is freely available through the built in package
-management system CRAN. %
-It is object oriented and completely open source and therefore easily available
+This paper presents the \pkg{dimRed} and \pkg{coRanking} packages and
+it provides a brief overview of the methods implemented therein. %
+The \pkg{dimRed} package is written in the R language, one of the most popular
+languages for data analysis. The package is freely available from CRAN. %
+The package is object oriented and completely open source and therefore easily available
 and extensible. %
 Although most of the DR methods already had implementations in R,
-\CRANpkg{dimRed} adds some new methods for dimensionality reduction, and
-\CRANpkg{coRanking} adds methods for an independent quality control of DR
+\pkg{dimRed} adds some new methods for dimensionality reduction, and
+\pkg{coRanking} adds methods for an independent quality control of DR
 methods to the R ecosystem. %
-DR is a widely used technique but due to the lack of easily usable tools,
-choosing the right method is complex and depends a variety of factors. %
-The \CRANpkg{dimRed} package aims to facilitate experimentation with different
+DR is a widely used technique. However, due to the lack of easily usable tools,
+choosing the right method for DR is complex and depends upon a variety of factors. %
+The \pkg{dimRed} package aims to facilitate experimentation with different
 techniques, parameters, and quality measures so that choosing the right method
 becomes easier. %
-\CRANpkg{dimRed} wants to enable the user to objectively compare methods that
+The \pkg{dimRed} package wants to enable the user to objectively compare methods that
 rely on very different algorithmic approaches. %
 It makes the life of the programmer easier, because all methods are aggregated
 in one place and there is a single interface and standardized classes to access
@@ -1318,11 +1344,6 @@ the functionality. %
 
 \section{Acknowledgments}
 \label{sec:ack}
-
-This document is based on the manuscript of \citet{kraemer_dimred_2018} which
-was published in the R-Journal and has been modified and extended to fit the
-format of a package vignette and to match the extended functionality of the
-\pkg{dimRed} package.
 
 We thank Dr.\ G.\ Camps-Valls and an anonymous reviewer for many useful
 comments. %
