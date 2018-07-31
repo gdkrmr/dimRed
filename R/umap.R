@@ -58,7 +58,7 @@
 #' emb2 <- embed(dat, "UMAP", .mute = NULL, knn = 10)
 #' plot(emb2, type = "2vars")
 #' }
-#' 
+#'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -72,7 +72,7 @@ UMAP <- setClass(
       knn = 15,
       ndim = 2,
       d = "euclidean",
-      method = "python"
+      method = "umap-learn"
     ),
     fun = function (data, pars,
                     keep.org.data = TRUE) {

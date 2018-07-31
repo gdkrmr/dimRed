@@ -20,9 +20,9 @@ embed(.data, ...)
   .mute = character(0), .keep.org.data = TRUE, ...)
 }
 \arguments{
-\item{.data}{object of class \code{\link{dimRedData}}, \code{embed} will try
-to coerce \code{.data} to be of class \code{\link{dimRedData}}, see
-examples for details.}
+\item{.data}{object of class \code{\link{dimRedData}}, will be converted to
+be of class \code{\link{dimRedData}} if necessary; see examples for
+details.}
 
 \item{...}{the parameters, internally passed as a list to the dimensionality
 reduction method as \code{pars = list(...)}}
