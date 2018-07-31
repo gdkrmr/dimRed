@@ -13,7 +13,7 @@ test_that("UMAP python", {
   expect_equal(res@method, "UMAP")
   expect_equal(res@pars$d, "euclidean")
   expect_equal(res@pars$knn, 15)
-  expect_equal(res@pars$method, "python")
+  expect_equal(res@pars$method, "umap-learn")
   expect_equal(res@pars$ndim, 2)
 })
 
