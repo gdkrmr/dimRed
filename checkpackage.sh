@@ -8,7 +8,7 @@ echo "REMOVING emacs lockfiles"
 find . -type l -exec rm {} \;
 
 echo "BUILDING"
-R CMD build .
+R CMD build --compact-vignettes .
 
 pkgversion=$(cat DESCRIPTION | grep Version | sed 's|Version: \(.*\)|\1|')
 echo "INSTALLING version $pkgversion"

@@ -16,34 +16,35 @@ embed(.data, ...)
 \S4method{embed}{ANY}(.data, .method = dimRedMethodList(),
   .mute = character(0), .keep.org.data = TRUE, ...)
 
-\S4method{embed}{dimRedData}(.data, .method = dimRed::dimRedMethodList(),
+\S4method{embed}{dimRedData}(.data, .method = dimRedMethodList(),
   .mute = character(0), .keep.org.data = TRUE, ...)
 }
 \arguments{
-\item{.data}{object of class \code{dimRedData}}
+\item{.data}{object of class \code{\link{dimRedData}}, will be converted to
+be of class \code{\link{dimRedData}} if necessary; see examples for
+details.}
 
-\item{...}{the parameters, internally passed as a list to the
-dimensionality reduction method as \code{pars = list(...)}}
+\item{...}{the parameters, internally passed as a list to the dimensionality
+reduction method as \code{pars = list(...)}}
 
 \item{.formula}{a formula, see \code{\link{as.dimRedData}}.}
 
-\item{.method}{character vector naming one of the dimensionality
-reduction techniques.}
+\item{.method}{character vector naming one of the dimensionality reduction
+techniques.}
 
-\item{.mute}{a character vector containing the elements you want to
-mute (\code{c("message", "output")}), defaults to
-\code{character(0)}.}
+\item{.mute}{a character vector containing the elements you want to mute
+(\code{c("message", "output")}), defaults to \code{character(0)}.}
 
-\item{.keep.org.data}{TRUE/FALSE keep the original data.}
+\item{.keep.org.data}{\code{TRUE}/\code{FALSE} keep the original data.}
 }
 \value{
-an object of class \code{dimRedResult}
+an object of class \code{\link{dimRedResult}}
 }
 \description{
 wraps around all dimensionality reduction functions.
 }
 \details{
-Method must be one of \code{dimRedMethodList()}, partial matching
+Method must be one of \code{\link{dimRedMethodList}()}, partial matching
 is performed. All parameters start with a dot, to avoid clashes
 with partial argument matching (see the R manual section 4.3.2), if
 there should ever occur any clashes in the arguments, call the
@@ -55,13 +56,26 @@ function with all arguments named, e.g. \code{embed(.data = dat,
 \item \code{formula}: embed a data.frame using a formula.
 
 \item \code{ANY}: Embed anything as long as it can be coerced to
-\code{dimRedData}.
+\code{\link{dimRedData}}.
 
 \item \code{dimRedData}: Embed a dimRedData object
 }}
 
 \examples{
+## embed a data.frame using a formula:
+as.data.frame(
+  embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+        iris, "PCA")
+)
+
+## embed a data.frame and return a data.frame
+as.data.frame(embed(iris[, 1:4], "PCA"))
+
+## embed a matrix and return a data.frame
+as.data.frame(embed(as.matrix(iris[, 1:4]), "PCA"))
+
 \dontrun{
+## embed dimRedData objects
 embed_methods <- dimRedMethodList()
 quality_methods <- dimRedQualityList()
 dataset <- loadDataSet("Iris")
@@ -84,16 +98,4 @@ for (e in embed_methods) {
 
 print(quality_results)
 }
-## embed a data.frame using a formula:
-head(as.data.frame(
-  embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
-        iris, "PCA")
-))
-
-head(as.data.frame(
-  embed(iris[, 1:4], "PCA")
-))
-head(as.data.frame(
-  embed(as.matrix(iris[, 1:4]), "PCA")
-))
 }

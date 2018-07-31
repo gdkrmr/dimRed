@@ -15,6 +15,8 @@
 #' \describe{
 #'   \item{knn}{The number of nearest neighbors in the graph. Defaults to 50.}
 #'   \item{ndim}{The number of embedding dimensions, defaults to 2.}
+#'   \item{get_geod}{Should the geodesic distance matrix be kept,
+#'                   if \code{TRUE}, access it as \code{getOtherData(x)$geod}}
 #' }
 #'
 #' @section Implementation:
@@ -41,7 +43,7 @@
 #'
 #' ## or simpler, use embed():
 #' samp <- sample(nrow(dat), size = 200)
-#' emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+#' emb2 <- embed(dat[samp], "Isomap", .mute = NULL, knn = 10)
 #' emb3 <- emb2@apply(dat[-samp])
 #'
 #' plot(emb2, type = "2vars")

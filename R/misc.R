@@ -68,7 +68,8 @@ setGeneric(
 #'
 #' Conversion functions to dimRedData.
 #'
-#' @param formula a formula object.
+#' @param formula The formula, left hand side is assigned to the meta slot right
+#'   hand side is assigned to the data slot.
 #' @param ... other arguments.
 setGeneric(
     "as.dimRedData",

@@ -1,11 +1,12 @@
-
-
 context("high level functions")
 
 test_that("high level functions working?", {
     embed_methods <- dimRedMethodList()
     quality_methods <- dimRedQualityList()
     scurve <- loadDataSet("3D S Curve", n = 500)
+    for(i in 1:ncol(scurve@data)){
+      scurve@data[, i] <- scurve@data[, i] - min(scurve@data[, i])
+    }
 
     quality_results <- matrix(NA, length(embed_methods),
                               length(quality_methods),
@@ -15,8 +16,8 @@ test_that("high level functions working?", {
     for (e in embed_methods) {
         message("embedding: ", e)
 
-        if (e != "AutoEncoder" ||
-            reticulate::py_module_available("tensorflow")) {
+        if ((e != "AutoEncoder" || reticulate::py_module_available("tensorflow")) &&
+            (e != "UMAP"        || reticulate::py_module_available("umap-learn"))) {
 
           suppressWarnings(
             embedded_data[[e]] <- embed(

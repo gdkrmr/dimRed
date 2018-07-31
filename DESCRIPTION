@@ -13,9 +13,11 @@ Depends:
     R (>= 3.0.0),
     DRR
 Imports:
+    NMF,
     magrittr,
     methods
 Suggests:
+    cccd,
     MASS,
     Matrix,
     RANN,
@@ -30,12 +32,13 @@ Suggests:
     igraph,
     keras,
     kernlab,
+    knitr,
     lle,
     loe,
-    NNLM,
     optimx,
-    pcaPP,
     pcaL1,
+    pcaPP,
+    reticulate,
     rgl,
     scales,
     scatterplot3d,
@@ -43,7 +46,11 @@ Suggests:
     tensorflow,
     testthat,
     tidyr,
+    tinytex,
+    umap,
     vegan
+VignetteBuilder:
+    knitr
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
 LazyData: true
@@ -78,4 +85,5 @@ Collate:
     'rotate.R'
     'soe.R'
     'tsne.R'
-RoxygenNote: 6.0.1
+    'umap.R'
+RoxygenNote: 6.1.0

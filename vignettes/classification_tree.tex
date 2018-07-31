@@ -1,0 +1,107 @@
+\newcommand{\imp}[1]   {\textbf{#1}} % style for implemented methods
+\newcommand{\noimp}[1] {#1}          % style for not implemented methods
+\tikz[
+% tree layout,
+grow cyclic, %
+level 1/.style={level distance=1.2cm, sibling
+  angle=180, text width=1.5cm, font={\small}}, %
+level 2/.style={level distance=1.9cm, sibling angle=40,
+  font={\scriptsize}},%, text width=1.4cm},
+level 3/.style={level distance=2.2cm, sibling angle=30},
+level 4/.style={level distance=2.3cm},
+% text width=1.2cm,
+font=\tiny,
+innernode/.style={align=flush center},%, text width=1.2},
+leaf/.style={%
+  % draw, very thin,
+  % fill=red!30,
+  rounded corners,
+  align=flush left,
+  text width=,
+  inner sep=2pt,
+  font={\hangindent=0.2cm\scriptsize\sffamily}},
+]{
+  \node[innernode, draw, align=flush center, rounded corners, font={\normalsize\bfseries}]{
+    Dimensionality \\ reduction}
+  child[] { node[innernode] {Convex} % level 1
+    child[sibling angle=55]{ node[innernode] {Full spectral} % level 2
+      child { node[innernode] {Euclidean distances}
+        child { node[leaf, text width=1.3cm]{
+            \imp{PCA} \\
+            \imp{Classical scaling}
+          } } }
+      child { node[innernode] {Geodesic distances}
+        child { node[leaf]{
+            \imp{Isomap}
+          } } }
+      child { node[innernode] {Kernel-based}
+        child { node[leaf]{
+            \imp{Kernel PCA} \\
+            \noimp{MVU}
+          } } }
+      child { node[innernode] {Diffusion distance}
+        child { node[leaf]{
+            \imp{Diffusion maps}
+          } } } }
+    child[] { node[innernode] {Removal of shared information
+        by regression} %level 2
+      child{ node[leaf]{
+          \imp{DRR}
+        } } }
+    child[sibling angle=55] { node[innernode] {Sparse spectral} % level 2
+      child[sibling angle=45] { node[innernode] {Reconstruction weights}
+        child {node[leaf]{
+            \imp{Local Linear Embedding}
+          } } } 
+      child[sibling angle=45] { node[innernode] {Neighborhood graph Laplacian}
+        child { node[leaf]{
+            \imp{Laplacian Eigenmaps}
+          } } }
+      child[sibling angle=45] { node[innernode] {Local tangent space}
+        child { node[leaf, text width=2cm]{
+            \imp{Hessian LLE} \\
+            \noimp{Local tangent space alignment}
+          } } } } } 
+  child[level distance=1.8cm] { node[innernode] {Non-convex} %level 1
+    child { node[innernode] {Weighted Euclidean distances} % level 2
+      child { node[leaf, text width=2cm]{
+          \imp{Non-linear MDS} \\
+          \noimp{Sammon's mapping} \\
+          \noimp{Stochastic Proximity Embedding}
+        } } }
+    child { node[innernode] {Alignment of local linear models} % level 2
+      child { node[leaf]{
+          \noimp{LLC} \\
+          \noimp{Man.\ charting}
+        } } }
+    child { node[innernode] {Neural network} % level 2
+      child { node[leaf]{
+          Autoencoder
+        } } }
+    child { node[innernode] {Discrete mapping} % level 2
+      child { node[leaf,text width=2.5cm]{
+          \noimp{Self Organizing Maps} \\
+          \noimp{Generative Topographic  Mapping} \\
+          \noimp{Elastic Net}
+        } } }
+    child { node[innernode] {Stochastic methods} % level 2
+      child { node[leaf]{
+          \noimp{SNE} \\
+          \imp{t-SNE} \\
+          \noimp{NeRV} \\
+          \noimp{JNE}
+        } } }
+    child { node[innernode] {Force directed} % level 2
+      child { node[leaf, text width=2cm]{
+          \imp{Kamada-Kawai} \\            
+          \imp{Fruchtermann-Reingold} \\
+          \imp{DrL}
+        } } } };
+}
+
+%%% Local Variables:
+%%% mode: LaTeX
+%%% TeX-command-extra-options: "-shell-escape"
+%%% TeX-engine: default
+%%% TeX-master: "dimensionality-reduction"
+%%% End:

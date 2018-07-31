@@ -38,24 +38,24 @@ missing parameters will be replaced by the ones in the
 The method can take the following parameters:
 \describe{
   \item{ndim}{The number of output dimensions.}
-  \item{method}{character, should be either "scd" for (sequential
-   coordinate-wise descent) or "lee" (for Lee's multiplicative algorithm).}
-  \item{loss}{character, should be either  "mse" for mean square error
-   or "mkl" for mean Kullback-Leibler-divergence.}
-  \item{max.iter}{integer, maximum number of iterations (default: 500).}
-  \item{n.threads}{integer, number of threads (default: no parallelism)}
-  \item{verbose}{integer between 0 and 2, for amount of logging. Defaults
-   to 0L.}
-  \item{rel.tol}{numeric, convergence criterion that defaults to 1e-04.}
+  \item{method}{character, which algorithm should be used. See
+   \code{\link[NMF]{nmf}} for possible values. Defaults to
+   "brunet"}
+  \item{nrun}{integer, the number of times the computations are
+   conducted. See \code{\link[NMF]{nmf}}}
+  \item{seed}{integer, a value to control the random numbers used.}
+  \item{options}{named list, other options to pass to  \code{\link[NMF]{nmf}}}
 }
 }
 
 \section{Implementation}{
 
 
-Wraps around \code{\link[NNLM]{nnmf}}. Note that the estimation uses random
- numbers. To create reproducible results, set the random number seed prior
- to execution.
+Wraps around \code{\link[NMF]{nmf}}. Note that the estimation uses random
+ numbers. To create reproducible results, set the random number seed in the
+ function call. Also, in many cases, the computations will be conducted
+ in parallel using multiple cores. To disable this, use the option
+ \code{.pbackend = NULL}.
 }
 
 \examples{
@@ -67,6 +67,11 @@ factorization <- embed(dat, "NNMF")
 proj_dat <- factorization@apply(dat)
 
 plot(proj_dat@data[, 1], proj_dat@data[, 2])
+
+# project new values:
+
+nn_proj <- predict(factorization, iris[1:7, 1:4])
+nn_proj
 
 }
 \references{
@@ -82,8 +87,9 @@ Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}},
+  \code{\link{PCA_L1-class}}, \code{\link{UMAP-class}},
   \code{\link{dimRedMethod-class}},
   \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
   \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
+\concept{dimensionality reduction methods}

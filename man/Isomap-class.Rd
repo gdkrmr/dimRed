@@ -39,6 +39,8 @@ Isomap can take the following parameters:
 \describe{
   \item{knn}{The number of nearest neighbors in the graph. Defaults to 50.}
   \item{ndim}{The number of embedding dimensions, defaults to 2.}
+  \item{get_geod}{Should the geodesic distance matrix be kept,
+                  if \code{TRUE}, access it as \code{getOtherData(x)$geod}}
 }
 }
 
@@ -63,7 +65,7 @@ emb <- isomap@fun(dat, isomap@stdpars)
 
 ## or simpler, use embed():
 samp <- sample(nrow(dat), size = 200)
-emb2 <- embed(dat[samp], "Isomap", mute = NULL, knn = 10)
+emb2 <- embed(dat[samp], "Isomap", .mute = NULL, knn = 10)
 emb3 <- emb2@apply(dat[-samp])
 
 plot(emb2, type = "2vars")
@@ -85,7 +87,9 @@ Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
   \code{\link{MDS-class}}, \code{\link{NNMF-class}},
   \code{\link{PCA-class}}, \code{\link{PCA_L1-class}},
+  \code{\link{UMAP-class}},
   \code{\link{dimRedMethod-class}},
   \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
   \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
 }
+\concept{dimensionality reduction methods}

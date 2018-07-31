@@ -1,6 +1,8 @@
 
 # dimRed 0.1.0.9001
 
+  * Added UMAP
+
   * Added NMF (thanks @topepo)
 
   * Added the possibility to return other data such as distance
