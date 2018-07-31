@@ -39,6 +39,8 @@ Isomap can take the following parameters:
 \describe{
   \item{knn}{The number of nearest neighbors in the graph. Defaults to 50.}
   \item{ndim}{The number of embedding dimensions, defaults to 2.}
+  \item{get_geod}{Should the geodesic distance matrix be kept,
+                  if \code{TRUE}, access it as \code{getOtherData(x)$geod}}
 }
 }
 

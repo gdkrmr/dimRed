@@ -2,26 +2,40 @@
 #'
 #' wraps around all dimensionality reduction functions.
 #'
-#' Method must be one of \code{dimRedMethodList()}, partial matching
+#' Method must be one of \code{\link{dimRedMethodList}()}, partial matching
 #' is performed. All parameters start with a dot, to avoid clashes
 #' with partial argument matching (see the R manual section 4.3.2), if
 #' there should ever occur any clashes in the arguments, call the
 #' function with all arguments named, e.g. \code{embed(.data = dat,
 #' .method = "mymethod", .d = "some parameter")}.
 #'
-#' @param .data object of class \code{dimRedData}
-#' @param .method character vector naming one of the dimensionality
-#'     reduction techniques.
-#' @param .mute a character vector containing the elements you want to
-#'     mute (\code{c("message", "output")}), defaults to
-#'     \code{character(0)}.
-#' @param .keep.org.data TRUE/FALSE keep the original data.
-#' @param ... the parameters, internally passed as a list to the
-#'     dimensionality reduction method as \code{pars = list(...)}
-#' @return an object of class \code{dimRedResult}
+#' @param .data object of class \code{\link{dimRedData}}, will be converted to
+#'   be of class \code{\link{dimRedData}} if necessary; see examples for
+#'   details.
+#' @param .method character vector naming one of the dimensionality reduction
+#'   techniques.
+#' @param .mute a character vector containing the elements you want to mute
+#'   (\code{c("message", "output")}), defaults to \code{character(0)}.
+#' @param .keep.org.data \code{TRUE}/\code{FALSE} keep the original data.
+#' @param ... the parameters, internally passed as a list to the dimensionality
+#'   reduction method as \code{pars = list(...)}
+#' @return an object of class \code{\link{dimRedResult}}
 #'
 #' @examples
+#' ## embed a data.frame using a formula:
+#' as.data.frame(
+#'   embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+#'         iris, "PCA")
+#' )
+#'
+#' ## embed a data.frame and return a data.frame
+#' as.data.frame(embed(iris[, 1:4], "PCA"))
+#'
+#' ## embed a matrix and return a data.frame
+#' as.data.frame(embed(as.matrix(iris[, 1:4]), "PCA"))
+#'
 #' \dontrun{
+#' ## embed dimRedData objects
 #' embed_methods <- dimRedMethodList()
 #' quality_methods <- dimRedQualityList()
 #' dataset <- loadDataSet("Iris")
@@ -44,18 +58,6 @@
 #'
 #' print(quality_results)
 #' }
-#' ## embed a data.frame using a formula:
-#' head(as.data.frame(
-#'   embed(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
-#'         iris, "PCA")
-#' ))
-#'
-#' head(as.data.frame(
-#'   embed(iris[, 1:4], "PCA")
-#' ))
-#' head(as.data.frame(
-#'   embed(as.matrix(iris[, 1:4]), "PCA")
-#' ))
 #' @export
 setGeneric("embed", function(.data, ...) standardGeneric("embed"),
            valueClass = "dimRedResult")
@@ -77,7 +79,7 @@ setMethod(
 )
 
 #' @describeIn embed Embed anything as long as it can be coerced to
-#'     \code{dimRedData}.
+#'     \code{\link{dimRedData}}.
 #' @export
 setMethod(
     "embed",

@@ -134,9 +134,8 @@ setMethod(f = "as.data.frame",
 })
 
 
-#' @param formula The formula, left hand side is assigned to the meta slot
-#'     right hand side is assigned to the data slot.
-#' @param data A data frame
+#' @param data Will be coerced into a \code{\link{data.frame}} with
+#'   \code{\link{as.data.frame}}
 #'
 #' @examples
 #' ## create a dimRedData object using a formula
@@ -145,7 +144,7 @@ setMethod(f = "as.data.frame",
 #'
 #' @include misc.R
 #' @family dimRedData
-#' @describeIn dimRedData Convert a \code{data.frame} to a dimRedData
+#' @describeIn as.dimRedData Convert a \code{data.frame} to a dimRedData
 #'     object using a formula
 #' @export
 setMethod(f = "as.dimRedData",

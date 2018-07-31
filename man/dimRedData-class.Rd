@@ -5,7 +5,6 @@
 \alias{dimRedData-class}
 \alias{dimRedData}
 \alias{as.data.frame,dimRedData-method}
-\alias{as.dimRedData,formula-method}
 \alias{getData,dimRedData-method}
 \alias{getMeta,dimRedData-method}
 \alias{nrow,dimRedData-method}
@@ -15,8 +14,6 @@
 \usage{
 \S4method{as.data.frame}{dimRedData}(x, meta.prefix = "meta.",
   data.prefix = "")
-
-\S4method{as.dimRedData}{formula}(formula, data)
 
 \S4method{getData}{dimRedData}(object)
 
@@ -34,11 +31,6 @@
 \item{meta.prefix}{Prefix for the columns of the meta data names.}
 
 \item{data.prefix}{Prefix for the columns of the variable names.}
-
-\item{formula}{The formula, left hand side is assigned to the meta slot
-right hand side is assigned to the data slot.}
-
-\item{data}{A data frame}
 
 \item{object}{Of class dimRedData.}
 
@@ -62,9 +54,6 @@ For plotting functions see \code{\link{plot.dimRedData}}.
 \section{Methods (by generic)}{
 \itemize{
 \item \code{as.data.frame}: convert to data.frame
-
-\item \code{as.dimRedData}: Convert a \code{data.frame} to a dimRedData
-object using a formula
 
 \item \code{getData}: Get the data slot.
 
@@ -122,14 +111,15 @@ nrow(s3d)
 ## Subset:
 s3d[1:5, ]
 
-## create a dimRedData object using a formula
-as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
-              iris)[1:5]
-
 ## Shuffle data:
 s3 <- s3d[nrow(s3d)]
 
 ## Get the number of variables:
 ndims(s3d)
 
+}
+\seealso{
+Other dimRedData: \code{\link{as.dimRedData}}
+
+Other dimRedData: \code{\link{as.dimRedData}}
 }
