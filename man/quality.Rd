@@ -141,3 +141,4 @@ Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimR
 \author{
 Guido Kraemer
 }
+\concept{Quality scores for dimensionality reduction}

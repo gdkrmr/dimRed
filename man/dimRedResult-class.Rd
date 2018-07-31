@@ -137,3 +137,4 @@ getOrgData(iris.pca)
 ndims(iris.pca)
 
 }
+\concept{dimRedResult}

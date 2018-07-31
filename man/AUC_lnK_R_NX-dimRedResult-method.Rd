@@ -44,3 +44,4 @@ Other Quality scores for dimensionality reduction: \code{\link{LCMC,dimRedResult
   \code{\link{reconstruction_rmse,dimRedResult-method}},
   \code{\link{total_correlation,dimRedResult-method}}
 }
+\concept{Quality scores for dimensionality reduction}

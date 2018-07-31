@@ -32,3 +32,4 @@ scale(getData(dat), TRUE, FALSE) \%*\% rot_pca - getData(getDimRedData(pca))
 scale(getData(dat), TRUE, FALSE) \%*\% rot_ica - getData(getDimRedData(ica))
 
 }
+\concept{convenience functions}

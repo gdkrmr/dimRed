@@ -37,3 +37,4 @@ as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
 \seealso{
 Other dimRedData: \code{\link{dimRedData-class}}
 }
+\concept{dimRedData}

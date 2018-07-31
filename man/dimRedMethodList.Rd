@@ -36,3 +36,4 @@ Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
   \code{\link{kPCA-class}}, \code{\link{nMDS-class}},
   \code{\link{tSNE-class}}
 }
+\concept{dimensionality reduction methods}

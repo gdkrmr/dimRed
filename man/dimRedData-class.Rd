@@ -123,3 +123,4 @@ Other dimRedData: \code{\link{as.dimRedData}}
 
 Other dimRedData: \code{\link{as.dimRedData}}
 }
+\concept{dimRedData}
