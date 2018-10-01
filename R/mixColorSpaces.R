@@ -15,12 +15,13 @@
 #' mixed <- mixColor3Ramps(cols)
 #'
 #' \dontrun{
-#' library(rgl)
+#' if(require("rgl")) {
 #' plot3d(cols$x, cols$y, cols$z, col = mixed, pch = 15)
 #'
 #' cols <- expand.grid(x = seq(0, 1, length.out = 10),
 #'                     y = seq(0, 1, length.out = 10))
 #' mixed <- mixColor2Ramps(cols)
+#' }
 #' }
 #'
 #' plot(cols$x, cols$y, col = mixed, pch = 15)
