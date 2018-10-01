@@ -1,0 +1,12 @@
+bibentry(bibtype = "Article",
+         author = c(person("Guido", "Kraemer"),
+                    person("Markus", "Reichstein"),
+                    person("Miguel", "D.", "Mahecha")),
+         title = "{dimRed} and {coRanking}---Unifying Dimensionality Reduction in R",
+         year = "2018",
+         journal = "The R Journal",
+         url = "https://journal.r-project.org/archive/2018/RJ-2018-039/index.html",
+         pages = "342--358",
+         volume = "10",
+         number = "1",
+         note = sprintf("coRanking version %s", meta$Version))
