@@ -200,7 +200,7 @@ step (e.g.,\ centering and/or standardization) resulting in $X' = [x'_i]_{1\leq 
 A DR method then embeds each vector in $X'$ onto a vector in $Y = [y_i]_{1\leq i
   \leq n}^T \in \mathbb{R}^{n\times q}$ with $y_i \in \mathbb{R}^q$, ideally
 with $q \ll p$. %
-Some methods provide an explicit mapping $f(x'_i) = y_i$. Some even offer a
+Some methods provide an explicit mapping $f(x'_i) = y_i$. Some even offer an
 inverse mapping $f^{-1}(y_{i}) = \hat x'_{i}$, such that one can reconstruct a
 (usually approximate) sample from the low-dimensional representation. %
 For some methods, pairwise distances between points are needed, we set $d_{ij} =
@@ -342,7 +342,7 @@ scales with $\mathcal{O}(n^2)$ and computation time with
 $\mathcal{O}(n^3)$. %
 
 Diffusion Maps, Isomap, Locally Linear Embedding, and some other techniques can
-be seen as special cases of kPCA. In which case, an out-of-sample extension using the Nystöm
+be seen as special cases of kPCA. In which case, an out-of-sample extension using the Nyström
 formula can be applied \citep{bengio_learning_2004}. %
 This can also yield applications for bigger data, where an embedding is trained
 with a sub-sample of all data and then the data is embedded using the Nyström
@@ -354,7 +354,7 @@ user defined functions. For details see the help page for \code{kernlab::kpca}.
 
 The \pkg{dimRed} package wraps  \code{kernlab::kpca} but additionally
 provides forward and inverse methods \citep{bakir_learning_2004} which can be
-used to fit out-of sample data or to visualize the transformation of the data
+used to fit out-of-sample data or to visualize the transformation of the data
 space. %
 
 \subsection{Classical Scaling}
@@ -372,11 +372,11 @@ PCA\@. %
 Classical scaling is conceptually more general than PCA in that arbitrary
 distance matrices can be used, i.e.,\ the method does not even need the original
 coordinates, just a distance matrix $D$. %
-Then it tries to find and embedding $Y$ so that $\hat d_{ij}$ is as similar to
+Then it tries to find an embedding $Y$ so that $\hat d_{ij}$ is as similar to
 $d_{ij}$ as possible.
 
-The disadvantage is that is computationally much more demanding, i.e.,\
-an eigenvalue decomposition of a $n\times n$ matrix has to be computed.
+The disadvantage is that it is computationally much more demanding, i.e.,\
+an eigenvalue decomposition of an $n\times n$ matrix has to be computed.
 This step requires $\mathcal{O}(n^2)$ memory and $\mathcal{O}(n^3)$
 computation time, while PCA requires only the eigenvalue decomposition
 of a $d\times d$ matrix and usually $n \gg d$. %
@@ -493,7 +493,7 @@ Then the embedding is done by an eigenvalue decompositon of $P$ to
 calculate the coordinates of the embedding. %
 The algorithm for calculating Diffusion Maps shares some elements with
 the way Laplacian Eigenmaps are calculated. %
-Both algorithms depart from the same weight matrix, Diffusion Map
+Both algorithms depart from the same weight matrix, Diffusion Maps
 calculate the transition probability on the graph after $t$ time steps
 and do the embedding on this probability matrix.
 
@@ -682,10 +682,10 @@ regression technique and computational optimizations for a fast
 calculation exist.  DRR has another advantage over other techniques
 presented here, because it provides an exact forward and inverse function.
 
-The use of KRR also has the advantage of making the method convex, here we list
+The usage of KRR also has the advantage of making the method convex, here we list
 it under non-convex methods, because other types of regression may make it non-convex.
 
-Mathematicaly, functions are limited to map one input to a single output point.
+Mathematically, functions are limited to map one input to a single output point.
 Therefore, DRR reduces to PCA if manifolds are too complex;
 but it seems very useful for slightly curved manifolds. The initial rotation is
 important, because the result strongly depends on the order of dimensions in
@@ -745,7 +745,7 @@ and, analogously, the rank in high-dimensional space as:
 where the notation $|A|$ denotes the number of elements in a set $A$. %
 This means that we simply replace the distances in a distance matrix column
 wise by their ranks. %
-This means, that $r_{ij}$ is an integer which indicates that $x_i$ is the
+Therefore $r_{ij}$ is an integer which indicates that $x_i$ is the
 $r_{ij}$-th closest neighbor of $x_j$ in the set $X$.
 
 The co-ranking matrix $Q$ then has elements
@@ -755,7 +755,7 @@ The co-ranking matrix $Q$ then has elements
 \end{equation}
 which is the 2d-histogram of the ranks. That is, $q_{ij}$ is an integer which counts
 how many points of distance rank $j$ became rank $i$. %
-In a perfect DR, this matrix will only have non-zero entries in the diagonal, if
+In a perfect DR, this matrix will only have non-zero entries in the diagonal; if
 most of the non-zero entries are in the lower triangle, then the DR collapsed
 far away points onto each other; if most of the non-zero entries are in the
 upper triangle, then the DR teared close points apart. % 
@@ -859,7 +859,7 @@ matrices consisting of elements $d_{ij}$ and $\hat d_{ij}$ respectively. %
 \label{sec:reconerror}
 
 The fairest  and most common way to assess the quality of a dimensionality
-reduction when the method provides a inverse mapping is 
+reduction when the method provides an inverse mapping is 
 the reconstruction error.
 The \pkg{dimRed} package includes a function to calculate the root mean
 squared error which is defined as:
@@ -940,7 +940,7 @@ does not need to have any knowledge on the inner workings of the S4 class
 system in R (cf.\ table~\ref{tab:s4classes}). %
 The package contains simple conversion functions from and to standard
 R-objects like a data.frame or a matrix. %
-The \code{"dimRedData"} class provides an container for the data to be
+The \code{"dimRedData"} class provides a container for the data to be
 processed. %
 The slot \code{data} contains a matrix with dimensions in columns and
 observations in rows, the slot \code{meta} may contain a data frame with
@@ -1003,7 +1003,7 @@ Automatic coloring of data points is done using the available metadata. %
 The comparison of different DR methods, choosing the right parameters for a
 method, and the inspection of the results is simplified by
 \pkg{dimRed}. %
-This section contains a number of examples to highlight the use of the package. %
+This section contains a number of examples to highlight the usage of the package. %
 
 % Example 1:
 To compare methods of dimensionality reduction, first a test data set is loaded
