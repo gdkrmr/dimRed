@@ -18,8 +18,8 @@ cache:
     - $HOME/.keras
     - $HOME/.cache/pip
 
-# r_check_args:
-#   "--run-donttest --run-dontrun --timings"
+r_check_args:
+  "--run-donttest --run-dontrun --timings"
 
 before_install:
   # Keras and TensorFlow stuff
