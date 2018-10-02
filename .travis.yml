@@ -18,10 +18,15 @@ cache:
     - $HOME/.keras
     - $HOME/.cache/pip
 
-r_check_args:
-  "--run-donttest --run-dontrun --timings"
+# r_check_args:
+#   "--run-donttest --run-dontrun --timings"
 
 before_install:
+  # Keras and TensorFlow stuff
+  - pip2 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
+  - pip2 install --upgrade --ignore-installed --user keras h5py pyyaml requests Pillow scipy
+  - pip2 install --upgrade --ignore-installed --user umap-learn
+  # Install R packages
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
   - Rscript -e "if (!'rgl' %in% rownames(installed.packages())) install.packages('rgl')"
@@ -32,10 +37,6 @@ before_install:
 
 before_script:
   # - Rscript -e "devtools::document()"
-  # Keras and TensorFlow stuff
-  - pip2.7 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
-  - pip2.7 install --upgrade --ignore-installed --user keras h5py pyyaml requests Pillow scipy
-  - pip2.7 install --upgrade --ignore-installed --user umap-learn
   - Rscript -e "tensorflow::install_tensorflow()"
   - Rscript -e "keras::install_keras()"
 
