@@ -48,7 +48,7 @@
 #'     5-30. doi:10.1016/j.acha.2006.04.006
 #'
 #' @examples
-#' dat <- loadDataSet("3D S Curve")
+#' dat <- loadDataSet("3D S Curve", n = 500)
 #'
 #' ## use the S4 Class directly:
 #' diffmap <- DiffusionMaps()
