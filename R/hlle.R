@@ -26,7 +26,7 @@
 #' 5591-5596. doi:10.1073/pnas.1031596100
 #'
 #' @examples
-#' dat <- loadDataSet("3D S Curve", n = 1500)
+#' dat <- loadDataSet("3D S Curve", n = 300)
 #'
 #' ## directy use the S4 class:
 #' hlle <- HLLE()
