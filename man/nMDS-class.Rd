@@ -48,7 +48,7 @@ available here, the standard configuration is used.
 }
 
 \examples{
-dat <- loadDataSet("3D S Curve", n = 500)
+dat <- loadDataSet("3D S Curve", n = 300)
 
 ## using the S4 classes:
 nmds <- nMDS()

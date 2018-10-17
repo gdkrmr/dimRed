@@ -53,7 +53,7 @@ graph which also may improve visualization quality.
 
 \examples{
 \dontrun{
-dat <- loadDataSet("Swiss Roll", n = 500)
+dat <- loadDataSet("Swiss Roll", n = 300)
 
 ## use the S4 Class directly:
 drl <- DrL()
