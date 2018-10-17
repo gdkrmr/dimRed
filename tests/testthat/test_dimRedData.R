@@ -28,6 +28,7 @@ test_that("misc functions", {
     expect_equal(getData(Iris), Iris@data)
     expect_equal(getMeta(Iris), Iris@meta)
     ## No idea why this one is broken with --run-donttest --run-dontrun --timings
+    ## Also broken for devtools::test("dimRed")
     expect_equal(nrow(Iris), 150)
     expect_equal(Iris[1:4], Iris[1:4, ])
     expect_equal(Iris[1:4], Iris[c(rep(TRUE, 4), rep(FALSE, 146))])

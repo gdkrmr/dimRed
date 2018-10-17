@@ -2,13 +2,25 @@
 context("AutoEncoder")
 
 skip_if_no_tensorflow <- function() {
-  if (!reticulate::py_module_available("tensorflow"))
+  if (!reticulate::py_module_available("tensorflow") &&
+      Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1")
     skip("TensorFlow not available for testing")
 }
 skip_if_no_keras <- function() {
-  if (!keras::is_keras_available())
+  if (!keras::is_keras_available() &&
+      Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1")
     skip("Keras not available for testing")
 }
+
+test_that("tensorflow is installed correctly", {
+  skip_if_no_tensorflow()
+  library(tensorflow)
+  # I have not found a way to suppress the warning tf gives on first use.
+  sess <- tf$Session()
+  hello <- "Hello, TensorFlow!"
+  tf_hello <- tf$constant(hello)
+  expect(sess$run(tf_hello) == hello)
+})
 
 test_that("errors when building autoencoder", {
   skip_if_no_tensorflow()
@@ -33,7 +45,7 @@ test_that("using autoencoder with parameters", {
     iris_data <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(iris_data)[1], "dimRedData")
 
-    ae <- lapply(1:4, function(x) embed(iris_data, "AutoEncoder",
+    ae <- lapply(1:2, function(x) embed(iris_data, "AutoEncoder",
                                         n_hidden = c(10, x, 10),
                                         ndim = x,
                                         n_steps = 100))
@@ -47,7 +59,7 @@ test_that("using autoencoder with parameters", {
     lapply(1:length(ae), function(x) expect_equal(x, getNDim(ae[[x]])))
 
 
-    ae <- lapply(1:4, function(x) embed(iris_data,
+    ae <- lapply(1:2, function(x) embed(iris_data,
                                         "AutoEncoder",
                                         n_hidden = c(10, x, 10),
                                         ndim = x,
@@ -64,7 +76,7 @@ test_that("using autoencoder with parameters", {
 
 
 
-    ae <- lapply(1:4, function(x) embed(iris_data,
+    ae <- lapply(1:2, function(x) embed(iris_data,
                                         "AutoEncoder",
                                         n_hidden = c(10, x, 10),
                                         ndim = x,
@@ -82,7 +94,7 @@ test_that("using autoencoder with parameters", {
 
 
 
-    ae <- lapply(1:4, function(x) embed(iris_data,
+    ae <- lapply(1:2, function(x) embed(iris_data,
                                         "AutoEncoder",
                                         n_hidden = c(10, x, 10),
                                         activation = c("sigmoid", "sigmoid", "sigmoid"),
@@ -107,7 +119,7 @@ test_that("using autoencoder with autoencoder results", {
     iris_data <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(iris_data)[1], "dimRedData")
 
-    ae1 <- lapply(1:4, function(x) embed(iris_data, "AutoEncoder",
+    ae1 <- lapply(1:2, function(x) embed(iris_data, "AutoEncoder",
                                          n_hidden = c(10, x, 10),
                                          ndim = x, n_steps = 1))
     aq1 <- lapply(ae1, function(x) quality(x, "reconstruction_rmse"))
@@ -121,8 +133,8 @@ test_that("using autoencoder with autoencoder results", {
 
     expect(aq1[[1]] > aq2[[1]], "the error should decrease with more steps")
     expect(aq1[[2]] > aq2[[2]], "the error should decrease with more steps")
-    expect(aq1[[3]] > aq2[[3]], "the error should decrease with more steps")
-    expect(aq1[[4]] > aq2[[4]], "the error should decrease with more steps")
+    ## expect(aq1[[3]] > aq2[[3]], "the error should decrease with more steps")
+    ## expect(aq1[[4]] > aq2[[4]], "the error should decrease with more steps")
 
     lapply(1:length(ae1), function(x) expect_equal(x, getNDim(ae1[[x]])))
     lapply(1:length(ae2), function(x) expect_equal(x, getNDim(ae2[[x]])))
@@ -141,7 +153,7 @@ test_that("using autoencoder with keras", {
 
   iris_data <- as(iris[, 1:4], "dimRedData")
 
-  ae1 <- lapply(1:4, function(x) embed(iris_data, "AutoEncoder",
+  ae1 <- lapply(1:2, function(x) embed(iris_data, "AutoEncoder",
                                        keras_graph = list(encoder = encoder(x),
                                                           decoder = decoder()),
                                        n_steps = 2))
@@ -156,8 +168,8 @@ test_that("using autoencoder with keras", {
 
   expect(aq1[[1]] > aq2[[1]], "the error should decrease with more steps")
   expect(aq1[[2]] > aq2[[2]], "the error should decrease with more steps")
-  expect(aq1[[3]] > aq2[[3]], "the error should decrease with more steps")
-  expect(aq1[[4]] > aq2[[4]], "the error should decrease with more steps")
+  ## expect(aq1[[3]] > aq2[[3]], "the error should decrease with more steps")
+  ## expect(aq1[[4]] > aq2[[4]], "the error should decrease with more steps")
 
   lapply(1:length(ae1), function(x) expect_equal(x, getNDim(ae1[[x]])))
   lapply(1:length(ae2), function(x) expect_equal(x, getNDim(ae2[[x]])))
