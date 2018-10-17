@@ -1,6 +1,10 @@
 
 context("NNMF")
 
+## if we don't load the library explicitly, the predict function does not work
+## (sometimes...).
+library(NMF)
+
 ints_trn <- matrix(seq(0, 98, by = 2), ncol = 5)
 input_trn <- dimRedData(as.data.frame(ints_trn))
 input_tst <- dimRedData(ints_trn[1:3,] + 1)
