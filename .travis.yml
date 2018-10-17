@@ -1,6 +1,10 @@
 language: r
 sudo: false
 
+env:
+  - BNET_FORCE_AUTOENCODER_TESTS=1
+  - BNET_FORCE_UMAP_TESTS=1
+
 # for pcaL1:
 addons:
   apt:
