@@ -54,6 +54,7 @@ VignetteBuilder:
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
 LazyData: true
+Encoding: UTF-8
 Collate: 
     'dimRedMethod-class.R'
     'misc.R'
