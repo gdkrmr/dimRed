@@ -36,7 +36,7 @@ dimRed::installSuggests()
 The corresponding publication can be found
 [here](https://journal.r-project.org/archive/2018/RJ-2018-039/index.html "dimRed
 and coRanking - Unifying Dimensionality Reduction in R"), please cite if you use
-it:
+`dimRed`:
 
 ```bibtex
 @article{RJ-2018-039,
