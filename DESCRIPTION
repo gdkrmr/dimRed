@@ -1,6 +1,6 @@
 Package: dimRed
 Title: A Framework for Dimensionality Reduction
-Version: 0.1.0.9001
+Version: 0.2.0
 Authors@R: c(
     person("Guido", "Kraemer",
            email = "gkraemer@bgc-jena.mpg.de",
@@ -54,6 +54,7 @@ VignetteBuilder:
 License: GPL-3 | file LICENSE
 URL: https://github.com/gdkrmr/dimRed
 LazyData: true
+Encoding: UTF-8
 Collate: 
     'dimRedMethod-class.R'
     'misc.R'

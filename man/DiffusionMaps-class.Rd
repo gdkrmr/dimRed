@@ -63,7 +63,7 @@ There is also an out-of-sample extension, see examples.
 }
 
 \examples{
-dat <- loadDataSet("3D S Curve")
+dat <- loadDataSet("3D S Curve", n = 300)
 
 ## use the S4 Class directly:
 diffmap <- DiffusionMaps()

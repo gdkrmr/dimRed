@@ -2,7 +2,8 @@
 context("UMAP")
 
 skip_if_no_umap_learn <- function() {
-  if (!reticulate::py_module_available("umap"))
+  if (!reticulate::py_module_available("umap") &&
+      Sys.getenv("BNET_FORCE_UMAP_TESTS") != 1)
     skip("umap-learn not available, install with `pip install umap-learn`")
 }
 

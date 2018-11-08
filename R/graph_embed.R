@@ -36,7 +36,7 @@
 #' https://doi.org/10.1016/0020-0190(89)90102-6
 #'
 #' @examples
-#' dat <- loadDataSet("Swiss Roll", n = 500)
+#' dat <- loadDataSet("Swiss Roll", n = 200)
 #' kamada_kawai <- KamadaKawai()
 #' kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 #'
@@ -121,7 +121,7 @@ KamadaKawai <- setClass(
 #'
 #' @examples
 #' \dontrun{
-#' dat <- loadDataSet("Swiss Roll", n = 500)
+#' dat <- loadDataSet("Swiss Roll", n = 300)
 #'
 #' ## use the S4 Class directly:
 #' drl <- DrL()

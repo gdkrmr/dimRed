@@ -32,7 +32,7 @@ Also the Area under the curve values are computed for a weighted K
 ## define which methods to apply
 embed_methods <- c("Isomap", "PCA")
 ## load test data set
-data_set <- loadDataSet("3D S Curve", n = 1000)
+data_set <- loadDataSet("3D S Curve", n = 200)
 ## apply dimensionality reduction
 data_emb <- lapply(embed_methods, function(x) embed(data_set, x))
 names(data_emb) <- embed_methods

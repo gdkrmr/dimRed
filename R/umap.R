@@ -48,7 +48,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' dat <- loadDataSet("3D S Curve", n = 500)
+#' dat <- loadDataSet("3D S Curve", n = 300)
 #'
 #' ## use the S4 Class directly:
 #' umap <- UMAP()

@@ -1026,6 +1026,7 @@ The plots in figure~\ref{fig:plotexample} are produced by the following code: %
 \begin{figure}[htp]
   \centering
 <<"pca_isomap_example",include=FALSE,fig.width=4,fig.height=4>>=
+if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 library(dimRed); library(ggplot2); #library(dplyr); library(tidyr)
 ## define which methods to apply
 embed_methods <- c("Isomap", "PCA")
@@ -1040,9 +1041,9 @@ names(data_emb) <- embed_methods
 ## plot_R_NX(data_emb)
 
 add_label <- function(label)
-  grid::grid.text(label, 0.2, 1, hjust = 0, vjust = 1,
-                  gp = grid::gpar(fontface = "bold",
-                                  cex = 1.5))
+grid::grid.text(label, 0.2, 1, hjust = 0, vjust = 1,
+gp = grid::gpar(fontface = "bold",
+cex = 1.5))
 ## pdf('~/phd/text/dimRedPackage/plots/plot_example.pdf', width = 4, height = 4)
 ## plot the results
 plot(data_set, type = "3vars", angle = 15, mar = c(3, 3, 0, 0), box = FALSE, grid = FALSE, pch = 16)
@@ -1055,11 +1056,18 @@ add_label("d")
 ## calculate quality scores
 print(
 plot_R_NX(data_emb) +
-    theme(legend.title = element_blank(),
-          legend.position = c(0.5, 0.1),
-          legend.justification = c(0.5, 0.1))
+theme(legend.title = element_blank(),
+legend.position = c(0.5, 0.1),
+legend.justification = c(0.5, 0.1))
 )
 add_label("c")
+} else {
+# These cannot all be plot(1:10)!!! It's a mistery to me.
+plot(1:10)
+barplot(1:10)
+hist(1:10)
+plot(1:10)
+}
 @
   \includegraphics[page=1,width=.45\textwidth]{figure/pca_isomap_example-1.pdf}
   \includegraphics[page=1,width=.45\textwidth]{figure/pca_isomap_example-2.pdf}
@@ -1133,6 +1141,7 @@ a:
 \begin{figure}[htp]
   \centering
 <<include=FALSE>>=
+if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 library(dimRed)
 library(cccd)
 ## Load data
@@ -1155,9 +1164,11 @@ add_label <- function(label){
 }
 
 names(qual) <- kk
+}
 @
 
 <<"select_k",include=FALSE,fig.width=11,fig.height=5>>=
+if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 par(mfrow = c(1, 2),
     mar = c(5, 4, 0, 0) + 0.1,
     oma = c(0, 0, 0, 0))
@@ -1166,10 +1177,14 @@ abline(v = k_max, col = "red")
 add_label("a")
 plot(ss, type = "3vars", angle = 15, mar = c(3, 3, 0, 0), box = FALSE, grid = FALSE, pch = 16)
 add_label("b")
-
+} else {
+plot(1:10)
+plot(1:10)
+}
 @
 
 <<"knngraphs",include=FALSE,fig.width=8,fig.height=3>>=
+if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 par(mfrow = c(1, 3),
     mar = c(5, 4, 0, 0) + 0.1,
     oma = c(0, 0, 0, 0))
@@ -1197,6 +1212,11 @@ add_knn_graph(length(emb))
 points(emb[[length(emb)]]@data@data, col = dimRed:::colorize(ss@meta),
        pch = 16)
 add_label("e")
+} else {
+plot(1:10)
+plot(1:10)
+plot(1:10)
+}
 @
     \includegraphics[width=.95\textwidth]{figure/select_k-1.pdf}
     \includegraphics[width=.95\textwidth]{figure/knngraphs-1.pdf}
@@ -1253,6 +1273,7 @@ visualization of the matrix can be found in Figure~\ref{fig:qualityexample}. %
 \begin{figure}[htp]
   \centering
 <<"plot_quality",include=FALSE>>=
+if(Sys.getenv("BNET_BUILD_VIGNETTE") != "") {
 embed_methods <- dimRedMethodList()
 quality_methods <- c("Q_local", "Q_global", "AUC_lnK_R_NX",
                      "cophenetic_correlation")
@@ -1280,6 +1301,9 @@ barplot(t(quality_results), beside = TRUE, col = 1:4,
         legend.text = quality_methods, horiz = TRUE, las = 1,
         cex.names = 0.85,
         args.legend = list(x = "topleft", bg = "white", cex = 0.8))
+} else {
+plot(1:10)
+}
 @
   \includegraphics[width=.5\textwidth]{figure/plot_quality-1.pdf}
 

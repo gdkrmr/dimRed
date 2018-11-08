@@ -48,7 +48,7 @@ Own implementation, sticks to the algorithm in Donoho and Grimes
 }
 
 \examples{
-dat <- loadDataSet("3D S Curve", n = 1500)
+dat <- loadDataSet("3D S Curve", n = 300)
 
 ## directy use the S4 class:
 hlle <- HLLE()

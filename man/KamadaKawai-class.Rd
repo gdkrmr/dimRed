@@ -57,7 +57,7 @@ graph which also may improve visualization quality.
 }
 
 \examples{
-dat <- loadDataSet("Swiss Roll", n = 500)
+dat <- loadDataSet("Swiss Roll", n = 200)
 kamada_kawai <- KamadaKawai()
 kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
 
