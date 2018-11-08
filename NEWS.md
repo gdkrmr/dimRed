@@ -1,5 +1,7 @@
 
-# dimRed 0.1.0.9001
+# dimRed 0.2.0
+
+  * Added the R-Journal [paper](https://journal.r-project.org/archive/2018/RJ-2018-039/index.html "dimRed and coRanking") as Vignette
 
   * Added UMAP
 
