@@ -17,12 +17,12 @@ Imports:
     magrittr,
     methods
 Suggests:
-    cccd,
     MASS,
     Matrix,
     RANN,
     RSpectra,
     Rtsne,
+    cccd,
     coRanking,
     diffusionMap,
     energy,
