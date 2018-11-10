@@ -1,6 +1,6 @@
 Package: dimRed
 Title: A Framework for Dimensionality Reduction
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(
     person("Guido", "Kraemer",
            email = "gkraemer@bgc-jena.mpg.de",
@@ -15,7 +15,9 @@ Depends:
 Imports:
     NMF,
     magrittr,
-    methods
+    methods,
+    bigmemory,
+    Biobase
 Suggests:
     cccd,
     MASS,
