@@ -13,10 +13,10 @@ Depends:
     R (>= 3.0.0),
     DRR
 Imports:
-    NMF,
     magrittr,
     methods
 Suggests:
+    NMF,
     MASS,
     Matrix,
     RANN,

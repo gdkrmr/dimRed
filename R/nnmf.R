@@ -54,7 +54,6 @@
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
-#' @importFrom NMF nmf
 #' @export NNMF
 #' @exportClass NNMF
 NNMF <- setClass(
@@ -70,7 +69,7 @@ NNMF <- setClass(
       chckpkg("NMF")
       chckpkg("MASS")
       ## TODO: remove this, depends on https://github.com/renozao/NMF/issues/114
-      require("NMF")
+      ## require("NMF")
 
       meta <- data@meta
       orgdata <- if (keep.org.data) data@data else NULL
