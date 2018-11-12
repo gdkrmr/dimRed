@@ -1,3 +1,8 @@
+skip_if_no_NMF <- function() {
+  if (!requireNamespace("NMF", quietly = TRUE) &&
+      Sys.getenv("BNET_FORCE_NNMF_TESTS") != "1")
+    skip("NMF not available for testing")
+}
 
 context("NNMF")
 
@@ -10,6 +15,7 @@ input_trn <- dimRedData(as.data.frame(ints_trn))
 input_tst <- dimRedData(ints_trn[1:3,] + 1)
 
 test_that("2D projection", {
+  skip_if_no_NMF()
 
   dim_2_defaults <- embed(input_trn, "NNMF", seed = 13, nrun = 1)
 
@@ -57,6 +63,7 @@ test_that("2D projection", {
 })
 
 test_that("other arguments", {
+  skip_if_no_NMF()
 
   dim_3_args <- embed(input_trn, "NNMF", seed = 13, nrun = 10,
                       ndim = 3, method = "KL",
@@ -130,6 +137,7 @@ test_that("other arguments", {
 
 
 test_that("Bad args", {
+  skip_if_no_NMF()
 
   expect_error(embed(iris, "NNMF"))
   expect_error(embed(iris[, 1], "NNMF"),
