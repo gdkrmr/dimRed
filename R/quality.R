@@ -440,7 +440,7 @@ setMethod(
     "dimRedResult",
     function(object){
         if (!object@has.org.data) stop("object requires original data")
-        if (!requireNamespace("energy")) stop("package energy required.")
+        chckpkg("energy")
 
         energy::dcor(object@org.data, object@data@data)
     }

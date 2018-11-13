@@ -13,18 +13,18 @@ Depends:
     R (>= 3.0.0),
     DRR
 Imports:
-    NMF,
     magrittr,
     methods,
     bigmemory,
     Biobase
 Suggests:
-    cccd,
+    NMF,
     MASS,
     Matrix,
     RANN,
     RSpectra,
     Rtsne,
+    cccd,
     coRanking,
     diffusionMap,
     energy,
