@@ -20,8 +20,10 @@ echo "== BUILDING =========================================="
 # tensorflow or keras installed.
 BNET_FORCE_AUTOENCODER_TESTS=1
 BNET_FORCE_UMAP_TESTS=1
+BNET_FORCE_NNMF_TESTS=1
 
 # this is to make the import of the nrow fail if not correctly specified
+# This did not actually work, but I keep it in here for good measure.
 _R_CHECK_INSTALL_DEPENDS_=true
 
 BNET_BUILD_VIGNETTE=1 $R_FOLDER/R CMD build --compact-vignettes .
