@@ -14,9 +14,7 @@ Depends:
     DRR
 Imports:
     magrittr,
-    methods,
-    bigmemory,
-    Biobase
+    methods
 Suggests:
     NMF,
     MASS,
