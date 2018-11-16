@@ -18,13 +18,16 @@ find . -type l -exec rm {} \;
 echo "== BUILDING =========================================="
 # Setting this forces the testing of the autoencoders, even if there is no
 # tensorflow or keras installed.
-BNET_FORCE_AUTOENCODER_TESTS=1
-BNET_FORCE_UMAP_TESTS=1
-BNET_FORCE_NNMF_TESTS=1
+export BNET_FORCE_AUTOENCODER_TESTS=1
+export BNET_FORCE_UMAP_TESTS=1
+export BNET_FORCE_NNMF_TESTS=1
 
 # this is to make the import of the nrow fail if not correctly specified
 # This did not actually work, but I keep it in here for good measure.
-_R_CHECK_INSTALL_DEPENDS_=true
+export _R_CHECK_INSTALL_DEPENDS_=true
+
+# if testing without all packages installed, uncomment the following line
+export _R_CHECK_FORCE_SUGGESTS_=false
 
 BNET_BUILD_VIGNETTE=1 $R_FOLDER/R CMD build --compact-vignettes .
 
