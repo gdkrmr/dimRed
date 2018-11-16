@@ -17,7 +17,8 @@ test_that("high level functions working?", {
         message("embedding: ", e)
 
         if ((e != "AutoEncoder" || reticulate::py_module_available("tensorflow")) &&
-            (e != "UMAP"        || reticulate::py_module_available("umap-learn"))) {
+            (e != "UMAP"        || reticulate::py_module_available("umap-learn")) &&
+            (e != "PCA_L1"      || ("pcaL1" %in% rownames(installed.packages()))) ) {
 
           suppressWarnings(
             embedded_data[[e]] <- embed(

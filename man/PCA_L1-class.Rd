@@ -55,6 +55,7 @@ functions are supplied.
 }
 
 \examples{
+if(requireNamespace("pcaL1", quietly = TRUE)) {
 dat <- loadDataSet("Iris")
 
 ## using the S4 Class
@@ -66,6 +67,7 @@ emb2 <- embed(dat, "PCA_L1")
 
 plot(emb, type = "2vars")
 plot(emb@inverse(emb@data), type = "3vars")
+}
 
 }
 \references{
