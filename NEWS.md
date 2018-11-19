@@ -1,3 +1,6 @@
+# dimRed 0.2.1 and 0.2.2
+
+  * Bugfix releases to pass CRAN tests
 
 # dimRed 0.2.0
 
