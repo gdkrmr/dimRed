@@ -87,4 +87,4 @@ Collate:
     'soe.R'
     'tsne.R'
     'umap.R'
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

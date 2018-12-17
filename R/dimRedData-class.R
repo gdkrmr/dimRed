@@ -186,6 +186,8 @@ setMethod("[", signature(x = "dimRedData",
     x@data <- x@data[i, , drop = FALSE]
     if (nrow(x@meta) != 0)
         x@meta <- x@meta[i, , drop = FALSE]
+    # validObject returns a string with the description of what is wrong or
+    # TRUE, so the following lines have to be as they are!
     vv <- validObject(x)
     if (vv == TRUE) return(x)
     else stop("cannot subset dimRedData object: \n",

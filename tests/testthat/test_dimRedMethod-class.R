@@ -1,6 +1,3 @@
-
-
-
 context("dimRedMethod-class")
 
 test_that("pars matching", {
@@ -14,4 +11,9 @@ test_that("pars matching", {
             paste("par matching for", m, "failed")
         )
     }
+
+    expect_warning(
+      embed(iris[1:4], "PCA", asdf = 1234),
+      "Parameter matching: asdf is not a standard parameter, ignoring."
+    )
 })
