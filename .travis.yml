@@ -27,9 +27,20 @@ cache:
 
 before_install:
   # Keras and TensorFlow stuff
-  - pip2 install --upgrade --ignore-installed --user travis pip setuptools wheel virtualenv
-  - pip2 install --upgrade --ignore-installed --user keras h5py pyyaml requests Pillow scipy
-  - pip2 install --upgrade --ignore-installed --user umap-learn
+  # pip was guilty of the failing travis build!!!
+  # - pip2.7 install --upgrade --ignore-installed --user pip
+  # - pip2.7 install --upgrade --ignore-installed --user travis
+  # - pip2.7 install --upgrade --ignore-installed --user setuptools
+  # - pip2.7 install --upgrade --ignore-installed --user wheel
+  # - pip2.7 install --upgrade --ignore-installed --user virtualenv
+  # - pip2.7 install --upgrade --ignore-installed --user keras
+  # - pip2.7 install --upgrade --ignore-installed --user h5py
+  # - pip2.7 install --upgrade --ignore-installed --user pyyaml
+  # - pip2.7 install --upgrade --ignore-installed --user requests
+  # - pip2.7 install --upgrade --ignore-installed --user Pillow
+  # - pip2.7 install --upgrade --ignore-installed --user scipy
+  # - pip2.7 install --upgrade --ignore-installed --user umap-learn
+  - pip2.7 install --upgrade --ignore-installed --user travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
   # Install R packages
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
