@@ -27,3 +27,5 @@ TAGS
 ^\.travis\.yml$
 
 revdep
+
+.*\.log
