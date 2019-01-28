@@ -78,4 +78,7 @@ test_that("general data conversions", {
       getData( getDimRedData(irisRes) )
     )
 
+    expect_s4_class({ embed(iris[1:4], "PCA_L1", ndim = 1,
+                            .mute = c("message", "output")) },
+                    "dimRedResult")
 })

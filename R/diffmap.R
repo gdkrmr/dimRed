@@ -98,7 +98,8 @@ DiffusionMaps <- setClass(
                                      maxdim = pars$ndim,
                                      delta = pars$delta
                                  )
-        outdata <- diffres$X
+        outdata <- as.matrix(diffres$X)
+
 
         appl <- function(x) {
             appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
