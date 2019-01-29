@@ -15,7 +15,9 @@ $R_FOLDER/R CMD INSTALL dimRed_$pkgversion.tar.gz
 
 $R_FOLDER/R -e 'install.packages(c("NMF", "magrittr", "DRR", "lintr"), Ncpus = 4, ask = FALSE)'
 $R_FOLDER/R -e 'option(Ncpus = 4); dimRed::installSuggests()'
-$R_FOLDER/R -e 'tensorflow::install_tensorflow()'
-$R_FOLDER/R -e 'keras::install_keras()'
+# $R_FOLDER/R -e 'tensorflow::install_tensorflow()'
+# $R_FOLDER/R -e 'keras::install_keras()'
+
+pip install --user --upgrade tensorflow keras umap-learn
 
 $R_FOLDER/R -e 'options(Ncpus = 4); install.packages("devtools")'
