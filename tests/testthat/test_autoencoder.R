@@ -12,17 +12,26 @@ skip_if_no_keras <- function() {
     skip("Keras not available for testing")
 }
 
-test_that("tensorflow is installed correctly", {
+test_that("Check if tensorflow is installed correctly.", {
   skip_if_no_tensorflow()
   library(tensorflow)
   # I have not found a way to suppress the warning tf gives on first use.
   sess <- tf$Session()
   hello <- "Hello, TensorFlow!"
   tf_hello <- tf$constant(hello)
-  expect(sess$run(tf_hello) == hello)
+  tf_hello_res <- sess$run(tf_hello)
+
+  # in python 3 this returns a `bytes` object $decode() transforms it into a
+  # sting, in python 2 this is a simple string
+  if(!is.character(tf_hello_res))
+    tf_hello_res <- tf_hello_res$decode()
+
+  expect(tf_hello_res == hello, paste("tensorflow does not work:\n",
+                                      "hello =", hello, "\n",
+                                      "sess$run(tf_hello) =", tf_hello_res))
 })
 
-test_that("errors when building autoencoder", {
+test_that("Check errors when building autoencoder.", {
   skip_if_no_tensorflow()
   iris_data <- as(iris[, 1:4], "dimRedData")
   expect_error(embed(iris_data, "AutoEncoder", activation = "sigmoid"),
