@@ -114,7 +114,7 @@ PCA_L1 <- setClass(
         ## evaluate results here for functions
         data <- res$scores
         colnames(data) <- paste0("PC", seq_len(ndim))
-        rot <- res$loadings[, seq_len(ndim)]
+        rot <- res$loadings[, seq_len(ndim), drop = FALSE]
         dimnames(rot) <- list(orgnames, newnames)
         rerot <- t(rot)
 

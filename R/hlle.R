@@ -54,6 +54,8 @@ HLLE <- setClass(
         chckpkg("Matrix")
         chckpkg("RANN")
 
+        if (pars$ndim < 2) stop("ndim must be 2 or larger.")
+
         if (is.null(pars$knn))   pars$knn  <- 50
         if (is.null(pars$ndim))  pars$ndim <- 2
 
