@@ -3,7 +3,7 @@ sudo: false
 
 env:
   global:
-    - BNET_FORCE_NNMF_TESTS=1 BNET_FORCE_AUTOENCODER_TESTS=1 BNET_FORCE_UMAP_TESTS=1 _R_CHECK_INSTALL_DEPENDS_=true MAKEFLAGS="-j 2"
+    - BNET_FORCE_NNMF_TESTS=1 BNET_FORCE_AUTOENCODER_TESTS=1 BNET_FORCE_UMAP_TESTS=1 _R_CHECK_INSTALL_DEPENDS_=true MAKEFLAGS="-j 2" RETICULATE_PYTHON="python3"
 
 # for pcaL1:
 addons:
@@ -40,7 +40,8 @@ before_install:
   # - pip2.7 install --upgrade --ignore-installed --user Pillow
   # - pip2.7 install --upgrade --ignore-installed --user scipy
   # - pip2.7 install --upgrade --ignore-installed --user umap-learn
-  - pip2.7 install --upgrade --ignore-installed --user travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
+  # - pip2.7 install --upgrade --ignore-installed --user travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
+  - pip3 install --upgrade --ignore-installed --user travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
   # Install R packages
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
@@ -48,7 +49,7 @@ before_install:
   - Rscript -e "if (!'roxygen2' %in% rownames(installed.packages())) install.packages('roxygen2')"
   # - Rscript -e "if (!'tensorflow' %in% rownames(installed.packages())) install.packages('tensorflow')"
   # Set CXX1X for R-devel, as R-devel does not detect CXX1X support for gcc 4.6.3,
-  - if [[ "$TRAVIS_R_VERSION_STRING" = 'devel' ]]; then mkdir ~/.R && echo 'CXX1X=g++ -std=c++0x -g -O2 -fPIC' > ~/.R/Makevars; fi
+  # - if [[ "$TRAVIS_R_VERSION_STRING" = 'devel' ]]; then mkdir ~/.R && echo 'CXX1X=g++ -std=c++0x -g -O2 -fPIC' > ~/.R/Makevars; fi
 
 before_script:
   # - Rscript -e "devtools::document()"
