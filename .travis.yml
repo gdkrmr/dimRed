@@ -10,6 +10,7 @@ addons:
   apt:
     packages:
       - coinor-libclp-dev
+      - python3-pip
 
 r:
   - oldrel
