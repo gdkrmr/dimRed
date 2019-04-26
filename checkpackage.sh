@@ -5,7 +5,8 @@ echo "== START ============================================="
 # R_FOLDER=/usr/bin
 # R_FOLDER=$HOME/progs/R/R-3.5.1/bin
 # R_FOLDER=$HOME/progs/R/R-3.5.2/bin
-R_FOLDER=$HOME/progs/R/R-3.5.3/bin
+# R_FOLDER=$HOME/progs/R/R-3.5.3/bin
+R_FOLDER=$HOME/progs/R/R-3.6.0/bin
 # R_FOLDER=$HOME/progs/R/R-devel/bin
 
 $R_FOLDER/R --version
