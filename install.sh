@@ -16,7 +16,7 @@ pkgversion=$(cat DESCRIPTION | grep Version | sed 's|Version: \(.*\)|\1|')
 echo "INSTALLING version $pkgversion"
 $R_FOLDER/R CMD INSTALL dimRed_$pkgversion.tar.gz
 
-$R_FOLDER/R -e 'install.packages(c("NMF", "magrittr", "DRR", "lintr"), Ncpus = 4, ask = FALSE, repos = "https://cloud.r-project.org")'
+$R_FOLDER/R -e 'install.packages(c("NMF", "magrittr", "DRR", "lintr", "knitr"), Ncpus = 4, ask = FALSE, repos = "https://cloud.r-project.org")'
 $R_FOLDER/R -e 'options(Ncpus = 4, repos = "https://cloud.r-project.org"); dimRed::installSuggests()'
 # $R_FOLDER/R -e 'tensorflow::install_tensorflow()'
 # $R_FOLDER/R -e 'keras::install_keras()'
