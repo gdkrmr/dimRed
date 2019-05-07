@@ -69,10 +69,10 @@ test_that("AUC_lnK_R_NX", {
   parsPCA <- list(center = TRUE, scale. = TRUE, ndim = 4)
   resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
 
-  expect(AUC_lnK_R_NX(resPCA, weight = "inv")   %>% length %>% {. == 1})
-  expect(AUC_lnK_R_NX(resPCA, weight = "log")   %>% length %>% {. == 1})
-  expect(AUC_lnK_R_NX(resPCA, weight = "ln")    %>% length %>% {. == 1})
-  expect(AUC_lnK_R_NX(resPCA, weight = "log10") %>% length %>% {. == 1})
+  expect(length(AUC_lnK_R_NX(resPCA, weight = "inv"))   == 1)
+  expect(length(AUC_lnK_R_NX(resPCA, weight = "log"))   == 1)
+  expect(length(AUC_lnK_R_NX(resPCA, weight = "ln"))    == 1)
+  expect(length(AUC_lnK_R_NX(resPCA, weight = "log10")) == 1)
 
   expect_true(AUC_lnK_R_NX(resPCA, weight = "log") == AUC_lnK_R_NX(resPCA, weight = "ln"))
   expect_error(AUC_lnK_R_NX(resPCA, weight = "asdf"))
