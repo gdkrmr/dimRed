@@ -57,25 +57,27 @@ test_that("general data conversions", {
       do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResCS),
               irisParsCS[c("center", "scale.")]),
       getData( getDimRedData(irisResCS) ),
-      tolerance = 1e-6
+      tolerance = 1e-2
     )
 
     expect_equal(
       do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResS),
               irisParsS[c("center", "scale.")]),
-      getData( getDimRedData(irisResS) )
+      getData( getDimRedData(irisResS) ),
+      tolerance = 1e-2
     )
 
     expect_equal(
       do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisResC),
               irisParsC[c("center", "scale.")]),
       getData( getDimRedData(irisResC) ),
-      tolerance = 1e-6
+      tolerance = 1e-2
     )
     expect_equal(
       do.call(function(...) scale2(iris[1:4], ...) %*% getRotationMatrix(irisRes),
               irisPars[c("center", "scale.")]),
-      getData( getDimRedData(irisRes) )
+      getData( getDimRedData(irisRes) ),
+      tolerance = 1e-2
     )
 
     expect_s4_class({ embed(iris[1:4], "PCA_L1", ndim = 1,
