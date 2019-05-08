@@ -9,7 +9,7 @@ skip_if_no_umap_learn <- function() {
 
 test_that("UMAP python", {
   skip_if_no_umap_learn()
-  res <- embed(iris[1:4], "UMAP")
+  res <- embed(iris[1:4], "UMAP", .mute = c("message", "output"))
   expect_s4_class(res, "dimRedResult")
   expect_equal(res@method, "UMAP")
   expect_equal(res@pars$d, "euclidean")
@@ -19,7 +19,7 @@ test_that("UMAP python", {
 })
 
 test_that("UMAP R", {
-  res <- embed(iris[1:4], "UMAP", method = "naive")
+  res <- embed(iris[1:4], "UMAP", method = "naive", .mute = c("message", "output"))
   expect_s4_class(res, "dimRedResult")
   expect_equal(res@method, "UMAP")
   expect_equal(res@pars$d, "euclidean")
