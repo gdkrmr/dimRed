@@ -31,9 +31,10 @@ test_that("UMAP python", {
   expect_true(any(res1@data@data != res2@data@data))
 
   pred1 <- predict(res1, iris[1:4])
-  pred2 <- predict(res1, iris[1:4])
+  pred2 <- predict(res2, iris[1:4])
 
   expect_equal(dim(pred1@data), dim(res1@data@data))
+  expect_equal(dim(pred2@data), dim(res2@data@data))
 })
 
 test_that("UMAP R", {
@@ -57,7 +58,8 @@ test_that("UMAP R", {
   expect_true(any(res1@data@data != res2@data@data))
 
   pred1 <- predict(res1, iris[1:4])
-  pred2 <- predict(res1, iris[1:4])
+  pred2 <- predict(res2, iris[1:4])
 
   expect_equal(dim(pred1@data), dim(res1@data@data))
+  expect_equal(dim(pred2@data), dim(res2@data@data))
 })
