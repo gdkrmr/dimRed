@@ -88,12 +88,12 @@ UMAP <- setClass(
       indata <- data@data
 
       ## Create config
-      umap_pars <- umap::umap.defaults
-      umap_pars$n.neighbors  <- pars$knn
-      umap_pars$n.components <- pars$ndim
-      umap_pars$metric.function <- pars$d
-      umap_pars$method <- pars$method
-      umap_pars$d <- indata
+      umap_call_pars <- umap::umap.defaults
+      umap_call_pars$n_neighbors  <- pars$knn
+      umap_call_pars$n_components <- pars$ndim
+      umap_call_pars$metric       <- pars$d
+      umap_call_pars$method <- pars$method
+      umap_call_pars$d      <- indata
 
       pars_2 <- pars
       pars_2$knn <- NULL
@@ -102,13 +102,30 @@ UMAP <- setClass(
       pars_2$method <- NULL
 
       for (n in names(pars_2))
-        umap_pars[[n]] <- pars_2[[n]]
+        umap_call_pars[[n]] <- pars_2[[n]]
 
       ## Do the embedding
-      outdata <- do.call(umap::umap, umap_pars)
+      outdata <- do.call(umap::umap, umap_call_pars)
 
       ## Post processing
       colnames(outdata$layout) <- paste0("UMAP", 1:ncol(outdata$layout))
+
+      appl <- function(x) {
+        appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+        proj <- if (inherits(x, "dimRedData")) x@data else x
+
+        if (ncol(proj) != ncol(orgdata))
+          stop("x must have the same number of dimensions ",
+               "as the original data")
+
+        new_proj <- umap:::predict.umap(outdata, proj)
+
+        colnames(new_proj) <- paste0("UMAP", 1:ncol(new_proj))
+        rownames(new_proj) <- NULL
+
+        out_data <- new("dimRedData", data = new_proj, meta = appl.meta)
+        return(out_data)
+      }
 
       return(new(
         "dimRedResult",
@@ -116,7 +133,9 @@ UMAP <- setClass(
                    data = outdata$layout,
                    meta = meta),
         org.data = orgdata,
+        apply        = appl,
         has.org.data = keep.org.data,
+        has.apply    = TRUE,
         method = "UMAP",
         pars = pars
       ))
