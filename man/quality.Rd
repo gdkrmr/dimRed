@@ -47,10 +47,10 @@ Method must be one of \code{"\link{Q_local}", "\link{Q_global}",
 \section{Rank based criteria}{
 
 
-\code{Q_local}, \code{Q_global}, and \code{mean_R_nx} are
+\code{Q_local}, \code{Q_global}, and \code{mean_R_NX} are
 quality criteria based on the Co-ranking matrix.  \code{Q_local}
 and \code{Q_global} determine the local/global quality of the
-embedding, while \code{mean_R_nx} determines the quality of the
+embedding, while \code{mean_R_NX} determines the quality of the
 overall embedding. They are parameter free and return a single
 number. The object must include the original data.  The number
 returns is in the range [0, 1], higher values mean a better
