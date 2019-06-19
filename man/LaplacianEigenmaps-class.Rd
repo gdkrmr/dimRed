@@ -60,12 +60,8 @@ Wraps around \code{\link[loe]{spec.emb}}.
 
 \examples{
 dat <- loadDataSet("3D S Curve")
-leim <- LaplacianEigenmaps()
-emb <- leim@fun(dat, leim@stdpars)
-
-
+emb <- embed(dat, "LaplacianEigenmaps")
 plot(emb@data@data)
-
 
 }
 \references{

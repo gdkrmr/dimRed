@@ -1,6 +1,3 @@
-
-
-
 #' getRotationMatrix
 #'
 #' Extract the rotation matrix from \code{\link{dimRedResult}} objects derived from PCA and FastICA

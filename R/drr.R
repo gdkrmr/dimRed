@@ -68,19 +68,14 @@
 #' \dontrun{
 #' dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 #'
-#' ## use the S4 Class directly:
-#' drr <- DRR()
-#' pars <- drr@stdpars
-#' pars$ndim <- 3
-#' emb <- drr@fun(dat, pars)
-#'
-#' ## simpler, use embed():
-#' emb2 <- embed(dat, "DRR", ndim = 3)
-#'
+#' emb <- embed(dat, "DRR", ndim = 3)
 #'
 #' plot(dat, type = "3vars")
 #' plot(emb, type = "3vars")
-#' plot(emb@inverse(emb@data@data[, 1, drop = FALSE]), type = "3vars")
+#'
+#' # We even have function to reconstruct, also working for only the first few dimensions
+#' rec <- inverse(emb, getData(getDimRedData(emb))[, 1, drop = FALSE])
+#' plot(rec, type = "3vars")
 #' }
 #'
 #'

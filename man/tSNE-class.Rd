@@ -58,16 +58,8 @@ larger neighborhoods into account.
 \examples{
 \dontrun{
 dat <- loadDataSet("3D S Curve", n = 300)
-
-## using the S4 class directly:
-tsne <- tSNE()
-emb <- tsne@fun(dat, tsne@stdpars)
-
-## using embed()
-emb2 <- embed(dat, "tSNE", perplexity = 80)
-
+emb <- embed(dat, "tSNE", perplexity = 80)
 plot(emb, type = "2vars")
-plot(emb2, type = "2vars")
 }
 }
 \references{
