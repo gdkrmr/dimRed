@@ -37,11 +37,8 @@
 #'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 200)
-#' kamada_kawai <- KamadaKawai()
-#' kk <- kamada_kawai@fun(dat, kamada_kawai@stdpars)
-#'
-#' plot(kk@data@data)
-#'
+#' emb <- embed(dat, "KamadaKawai")
+#' plot(emb, type = "2vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
@@ -121,17 +118,9 @@ KamadaKawai <- setClass(
 #'
 #' @examples
 #' \dontrun{
-#' dat <- loadDataSet("Swiss Roll", n = 300)
-#'
-#' ## use the S4 Class directly:
-#' drl <- DrL()
-#' emb <- drl@fun(dat, drl@stdpars)
-#'
-#' ## simpler, use embed():
-#' emb2 <- embed(dat, "DrL")
-#'
-#'
-#' plot(emb)
+#' dat <- loadDataSet("Swiss Roll", n = 200)
+#' emb <- embed(dat, "DrL")
+#' plot(emb, type = "2vars")
 #' }
 #'
 #' @include dimRedResult-class.R
@@ -207,16 +196,7 @@ DrL <- setClass(
 #'
 #' @examples
 #' dat <- loadDataSet("Swiss Roll", n = 100)
-#'
-#' ## use the S4 Class directly:
-#' fruchterman_reingold <- FruchtermanReingold()
-#' pars <- fruchterman_reingold@stdpars
-#' pars$knn <- 5
-#' emb <- fruchterman_reingold@fun(dat, pars)
-#'
-#' ## simpler, use embed():
-#' emb2 <- embed(dat, "FruchtermanReingold", knn = 5)
-#'
+#' emb <- embed(dat, "FruchtermanReingold")
 #' plot(emb, type = "2vars")
 #'
 #' @include dimRedResult-class.R

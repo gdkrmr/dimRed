@@ -49,14 +49,8 @@
 #' @examples
 #' \dontrun{
 #' dat <- loadDataSet("3D S Curve", n = 300)
-#'
-#' ## use the S4 Class directly:
-#' umap <- UMAP()
-#' emb <- umap@fun(dat, umap@stdpars)
-#'
-#' ## or simpler, use embed():
-#' emb2 <- embed(dat, "UMAP", .mute = NULL, knn = 10)
-#' plot(emb2, type = "2vars")
+#' emb <- embed(dat, "UMAP", .mute = NULL, knn = 10)
+#' plot(emb, type = "2vars")
 #' }
 #'
 #' @include dimRedResult-class.R

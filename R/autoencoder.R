@@ -88,20 +88,16 @@
 #' \dontrun{
 #' dat <- loadDataSet("3D S Curve")
 #'
-#' ## use the S4 Class directly:
-#' autoenc <- AutoEncoder()
-#' emb <- autoenc@fun(dat, autoenc@stdpars)
+#' emb <- embed(dat, "AutoEncoder")
 #'
-#' ## simpler, use embed():
-#' emb2 <- embed(dat, "AutoEncoder")
+#' # predicting is possible:
+#' samp <- sample(floor(nrow(dat) / 10))
+#' emb2 <- embed(dat[samp])
+#' emb3 <- predict(emb2, dat[-samp])
 #'
 #' plot(emb, type = "2vars")
-#'
-#' samp <- sample(floor(nrow(dat) / 10))
-#' embsamp <- autoenc@fun(dat[samp], autoenc@stdpars)
-#' embother <- embsamp@apply(dat[-samp])
-#' plot(embsamp, type = "2vars")
-#' points(embother@data)
+#' plot(emb2, type = "2vars")
+#' points(getData(emb3))
 #' }
 #'
 #' @include dimRedResult-class.R

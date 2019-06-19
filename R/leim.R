@@ -13,12 +13,12 @@
 #' \code{LaplacianEigenmaps} can take the following parameters:
 #' \describe{
 #'   \item{ndim}{the number of output dimensions.}
-#' 
+#'
 #'   \item{sparse}{A character vector specifying hot to make the graph
 #'    sparse, \code{"knn"} means that a K-nearest neighbor graph is
 #'    constructed, \code{"eps"} an epsilon neighborhood graph is
 #'    constructed, else a dense distance matrix is used.}
-#' 
+#'
 #'   \item{knn}{The number of nearest neighbors to use for the knn graph.}
 #'   \item{eps}{The distance for the epsilon neighborhood graph.}
 #'
@@ -32,19 +32,15 @@
 #' Wraps around \code{\link[loe]{spec.emb}}.
 #'
 #' @references
-#' 
+#'
 #' Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for
 #' Dimensionality Reduction and Data Representation. Neural
 #' Computation 15, 1373.
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve")
-#' leim <- LaplacianEigenmaps()
-#' emb <- leim@fun(dat, leim@stdpars)
-#'
-#'
+#' emb <- embed(dat, "LaplacianEigenmaps")
 #' plot(emb@data@data)
-#'
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R

@@ -35,16 +35,10 @@
 #'
 #' @examples
 #' dat <- loadDataSet("Iris")
-#'
-#' ## using the S4 Class
-#' pca <- PCA()
-#' emb <- pca@fun(dat, pca@stdpars)
-#'
-#' ## using embed()
-#' emb2 <- embed(dat, "PCA")
+#' emb <- embed(dat, "PCA")
 #'
 #' plot(emb, type = "2vars")
-#' plot(emb@inverse(emb@data), type = "3vars")
+#' plot(inverse(emb, getDimRedData(emb)), type = "3vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R

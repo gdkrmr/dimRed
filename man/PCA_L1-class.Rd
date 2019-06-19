@@ -57,16 +57,10 @@ functions are supplied.
 \examples{
 if(requireNamespace("pcaL1", quietly = TRUE)) {
 dat <- loadDataSet("Iris")
-
-## using the S4 Class
-pca_l1 <- PCA_L1()
-emb <- pca_l1@fun(dat, pca_l1@stdpars)
-
-## using embed()
-emb2 <- embed(dat, "PCA_L1")
+emb <- embed(dat, "PCA_L1")
 
 plot(emb, type = "2vars")
-plot(emb@inverse(emb@data), type = "3vars")
+plot(inverse(emb, getData(getDimRedData((emb)))), type = "3vars")
 }
 
 }

@@ -47,16 +47,7 @@ a circle and puts connected points close to each other.
 
 \examples{
 dat <- loadDataSet("Swiss Roll", n = 100)
-
-## use the S4 Class directly:
-fruchterman_reingold <- FruchtermanReingold()
-pars <- fruchterman_reingold@stdpars
-pars$knn <- 5
-emb <- fruchterman_reingold@fun(dat, pars)
-
-## simpler, use embed():
-emb2 <- embed(dat, "FruchtermanReingold", knn = 5)
-
+emb <- embed(dat, "FruchtermanReingold")
 plot(emb, type = "2vars")
 
 }

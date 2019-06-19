@@ -49,16 +49,8 @@ Own implementation, sticks to the algorithm in Donoho and Grimes
 
 \examples{
 dat <- loadDataSet("3D S Curve", n = 300)
-
-## directy use the S4 class:
-hlle <- HLLE()
-emb <- hlle@fun(dat, hlle@stdpars)
-
-## using embed():
-emb2 <- embed(dat, "HLLE", knn = 45)
-
+emb <- embed(dat, "HLLE", knn = 15)
 plot(emb, type = "2vars")
-plot(emb2, type = "2vars")
 
 }
 \references{

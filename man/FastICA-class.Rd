@@ -51,16 +51,8 @@ rotation/projection, forward and backward functions can be given.
 
 \examples{
 dat <- loadDataSet("3D S Curve")
-
-## use the S4 Class directly:
-fastica <- FastICA()
-emb <- fastica@fun(dat, pars = list(ndim = 2))
-
-## simpler, use embed():
-emb2 <- embed(dat, "FastICA", ndim = 2)
-
-
-plot(emb@data@data)
+emb <- embed(dat, "FastICA", ndim = 2)
+plot(getData(getDimRedData(emb)))
 
 }
 \references{

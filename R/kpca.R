@@ -38,14 +38,7 @@
 #' @examples
 #' \dontrun{
 #' dat <- loadDataSet("3D S Curve")
-#'
-#' ## use the S4 class directly:
-#' kpca <- kPCA()
-#' emb <- kpca@fun(dat, kpca@stdpars)
-#'
-#' ## simpler, use embed():
-#' emb2 <- embed(dat, "kPCA")
-#'
+#' emb <- embed(dat, "kPCA")
 #' plot(emb, type = "2vars")
 #' }
 #' @include dimRedResult-class.R

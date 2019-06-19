@@ -27,18 +27,8 @@
 #'
 #' @examples
 #' dat <- loadDataSet("3D S Curve", n = 300)
-#'
-#' ## using the S4 classes:
-#' nmds <- nMDS()
-#' emb <- nmds@fun(dat, nmds@stdpars)
-#'
-#'
-#' ## using embed()
-#' emb2 <- embed(dat, "nMDS", d = function(x) exp(dist(x)))
-#'
-#'
+#' emb <- embed(dat, "nMDS")
 #' plot(emb, type = "2vars")
-#' plot(emb2, type = "2vars")
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R

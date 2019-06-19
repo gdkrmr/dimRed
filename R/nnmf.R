@@ -37,19 +37,15 @@
 #' matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
 #'
 #' @examples
-#' dat <- loadDataSet("Iris")
-#'
 #' set.seed(4646)
-#' factorization <- embed(dat, "NNMF")
+#' dat <- loadDataSet("Iris")
+#' emb <- embed(dat, "NNMF")
 #'
-#' proj_dat <- factorization@apply(dat)
-#'
-#' plot(proj_dat@data[, 1], proj_dat@data[, 2])
+#' plot(emb)
 #'
 #' # project new values:
-#'
-#' nn_proj <- predict(factorization, iris[1:7, 1:4])
-#' nn_proj
+#' nn_proj <- predict(emb, dat[1:7])
+#' plot(nn_proj)
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
