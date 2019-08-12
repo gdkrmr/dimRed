@@ -45,7 +45,8 @@ before_install:
   # - pip2.7 install --upgrade --ignore-installed --user Pillow
   # - pip2.7 install --upgrade --ignore-installed --user scipy
   # - pip2.7 install --upgrade --ignore-installed --user umap-learn
-  - pip3 install --upgrade --ignore-installed --user pip
+  # - pip3 install --upgrade --ignore-installed --user pip
+  - python3 -m pip install --upgrade pip
   - pip3 install --upgrade --ignore-installed --user travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
   # Install R packages
   - Rscript -e "update.packages(ask = FALSE)"
