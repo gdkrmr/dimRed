@@ -10,6 +10,7 @@ addons:
   apt:
     packages:
       - coinor-libclp-dev
+      - mesa-common-dev
 
 r:
   - oldrel
