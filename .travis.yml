@@ -12,6 +12,7 @@ addons:
       - coinor-libclp-dev
       - mesa-common-dev
       - libglu1-mesa-dev
+      - python3-pip
 
 r:
   - oldrel
