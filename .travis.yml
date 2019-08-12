@@ -64,6 +64,7 @@ before_script:
   - Rscript -e 'reticulate::py_install("umap-learn")'
   - Rscript -e "tensorflow::install_tensorflow()"
   - Rscript -e "keras::install_keras()"
+  - Rscript -e 'library(tensorflow); tf$Session()$run(tf$constant("hello"))'
 
 # Only report coverage for the release version
 after_success:
