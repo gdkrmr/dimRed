@@ -11,6 +11,7 @@ addons:
     packages:
       - coinor-libclp-dev
       - mesa-common-dev
+      - libglu1-mesa-dev
 
 r:
   - oldrel
