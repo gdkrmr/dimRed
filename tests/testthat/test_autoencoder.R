@@ -26,9 +26,9 @@ test_that("Check if tensorflow is installed correctly.", {
   if(!is.character(tf_hello_res))
     tf_hello_res <- tf_hello_res$decode()
 
-  print("tf_hello_res:")
-  print(str(tf_hello_res))
-  print(tf_hello_res)
+  ## print("tf_hello_res:")
+  ## print(str(tf_hello_res))
+  ## print(tf_hello_res)
 
   expect(tf_hello_res == hello, paste("tensorflow does not work:\n",
                                       "hello =", hello, "\n",
