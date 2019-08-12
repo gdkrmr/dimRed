@@ -12,6 +12,7 @@ addons:
       - coinor-libclp-dev
       - mesa-common-dev
       - libglu1-mesa-dev
+      - python3
       - python3-pip
 
 r:
@@ -43,7 +44,7 @@ before_install:
   # - pip2.7 install --upgrade --ignore-installed --user Pillow
   # - pip2.7 install --upgrade --ignore-installed --user scipy
   # - pip2.7 install --upgrade --ignore-installed --user umap-learn
-  - pip3 install --upgrade --ignore-installed --user travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
+  - pip3 install --upgrade --ignore-installed --user pip travis setuptools wheel virtualenv keras h5py pyyaml requests Pillow scipy umap-learn
   # Install R packages
   - Rscript -e "update.packages(ask = FALSE)"
   - Rscript -e "if (!'covr' %in% rownames(installed.packages())) install.packages('covr')"
