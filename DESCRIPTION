@@ -52,7 +52,8 @@ Suggests:
 VignetteBuilder:
     knitr
 License: GPL-3 | file LICENSE
-URL: https://github.com/gdkrmr/dimRed
+BugReports: https://github.com/gdkrmr/dimRed/issues
+URL: https://www.guido-kraemer.com/software/dimred/
 LazyData: true
 Encoding: UTF-8
 Collate: 
