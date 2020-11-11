@@ -14,9 +14,16 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  BNET_FORCE_NNMF_TESTS: 1
+  BNET_FORCE_AUTOENCODER_TESTS: 1
+  BNET_FORCE_UMAP_TESTS: 1
+  _R_CHECK_INSTALL_DEPENDS_: true
+  MAKEFLAGS: "-j 2"
+
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         r-version: [3.5, 3.6, 4.0]
@@ -27,10 +34,24 @@ jobs:
         uses: r-lib/actions/setup-r@ffe45a39586f073cc2e9af79c4ba563b657dc6e3
         with:
           r-version: ${{ matrix.r-version }}
+      - name: Install libraries
+        run: |
+          sudo apt-get install coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools
+          # python3 -m pip install --upgrade pip
+          # pip3 install --upgrade --user virtualenv
+        shell: sh {0}
       - name: Install dependencies
         run: |
+          install.packages("BiocManager")
+          BiocManager::install("Biobase")
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
+          reticulate::install_miniconda()
+          reticulate::py_install("umap-learn")
+          tensorflow::install_tensorflow()
+          keras::install_keras()
+          library(tensorflow)
+          print(tf$Session()$run(tf$constant("hello")))
         shell: Rscript {0}
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
