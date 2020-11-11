@@ -12,8 +12,7 @@
 \alias{ndims,dimRedData-method}
 \title{Class "dimRedData"}
 \usage{
-\S4method{as.data.frame}{dimRedData}(x, meta.prefix = "meta.",
-  data.prefix = "")
+\S4method{as.data.frame}{dimRedData}(x, meta.prefix = "meta.", data.prefix = "")
 
 \S4method{getData}{dimRedData}(object)
 
@@ -119,8 +118,10 @@ ndims(s3d)
 
 }
 \seealso{
-Other dimRedData: \code{\link{as.dimRedData}}
+Other dimRedData: 
+\code{\link{as.dimRedData}()}
 
-Other dimRedData: \code{\link{as.dimRedData}}
+Other dimRedData: 
+\code{\link{as.dimRedData}()}
 }
 \concept{dimRedData}

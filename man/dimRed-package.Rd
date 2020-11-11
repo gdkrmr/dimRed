@@ -33,7 +33,8 @@ Nonlinear Dimension Reduction, Graph Layout and Proximity Analysis.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/gdkrmr/dimRed}
+  \item \url{https://www.guido-kraemer.com/software/dimred/}
+  \item Report bugs at \url{https://github.com/gdkrmr/dimRed/issues}
 }
 
 }
