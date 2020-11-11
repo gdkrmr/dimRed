@@ -44,18 +44,19 @@ plot_R_NX(data_emb) +
 
 }
 \seealso{
-Other Quality scores for dimensionality reduction: \code{\link{AUC_lnK_R_NX,dimRedResult-method}},
-  \code{\link{LCMC,dimRedResult-method}},
-  \code{\link{Q_NX,dimRedResult-method}},
-  \code{\link{Q_global,dimRedResult-method}},
-  \code{\link{Q_local,dimRedResult-method}},
-  \code{\link{R_NX,dimRedResult-method}},
-  \code{\link{cophenetic_correlation,dimRedResult-method}},
-  \code{\link{distance_correlation,dimRedResult-method}},
-  \code{\link{mean_R_NX,dimRedResult-method}},
-  \code{\link{quality,dimRedResult-method}},
-  \code{\link{reconstruction_error,dimRedResult-method}},
-  \code{\link{reconstruction_rmse,dimRedResult-method}},
-  \code{\link{total_correlation,dimRedResult-method}}
+Other Quality scores for dimensionality reduction: 
+\code{\link{AUC_lnK_R_NX,dimRedResult-method}},
+\code{\link{LCMC,dimRedResult-method}},
+\code{\link{Q_NX,dimRedResult-method}},
+\code{\link{Q_global,dimRedResult-method}},
+\code{\link{Q_local,dimRedResult-method}},
+\code{\link{R_NX,dimRedResult-method}},
+\code{\link{cophenetic_correlation,dimRedResult-method}},
+\code{\link{distance_correlation,dimRedResult-method}},
+\code{\link{mean_R_NX,dimRedResult-method}},
+\code{\link{quality,dimRedResult-method}},
+\code{\link{reconstruction_error,dimRedResult-method}},
+\code{\link{reconstruction_rmse,dimRedResult-method}},
+\code{\link{total_correlation,dimRedResult-method}}
 }
 \concept{Quality scores for dimensionality reduction}

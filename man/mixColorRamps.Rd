@@ -11,11 +11,16 @@ mixColorRamps(vars, ramps)
 
 mixColor1Ramps(vars, ramps = colorRamp(c("blue", "black", "red")))
 
-mixColor2Ramps(vars, ramps = list(colorRamp(c("blue", "green")),
-  colorRamp(c("blue", "red"))))
+mixColor2Ramps(
+  vars,
+  ramps = list(colorRamp(c("blue", "green")), colorRamp(c("blue", "red")))
+)
 
-mixColor3Ramps(vars, ramps = list(colorRamp(c("#001A00", "#00E600")),
-  colorRamp(c("#00001A", "#0000E6")), colorRamp(c("#1A0000", "#E60000"))))
+mixColor3Ramps(
+  vars,
+  ramps = list(colorRamp(c("#001A00", "#00E600")), colorRamp(c("#00001A", "#0000E6")),
+    colorRamp(c("#1A0000", "#E60000")))
+)
 }
 \arguments{
 \item{vars}{a list of variables}

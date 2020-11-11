@@ -21,8 +21,12 @@
 
 \S4method{inverse}{dimRedResult}(object, ynew)
 
-\S4method{as.data.frame}{dimRedResult}(x, org.data.prefix = "org.",
-  meta.prefix = "meta.", data.prefix = "")
+\S4method{as.data.frame}{dimRedResult}(
+  x,
+  org.data.prefix = "org.",
+  meta.prefix = "meta.",
+  data.prefix = ""
+)
 
 \S4method{getPars}{dimRedResult}(object)
 

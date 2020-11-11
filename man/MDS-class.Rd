@@ -56,9 +56,14 @@ dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "MDS")
 plot(emb, type = "2vars")
 
-# a manual kPCA:
+# a "manual" kPCA:
 emb2 <- embed(dat, "MDS", d = function(x) exp(stats::dist(x)))
 plot(emb2, type = "2vars")
+
+# a "manual", more customizable, and slower Isomap:
+emb3 <- embed(dat, "MDS", d = function(x) vegan::isomapdist(vegan::vegdist(x, "manhattan"), k = 20))
+plot(emb3)
+
 }
 }
 \references{
@@ -66,17 +71,25 @@ Torgerson, W.S., 1952. Multidimensional scaling: I. Theory and method.
 Psychometrika 17, 401-419. https://doi.org/10.1007/BF02288916
 }
 \seealso{
-Other dimensionality reduction methods: \code{\link{AutoEncoder-class}},
-  \code{\link{DRR-class}},
-  \code{\link{DiffusionMaps-class}},
-  \code{\link{DrL-class}}, \code{\link{FastICA-class}},
-  \code{\link{FruchtermanReingold-class}},
-  \code{\link{HLLE-class}}, \code{\link{Isomap-class}},
-  \code{\link{KamadaKawai-class}}, \code{\link{LLE-class}},
-  \code{\link{NNMF-class}}, \code{\link{PCA-class}},
-  \code{\link{PCA_L1-class}}, \code{\link{UMAP-class}},
-  \code{\link{dimRedMethod-class}},
-  \code{\link{dimRedMethodList}}, \code{\link{kPCA-class}},
-  \code{\link{nMDS-class}}, \code{\link{tSNE-class}}
+Other dimensionality reduction methods: 
+\code{\link{AutoEncoder-class}},
+\code{\link{DRR-class}},
+\code{\link{DiffusionMaps-class}},
+\code{\link{DrL-class}},
+\code{\link{FastICA-class}},
+\code{\link{FruchtermanReingold-class}},
+\code{\link{HLLE-class}},
+\code{\link{Isomap-class}},
+\code{\link{KamadaKawai-class}},
+\code{\link{LLE-class}},
+\code{\link{NNMF-class}},
+\code{\link{PCA-class}},
+\code{\link{PCA_L1-class}},
+\code{\link{UMAP-class}},
+\code{\link{dimRedMethod-class}},
+\code{\link{dimRedMethodList}()},
+\code{\link{kPCA-class}},
+\code{\link{nMDS-class}},
+\code{\link{tSNE-class}}
 }
 \concept{dimensionality reduction methods}
