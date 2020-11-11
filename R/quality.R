@@ -192,7 +192,7 @@ setMethod(
 
         Kmax <- which.max(lcmc)
 
-        Qlocal <- sum(lcmc[1:Kmax]) / Kmax
+        Qlocal <- sum(Qnx[1:Kmax]) / Kmax
         return(as.vector(Qlocal))
     }
 )
@@ -228,7 +228,7 @@ setMethod(
 
         Kmax <- which.max(lcmc)
 
-        Qglobal <- sum(lcmc[(Kmax + 1):nQ]) / (N - Kmax)
+        Qglobal <- sum(Qnx[(Kmax + 1):nQ]) / (N - Kmax)
         return(Qglobal)
     }
 )
