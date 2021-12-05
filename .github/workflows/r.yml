@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        r-version: [3.5, 3.6, 4.0]
+        r-version: [3.5, 3.6, 4.0, 4.1.2]
 
     steps:
       - uses: actions/checkout@v2
@@ -47,11 +47,10 @@ jobs:
           install.packages(c("remotes", "rcmdcheck"))
           remotes::install_deps(dependencies = TRUE)
           reticulate::install_miniconda()
-          reticulate::py_install("umap-learn")
+          reticulate::py_install("umap-learn==0.4")
           tensorflow::install_tensorflow()
           keras::install_keras()
           library(tensorflow)
-          print(tf$Session()$run(tf$constant("hello")))
         shell: Rscript {0}
       - name: Check
         run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
