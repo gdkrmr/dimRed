@@ -7,10 +7,14 @@ echo "== START ============================================="
 # R_FOLDER=$HOME/progs/R/R-3.5.2/bin
 # R_FOLDER=$HOME/progs/R/R-3.5.3/bin
 # R_FOLDER=$HOME/progs/R/R-3.6.0/bin
-R_FOLDER=$HOME/progs/R/R-3.6.3/bin
+# R_FOLDER=$HOME/progs/R/R-3.6.3/bin
+# R_FOLDER=$HOME/progs/R/R-4.1.1/bin
+R_FOLDER=$HOME/progs/R/R-4.1.2/bin
 # R_FOLDER=$HOME/progs/R/R-devel/bin
 
-$R_FOLDER/R --version
+R_FOLDER/R --version
+
+export RETICULATE_PYTHON=$HOME/progs/py/miniconda3/envs/r-reticulate/bin/python
 
 echo "== BUILDING DOCUMENTATION ============================"
 Rscript --vanilla --default-packages=methods,utils \
