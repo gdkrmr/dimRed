@@ -15,10 +15,11 @@ skip_if_no_keras <- function() {
 test_that("Check if tensorflow is installed correctly.", {
   skip_if_no_tensorflow()
   library(tensorflow)
+  tensorflow::tf$compat$v1$disable_v2_behavior()
   # I have not found a way to suppress the warning tf gives on first use.
-  sess <- tf$Session()
+  sess <- tf$compat$v1$Session()
   hello <- "Hello, TensorFlow!"
-  tf_hello <- tf$constant(hello)
+  tf_hello <- tf$compat$v1$constant(hello)
   tf_hello_res <- sess$run(tf_hello)
 
   # in python 3 this returns a `bytes` object $decode() transforms it into a
@@ -139,7 +140,7 @@ test_that("using autoencoder with parameters", {
 test_that("using autoencoder with autoencoder results", {
     skip_if_no_tensorflow()
 
-    tensorflow::tf$set_random_seed(2)
+    tensorflow::tf$compat$v1$set_random_seed(2)
     iris_data <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(iris_data)[1], "dimRedData")
 

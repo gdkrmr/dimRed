@@ -320,7 +320,7 @@ graph_keras <- function(encoder, decoder, n_in) {
   ## TODO: check if this uses weight decay, probably not:
   loss <- tensorflow::tf$compat$v1$reduce_mean((encdec - inenc) ^ 2)
 
-  sess <- keras::backend()$get_session()
+  sess <- tensorflow::tf$compat$v1$keras$backend$get_session()
 
   return(list(
     encoder    = enc,
