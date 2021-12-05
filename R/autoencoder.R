@@ -123,6 +123,7 @@ AutoEncoder <- setClass(
         fun     = function (data, pars,
                             keep.org.data = TRUE) {
         chckpkg("tensorflow")
+        tensorflow::tf$compat$v1$disable_v2_behavior()
 
         meta <- data@meta
         orgdata <- if (keep.org.data) data@data else NULL
@@ -188,7 +189,7 @@ AutoEncoder <- setClass(
         sess                <- graph$session
 
         optimizer <-
-            tensorflow::tf$train$GradientDescentOptimizer(pars$learning_rate)
+            tensorflow::tf$compat$v1$train$GradientDescentOptimizer(pars$learning_rate)
         train <- optimizer$minimize(graph$loss)
 
         ## TODO: do proper batching and hold out
@@ -273,10 +274,10 @@ AutoEncoder <- setClass(
 get_activation_function <- function(x) {
     switch(
         x,
-        tanh    = tensorflow::tf$tanh,
-        sigmoid = tensorflow::tf$sigmoid,
-        relu    = tensorflow::tf$nn$relu,
-        elu     = tensorflow::tf$elu,
+        tanh    = tensorflow::tf$compat$v1$tanh,
+        sigmoid = tensorflow::tf$compat$v1$sigmoid,
+        relu    = tensorflow::tf$compat$v1$nn$relu,
+        elu     = tensorflow::tf$compat$v1$elu,
         I
     )
 }
@@ -317,7 +318,7 @@ graph_keras <- function(encoder, decoder, n_in) {
   encdec <- inenc %>% chain_list(encoder) %>% chain_list(decoder)
 
   ## TODO: check if this uses weight decay, probably not:
-  loss <- tensorflow::tf$reduce_mean((encdec - inenc) ^ 2)
+  loss <- tensorflow::tf$compat$v1$reduce_mean((encdec - inenc) ^ 2)
 
   sess <- keras::backend()$get_session()
 
@@ -357,13 +358,11 @@ graph_params <- function (
     if (n_steps <= 0)
         stop("n_steps must be > 0")
 
-    tf <- tensorflow::tf
-
-    input <- tf$placeholder(
+    input <- tensorflow::tf$compat$v1$placeholder(
         "float", shape = tensorflow::shape(NULL, d_in),
         name = "input"
     )
-    indec <- tf$placeholder(
+    indec <- tensorflow::tf$compat$v1$placeholder(
         "float",
         shape = tensorflow::shape(NULL, ndim),
         name = "nlpca"
@@ -372,41 +371,41 @@ graph_params <- function (
     w <- lapply(seq_len(length(n_hidden) + 1), function(x) {
         n1 <- if (x == 1)               d_in else n_hidden[x - 1]
         n2 <- if (x > length(n_hidden)) d_in else n_hidden[x]
-        tf$Variable(tf$random_uniform(tensorflow::shape(n1, n2), 1.0, -1.0),
+        tensorflow::tf$compat$v1$Variable(tensorflow::tf$compat$v1$random_uniform(tensorflow::shape(n1, n2), 1.0, -1.0),
                     name = paste0("w_", x))
     })
     b <- lapply(seq_len(length(n_hidden) + 1), function (x) {
         n <- if (x > length(n_hidden)) d_in else n_hidden[x]
-        tf$Variable(tf$zeros(tensorflow::shape(n)),
+        tensorflow::tf$compat$v1$Variable(tensorflow::tf$compat$v1$zeros(tensorflow::shape(n)),
                     name = paste0("b_", x))
     })
 
     enc <- input
     for (i in 1:ceiling(length(n_hidden) / 2)) {
         sigma <- get_activation_function(activation[i])
-        enc <- sigma(tf$matmul(enc, w[[i]]) + b[[i]])
+        enc <- sigma(tensorflow::tf$compat$v1$matmul(enc, w[[i]]) + b[[i]])
     }
 
     dec <- indec
     for (i in (ceiling(length(n_hidden) / 2) + 1):(length(n_hidden) + 1)) {
         sigma <- get_activation_function(activation[i])
-        dec <- sigma(tf$matmul(dec, w[[i]]) + b[[i]])
+        dec <- sigma(tensorflow::tf$compat$v1$matmul(dec, w[[i]]) + b[[i]])
     }
 
     encdec <- enc
     for (i in (ceiling(length(n_hidden) / 2) + 1):(length(n_hidden) + 1)) {
         sigma <- get_activation_function(activation[i])
-        encdec <- sigma(tf$matmul(encdec, w[[i]]) + b[[i]])
+        encdec <- sigma(tensorflow::tf$compat$v1$matmul(encdec, w[[i]]) + b[[i]])
     }
 
-    loss <- Reduce(`+`, lapply(w, function (x) tf$reduce_sum(tf$pow(x, 2))), 0)
-    loss <- Reduce(`+`, lapply(b, function (x) tf$reduce_sum(tf$pow(x, 2))), loss)
-    loss <- tf$reduce_mean((encdec - input) ^ 2) + weight_decay * loss
+    loss <- Reduce(`+`, lapply(w, function (x) tensorflow::tf$compat$v1$reduce_sum(tensorflow::tf$compat$v1$pow(x, 2))), 0)
+    loss <- Reduce(`+`, lapply(b, function (x) tensorflow::tf$compat$v1$reduce_sum(tensorflow::tf$compat$v1$pow(x, 2))), loss)
+    loss <- tensorflow::tf$compat$v1$reduce_mean((encdec - input) ^ 2) + weight_decay * loss
 
-    sess <- tensorflow::tf$Session()
+    sess <- tensorflow::tf$compat$v1$Session()
     ## This closes sess if it is garbage collected.
     reg.finalizer(sess, function(x) x$close())
-    sess$run(tensorflow::tf$global_variables_initializer())
+    sess$run(tensorflow::tf$compat$v1$global_variables_initializer())
 
     return(list(
       encoder    = enc,
