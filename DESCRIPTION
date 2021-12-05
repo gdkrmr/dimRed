@@ -86,7 +86,6 @@ Collate:
     'quality.R'
     'rotate.R'
     'soe.R'
-    'test.R'
     'tsne.R'
     'umap.R'
 RoxygenNote: 7.1.2
