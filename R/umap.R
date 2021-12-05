@@ -29,7 +29,10 @@
 #'
 #' The dimRed package wraps the \code{\link[umap]{umap}} packages which provides
 #' an implementation in pure R and also a wrapper around the original python
-#' package \code{umap-learn} (https://github.com/lmcinnes/umap/)
+#' package \code{umap-learn} (https://github.com/lmcinnes/umap/). This requires
+#' \code{umap-learn} version 0.4 installed, at the time of writing, there is
+#' already \code{umap-learn} 0.5 but it is not supported by the R package
+#' \code{\link[umap]{umap}}.
 #'
 #' The \code{"naive"} implementation is a pure R implementation and considered
 #' experimental at the point of writing this, it is also much slower than the
@@ -112,7 +115,7 @@ UMAP <- setClass(
           stop("x must have the same number of dimensions ",
                "as the original data")
 
-        new_proj <- umap:::predict.umap(outdata, proj)
+        new_proj <- umap:::predict.umap(outdata, as.matrix(proj))
 
         colnames(new_proj) <- paste0("UMAP", 1:ncol(new_proj))
         rownames(new_proj) <- NULL
