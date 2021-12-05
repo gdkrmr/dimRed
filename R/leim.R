@@ -123,7 +123,12 @@ LaplacianEigenmaps <- setClass(
         ## smallest, which should be approx 0:
         outdata <- outdata$vectors[, order(outdata$values)[-1],
                                    drop = FALSE]
-        colnames(outdata) <- paste0("LEIM", 1:ncol(outdata))
+
+        if(ncol(outdata) > 0) {
+          colnames(outdata) <- paste0("LEIM", seq_len(ncol(outdata)))
+        } else {
+          warning("no dimensions left, this is probably due to a badly conditioned eigenvalue decomposition.")
+        }
 
         message(Sys.time(), ": DONE")
         return(new(
