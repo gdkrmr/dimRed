@@ -3,7 +3,7 @@ Title: A Framework for Dimensionality Reduction
 Version: 0.2.3.9001
 Authors@R: c(
     person("Guido", "Kraemer",
-           email = "gkraemer@bgc-jena.mpg.de",
+           email = "guido.kraemer@uni-leipzig.de",
            role = c("aut", "cre"))
     )
 Description: A collection of dimensionality reduction
@@ -86,6 +86,7 @@ Collate:
     'quality.R'
     'rotate.R'
     'soe.R'
+    'test.R'
     'tsne.R'
     'umap.R'
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

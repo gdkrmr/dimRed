@@ -39,6 +39,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Guido Kraemer \email{gkraemer@bgc-jena.mpg.de}
+\strong{Maintainer}: Guido Kraemer \email{guido.kraemer@uni-leipzig.de}
 
 }
