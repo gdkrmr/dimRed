@@ -1,7 +1,7 @@
 bibentry(bibtype = "Article",
          author = c(person("Guido", "Kraemer"),
                     person("Markus", "Reichstein"),
-                    person("Miguel", "D.", "Mahecha")),
+                    person(c("Miguel", "D."), "Mahecha")),
          title = "{dimRed} and {coRanking}---Unifying Dimensionality Reduction in R",
          year = "2018",
          journal = "The R Journal",
