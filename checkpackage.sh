@@ -12,7 +12,7 @@ echo "== START ============================================="
 R_FOLDER=$HOME/progs/R/R-4.1.2/bin
 # R_FOLDER=$HOME/progs/R/R-devel/bin
 
-R_FOLDER/R --version
+$R_FOLDER/R --version
 
 export RETICULATE_PYTHON=$HOME/progs/py/miniconda3/envs/r-reticulate/bin/python
 
