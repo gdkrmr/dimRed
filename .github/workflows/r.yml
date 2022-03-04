@@ -36,7 +36,8 @@ jobs:
       - name: Install libraries
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get update -y && sudo apt-get install -y coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools
+          sudo apt-get update -y
+          sudo apt-get install -y coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools
           # python3 -m pip install --upgrade pip
           # pip3 install --upgrade --user virtualenv
         shell: sh {0}
