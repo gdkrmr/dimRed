@@ -17,7 +17,7 @@ on:
 env:
   BNET_FORCE_NNMF_TESTS: 1
   BNET_FORCE_AUTOENCODER_TESTS: 0
-  BNET_FORCE_UMAP_TESTS: 0
+  BNET_FORCE_UMAP_TESTS: 1
   _R_CHECK_INSTALL_DEPENDS_: true
   MAKEFLAGS: "-j 2"
 
@@ -38,25 +38,16 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools texlive texlive-latex-extra
-          # python3 -m pip install --upgrade pip
-          # pip3 install --upgrade --user virtualenv
+          python3 -m pip install --upgrade pip
+          pip3 install --upgrade --user virtualenv
         shell: sh {0}
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
+      - name: Install dependencies
+        run: |
+          reticulate::py_install("umap-learn==0.4")
+          # tensorflow::install_tensorflow()
+          # keras::install_keras()
+        shell: Rscript {0}
       - uses: r-lib/actions/check-r-package@v2
-      # - name: Install dependencies
-      #   run: |
-      #     install.packages("BiocManager")
-      #     BiocManager::install("Biobase")
-      #     install.packages(c("remotes", "rcmdcheck"))
-      #     remotes::install_deps(dependencies = TRUE)
-      #     reticulate::install_miniconda()
-      #     reticulate::py_install("umap-learn==0.4")
-      #     tensorflow::install_tensorflow()
-      #     keras::install_keras()
-      #     library(tensorflow)
-      #   shell: Rscript {0}
-      # - name: Check
-      #   run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-      #   shell: Rscript {0}
