@@ -1,6 +1,3 @@
-
-context("the dimRedData class")
-
 test_that("constructor", {
     expect_equal(dimRedData(), new("dimRedData",
                                    data = matrix(numeric(0),
@@ -17,10 +14,11 @@ test_that("conversion functions", {
     expect_error(as(iris, "dimRedData"))
     expect_equal(as(loadDataSet("Iris"), "data.frame"),
                  as.data.frame(loadDataSet("Iris")))
-    expect_equivalent(as.dimRedData(
+    expect_equal(as.dimRedData(
       Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width, iris),
-      loadDataSet("Iris")
-      )
+      loadDataSet("Iris"),
+      ignore_attr = TRUE
+    )
 })
 
 test_that("misc functions", {

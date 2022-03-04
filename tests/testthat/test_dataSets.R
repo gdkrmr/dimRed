@@ -1,6 +1,3 @@
-context("dataSets")
-
-
 test_that("datasets load", {
     for (d in dataSetList()) {
         ds <- loadDataSet(d)

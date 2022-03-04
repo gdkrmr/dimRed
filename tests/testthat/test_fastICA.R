@@ -1,6 +1,3 @@
-
-context("FastICA")
-
 test_that("general data conversions", {
     irisData <- as(iris[, 1:4], "dimRedData")
     expect_equal(class(irisData)[1], "dimRedData")

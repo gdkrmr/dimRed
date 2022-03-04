@@ -1,8 +1,3 @@
-
-
-context("DRR")
-
-
 test_that("drr forward and backward passes", {
     spiral <- loadDataSet("Helix", n = 200)
 

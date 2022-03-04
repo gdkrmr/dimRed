@@ -1,6 +1,3 @@
-
-context("dimRedResult-class")
-
 test_that("predict/inverse methods", {
   dat <- loadDataSet("Iris")
   emb <- embed(dat, "PCA", ndim = 4)

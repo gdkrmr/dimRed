@@ -4,8 +4,6 @@ skip_if_no_NMF <- function() {
     skip("NMF not available for testing")
 }
 
-context("NNMF")
-
 ## if we don't load the library explicitly, the predict function does not work
 ## (sometimes...).
 ## library(NMF)
@@ -39,7 +37,7 @@ test_that("2D projection", {
     .Dimnames = list(c("V1", "V2", "V3", "V4", "V5"),
                      c("NNMF1", "NNMF2")))
 
-  expect_equivalent(dim_2_defaults@other.data$w, dim_2_coef)
+  expect_equal(dim_2_defaults@other.data$w, dim_2_coef, ignore_attr = TRUE)
 
   dim_2_apply <- dim_2_defaults@apply(input_tst)@data
   dim_2_pred <- predict(dim_2_defaults, input_tst)@data
@@ -58,8 +56,8 @@ test_that("2D projection", {
     .Dimnames = list(NULL, c("NNMF1", "NNMF2"))
   )
 
-  expect_equivalent(dim_2_apply, dim_2_exp, tolerance = 0.01)
-  expect_equivalent(dim_2_pred,  dim_2_exp, tolerance = 0.01)
+  expect_equal(dim_2_apply, dim_2_exp, tolerance = 0.01, ignore_attr = TRUE)
+  expect_equal(dim_2_pred,  dim_2_exp, tolerance = 0.01, ignore_attr = TRUE)
 })
 
 test_that("other arguments", {
@@ -104,8 +102,8 @@ test_that("other arguments", {
     .Dimnames = list(NULL, c("NNMF1", "NNMF2", "NNMF3"))
   )
 
-  expect_equivalent(dim_3_args@other.data$w, dim_3_rot)
-  expect_equivalent(getData(getDimRedData(dim_3_args)), dim_3_pred)
+  expect_equal(dim_3_args@other.data$w, dim_3_rot, ignore_attr = TRUE)
+  expect_equal(getData(getDimRedData(dim_3_args)), dim_3_pred, ignore_attr = TRUE)
 
   dim_3_apply <- dim_3_args@apply(input_tst)@data
   dim_3_pred <- predict(dim_3_args, input_tst)@data
@@ -131,8 +129,8 @@ test_that("other arguments", {
     .Dim = c(3L, 3L)
   )
 
-  expect_equivalent(dim_3_apply, dim_3_exp, tolerance = 0.01)
-  expect_equivalent(dim_3_pred,  dim_3_exp, tolerance = 0.01)
+  expect_equal(dim_3_apply, dim_3_exp, tolerance = 0.01, ignore_attr = TRUE)
+  expect_equal(dim_3_pred,  dim_3_exp, tolerance = 0.01, ignore_attr = TRUE)
 })
 
 
@@ -153,5 +151,5 @@ test_that("Full_rank", {
   dim_2_full_rank_example <- embed(input_trn, "NNMF", ndim = ncol(input_trn@data))
   dim_2_recon  <- inverse(dim_2_full_rank_example, dim_2_full_rank_example@data@data)
 
-  expect_equivalent(dim_2_recon, input_trn)
+  expect_equal(dim_2_recon, input_trn, ignore_attr = TRUE, tolerance = 1e-2)
 })

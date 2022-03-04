@@ -1,7 +1,4 @@
 
-
-context("isomap")
-
 ## no isomap specific tests, because forward method is not really
 ## exact.
 
@@ -18,7 +15,7 @@ test_that("check vs vegan isomap", {
     drdy <- drdiso@data@data
 
     ## Randomly fails:
-    ## expect_equivalent(drdy, vegy)
+    ## expect_equal(drdy, vegy, ignore_attr = TRUE)
 
     err1 <- max(abs(drdy - vegy))
 

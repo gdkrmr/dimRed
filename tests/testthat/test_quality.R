@@ -1,7 +1,3 @@
-
-
-context("quality")
-
 test_that("quality", {
 
     irisData <- loadDataSet("Iris")

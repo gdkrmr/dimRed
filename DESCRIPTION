@@ -1,6 +1,6 @@
 Package: dimRed
 Title: A Framework for Dimensionality Reduction
-Version: 0.2.4
+Version: 0.2.4.9000
 Authors@R: c(
     person("Guido", "Kraemer",
            email = "guido.kraemer@uni-leipzig.de",
@@ -54,7 +54,6 @@ VignetteBuilder:
 License: GPL-3 | file LICENSE
 BugReports: https://github.com/gdkrmr/dimRed/issues
 URL: https://www.guido-kraemer.com/software/dimred/
-LazyData: true
 Encoding: UTF-8
 Collate: 
     'dimRedMethod-class.R'
@@ -89,3 +88,4 @@ Collate:
     'tsne.R'
     'umap.R'
 RoxygenNote: 7.1.2
+Config/testthat/edition: 3

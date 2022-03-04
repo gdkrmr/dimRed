@@ -1,6 +1,3 @@
-
-context("UMAP")
-
 skip_if_no_umap_learn <- function() {
   if (!reticulate::py_module_available("umap") &&
       Sys.getenv("BNET_FORCE_UMAP_TESTS") != 1)

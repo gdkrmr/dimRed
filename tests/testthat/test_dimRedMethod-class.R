@@ -1,5 +1,3 @@
-context("dimRedMethod-class")
-
 test_that("pars matching", {
     for (m in dimRedMethodList()) {
         mo <- getMethodObject(m)

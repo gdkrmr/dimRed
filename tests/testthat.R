@@ -1,4 +1,4 @@
 library(testthat)
 library(dimRed)
 
-test_check("dimRed", reporter = LocationReporter)
+test_check("dimRed")

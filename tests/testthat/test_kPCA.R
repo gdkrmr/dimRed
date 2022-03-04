@@ -1,8 +1,5 @@
-
-data(iris)
-context("kPCA")
-
 test_that("general data conversions", {
+  data(iris)
 
     irisData <- loadDataSet("Iris")
     expect_equal(class(irisData)[1], "dimRedData")
