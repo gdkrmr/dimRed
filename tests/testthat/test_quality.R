@@ -24,7 +24,7 @@ test_that("Q_local ndim", {
     irisData <- loadDataSet("Iris")
     irisData <- irisData[!duplicated(irisData@data)]
 
-    parsPCA <- list(center = TRUE, scale. = TRUE, ndim = 4)
+    parsPCA <- list(center = TRUE, scale. = FALSE, ndim = 4)
     resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
 
     tmp <- sapply(1:4, function(x) quality(resPCA, "Q_local", ndim = x))
