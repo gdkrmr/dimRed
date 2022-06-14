@@ -14,9 +14,10 @@ test_that("high level functions working?", {
     for (e in embed_methods) {
         message("embedding: ", e)
 
-        if ((e != "AutoEncoder" || reticulate::py_module_available("tensorflow")) &&
-            (e != "UMAP"        || reticulate::py_module_available("umap-learn")) &&
-            (e != "PCA_L1"      || ("pcaL1" %in% rownames(installed.packages()))) ) {
+        if ( dimRed:::method_can_run(e) &&
+               (e != "AutoEncoder" || reticulate::py_module_available("tensorflow")) &&
+               (e != "UMAP"        || reticulate::py_module_available("umap-learn")) &&
+               (e != "PCA_L1"      || ("pcaL1" %in% rownames(installed.packages()))) ) {
 
           suppressWarnings(
             embedded_data[[e]] <- embed(

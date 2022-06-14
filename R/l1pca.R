@@ -176,5 +176,6 @@ PCA_L1 <- setClass(
         )
 
         return(res)
-    })
+        },
+      requires = c("pcaL1"))
 )

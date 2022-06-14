@@ -28,10 +28,11 @@
 #' 2323-2326. doi:10.1126/science.290.5500.2323
 #'
 #' @examples
+#' \dontrun{
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #' emb <- embed(dat, "LLE", knn = 45)
 #' plot(emb, type = "2vars")
-#'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -44,20 +45,20 @@ LLE <- setClass(
         stdpars = list(knn = 50, ndim = 2),
         fun = function (data, pars,
                         keep.org.data = TRUE) {
-        chckpkg("lle")
-        meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
-        indata <- data@data
+          chckpkg("lle")
+          meta <- data@meta
+          orgdata <- if (keep.org.data) data@data else NULL
+          indata <- data@data
 
-        outdata <- lle::lle(indata,
-                            k = pars$knn,
-                            m = pars$ndim)$Y
-        if (is.null(dim(outdata))) {
+          outdata <- lle::lle(indata,
+                              k = pars$knn,
+                              m = pars$ndim)$Y
+          if (is.null(dim(outdata))) {
             dim(outdata) <- c(length(outdata), 1)
-        }
-        colnames(outdata) <- paste0("LLE", 1:ncol(outdata))
+          }
+          colnames(outdata) <- paste0("LLE", 1:ncol(outdata))
 
-        return(new(
+          return(new(
             "dimRedResult",
             data         = new("dimRedData",
                                data = outdata,
@@ -66,6 +67,8 @@ LLE <- setClass(
             has.org.data = keep.org.data,
             method       = "lle",
             pars         = pars
-        ))
-    })
+          ))
+        },
+        requires = c("lle")
+    )
 )

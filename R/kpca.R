@@ -123,7 +123,8 @@ kPCA <- setClass(
                 pars         = pars
             )
         )
-    })
+        },
+      requires = c("kernlab"))
 )
 
 

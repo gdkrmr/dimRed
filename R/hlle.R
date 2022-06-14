@@ -117,5 +117,6 @@ HLLE <- setClass(
             method       = "HLLE",
             pars         = pars
         ))
-    })
+        },
+        requires = c("RSpectra", "Matrix", "RANN"))
 )

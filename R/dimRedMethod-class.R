@@ -22,15 +22,19 @@
 #'
 #'
 #' @slot fun A function that does the embedding.
-#' @slot stdpars A list with the default parameters for the \code{fun}
-#'     slot.
+#' @slot stdpars A list with the default parameters for the \code{fun} slot.
+#' @slot requires A vector with all packages R packages that need to be
+#'   installed to run the method. In some occasions a method may work without
+#'   one of the packages. Does not include Python dependencies such as
+#'   Tensorflow. Used to auto skip tests
 #'
 #' @family dimensionality reduction methods
 #' @export
 setClass("dimRedMethod",
          contains  = "VIRTUAL",
          slots     = c(fun     = "function",
-                       stdpars = "list"))
+                       stdpars = "list",
+                       requires = "character"))
 
 
 #' dimRedMethodList

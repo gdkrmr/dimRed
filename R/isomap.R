@@ -144,7 +144,9 @@ Isomap <- setClass(
         ))
 
 
-    })
+        },
+        requires = c("RSpectra", "igraph", "RANN")
+    )
 )
 
 

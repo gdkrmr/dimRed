@@ -166,5 +166,6 @@ NNMF <- setClass(
       )
 
       return(res)
-    })
+    },
+    requires = c("NMF", "MASS"))
 )

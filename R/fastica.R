@@ -109,5 +109,6 @@ FastICA <- setClass(
             method       = "FastICA",
             pars         = pars
         ))
-    })
+        },
+      requires = c("fastICA"))
 )

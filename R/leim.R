@@ -141,5 +141,6 @@ LaplacianEigenmaps <- setClass(
             method       = "leim",
             pars         = pars
         ))
-    })
+        },
+        requires = c("loe", "RSpectra", "Matrix"))
 )

@@ -136,6 +136,7 @@ UMAP <- setClass(
         method = "UMAP",
         pars = pars
       ))
-    }
+    },
+    requires = c("umap", "reticulate")
   )
 )

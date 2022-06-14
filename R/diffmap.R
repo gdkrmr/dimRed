@@ -130,5 +130,6 @@ DiffusionMaps <- setClass(
             method       = "diffmap",
             pars         = pars
         ))
-    })
+        },
+      requires = c("diffusionMap"))
 )

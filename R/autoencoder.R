@@ -268,7 +268,8 @@ AutoEncoder <- setClass(
             method       = "AutoEncoder",
             pars         = pars
         ))
-    })
+        },
+      requires = c("tensorflow", "keras"))
 )
 
 get_activation_function <- function(x) {

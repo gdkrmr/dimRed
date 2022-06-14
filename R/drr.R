@@ -164,5 +164,6 @@ DRR <- setClass(
                 pars = pars
                 )
         )
-    })
+        },
+      requires = c("DRR", "kernlab"))
 )

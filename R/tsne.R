@@ -79,5 +79,6 @@ tSNE <- setClass(
             method       = "tsne",
             pars         = pars
         ))
-    })
+        },
+        requires = c("Rtsne"))
 )

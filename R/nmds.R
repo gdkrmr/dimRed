@@ -62,5 +62,6 @@ nMDS <- setClass(
             method       = "nmds",
             pars         = pars
         ))
-    })
+        },
+      requires = c("vegan"))
 )

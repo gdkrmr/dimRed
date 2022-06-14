@@ -81,7 +81,8 @@ KamadaKawai <- setClass(
             method       = "graph_kk",
             pars         = pars
         ))
-    })
+        },
+      requires = c("igraph", "coRanking"))
 )
 
 
