@@ -25,6 +25,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         r-version: [4.0, 4.1.2, 4.2]
 
