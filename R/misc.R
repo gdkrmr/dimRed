@@ -166,12 +166,14 @@ setGeneric("ndims",
 #' To solve this I provide a function which automatically installes
 #' all the suggested packages.
 #'
+#' @param ... additional options passed to install.packages.
+#'
 #' @examples
 #' \dontrun{
 #' installSuggests()
 #' }
 #' @export
-installSuggests <- function () {
+installSuggests <- function (...) {
     "%w/o%" <- function(x, y) x[!x %in% y]
     pkgString <- installed.packages()["dimRed", "Suggests"]
     deps <- strsplit(pkgString, ", |,\n")[[1]]
@@ -184,7 +186,7 @@ installSuggests <- function () {
         message("The following packages are missing: ")
         cat(missingPkgs, "\n")
         message("installing ...")
-        install.packages(missingPkgs)
+        install.packages(missingPkgs, ...)
         pkgString <- installed.packages()["dimRed", "Suggests"]
         installedPkgs <- rownames(installed.packages())
         missingPkgs <- deps %w/o% installedPkgs
