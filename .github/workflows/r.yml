@@ -51,7 +51,6 @@ jobs:
           cache-version: 1
           extra-packages: |
             any::rcmdcheck
-            lle=?ignore
       # - name: Install dependencies
       #   run: |
       #     # reticulate::install_miniconda()
