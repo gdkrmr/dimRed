@@ -18,7 +18,8 @@ env:
   BNET_FORCE_NNMF_TESTS: 1
   BNET_FORCE_AUTOENCODER_TESTS: 0
   BNET_FORCE_UMAP_TESTS: 0
-  _R_CHECK_INSTALL_DEPENDS_: true
+  _R_CHECK_FORCE_SUGGESTS_: false
+  # _R_CHECK_INSTALL_DEPENDS_: true
   MAKEFLAGS: "-j 2"
 
 jobs:
@@ -44,8 +45,6 @@ jobs:
         with:
           cache-version: 1
           extra-packages: any::rcmdcheck
-        env:
-          _R_CHECK_FORCE_SUGGESTS_: false
       # - name: Install dependencies
       #   run: |
       #     # reticulate::install_miniconda()
