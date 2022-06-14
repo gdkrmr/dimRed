@@ -87,5 +87,5 @@ Collate:
     'soe.R'
     'tsne.R'
     'umap.R'
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Config/testthat/edition: 3

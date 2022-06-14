@@ -49,10 +49,11 @@ exposes the parameters \code{k} and \code{m}.
 }
 
 \examples{
+\dontrun{
 dat <- loadDataSet("3D S Curve", n = 500)
 emb <- embed(dat, "LLE", knn = 45)
 plot(emb, type = "2vars")
-
+}
 }
 \references{
 Roweis, S.T., Saul, L.K., 2000. Nonlinear Dimensionality Reduction

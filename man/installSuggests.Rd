@@ -4,7 +4,10 @@
 \alias{installSuggests}
 \title{getSuggests}
 \usage{
-installSuggests()
+installSuggests(...)
+}
+\arguments{
+\item{...}{additional options passed to install.packages.}
 }
 \description{
 Install packages wich are suggested by dimRed.
