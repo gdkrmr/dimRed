@@ -45,7 +45,9 @@ jobs:
         continue-on-error: true
         with:
           cache-version: 1
-          extra-packages: any::rcmdcheck, package=lle?ignore
+          extra-packages: |
+            any::rcmdcheck
+            lle=?ignore
       # - name: Install dependencies
       #   run: |
       #     # reticulate::install_miniconda()
