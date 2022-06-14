@@ -19,7 +19,7 @@ env:
   BNET_FORCE_AUTOENCODER_TESTS: 0
   BNET_FORCE_UMAP_TESTS: 0
   _R_CHECK_FORCE_SUGGESTS_: false
-  # _R_CHECK_INSTALL_DEPENDS_: true
+  _R_CHECK_INSTALL_DEPENDS_: true
   MAKEFLAGS: "-j 2"
 
 jobs:
@@ -42,6 +42,7 @@ jobs:
           sudo apt-get install -y coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools texlive texlive-latex-extra python3-pip
         shell: sh {0}
       - uses: r-lib/actions/setup-r-dependencies@v2
+        continue-on-error: true
         with:
           cache-version: 1
           extra-packages: any::rcmdcheck
