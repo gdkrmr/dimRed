@@ -33,7 +33,6 @@ Suggests:
     keras,
     kernlab,
     knitr,
-    lle,
     loe,
     optimx,
     pcaL1,
