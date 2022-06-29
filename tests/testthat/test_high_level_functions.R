@@ -1,5 +1,5 @@
 test_that("high level functions working?", {
-    embed_methods <- dimRedMethodList()
+    embed_methods <- dimRedMethodList(filter = TRUE)
     quality_methods <- dimRedQualityList()
     scurve <- loadDataSet("3D S Curve", n = 300)
     for(i in 1:ncol(scurve@data)){
@@ -14,10 +14,8 @@ test_that("high level functions working?", {
     for (e in embed_methods) {
         message("embedding: ", e)
 
-        if ( dimRed:::method_can_run(e) &&
-               (e != "AutoEncoder" || reticulate::py_module_available("tensorflow")) &&
-               (e != "UMAP"        || reticulate::py_module_available("umap-learn")) &&
-               (e != "PCA_L1"      || ("pcaL1" %in% rownames(installed.packages()))) ) {
+        if (  (e != "AutoEncoder" || reticulate::py_module_available("tensorflow")) &&
+              (e != "UMAP"        || reticulate::py_module_available("umap-learn"))    ) {
 
           suppressWarnings(
             embedded_data[[e]] <- embed(

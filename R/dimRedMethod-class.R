@@ -43,7 +43,7 @@ setClass("dimRedMethod",
 #'
 #' Returns the name of all classes that inherit from
 #' \code{\link{dimRedMethod-class}} to use with \code{\link{embed}}.
-#'
+#' @param filter filter methods by methods that have their dependencies installed
 #' @return a character vector with the names of classes that inherit
 #'     from \code{dimRedMethod}.
 #'
@@ -52,26 +52,18 @@ setClass("dimRedMethod",
 #'
 #' @family dimensionality reduction methods
 #' @export
-dimRedMethodList <- function () {
-    ## return(c(
-    ##     "graph_kk",
-    ##     "graph_drl",
-    ##     "graph_fr",
-    ##     "drr",
-    ##     "isomap",
-    ##     "diffmap",
-    ##     "tsne",
-    ##     "nmds",
-    ##     "mds",
-    ##     "ica",
-    ##     "pca",
-    ##     "lle",
-    ##     ## those two methods are buggy and can produce segfaults:
-    ##     ## "loe", "soe",
-    ##     "leim",
-    ##     "kpca"
-    ## ))
-    names(completeClassDefinition("dimRedMethod", doExtends = FALSE)@subclasses)
+dimRedMethodList <- function (filter = FALSE) {
+   all_methods <- names(completeClassDefinition("dimRedMethod", doExtends = FALSE)@subclasses)
+   if(!filter)
+     return(all_methods)
+   all_deps <- lapply(all_methods, getMethodDependencies)
+   is_possible <- sapply(all_deps, function(x) {
+     if(length(x) > 0)
+       requireNamespace(x, quietly = TRUE)
+     else
+       TRUE
+   })
+   all_methods[is_possible]
 }
 
 
