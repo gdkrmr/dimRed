@@ -10,13 +10,14 @@
 ## #' @examples
 ## #' # for whatever reason the loe package has problems if I run this
 ## #' # with R CMD check, running it in the REPL works just fine
+## #' if(requireNamespace("loe")) {
 ## #' dat <- loadDataSet("Iris")[sample(20)]
 ## #' loe <- LOE()
 ## #' emb <- loe@fun(dat, loe@stdpars)
 ## #'
 ## #'
 ## #' plot(emb@data@data)
-## #'
+## #' }
 ## #' @include dimRedResult-class.R
 ## #' @include dimRedMethod-class.R
 ## #' @export

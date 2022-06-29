@@ -29,9 +29,13 @@
 ## #'
 ## #' @examples
 ## #' \dontrun{
+## #' if(requireNamespace("lle")) {
+## #'
 ## #' dat <- loadDataSet("3D S Curve", n = 500)
 ## #' emb <- embed(dat, "LLE", knn = 45)
 ## #' plot(emb, type = "2vars")
+## #'
+## #' }
 ## #' }
 ## #' @include dimRedResult-class.R
 ## #' @include dimRedMethod-class.R

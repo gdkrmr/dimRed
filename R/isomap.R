@@ -35,6 +35,8 @@
 #' https://doi.org/10.1126/science.290.5500.2319
 #'
 #' @examples
+#' if(requireNamespace(c("RSpectra", "igraph", "RANN"))) {
+#'
 #' dat <- loadDataSet("3D S Curve", n = 500)
 #' emb <- embed(dat, "Isomap", knn = 10)
 #' plot(emb)
@@ -47,6 +49,7 @@
 #' plot(emb2, type = "2vars")
 #' plot(emb3, type = "2vars")
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods

@@ -26,9 +26,13 @@
 #' 5591-5596. doi:10.1073/pnas.1031596100
 #'
 #' @examples
+#' if(requireNamespace(c("RSpectra", "Matrix", "RANN"))) {
+#'
 #' dat <- loadDataSet("3D S Curve", n = 300)
 #' emb <- embed(dat, "HLLE", knn = 15)
 #' plot(emb, type = "2vars")
+#'
+#' }
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R

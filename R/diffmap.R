@@ -48,6 +48,8 @@
 #'     5-30. doi:10.1016/j.acha.2006.04.006
 #'
 #' @examples
+#' if(requireNamespace("diffusionMap")) {
+
 #' dat <- loadDataSet("3D S Curve", n = 300)
 #' emb <- embed(dat, "DiffusionMaps")
 #'
@@ -60,7 +62,8 @@
 #'
 #' plot(emb2, type = "2vars")
 #' points(getData(emb3))
-#'
+
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods

@@ -36,10 +36,13 @@
 #' https://doi.org/10.1016/0020-0190(89)90102-6
 #'
 #' @examples
+#' if(requireNamespace("igraph")) {
+#'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "KamadaKawai")
 #' plot(emb, type = "2vars")
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods
@@ -119,9 +122,13 @@ KamadaKawai <- setClass(
 #'
 #' @examples
 #' \dontrun{
+#' if(requireNamespace("igraph")) {
+#'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "DrL")
 #' plot(emb, type = "2vars")
+#' }
+#'
 #' }
 #'
 #' @include dimRedResult-class.R
@@ -196,9 +203,13 @@ DrL <- setClass(
 #' https://doi.org/10.1002/spe.4380211102
 #'
 #' @examples
+#' if(requireNamespace("igraph")) {
+#'
 #' dat <- loadDataSet("Swiss Roll", n = 100)
 #' emb <- embed(dat, "FruchtermanReingold")
 #' plot(emb, type = "2vars")
+#'
+#' }
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R

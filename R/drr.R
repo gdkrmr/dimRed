@@ -66,6 +66,8 @@
 #'
 #' @examples
 #' \dontrun{
+#' if(requireNamespace(c("kernlab", "DRR"))) {
+#'
 #' dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 #'
 #' emb <- embed(dat, "DRR", ndim = 3)
@@ -78,6 +80,7 @@
 #' plot(rec, type = "3vars")
 #' }
 #'
+#' }
 #'
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R

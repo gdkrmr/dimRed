@@ -29,10 +29,13 @@
 #' https://doi.org/10.1109/72.761722
 #'
 #' @examples
+#' if(requireNamespace("fastICA")) {
+#'
 #' dat <- loadDataSet("3D S Curve")
 #' emb <- embed(dat, "FastICA", ndim = 2)
 #' plot(getData(getDimRedData(emb)))
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods

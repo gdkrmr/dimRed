@@ -37,6 +37,8 @@
 #' matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
 #'
 #' @examples
+#' if(requireNamespace(c("NNMF", "MASS"))) {
+#'
 #' set.seed(4646)
 #' dat <- loadDataSet("Iris")
 #' emb <- embed(dat, "NNMF")
@@ -47,6 +49,7 @@
 #' nn_proj <- predict(emb, dat[1:7])
 #' plot(nn_proj)
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @family dimensionality reduction methods

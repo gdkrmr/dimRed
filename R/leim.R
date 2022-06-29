@@ -38,10 +38,13 @@
 #' Computation 15, 1373.
 #'
 #' @examples
+#' if(requireNamespace(c("loe", "RSpectra", "Matrix"))) {
+#'
 #' dat <- loadDataSet("3D S Curve")
 #' emb <- embed(dat, "LaplacianEigenmaps")
 #' plot(emb@data@data)
 #'
+#' }
 #' @include dimRedResult-class.R
 #' @include dimRedMethod-class.R
 #' @export LaplacianEigenmaps

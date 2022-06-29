@@ -35,11 +35,13 @@
 #'
 #' @examples
 #' if(requireNamespace("pcaL1", quietly = TRUE)) {
+#'
 #' dat <- loadDataSet("Iris")
 #' emb <- embed(dat, "PCA_L1")
 #'
 #' plot(emb, type = "2vars")
 #' plot(inverse(emb, getData(getDimRedData((emb)))), type = "3vars")
+#'
 #' }
 #'
 #' @include dimRedResult-class.R

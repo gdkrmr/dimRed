@@ -25,10 +25,16 @@
 #'
 #' @examples
 #' scurve = loadDataSet("3D S Curve")
-#' plot(scurve, type = "pairs", main = "pairs plot of S curve")
-#' plot(scurve, type = "parpl")
-#' plot(scurve, type = "2vars", vars = c("y", "z"))
-#' plot(scurve, type = "3vars")
+#' if(requireNamespace("graphics", quietly = TRUE))
+#'   plot(scurve, type = "pairs", main = "pairs plot of S curve")
+#' if(requireNamespace("MASS", quietly = TRUE))
+#'   plot(scurve, type = "parpl")
+#' if(requireNamespace("graphics", quietly = TRUE))
+#'   plot(scurve, type = "2vars", vars = c("y", "z"))
+#' if(requireNamespace("scatterplot3d", quietly = TRUE))
+#'   plot(scurve, type = "3vars")
+#' if(requireNamespace("rgl", quietly = TRUE))
+#'   plot(scurve, type = "3varsrgl")
 #'
 #' @include mixColorSpaces.R
 #' @include dimRedData-class.R
