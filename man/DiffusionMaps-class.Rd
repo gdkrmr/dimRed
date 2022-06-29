@@ -63,6 +63,7 @@ There is also an out-of-sample extension, see examples.
 }
 
 \examples{
+if(requireNamespace("diffusionMap")) {
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "DiffusionMaps")
 
@@ -75,7 +76,7 @@ emb3 <- predict(emb2, dat[-samp])
 
 plot(emb2, type = "2vars")
 points(getData(emb3))
-
+}
 }
 \references{
 Richards, J.W., Freeman, P.E., Lee, A.B., Schafer,

@@ -85,6 +85,8 @@ global maximum, I have not ran tests on the accuracy of this method.
 
 \examples{
 \dontrun{
+if(requireNamespace(c("kernlab", "DRR"))) {
+
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 
 emb <- embed(dat, "DRR", ndim = 3)
@@ -97,6 +99,7 @@ rec <- inverse(emb, getData(getDimRedData(emb))[, 1, drop = FALSE])
 plot(rec, type = "3vars")
 }
 
+}
 
 }
 \references{

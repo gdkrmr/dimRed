@@ -50,10 +50,13 @@ rotation/projection, forward and backward functions can be given.
 }
 
 \examples{
+if(requireNamespace("fastICA")) {
+
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "FastICA", ndim = 2)
 plot(getData(getDimRedData(emb)))
 
+}
 }
 \references{
 Hyvarinen, A., 1999. Fast and robust fixed-point algorithms for independent

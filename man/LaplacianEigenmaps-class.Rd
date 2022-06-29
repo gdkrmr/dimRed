@@ -59,10 +59,13 @@ Wraps around \code{\link[loe]{spec.emb}}.
 }
 
 \examples{
+if(requireNamespace(c("loe", "RSpectra", "Matrix"))) {
+
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "LaplacianEigenmaps")
 plot(emb@data@data)
 
+}
 }
 \references{
 Belkin, M., Niyogi, P., 2003. Laplacian Eigenmaps for

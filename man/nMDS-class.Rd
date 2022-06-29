@@ -48,10 +48,13 @@ available here, the standard configuration is used.
 }
 
 \examples{
+if(requireNamespace("vegan")) {
+
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "nMDS")
 plot(emb, type = "2vars")
 
+}
 }
 \references{
 Kruskal, J.B., 1964. Nonmetric multidimensional scaling: A numerical method.

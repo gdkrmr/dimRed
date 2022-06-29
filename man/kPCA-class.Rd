@@ -57,9 +57,13 @@ forward and backward projections.
 
 \examples{
 \dontrun{
+if(requireNamespace("kernlab")) {
+
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "kPCA")
 plot(emb, type = "2vars")
+}
+
 }
 }
 \references{

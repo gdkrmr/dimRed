@@ -59,6 +59,8 @@ Wraps around \code{\link[NMF]{nmf}}. Note that the estimation uses random
 }
 
 \examples{
+if(requireNamespace(c("NNMF", "MASS"))) {
+
 set.seed(4646)
 dat <- loadDataSet("Iris")
 emb <- embed(dat, "NNMF")
@@ -69,6 +71,7 @@ plot(emb)
 nn_proj <- predict(emb, dat[1:7])
 plot(nn_proj)
 
+}
 }
 \references{
 Lee, D.D., Seung, H.S., 1999. Learning the parts of objects by non-negative

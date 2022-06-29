@@ -4,7 +4,10 @@
 \alias{dimRedMethodList}
 \title{dimRedMethodList}
 \usage{
-dimRedMethodList()
+dimRedMethodList(filter = FALSE)
+}
+\arguments{
+\item{filter}{filter methods by methods that have their dependencies installed}
 }
 \value{
 a character vector with the names of classes that inherit

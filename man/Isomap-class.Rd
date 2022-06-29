@@ -57,6 +57,8 @@ out-of-sample extension for the other points.
 }
 
 \examples{
+if(requireNamespace(c("RSpectra", "igraph", "RANN"))) {
+
 dat <- loadDataSet("3D S Curve", n = 500)
 emb <- embed(dat, "Isomap", knn = 10)
 plot(emb)
@@ -69,6 +71,7 @@ emb3 <- predict(emb2, dat[-samp])
 plot(emb2, type = "2vars")
 plot(emb3, type = "2vars")
 
+}
 }
 \references{
 Tenenbaum, J.B., Silva, V. de, Langford, J.C., 2000. A Global Geometric

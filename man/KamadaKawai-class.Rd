@@ -57,10 +57,13 @@ graph which also may improve visualization quality.
 }
 
 \examples{
+if(requireNamespace("igraph")) {
+
 dat <- loadDataSet("Swiss Roll", n = 200)
 emb <- embed(dat, "KamadaKawai")
 plot(emb, type = "2vars")
 
+}
 }
 \references{
 Kamada, T., Kawai, S., 1989. An algorithm for drawing general undirected

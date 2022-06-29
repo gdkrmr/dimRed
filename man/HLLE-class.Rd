@@ -48,9 +48,13 @@ Own implementation, sticks to the algorithm in Donoho and Grimes
 }
 
 \examples{
+if(requireNamespace(c("RSpectra", "Matrix", "RANN"))) {
+
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "HLLE", knn = 15)
 plot(emb, type = "2vars")
+
+}
 
 }
 \references{

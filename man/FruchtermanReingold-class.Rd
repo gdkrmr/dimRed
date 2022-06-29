@@ -46,9 +46,13 @@ a circle and puts connected points close to each other.
 }
 
 \examples{
+if(requireNamespace("igraph")) {
+
 dat <- loadDataSet("Swiss Roll", n = 100)
 emb <- embed(dat, "FruchtermanReingold")
 plot(emb, type = "2vars")
+
+}
 
 }
 \references{
