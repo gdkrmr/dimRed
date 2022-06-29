@@ -148,6 +148,8 @@ test_that("Bad args", {
 
 
 test_that("Full_rank", {
+  skip_if_no_NMF()
+
   dim_2_full_rank_example <- embed(input_trn, "NNMF", ndim = ncol(input_trn@data))
   dim_2_recon  <- inverse(dim_2_full_rank_example, dim_2_full_rank_example@data@data)
 

@@ -5,19 +5,28 @@ test_that("quality", {
     parsPCA <- list(center = TRUE, scale. = TRUE)
     resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
 
-    suppressWarnings(
-        resQual <- list(
-            Q_local(resPCA),
-            Q_global(resPCA),
-            mean_R_NX(resPCA),
-            total_correlation(resPCA),
-            cophenetic_correlation(resPCA),
-            distance_correlation(resPCA),
-            reconstruction_rmse(resPCA)
-        )
-    )
+    expect_true(is.numeric(Q_local(resPCA)))
+    expect_true(is.numeric(Q_global(resPCA)))
+    expect_true(is.numeric(mean_R_NX(resPCA)))
+    expect_true(is.numeric(total_correlation(resPCA)))
+    expect_true(is.numeric(cophenetic_correlation(resPCA)))
+    if (requireNamespace("energy"))
+      expect_true(is.numeric(distance_correlation(resPCA)))
+    expect_true(is.numeric(reconstruction_rmse(resPCA)))
 
-    lapply(resQual, function(x) expect_true(is.numeric(x)))
+    ## suppressWarnings(
+    ##     resQual <- list(
+    ##         Q_local(resPCA),
+    ##         Q_global(resPCA),
+    ##         mean_R_NX(resPCA),
+    ##         total_correlation(resPCA),
+    ##         cophenetic_correlation(resPCA),
+    ##         distance_correlation(resPCA),
+    ##         reconstruction_rmse(resPCA)
+    ##     )
+    ## )
+
+    ## lapply(resQual, function(x) expect_true(is.numeric(x)))
 })
 
 test_that("Q_local ndim", {
