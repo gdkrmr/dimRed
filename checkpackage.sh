@@ -3,7 +3,7 @@
 echo "== START ============================================="
 
 # R_FOLDER=/usr/bin
-R_FOLDER=$HOME/progs/R/R-4.2.0/bin
+R_FOLDER=$HOME/progs/R/R-4.2.1/bin
 # R_FOLDER=$HOME/progs/R/R-devel/bin
 
 $R_FOLDER/R --version
@@ -26,10 +26,10 @@ export BNET_FORCE_NNMF_TESTS=1
 
 # this is to make the import of the nrow fail if not correctly specified
 # This did not actually work, but I keep it in here for good measure.
-export _R_CHECK_INSTALL_DEPENDS_=true
-
-# if testing without all packages installed, uncomment the following line
-export _R_CHECK_FORCE_SUGGESTS_=false
+# export _R_CHECK_INSTALL_DEPENDS_=true
+# export _R_CHECK_DEPENDS_ONLY_=true
+# export _R_CHECK_SUGGESTS_ONLY_=true
+# export _R_CHECK_FORCE_SUGGESTS_=false
 
 BNET_BUILD_VIGNETTE=1 $R_FOLDER/R CMD build --compact-vignettes .
 
@@ -46,5 +46,12 @@ $R_FOLDER/R CMD check dimRed_$pkgversion.tar.gz --as-cran --timings
 
 echo "== CHECK everything =================================="
 $R_FOLDER/R CMD check dimRed_$pkgversion.tar.gz --run-donttest --run-dontrun --timings
+
+echo "== CHECK without suggests ============================"
+export _R_CHECK_DEPENDS_ONLY_=true
+unset BNET_FORCE_NNMF_TESTS
+$R_FOLDER/R CMD check dimRed_$pkgversion.tar.gz --as-cran --timings
+$R_FOLDER/R CMD check dimRed_$pkgversion.tar.gz --run-donttest --run-dontrun --timings
+unset _R_CHECK_DEPENDS_ONLY_
 
 echo "== DONE =============================================="
