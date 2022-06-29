@@ -160,10 +160,3 @@ getMethodObject <- function (method) {
     do.call(method, list())
 }
 
-getMethodDependencies <- function (method) {
-  getMethodObject(method)@requires
-}
-
-method_can_run <- function (method) {
-  all(getMethodDependencies(method) %in% row.names(installed.packages()))
-}
