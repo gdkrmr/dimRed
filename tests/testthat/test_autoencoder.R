@@ -1,11 +1,13 @@
 skip_if_no_tensorflow <- function() {
-  if (!reticulate::py_module_available("tensorflow") &&
-      Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1")
+  if (!requireNamespace(c("tensorflow", "reticulate"), quietly =TRUE) ||
+        (!reticulate::py_module_available("tensorflow") &&
+         Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1"))
     skip("TensorFlow not available for testing")
 }
 skip_if_no_keras <- function() {
-  if (!keras::is_keras_available() &&
-      Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1")
+  if (!requireNamespace(c("keras", "reticulate"), quietly = TRUE) ||
+        (!keras::is_keras_available() &&
+           Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1"))
     skip("Keras not available for testing")
 }
 

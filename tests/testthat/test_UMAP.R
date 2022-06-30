@@ -5,6 +5,10 @@ skip_if_no_umap_learn <- function() {
 }
 
 test_that("UMAP python", {
+  if (!requireNamespace("umap", quietly = TRUE)) {
+    skip("umap not available")
+  }
+
   skip_if_no_umap_learn()
 
   res1 <- embed(iris[1:4], "UMAP", .mute = c("message", "output"))
@@ -35,6 +39,10 @@ test_that("UMAP python", {
 })
 
 test_that("UMAP R", {
+  if (!requireNamespace("umap", quietly = TRUE)) {
+    skip("umap not available")
+  }
+
   res1 <- embed(iris[1:4], "UMAP", method = "naive", .mute = c("message", "output"))
   res2 <- embed(iris[1:4], "UMAP", method = "naive", .mute = c("message", "output"), knn = 20)
 
