@@ -33,7 +33,7 @@ test_that("quality", {
 })
 
 test_that("Q_local ndim", {
-  if(!requireNamespace("coRanking"), quietly = TRUE) {
+  if(!requireNamespace("coRanking", quietly = TRUE)) {
     skip("coRanking not available")
   }
 
