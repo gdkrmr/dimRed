@@ -60,7 +60,8 @@ dat <- loadDataSet("Iris")
 emb <- embed(dat, "PCA")
 
 plot(emb, type = "2vars")
-plot(inverse(emb, getDimRedData(emb)), type = "3vars")
+if(require("scatterplot3d", quietly = TRUE))
+  plot(inverse(emb, getDimRedData(emb)), type = "3vars")
 
 }
 \references{

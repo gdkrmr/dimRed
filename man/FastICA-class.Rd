@@ -50,7 +50,7 @@ rotation/projection, forward and backward functions can be given.
 }
 
 \examples{
-if(requireNamespace("fastICA")) {
+if(requireNamespace("fastICA", quietly = TRUE)) {
 
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "FastICA", ndim = 2)
