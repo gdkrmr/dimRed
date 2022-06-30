@@ -9,7 +9,7 @@
 \usage{
 \S4method{quality}{dimRedResult}(.data, .method = dimRedQualityList(), .mute = character(0), ...)
 
-dimRedQualityList()
+dimRedQualityList(filter = FALSE)
 }
 \arguments{
 \item{.data}{object of class \code{dimRedResult}}
@@ -20,6 +20,8 @@ dimRedQualityList()
 
 \item{...}{the pameters, internally passed as a list to the
 quality method as \code{pars = list(...)}}
+
+\item{filter}{filter methods by installed packages}
 }
 \value{
 a number
