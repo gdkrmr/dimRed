@@ -6,9 +6,11 @@ test_that("predict/inverse methods", {
   expect_equal(getDimRedData(emb), pred)
   expect_equal(dat, inv)
 
-  emb2 <- embed(dat, "tSNE")
-  expect_error(predict(emb2, dat))
-  expect_error(inverse(emb2, dat))
+  if(requireNamespace("Rtsne", quietly = TRUE)) {
+    emb2 <- embed(dat, "tSNE")
+    expect_error(predict(emb2, dat))
+    expect_error(inverse(emb2, dat))
+  }
 })
 
 test_that("conversion", {

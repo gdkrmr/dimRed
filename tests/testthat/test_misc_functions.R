@@ -35,6 +35,9 @@ test_that("makeEpsGraph", {
 
 
 test_that("getRotationMatrixFail", {
+  if(requireNamespace("Rtsne"))
+    skip("Rtsne not available")
+
   irisData <- as(iris[, 1:4], "dimRedData")
   expect_equal(class(irisData)[1], "dimRedData")
 

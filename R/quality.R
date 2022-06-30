@@ -480,14 +480,16 @@ setMethod(
 #'
 #' @export
 dimRedQualityList <- function () {
-    return(c("Q_local",
-             "Q_global",
-             "mean_R_NX",
-             "AUC_lnK_R_NX",
-             "total_correlation",
-             "cophenetic_correlation",
-             "distance_correlation",
-             "reconstruction_rmse"))
+  quality_list <- character()
+  if(requireNamespace("coRanking", quietly = TRUE))
+    quality_list <- c(quality_list, c("Q_local", "Q_global", "mean_R_NX", "AUC_lnK_R_NX"))
+  if(requireNamespace("optimx", quietly = TRUE))
+    quality_list <- c(quality_list, "total_correlation")
+  quality_list <- c(quality_list, "cophenetic_correlation")
+  if(requireNamespace("energy", quietly = TRUE))
+    quality_list <- c(quality_list, "distance_correlation")
+  quality_list <- c(quality_list, "reconstruction_rmse")
+  return(quality_list)
 }
 
 #' @export

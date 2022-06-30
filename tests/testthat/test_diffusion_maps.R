@@ -1,4 +1,6 @@
 test_that("DiffusionMaps", {
+  if(!requireNamespace("diffusionMap"))
+    skip("diffusionMap not available")
   expect_s4_class(embed(iris[1:4], "DiffusionMaps", ndim = 1,
                         .mute = c("message", "output")),
                   "dimRedResult")
