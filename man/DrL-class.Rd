@@ -53,7 +53,7 @@ graph which also may improve visualization quality.
 
 \examples{
 \dontrun{
-if(requireNamespace("igraph", quietly = TRUE)) {
+if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
 
 dat <- loadDataSet("Swiss Roll", n = 200)
 emb <- embed(dat, "DrL")
