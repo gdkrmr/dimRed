@@ -42,7 +42,10 @@ dataSetList()
 
 ## Load a data set:
 swissRoll <- loadDataSet("Swiss Roll")
-\donttest{plot(swissRoll, type = "3vars")}
+\donttest{
+if(requireNamespace("scatterplot3d", quietly = TRUE))
+  plot(swissRoll, type = "3vars")
+}
 
 ## Load Iris data set, partial matching:
 loadDataSet("I")

@@ -28,7 +28,7 @@ Also the Area under the curve values are computed for a weighted K
 (see \link{AUC_lnK_R_NX} for details) and appear in the legend.
 }
 \examples{
-
+if(requireNamespace(c("RSpectra", "igraph", "RANN", "ggplot", "tidyr", "scales"), quietly = TRUE)) {
 ## define which methods to apply
 embed_methods <- c("Isomap", "PCA")
 ## load test data set
@@ -41,7 +41,7 @@ plot_R_NX(data_emb) +
     ggplot2::theme(legend.title = ggplot2::element_blank(),
                    legend.position = c(0.5, 0.1),
                    legend.justification = c(0.5, 0.1))
-
+}
 }
 \seealso{
 Other Quality scores for dimensionality reduction: 
