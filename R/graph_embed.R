@@ -36,7 +36,7 @@
 #' https://doi.org/10.1016/0020-0190(89)90102-6
 #'
 #' @examples
-#' if(requireNamespace("igraph")) {
+#' if(requireNamespace("igraph", quietly = TRUE)) {
 #'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "KamadaKawai")
@@ -122,7 +122,7 @@ KamadaKawai <- setClass(
 #'
 #' @examples
 #' \dontrun{
-#' if(requireNamespace("igraph")) {
+#' if(requireNamespace("igraph", quietly = TRUE)) {
 #'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "DrL")
@@ -172,7 +172,9 @@ DrL <- setClass(
             method       = "graph_drl",
             pars         = pars
         ))
-    })
+        },
+        requires = c("igraph", "coRanking")
+    )
 )
 
 #' Fruchterman Reingold Graph Layout
@@ -252,7 +254,9 @@ FruchtermanReingold <- setClass(
             method       = "graph_fr",
             pars         = pars
         ))
-    })
+        },
+        requires = c("igraph", "coRanking")
+    )
 )
 
 em_graph_layout <- function(data, graph_em_method,
