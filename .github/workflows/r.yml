@@ -44,7 +44,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools texlive texlive-latex-extra python3-pip
+          sudo apt-get install -y coinor-libclp-dev mesa-common-dev libglu1-mesa-dev python3 python3-pip python3-setuptools texlive texlive-latex-extra python3-pip ghostscript
         shell: sh {0}
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
