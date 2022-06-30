@@ -36,7 +36,7 @@
 #' https://doi.org/10.1016/0020-0190(89)90102-6
 #'
 #' @examples
-#' if(requireNamespace("igraph", quietly = TRUE)) {
+#' if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
 #'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "KamadaKawai")
@@ -122,7 +122,7 @@ KamadaKawai <- setClass(
 #'
 #' @examples
 #' \dontrun{
-#' if(requireNamespace("igraph", quietly = TRUE)) {
+#' if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
 #'
 #' dat <- loadDataSet("Swiss Roll", n = 200)
 #' emb <- embed(dat, "DrL")
@@ -205,7 +205,7 @@ DrL <- setClass(
 #' https://doi.org/10.1002/spe.4380211102
 #'
 #' @examples
-#' if(requireNamespace("igraph")) {
+#' if(requireNamespace(c("igraph", "coRanking"))) {
 #'
 #' dat <- loadDataSet("Swiss Roll", n = 100)
 #' emb <- embed(dat, "FruchtermanReingold")
