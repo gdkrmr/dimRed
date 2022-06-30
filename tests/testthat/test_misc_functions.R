@@ -22,20 +22,22 @@ test_that("formula functions", {
 
 
 test_that("makeEpsGraph", {
-    check_makeEpsGraph <- function(x, eps){
-        naive <- as.matrix(dist(x))
-        naive[naive >= eps] <- 0
-        epsSp <- as.matrix(makeEpsSparseMatrix(x, eps))
-        all(naive == epsSp)
-    }
-    expect_true(check_makeEpsGraph(iris[1:4], 1000))
-    expect_true(check_makeEpsGraph(iris[1:4], 1))
-    expect_true(check_makeEpsGraph(iris[1:4], 0.5))
+  if(!requireNamespace("Matrix", quietly = TRUE))
+    skip("Matrix required")
+  check_makeEpsGraph <- function(x, eps){
+    naive <- as.matrix(dist(x))
+    naive[naive >= eps] <- 0
+    epsSp <- as.matrix(makeEpsSparseMatrix(x, eps))
+    all(naive == epsSp)
+  }
+  expect_true(check_makeEpsGraph(iris[1:4], 1000))
+  expect_true(check_makeEpsGraph(iris[1:4], 1))
+  expect_true(check_makeEpsGraph(iris[1:4], 0.5))
 })
 
 
 test_that("getRotationMatrixFail", {
-  if(requireNamespace("Rtsne"))
+  if(!requireNamespace("Rtsne"))
     skip("Rtsne not available")
 
   irisData <- as(iris[, 1:4], "dimRedData")
