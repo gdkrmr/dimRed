@@ -1,6 +1,6 @@
 test_that("high level functions working?", {
     embed_methods <- dimRedMethodList(filter = TRUE)
-    quality_methods <- dimRedQualityList()
+    quality_methods <- dimRedQualityList(filter = TRUE)
     scurve <- loadDataSet("3D S Curve", n = 300)
     for(i in 1:ncol(scurve@data)){
       scurve@data[, i] <- scurve@data[, i] - min(scurve@data[, i])
