@@ -66,7 +66,7 @@
 #'
 #' @examples
 #' \dontrun{
-#' if(requireNamespace(c("kernlab", "DRR"))) {
+#' if(requireNamespace(c("kernlab", "DRR")), quietly = TRUE) {
 #'
 #' dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 #'

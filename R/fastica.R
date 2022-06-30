@@ -29,7 +29,7 @@
 #' https://doi.org/10.1109/72.761722
 #'
 #' @examples
-#' if(requireNamespace("fastICA")) {
+#' if(requireNamespace("fastICA", quietly = TRUE)) {
 #'
 #' dat <- loadDataSet("3D S Curve")
 #' emb <- embed(dat, "FastICA", ndim = 2)

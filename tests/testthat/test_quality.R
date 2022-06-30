@@ -10,7 +10,7 @@ test_that("quality", {
     expect_true(is.numeric(mean_R_NX(resPCA)))
     expect_true(is.numeric(total_correlation(resPCA)))
     expect_true(is.numeric(cophenetic_correlation(resPCA)))
-    if (requireNamespace("energy"))
+    if (requireNamespace("energy", quietly = TRUE))
       expect_true(is.numeric(distance_correlation(resPCA)))
     expect_true(is.numeric(reconstruction_rmse(resPCA)))
 
