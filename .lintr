@@ -1,4 +1,4 @@
-linters: with_defaults(commented_code_linter = NULL,
-                       camel_case_linter = NULL,
-                       # snake_case_linter,
-                       spaces_left_parentheses_linter = NULL)
+linters: linters_with_defaults(commented_code_linter = NULL,
+                               # camel_case_linter = NULL,
+                               # snake_case_linter,
+                               spaces_left_parentheses_linter = NULL)

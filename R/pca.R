@@ -38,7 +38,7 @@
 #' emb <- embed(dat, "PCA")
 #'
 #' plot(emb, type = "2vars")
-#' if(require("scatterplot3d", quietly = TRUE))
+#' if(requireNamespace("scatterplot3d", quietly = TRUE))
 #'   plot(inverse(emb, getDimRedData(emb)), type = "3vars")
 #'
 #' @include dimRedResult-class.R
