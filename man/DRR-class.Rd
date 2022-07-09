@@ -85,7 +85,7 @@ global maximum, I have not ran tests on the accuracy of this method.
 
 \examples{
 \dontrun{
-if(requireNamespace(c("kernlab", "DRR")), quietly = TRUE) {
+if(requireNamespace(c("kernlab", "DRR"), quietly = TRUE)) {
 
 dat <- loadDataSet("variable Noise Helix", n = 200)[sample(200)]
 
