@@ -1,3 +1,8 @@
+
+ifndef _R_CHECK_DEPENDS_ONLY_
+	_R_CHECK_DEPENDS_ONLY_ = "false"
+endif
+
 all:
 ifneq ($(_R_CHECK_DEPENDS_ONLY_), "true")
 	echo "BNET_BUILD_VIGNETTE: $(BNET_BUILD_VIGNETTE)"
