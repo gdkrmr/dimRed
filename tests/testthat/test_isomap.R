@@ -4,7 +4,7 @@
 
 
 test_that("check vs vegan isomap", {
-  if (!requireNamespace(c("vegan", dimRed:::getMethodDependencies("Isomap")))) {
+  if (!requireNamespace(c("vegan", dimRed:::getMethodDependencies("Isomap")), quietly = TRUE)) {
     skip("Not all required packages for isomap tests installed")
   }
 
@@ -41,7 +41,7 @@ test_that("check vs vegan isomap", {
 
 
 test_that("check other.data", {
-  if (!requireNamespace(dimRed:::getMethodDependencies("Isomap"))) {
+  if (!requireNamespace(dimRed:::getMethodDependencies("Isomap"), quietly = TRUE)) {
     skip("Not all required packages for isomap tests installed")
   }
 

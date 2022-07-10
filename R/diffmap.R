@@ -48,7 +48,7 @@
 #'     5-30. doi:10.1016/j.acha.2006.04.006
 #'
 #' @examples
-#' if(requireNamespace("diffusionMap")) {
+#' if(requireNamespace("diffusionMap", quietly = TRUE)) {
 
 #' dat <- loadDataSet("3D S Curve", n = 300)
 #' emb <- embed(dat, "DiffusionMaps")

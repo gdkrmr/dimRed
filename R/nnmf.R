@@ -37,7 +37,7 @@
 #' matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
 #'
 #' @examples
-#' if(requireNamespace(c("NNMF", "MASS"))) {
+#' if(requireNamespace(c("NNMF", "MASS"), quietly = TRUE)) {
 #'
 #' set.seed(4646)
 #' dat <- loadDataSet("Iris")

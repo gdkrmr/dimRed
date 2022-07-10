@@ -1,5 +1,5 @@
 skip_if_no_tensorflow <- function() {
-  if (!requireNamespace(c("tensorflow", "reticulate"), quietly =TRUE) ||
+  if (!requireNamespace(c("tensorflow", "reticulate"), quietly = TRUE) ||
         (!reticulate::py_module_available("tensorflow") &&
          Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1"))
     skip("TensorFlow not available for testing")
@@ -13,7 +13,7 @@ skip_if_no_keras <- function() {
 
 test_that("Check if tensorflow is installed correctly.", {
   skip_if_no_tensorflow()
-  requireNamespace(tensorflow)
+  requireNamespace("tensorflow", quietly = TRUE)
   tensorflow::tf$compat$v1$disable_v2_behavior()
   # I have not found a way to suppress the warning tf gives on first use.
   sess <- tensorflow::tf$compat$v1$Session()

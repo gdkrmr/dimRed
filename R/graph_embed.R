@@ -205,7 +205,7 @@ DrL <- setClass(
 #' https://doi.org/10.1002/spe.4380211102
 #'
 #' @examples
-#' if(requireNamespace(c("igraph", "coRanking"))) {
+#' if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
 #'
 #' dat <- loadDataSet("Swiss Roll", n = 100)
 #' emb <- embed(dat, "FruchtermanReingold")
