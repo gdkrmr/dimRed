@@ -59,7 +59,7 @@ Wraps around \code{\link[loe]{spec.emb}}.
 }
 
 \examples{
-if(requireNamespace(c("loe", "RSpectra", "Matrix"))) {
+if(requireNamespace(c("loe", "RSpectra", "Matrix"), quietly = TRUE)) {
 
 dat <- loadDataSet("3D S Curve")
 emb <- embed(dat, "LaplacianEigenmaps")

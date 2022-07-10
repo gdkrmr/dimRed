@@ -46,7 +46,7 @@ a circle and puts connected points close to each other.
 }
 
 \examples{
-if(requireNamespace(c("igraph", "coRanking"))) {
+if(requireNamespace(c("igraph", "coRanking"), quietly = TRUE)) {
 
 dat <- loadDataSet("Swiss Roll", n = 100)
 emb <- embed(dat, "FruchtermanReingold")

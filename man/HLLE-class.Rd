@@ -48,7 +48,7 @@ Own implementation, sticks to the algorithm in Donoho and Grimes
 }
 
 \examples{
-if(requireNamespace(c("RSpectra", "Matrix", "RANN"))) {
+if(requireNamespace(c("RSpectra", "Matrix", "RANN"), quietly = TRUE)) {
 
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "HLLE", knn = 15)

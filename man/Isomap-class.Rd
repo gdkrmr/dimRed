@@ -57,7 +57,7 @@ out-of-sample extension for the other points.
 }
 
 \examples{
-if(requireNamespace(c("RSpectra", "igraph", "RANN"))) {
+if(requireNamespace(c("RSpectra", "igraph", "RANN"), quietly = TRUE)) {
 
 dat <- loadDataSet("3D S Curve", n = 500)
 emb <- embed(dat, "Isomap", knn = 10)

@@ -27,7 +27,7 @@ rot_pca <- getRotationMatrix(pca)
 scale(getData(dat), TRUE, FALSE) \%*\% rot_pca - getData(getDimRedData(pca))
 
 
-if(requireNamespace("fastICA")) {
+if(requireNamespace("fastICA", quietly = TRUE)) {
   ica <- embed(dat, "FastICA")
   rot_ica <- getRotationMatrix(ica)
   scale(getData(dat), TRUE, FALSE) \%*\% rot_ica - getData(getDimRedData(ica))

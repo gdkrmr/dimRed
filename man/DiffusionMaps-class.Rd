@@ -63,7 +63,7 @@ There is also an out-of-sample extension, see examples.
 }
 
 \examples{
-if(requireNamespace("diffusionMap")) {
+if(requireNamespace("diffusionMap", quietly = TRUE)) {
 dat <- loadDataSet("3D S Curve", n = 300)
 emb <- embed(dat, "DiffusionMaps")
 

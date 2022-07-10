@@ -59,7 +59,7 @@ Wraps around \code{\link[NMF]{nmf}}. Note that the estimation uses random
 }
 
 \examples{
-if(requireNamespace(c("NNMF", "MASS"))) {
+if(requireNamespace(c("NNMF", "MASS"), quietly = TRUE)) {
 
 set.seed(4646)
 dat <- loadDataSet("Iris")
