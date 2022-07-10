@@ -1,5 +1,4 @@
 all:
-ifeq ($(_R_CHECK_DEPENDS_ONLY_), "true")
 	echo "BNET_BUILD_VIGNETTE: $(BNET_BUILD_VIGNETTE)"
 	[ _R_CHECK_DEPENDS_ONLY_ = "true" ] || $(R_HOME)/bin/Rscript -e "knitr::knit2pdf('dimensionality-reduction.Rnw')"
 	[ _R_CHECK_DEPENDS_ONLY_ = "true" ] || $(R_HOME)/bin/Rscript -e "tools::compactPDF('dimensionality-reduction.pdf', gs_quality = 'ebook')"
