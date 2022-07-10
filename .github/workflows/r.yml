@@ -28,7 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        r-version: [4.0, 4.1.2, 4.2]
+        r-version: [4.1.2, 4.2.0, 4]
         depends-only: [true, false]
         suggests-only: [true, false]
     env:
