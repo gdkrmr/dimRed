@@ -15,8 +15,8 @@
 #' mixed <- mixColor3Ramps(cols)
 #'
 #' \dontrun{
-#' library(rgl)
-#' plot3d(cols$x, cols$y, cols$z, col = mixed, pch = 15)
+#' requireNamespace(rgl)
+#' rgl::plot3d(cols$x, cols$y, cols$z, col = mixed, pch = 15)
 #'
 #' cols <- expand.grid(x = seq(0, 1, length.out = 10),
 #'                     y = seq(0, 1, length.out = 10))

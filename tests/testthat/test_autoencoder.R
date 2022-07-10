@@ -13,12 +13,12 @@ skip_if_no_keras <- function() {
 
 test_that("Check if tensorflow is installed correctly.", {
   skip_if_no_tensorflow()
-  library(tensorflow)
+  requireNamespace(tensorflow)
   tensorflow::tf$compat$v1$disable_v2_behavior()
   # I have not found a way to suppress the warning tf gives on first use.
-  sess <- tf$compat$v1$Session()
+  sess <- tensorflow::tf$compat$v1$Session()
   hello <- "Hello, TensorFlow!"
-  tf_hello <- tf$compat$v1$constant(hello)
+  tf_hello <- tensorflow::tf$compat$v1$constant(hello)
   tf_hello_res <- sess$run(tf_hello)
 
   # in python 3 this returns a `bytes` object $decode() transforms it into a
