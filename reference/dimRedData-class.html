@@ -930,13 +930,13 @@ data of the data set. Must have the same number of rows as the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Convert to data.frame:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="va">s3d</span>, <span class="st">"data.frame"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      meta.x    meta.y            x         y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.631320 0.9099312  0.516196663 0.9120365 -1.9094339</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.784368 1.5301697  0.340850687 1.5165995 -1.9694296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -4.148815 1.0283150  0.804182583 1.1249989  1.5687738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.529312 0.6086173  1.061142484 0.6507038 -0.8493444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.884798 0.9498297 -0.715366268 1.0050651 -1.6763336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  3.163747 1.1414098  0.002115005 1.1188953 -2.0733185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       meta.x    meta.y          x         y           z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4.3628450 0.9212638 -1.0666496 0.9127201 -1.33723877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -1.9653455 1.0919645 -0.9033443 1.0958191  1.36339094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -4.3862018 1.4581043  0.9877830 1.4346504  1.27180150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.3587294 0.7159811  0.8998768 0.6687725 -0.78003552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.1607036 1.2485720  0.8264712 1.2262488 -1.54665547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.5217455 0.3768216  0.4829695 0.3773907 -0.09118246</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'head': cannot coerce class ‘structure("dimRedData", package = "dimRed")’ to a data.frame</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu">as</span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, <span class="st">"dimRedData"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -944,21 +944,21 @@ data of the data set. Must have the same number of rows as the
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Extract slots:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="getData.html">getData</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 x         y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.516196663 0.9120365 -1.9094339</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.340850687 1.5165995 -1.9694296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.804182583 1.1249989  1.5687738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  1.061142484 0.6507038 -0.8493444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.715366268 1.0050651 -1.6763336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [6,]  0.002115005 1.1188953 -2.0733185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               x         y           z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1.0666496 0.9127201 -1.33723877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.9033443 1.0958191  1.36339094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.9877830 1.4346504  1.27180150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  0.8998768 0.6687725 -0.78003552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.8264712 1.2262488 -1.54665547</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [6,]  0.4829695 0.3773907 -0.09118246</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="getMeta.html">getMeta</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           x         y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.631320 0.9099312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.784368 1.5301697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -4.148815 1.0283150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.529312 0.6086173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.884798 0.9498297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  3.163747 1.1414098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            x         y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4.3628450 0.9212638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -1.9653455 1.0919645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -4.3862018 1.4581043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.3587294 0.7159811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.1607036 1.2485720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  0.5217455 0.3768216</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get the number of observations:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">s3d</span><span class="op">)</span></span></span>
@@ -969,19 +969,19 @@ data of the data set. Must have the same number of rows as the
 <span class="r-out co"><span class="r-pr">#&gt;</span> An object of class "dimRedData"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "data":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               x         y          z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.5161967 0.9120365 -1.9094339</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.3408507 1.5165995 -1.9694296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.8041826 1.1249989  1.5687738</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  1.0611425 0.6507038 -0.8493444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5,] -0.7153663 1.0050651 -1.6763336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -1.0666496 0.9127201 -1.3372388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.9033443 1.0958191  1.3633909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.9877830 1.4346504  1.2718015</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  0.8998768 0.6687725 -0.7800355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5,]  0.8264712 1.2262488 -1.5466555</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Slot "meta":</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           x         y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2.631320 0.9099312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  2.784368 1.5301697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -4.148815 1.0283150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.529312 0.6086173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  3.884798 0.9498297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  4.362845 0.9212638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 -1.965345 1.0919645</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 -4.386202 1.4581043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  1.358729 0.7159811</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  2.160704 1.2485720</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Shuffle data:</span></span></span>
