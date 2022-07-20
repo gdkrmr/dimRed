@@ -27,3 +27,4 @@ ui.R
 /.dir-locals.el
 .DS_Store
 vignettes/auto*
+docs
