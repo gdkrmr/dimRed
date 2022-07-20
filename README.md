@@ -1,6 +1,6 @@
 # dimRed
 [![R](https://github.com/gdkrmr/dimRed/actions/workflows/r.yml/badge.svg)](https://github.com/gdkrmr/dimRed/actions/workflows/r.yml)
-[![Coverage Status](https://img.shields.io/codecov/c/github/gdkrmr/dimRed/master.svg)](https://codecov.io/github/gdkrmr/dimRed?branch=master) 
+[![codecov](https://codecov.io/gh/gdkrmr/dimRed/branch/master/graph/badge.svg?token=voiiWocTst)](https://codecov.io/gh/gdkrmr/dimRed)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/dimRed)](https://cran.r-project.org/package=dimRed)
 [![DOI](https://zenodo.org/badge/70895041.svg)](https://zenodo.org/badge/latestdoi/70895041)
 
