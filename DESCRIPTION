@@ -2,10 +2,10 @@ Package: dimRed
 Title: A Framework for Dimensionality Reduction
 Version: 0.2.6
 Authors@R: c(
-    person("Guido", "Kraemer",
-           email = "guido.kraemer@uni-leipzig.de",
-           role = c("aut", "cre"))
-    )
+            person("Guido", "Kraemer", email = "guido.kraemer@uni-leipzig.de", role = c("aut","cre"),
+              comment = c(ORCID = "0000-0003-4865-5041")
+            )
+           )
 Description: A collection of dimensionality reduction
     techniques from R packages and a common
     interface for calling the methods.
