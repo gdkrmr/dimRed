@@ -10,6 +10,6 @@ authors:
 footer:
   structure:
     left: developed_by
-    right: [build_with, impressum]
+    right: [built_with, impressum]
   components:
     impressum: <a href="https://www.guido-kraemer.com/terms/">Impressum</a>
