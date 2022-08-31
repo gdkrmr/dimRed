@@ -120,21 +120,21 @@
     <div class="section level2">
     <h2 id="methods-by-generic-">Methods (by generic)<a class="anchor" aria-label="anchor" href="#methods-by-generic-"></a></h2>
     
-<ul><li><p><code>predict</code>: apply a trained method to new data, does not work
+<ul><li><p><code>predict(dimRedResult)</code>: apply a trained method to new data, does not work
 with all methods, will give an error if there is no <code>apply</code>.
 In some cases the apply function may only be an approximation.</p></li>
-<li><p><code>inverse</code>: inverse transformation of embedded data, does not
+<li><p><code>inverse(dimRedResult)</code>: inverse transformation of embedded data, does not
 work with all methods, will give an error if there is no <code>inverse</code>.
 In some cases the apply function may only be an approximation.</p></li>
-<li><p><code>as.data.frame</code>: convert to <code>data.frame</code></p></li>
-<li><p><code>getPars</code>: Get the parameters with which the method
+<li><p><code>as.data.frame(dimRedResult)</code>: convert to <code>data.frame</code></p></li>
+<li><p><code>getPars(dimRedResult)</code>: Get the parameters with which the method
 was called.</p></li>
-<li><p><code>getNDim</code>: Get the number of embedding dimensions.</p></li>
-<li><p><code>print</code>: Method for printing.</p></li>
-<li><p><code>getOrgData</code>: Get the original data and meta.data</p></li>
-<li><p><code>getDimRedData</code>: Get the embedded data</p></li>
-<li><p><code>ndims</code>: Extract the number of embedding dimensions.</p></li>
-<li><p><code>getOtherData</code>: Get other data produced by the method</p></li>
+<li><p><code>getNDim(dimRedResult)</code>: Get the number of embedding dimensions.</p></li>
+<li><p><code>print(dimRedResult)</code>: Method for printing.</p></li>
+<li><p><code>getOrgData(dimRedResult)</code>: Get the original data and meta.data</p></li>
+<li><p><code>getDimRedData(dimRedResult)</code>: Get the embedded data</p></li>
+<li><p><code>ndims(dimRedResult)</code>: Extract the number of embedding dimensions.</p></li>
+<li><p><code>getOtherData(dimRedResult)</code>: Get other data produced by the method</p></li>
 </ul></div>
     <div class="section level2">
     <h2 id="slots">Slots<a class="anchor" aria-label="anchor" href="#slots"></a></h2>
