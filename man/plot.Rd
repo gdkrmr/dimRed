@@ -60,11 +60,11 @@ functions for plotting.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{x = dimRedData,y = ANY}: Ploting of dimRedData objects
+\item \code{plot(x = dimRedData, y = ANY)}: Ploting of dimRedData objects
 
-\item \code{x = dimRedResult,y = ANY}: Ploting of dimRedResult objects.
+\item \code{plot(x = dimRedResult, y = ANY)}: Ploting of dimRedResult objects.
+
 }}
-
 \examples{
 scurve = loadDataSet("3D S Curve")
 if(requireNamespace("graphics", quietly = TRUE))

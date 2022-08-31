@@ -62,32 +62,32 @@ A class to hold the results of of a dimensionality reduction.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{predict}: apply a trained method to new data, does not work
+\item \code{predict(dimRedResult)}: apply a trained method to new data, does not work
 with all methods, will give an error if there is no \code{apply}.
 In some cases the apply function may only be an approximation.
 
-\item \code{inverse}: inverse transformation of embedded data, does not
+\item \code{inverse(dimRedResult)}: inverse transformation of embedded data, does not
 work with all methods, will give an error if there is no \code{inverse}.
 In some cases the apply function may only be an approximation.
 
-\item \code{as.data.frame}: convert to \code{data.frame}
+\item \code{as.data.frame(dimRedResult)}: convert to \code{data.frame}
 
-\item \code{getPars}: Get the parameters with which the method
+\item \code{getPars(dimRedResult)}: Get the parameters with which the method
 was called.
 
-\item \code{getNDim}: Get the number of embedding dimensions.
+\item \code{getNDim(dimRedResult)}: Get the number of embedding dimensions.
 
-\item \code{print}: Method for printing.
+\item \code{print(dimRedResult)}: Method for printing.
 
-\item \code{getOrgData}: Get the original data and meta.data
+\item \code{getOrgData(dimRedResult)}: Get the original data and meta.data
 
-\item \code{getDimRedData}: Get the embedded data
+\item \code{getDimRedData(dimRedResult)}: Get the embedded data
 
-\item \code{ndims}: Extract the number of embedding dimensions.
+\item \code{ndims(dimRedResult)}: Extract the number of embedding dimensions.
 
-\item \code{getOtherData}: Get other data produced by the method
+\item \code{getOtherData(dimRedResult)}: Get other data produced by the method
+
 }}
-
 \section{Slots}{
 
 \describe{

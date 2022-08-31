@@ -23,10 +23,10 @@ Conversion functions to dimRedData.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{formula}: Convert a \code{data.frame} to a dimRedData
+\item \code{as.dimRedData(formula)}: Convert a \code{data.frame} to a dimRedData
 object using a formula
-}}
 
+}}
 \examples{
 ## create a dimRedData object using a formula
 as.dimRedData(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,

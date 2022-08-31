@@ -52,19 +52,19 @@ For plotting functions see \code{\link{plot.dimRedData}}.
 }
 \section{Methods (by generic)}{
 \itemize{
-\item \code{as.data.frame}: convert to data.frame
+\item \code{as.data.frame(dimRedData)}: convert to data.frame
 
-\item \code{getData}: Get the data slot.
+\item \code{getData(dimRedData)}: Get the data slot.
 
-\item \code{getMeta}: Get the meta slot.
+\item \code{getMeta(dimRedData)}: Get the meta slot.
 
-\item \code{nrow}: Get the number of observations.
+\item \code{nrow(dimRedData)}: Get the number of observations.
 
-\item \code{[}: Subset rows.
+\item \code{x[i}: Subset rows.
 
-\item \code{ndims}: Extract the number of Variables from the data.
+\item \code{ndims(dimRedData)}: Extract the number of Variables from the data.
+
 }}
-
 \section{Slots}{
 
 \describe{

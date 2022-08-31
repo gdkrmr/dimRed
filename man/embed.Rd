@@ -68,14 +68,14 @@ function with all arguments named, e.g. \code{embed(.data = dat,
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{formula}: embed a data.frame using a formula.
+\item \code{embed(formula)}: embed a data.frame using a formula.
 
-\item \code{ANY}: Embed anything as long as it can be coerced to
+\item \code{embed(ANY)}: Embed anything as long as it can be coerced to
 \code{\link{dimRedData}}.
 
-\item \code{dimRedData}: Embed a dimRedData object
-}}
+\item \code{embed(dimRedData)}: Embed a dimRedData object
 
+}}
 \examples{
 ## embed a data.frame using a formula:
 as.data.frame(

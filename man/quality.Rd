@@ -32,9 +32,9 @@ A collection of functions to compute quality measures on
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{dimRedResult}: Calculate a quality index from a dimRedResult object.
-}}
+\item \code{quality(dimRedResult)}: Calculate a quality index from a dimRedResult object.
 
+}}
 \section{Implemented methods}{
 
 
