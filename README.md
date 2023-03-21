@@ -1,4 +1,6 @@
 # dimRed
+
+[![docs](https://img.shields.io/badge/docs-dev-blue.svg)](https://dimred.guido-kraemer.com)
 [![R](https://github.com/gdkrmr/dimRed/actions/workflows/r.yml/badge.svg)](https://github.com/gdkrmr/dimRed/actions/workflows/r.yml)
 [![codecov](https://codecov.io/gh/gdkrmr/dimRed/branch/master/graph/badge.svg?token=voiiWocTst)](https://codecov.io/gh/gdkrmr/dimRed)
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/dimRed)](https://cran.r-project.org/package=dimRed)
