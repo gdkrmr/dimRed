@@ -106,194 +106,154 @@
 #' @export AutoEncoder
 #' @exportClass AutoEncoder
 AutoEncoder <- setClass(
-    "AutoEncoder",
-    contains  = "dimRedMethod",
-    prototype = list(
-        stdpars = list(ndim          = 2,
-                       n_hidden      = c(10, 2, 10),
-                       activation    = c("tanh", "lin", "tanh"),
-                       weight_decay  = 0.001,
-                       learning_rate = 0.15,
-                       graph         = NULL,
-                       keras_graph   = NULL,
-                       ## is.na() of an S4 class gives a warning
-                       autoencoder   = NULL,
-                       batchsize     = NA,
-                       n_steps       = 500),
-        fun     = function (data, pars,
-                            keep.org.data = TRUE) {
-        chckpkg("tensorflow")
-        tensorflow::tf$compat$v1$disable_v2_behavior()
+  "AutoEncoder",
+  contains  = "dimRedMethod",
+  prototype = list(
+    stdpars = list(ndim          = 2,
+                   n_hidden      = c(10, 2, 10),
+                   activation    = c("tanh", "lin", "tanh"),
+                   learning_rate = 0.15,
+                   loss          = "mse",
+                   optimizer     = "adam",
+                   encoder       = NULL,
+                   decoder       = NULL,
+                   ## is.na() of an S4 class gives a warning
+                   batchsize     = 20,
+                   epochs        = 5,
+                   validation_split = 0.2),
 
-        meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
-        indata <- data@data
+    fun = function (data, pars,
+                    keep.org.data = TRUE) {
+      chckpkg("keras3")
+      indata <- data@data
+      indims <- ncol(indata)
+      ndim <- pars$ndim
 
-        graph <-
-            if (!is.null(pars$graph)) {
-                message("using predefined graph, ",
-                        "ignoring other parameters that define topology, ",
-                        "be sure to set ndim to the correct value ",
-                        "else you might run into trouble.")
-                pars$graph
-            } else if (!is.null(pars$autoencoder)) {
-                message("using predefined autoencoder object, ",
-                        " ignoring other parameters that define topology.")
-                if (!(inherits(pars$autoencoder, "dimRedResult") &&
-                      pars$autoencoder@method == "AutoEncoder"))
-                    stop("autoencoder must be NULL, ",
-                         "or of type dimRedResult by an AutoEncoder object.")
+      input_data <- keras3::layer_input(shape = indims)
+      input_hidden <- keras3::layer_input(shape = ndim)
 
-                ## setting topology related parameters from autoencoder
-                pars$ndim       <- pars$autoencoder@pars$ndim
-                pars$n_hidden   <- pars$autoencoder@pars$n_hidden
-                pars$activation <- pars$autoencoder@pars$activation
-
-                pars$autoencoder@pars$graph
-            } else if (!is.null(pars$keras_graph)) {
-              message("using predefined keras graph, ",
-                      "ignoring parameters that define topology")
-              tmp <- graph_keras(encoder = pars$keras_graph$encoder,
-                                 decoder = pars$keras_graph$decoder,
-                                 n_in    = ncol(indata))
-
-              pars$ndim <- tmp$encoder$shape$dims[[2]]$value
-
-              tmp
-            } else {
-                with(pars, {
-                    graph_params(
-                        d_in          = ncol(indata),
-                        n_hidden      = n_hidden,
-                        activation    = activation,
-                        weight_decay  = weight_decay,
-                        learning_rate = learning_rate,
-                        n_steps       = n_steps,
-                        ndim          = ndim
-                    )
-                })
-            }
-
-        if (!"encoder"    %in% names(graph)) stop("no encoder in graph")
-        if (!"decoder"    %in% names(graph)) stop("no decoder in graph")
-        if (!"network"    %in% names(graph)) stop("no network in graph")
-        if (!"loss"       %in% names(graph)) stop("no loss in graph")
-        if (!"in_decoder" %in% names(graph)) stop("no in_decoder in graph")
-        if (!"in_data"    %in% names(graph)) stop("no in_data in graph")
-        if (!"session"    %in% names(graph)) stop("no session in graph")
-
-        ## TODO: I am not sure if there is a way to do this directly on the list
-        ## objects
-        graph_data_input    <- graph$in_data
-        graph_decoder_input <- graph$in_dec
-        sess                <- graph$session
-
-        optimizer <-
-            tensorflow::tf$compat$v1$train$GradientDescentOptimizer(pars$learning_rate)
-        train <- optimizer$minimize(graph$loss)
-
-        ## TODO: do proper batching and hold out
-        for (step in 1:pars$n_steps) {
-            sess$run(train, feed_dict =
-                tensorflow::dict(
-                    graph_data_input =
-                        if (is.na(pars$batchsize)) {
-                            indata
-                        } else {
-                            indata[
-                                sample(seq_len(nrow(indata)), pars$batchsize),
-                            ]
-                        }
-                )
-            )
+      ## if the user did not specify encoder and decoder, we build them from the
+      ## parameters
+      if (is.null(pars$encoder) || is.null(pars$decoder)) {
+        depth <- length(pars$n_hidden)
+        if (depth %% 2 == 0) {
+          stop("the number of layers must be impair")
         }
 
-        outdata <-
-            sess$run(graph$encoder,
-                     feed_dict = tensorflow::dict(graph_data_input = indata))
-
-        appl <- function(x) {
-            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
-            proj <- if (inherits(x, "dimRedData")) x@data else x
-
-            if (ncol(proj) != ncol(data@data))
-                stop("x must have the same number of dimensions ",
-                     "as the original data")
-
-            res <-
-                sess$run(graph$encoder,
-                         feed_dict = tensorflow::dict(graph_data_input = proj))
-
-            colnames(res) <- paste0("AE", seq_len(ncol(res)))
-
-            new("dimRedData", data = res, meta = appl.meta)
+        if (ndim != pars$n_hidden[ceiling(depth / 2)]) {
+          stop("the middle of n_hidden must be equal to ndim")
         }
 
-        inv <- function(x) {
-            appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
-            proj <- if (inherits(x, "dimRedData")) x@data else x
-
-            if (ncol(proj) != pars$ndim)
-                stop("x must have the same number of dimensions ",
-                     "as ndim data")
-
-            res <- sess$run(
-              graph$decoder,
-              feed_dict = tensorflow::dict(
-                graph_decoder_input = proj
-            ))
-
-            colnames(res) <- colnames(indata)
-
-            new("dimRedData", data = res, meta = appl.meta)
+        if (depth != length(pars$activation)) {
+          stop("declare an activation function for each layer")
         }
 
-        ## TODO: this is a hack and there should be an "official" way to save
-        ## extra data in a dimRedResult object
-        pars$graph <- graph
 
-        colnames(outdata) <- paste0("AE", seq_len(ncol(outdata)))
+        in_depth <- ceiling(depth / 2)
+        out_depth <- depth - in_depth
 
-        return(new(
-            "dimRedResult",
-            data = new("dimRedData",
-                       data = outdata,
-                       meta = meta),
-            org.data     = orgdata,
-            apply        = appl,
-            inverse      = inv,
-            has.apply    = TRUE,
-            has.inverse  = TRUE,
-            has.org.data = keep.org.data,
-            method       = "AutoEncoder",
-            pars         = pars
-        ))
-        },
-      requires = c("tensorflow", "keras"))
+
+        layers <- mapply(
+          function(s, n) keras3::layer_dense(units = n, activation = s),
+          pars$activation, pars$n_hidden,
+          SIMPLIFY = FALSE
+        )
+
+        encoder <- c(input_data, layers[1:in_depth])
+        decoder <- c(input_hidden, layers[(in_depth + 1):depth])
+      } else {
+        encoder <- c(input_data, pars$encoder)
+        decoder <- c(input_hidden, pars$decoder)
+      }
+
+      ## now build the actual model, compile it and fit it
+      autoencoder <- c(input_data, encoder, decoder)
+      encoder <- encoder %>%
+        chain_list() %>%
+        keras3::keras_model()
+      decoder <- decoder %>%
+        chain_list() %>%
+        keras3::keras_model()
+      autoencoder <- autoencoder %>%
+        chain_list() %>%
+        keras3::keras_model()
+
+      autoencoder %>%
+        keras3::compile(
+          optimizer = pars$optimizer,
+          loss = pars$loss
+        )
+
+      history <- autoencoder %>%
+        keras3::fit(
+                 indata, indata,
+                 epochs           = pars$epochs,
+                 batch_size       = pars$batchsize,
+                 validation_split = pars$validation_split,
+                 verbose          = 0
+               )
+
+      meta <- data@meta
+      orgdata <- if (keep.org.data) data@data else NULL
+      indata <- data@data
+
+      appl <- function(x) {
+        appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+        proj <- if (inherits(x, "dimRedData")) x@data else x
+
+        if (ncol(proj) != ncol(data@data))
+          stop("x must have the same number of dimensions ",
+               "as the original data")
+
+        res <- encoder(proj)
+        colnames(res) <- paste0("AE", seq_len(ncol(res)))
+        new("dimRedData", data = res, meta = appl.meta)
+      }
+
+      inv <- function(x) {
+        appl.meta <- if (inherits(x, "dimRedData")) x@meta else data.frame()
+        proj <- if (inherits(x, "dimRedData")) x@data else x
+
+        if (ncol(proj) != pars$ndim)
+          stop("x must have the same number of dimensions ",
+               "as ndim data")
+
+        res <- decoder(proj)
+        colnames(res) <- colnames(indata)
+        new("dimRedData", data = res, meta = appl.meta)
+      }
+
+      colnames(outdata) <- paste0("AE", seq_len(ncol(outdata)))
+
+      return(new(
+        "dimRedResult",
+        data = new("dimRedData",
+                   data = outdata,
+                   meta = meta),
+        org.data     = orgdata,
+        apply        = appl,
+        inverse      = inv,
+        has.apply    = TRUE,
+        has.inverse  = TRUE,
+        has.org.data = keep.org.data,
+        method       = "AutoEncoder",
+        pars         = pars
+      ))
+    },
+    requires = c("tensorflow", "keras3"))
 )
-
-get_activation_function <- function(x) {
-    switch(
-        x,
-        tanh    = tensorflow::tf$compat$v1$tanh,
-        sigmoid = tensorflow::tf$compat$v1$sigmoid,
-        relu    = tensorflow::tf$compat$v1$nn$relu,
-        elu     = tensorflow::tf$compat$v1$elu,
-        I
-    )
-}
 
 ## no idea why these and variants do not work:
 ## chain_list <- function(x1, x2) Reduce(`%>%`, x2, init = x1)
 ## chain_list <- function(x) Reduce(`%>%`, x)
-chain_list <- function (x1, x2 = NULL) {
+chain_list <- function(x1, x2 = NULL) {
 
-  if(is.null(x2)) {
+  if (is.null(x2)) {
     stopifnot(is.list(x1))
     result <- x1[[1]]
-    if(length(x1) > 1) for (i in 2:length(x1)) {
-      result <- result %>% (x1[[i]])
-    }
+    if (length(x1) > 1) for (i in 2:length(x1)) {
+                          result <- result %>% (x1[[i]])
+                        }
   } else {
     stopifnot(is.list(x2))
     result <- x1
@@ -303,118 +263,4 @@ chain_list <- function (x1, x2 = NULL) {
   }
 
   return(result)
-}
-
-graph_keras <- function(encoder, decoder, n_in) {
-  chckpkg("keras")
-  chckpkg("tensorflow")
-
-  inenc <- keras::layer_input(shape = n_in)
-  enc <- inenc %>% chain_list(encoder)
-
-  ndim <- enc$shape$dims[[2]]$value
-  indec <- keras::layer_input(shape = ndim)
-  dec <- indec %>% chain_list(decoder)
-
-  encdec <- inenc %>% chain_list(encoder) %>% chain_list(decoder)
-
-  ## TODO: check if this uses weight decay, probably not:
-  loss <- tensorflow::tf$compat$v1$reduce_mean((encdec - inenc) ^ 2)
-
-  sess <- tensorflow::tf$compat$v1$keras$backend$get_session()
-
-  return(list(
-    encoder    = enc,
-    decoder    = dec,
-    network    = encdec,
-    loss       = loss,
-    in_data    = inenc,
-    in_decoder = indec,
-    session    = sess
-  ))
-}
-
-graph_params <- function (
-    d_in,
-    n_hidden,
-    activation,
-    weight_decay,
-    learning_rate,
-    n_steps,
-    ndim
-) {
-
-    if (length(n_hidden) %% 2 == 0)
-      stop("the number of layers must be impair")
-    if (ndim != n_hidden[ceiling(length(n_hidden) / 2)])
-      stop("the middle of n_hidden must be equal to ndim")
-    if (length(n_hidden) != length(activation))
-      stop("declare an activation function for each layer:",
-           "\nn_hidden: ", paste(n_hidden, collapse = " "),
-           "\nactivation functions: ", paste(activation, collapse = " "))
-    if (weight_decay < 0)
-        stop("weight decay must be > 0")
-    if (learning_rate <= 0)
-        stop("learning rate must be > 0")
-    if (n_steps <= 0)
-        stop("n_steps must be > 0")
-
-    input <- tensorflow::tf$compat$v1$placeholder(
-        "float", shape = tensorflow::shape(NULL, d_in),
-        name = "input"
-    )
-    indec <- tensorflow::tf$compat$v1$placeholder(
-        "float",
-        shape = tensorflow::shape(NULL, ndim),
-        name = "nlpca"
-    )
-
-    w <- lapply(seq_len(length(n_hidden) + 1), function(x) {
-        n1 <- if (x == 1)               d_in else n_hidden[x - 1]
-        n2 <- if (x > length(n_hidden)) d_in else n_hidden[x]
-        tensorflow::tf$compat$v1$Variable(tensorflow::tf$compat$v1$random_uniform(tensorflow::shape(n1, n2), 1.0, -1.0),
-                    name = paste0("w_", x))
-    })
-    b <- lapply(seq_len(length(n_hidden) + 1), function (x) {
-        n <- if (x > length(n_hidden)) d_in else n_hidden[x]
-        tensorflow::tf$compat$v1$Variable(tensorflow::tf$compat$v1$zeros(tensorflow::shape(n)),
-                    name = paste0("b_", x))
-    })
-
-    enc <- input
-    for (i in 1:ceiling(length(n_hidden) / 2)) {
-        sigma <- get_activation_function(activation[i])
-        enc <- sigma(tensorflow::tf$compat$v1$matmul(enc, w[[i]]) + b[[i]])
-    }
-
-    dec <- indec
-    for (i in (ceiling(length(n_hidden) / 2) + 1):(length(n_hidden) + 1)) {
-        sigma <- get_activation_function(activation[i])
-        dec <- sigma(tensorflow::tf$compat$v1$matmul(dec, w[[i]]) + b[[i]])
-    }
-
-    encdec <- enc
-    for (i in (ceiling(length(n_hidden) / 2) + 1):(length(n_hidden) + 1)) {
-        sigma <- get_activation_function(activation[i])
-        encdec <- sigma(tensorflow::tf$compat$v1$matmul(encdec, w[[i]]) + b[[i]])
-    }
-
-    loss <- Reduce(`+`, lapply(w, function (x) tensorflow::tf$compat$v1$reduce_sum(tensorflow::tf$compat$v1$pow(x, 2))), 0)
-    loss <- Reduce(`+`, lapply(b, function (x) tensorflow::tf$compat$v1$reduce_sum(tensorflow::tf$compat$v1$pow(x, 2))), loss)
-    loss <- tensorflow::tf$compat$v1$reduce_mean((encdec - input) ^ 2) + weight_decay * loss
-
-    sess <- tensorflow::tf$compat$v1$Session()
-    ## This closes sess if it is garbage collected.
-    reg.finalizer(sess, function(x) x$close())
-    sess$run(tensorflow::tf$compat$v1$global_variables_initializer())
-
-    return(list(
-      encoder    = enc,
-      decoder    = dec,
-      network    = encdec,
-      loss       = loss,
-      in_data    = input,
-      in_decoder = indec,
-      session    = sess
-    ))
 }

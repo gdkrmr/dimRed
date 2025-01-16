@@ -5,7 +5,7 @@ skip_if_no_tensorflow <- function() {
     skip("TensorFlow not available for testing")
 }
 skip_if_no_keras <- function() {
-  if (!requireNamespace(c("keras", "reticulate"), quietly = TRUE) ||
+  if (!requireNamespace(c("keras3", "reticulate"), quietly = TRUE) ||
         (!keras::is_keras_available() &&
            Sys.getenv("BNET_FORCE_AUTOENCODER_TESTS") != "1"))
     skip("Keras not available for testing")
