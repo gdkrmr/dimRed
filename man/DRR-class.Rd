@@ -76,7 +76,7 @@ over all parameter combinations of \code{lambda} and
 \code{kernel.pars}, using less parameter values will speed up
 computation time. Calculation of KRR can be accelerated by
 increasing \code{fastkrr.nblocks}, it should be smaller than
-n^{1/3} up to sacrificing some accuracy, for details see
+\eqn{n^{1/3}} up to sacrificing some accuracy, for details see
 \code{\link[DRR]{constructFastKRRLearner}}. Another way to speed up
 is to use \code{pars$fastcv = TRUE} which might provide a more
 efficient way to search the parameter space but may also miss the
