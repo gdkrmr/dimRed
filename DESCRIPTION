@@ -1,6 +1,6 @@
 Package: dimRed
 Title: A Framework for Dimensionality Reduction
-Version: 0.2.6
+Version: 0.2.6.9001
 Authors@R: c(
             person("Guido", "Kraemer", email = "guido.kraemer@uni-leipzig.de", role = c("aut","cre"),
               comment = c(ORCID = "0000-0003-4865-5041")
