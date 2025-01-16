@@ -2,8 +2,9 @@
 
 echo "== START ============================================="
 
+R_HOME=
 # R_FOLDER=/usr/bin
-R_FOLDER=$HOME/progs/R/R-4.2.1/bin
+R_FOLDER=$HOME/progs/R/R-4.4.2/bin
 # R_FOLDER=$HOME/progs/R/R-devel/bin
 
 $R_FOLDER/R --version
