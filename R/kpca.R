@@ -65,7 +65,7 @@ kPCA <- setClass(
         if (is.null(pars$ndim)) pars$ndim <- 2
 
         meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
+        orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
         indata <- data@data
 
         message(Sys.time(), ": Calculating kernel PCA")

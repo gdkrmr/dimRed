@@ -71,7 +71,6 @@ t-SNE. J. Mach. Learn. Res. 9, 2579-2605.
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{DrL-class}},

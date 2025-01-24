@@ -79,7 +79,6 @@ matrix factorization. Nature 401, 788-791. https://doi.org/10.1038/44565
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{DrL-class}},

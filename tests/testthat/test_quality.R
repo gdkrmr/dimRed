@@ -1,6 +1,8 @@
 test_that("quality", {
 
     irisData <- loadDataSet("Iris")
+    # remove duplicates
+    irisData <- irisData[!duplicated(irisData@data), ]
 
     parsPCA <- list(center = TRUE, scale. = TRUE)
     resPCA <- do.call(function(...) embed(irisData, "PCA", ...), parsPCA)
@@ -53,9 +55,9 @@ test_that("rmse_by_ndim", {
     skip("DRR not available")
   }
 
-  set.seed(1)
-
   ir <- loadDataSet("Iris")
+
+  set.seed(1)
   ir.drr <- embed(ir, "DRR", .mute = c("message", "output"), ndim = ndims(ir))
   ir.pca <- embed(ir, "PCA", ndim = ndims(ir))
 

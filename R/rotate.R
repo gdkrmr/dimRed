@@ -87,17 +87,23 @@ setMethod(
     if (ncol(planes) == 0)
       break
 
-    o <- optimx::optimx(
-      par = rep(0, nplanes),
-      fn = obj,
-      method = "L-BFGS-B",
-      lower = 0,
-      upper = 2 * pi,
-      X = as.matrix(X),
-      Y = as.matrix(Y),
-      axis = axis,
-      without_axes = without_axes,
-      cor_method = cor_method
+    # optimx throws a warning that we have to suppress:
+    ## Warning messages:
+    ## 1: In max(logpar) : no non-missing arguments to max; returning -Inf
+    ## 2: In min(logpar) : no non-missing arguments to min; returning Inf
+    suppressWarnings(
+      o <- optimx::optimx(
+        par = rep(0, nplanes),
+        fn = obj,
+        method = "L-BFGS-B",
+        lower = 0,
+        upper = 2 * pi,
+        X = as.matrix(X),
+        Y = as.matrix(Y),
+        axis = axis,
+        without_axes = without_axes,
+        cor_method = cor_method
+      )
     )
     ## The result looks like this:
     ##          p1      value fevals gevals niter convcode  kkt1 kkt2 xtimes

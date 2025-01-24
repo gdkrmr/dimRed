@@ -111,10 +111,13 @@ DRR <- setClass(
 
 
         meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
+        orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
         indata <- data@data
 
-        res <- do.call(DRR::drr, c(list(X = indata), pars))
+        # CVST from DRR complains about non-positive definite matrices
+        suppressWarnings(
+            res <- do.call(DRR::drr, c(list(X = indata), pars))
+        )
 
         outdata <- res$fitted.data
         colnames(outdata) <- paste0("DRR", 1:ncol(outdata))

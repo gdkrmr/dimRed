@@ -110,7 +110,6 @@ Laparra, V., Malo, J., Camps-Valls, G.,
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{DrL-class}},
 \code{\link{FastICA-class}},

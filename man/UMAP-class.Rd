@@ -85,7 +85,6 @@ https://arxiv.org/abs/1802.03426
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{DrL-class}},

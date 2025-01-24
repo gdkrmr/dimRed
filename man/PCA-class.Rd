@@ -70,7 +70,6 @@ space. Philosophical Magazine 2, 559-572.
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{DrL-class}},

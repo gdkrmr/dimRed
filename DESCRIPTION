@@ -54,12 +54,12 @@ BugReports: https://github.com/gdkrmr/dimRed/issues
 URL: https://www.guido-kraemer.com/software/dimred/
 Encoding: UTF-8
 Collate: 
-    'dimRedMethod-class.R'
+    'autoencoder.R'
     'misc.R'
     'dimRedData-class.R'
-    'dimRedResult-class.R'
-    'autoencoder.R'
     'dataSets.R'
+    'dimRedMethod-class.R'
+    'dimRedResult-class.R'
     'diffmap.R'
     'dimRed.R'
     'drr.R'

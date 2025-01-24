@@ -1,5 +1,5 @@
 test_that("general data conversions", {
-  if(!requireNamespace("FastICA", quietly = TRUE))
+  if(!requireNamespace("fastICA", quietly = TRUE))
     skip("FastICA not available")
   irisData <- as(iris[, 1:4], "dimRedData")
   expect_equal(class(irisData)[1], "dimRedData")

@@ -59,7 +59,7 @@ PCA <- setClass(
         pars$ndim <- NULL
 
         meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
+        orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
         data <- data@data
         res <- do.call(
             prcomp,

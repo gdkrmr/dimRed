@@ -90,7 +90,6 @@ Coifman, R.R., Lafon, S., 2006. Diffusion maps. Applied and
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DrL-class}},
 \code{\link{FastICA-class}},

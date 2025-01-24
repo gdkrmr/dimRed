@@ -69,7 +69,6 @@ Martin, S., Brown, W.M., Wylie, B.N., 2007. Dr.l: Distributed Recursive
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{FastICA-class}},

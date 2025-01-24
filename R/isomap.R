@@ -69,7 +69,7 @@ Isomap <- setClass(
         chckpkg("RANN")
         message(Sys.time(), ": Isomap START")
         meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
+        orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
         indata <- data@data
 
         if (is.null(pars$eps))      pars$eps <- 0
@@ -195,7 +195,7 @@ makeKNNgraph <- function (x, k, eps = 0, diag = FALSE){
         if (diag)  as.vector(nn2res$nn.dists)
         else as.vector(nn2res$nn.dists[, -1])
 
-    return(igraph::as.undirected(g, mode = "collapse", edge.attr.comb = "first"))
+    return(igraph::as_undirected(g, mode = "collapse", edge.attr.comb = "first"))
 }
 
 ## the original isomap method I'll keep it here for completeness:

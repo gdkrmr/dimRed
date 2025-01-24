@@ -81,7 +81,7 @@ UMAP <- setClass(
       }
 
       meta <- data@meta
-      orgdata <- if (keep.org.data) data@data else NULL
+      orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
       indata <- data@data
 
       ## Create config

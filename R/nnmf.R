@@ -71,7 +71,7 @@ NNMF <- setClass(
       ## require("NMF")
 
       meta <- data@meta
-      orgdata <- if (keep.org.data) data@data else NULL
+      orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
       data <- data@data
       if (!is.matrix(data))
         data <- as.matrix(data)

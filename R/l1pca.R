@@ -68,7 +68,7 @@ PCA_L1 <- setClass(
         newnames <- paste0("PC", seq_len(ndim))
 
         meta <- data@meta
-        orgdata <- if (keep.org.data) data@data else NULL
+        orgdata <- if (keep.org.data) data@data else matrix(0, 0, 0)
         data <- data@data
 
         fun2 <- if(!is.function(pars$fun)) {

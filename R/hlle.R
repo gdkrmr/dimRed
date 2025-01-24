@@ -116,7 +116,7 @@ HLLE <- setClass(
             data         = new("dimRedData",
                                data = outdata,
                                meta = data@meta),
-            org.data     = if (keep.org.data) data@data else NULL,
+            org.data     = if (keep.org.data) data@data else matrix(0, 0, 0),
             has.org.data = keep.org.data,
             method       = "HLLE",
             pars         = pars

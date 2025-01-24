@@ -73,7 +73,6 @@ Algorithms for L1-Norm Principal Component Analysis, in: Data Mining (ICDM),
 }
 \seealso{
 Other dimensionality reduction methods: 
-\code{\link{AutoEncoder-class}},
 \code{\link{DRR-class}},
 \code{\link{DiffusionMaps-class}},
 \code{\link{DrL-class}},
