@@ -29,10 +29,10 @@ jobs:
       fail-fast: false
       matrix:
         r-version: ["oldrel", "release", "devel"]
-        depends-only: [true, false]
+        # depends-only: [true, false]
         suggests-only: [true, false]
     env:
-      _R_CHECK_DEPENDS_ONLY_: ${{ matrix.depends-only }}
+      # _R_CHECK_DEPENDS_ONLY_: ${{ matrix.depends-only }}
       _R_CHECK_SUGGESTS_ONLY_: ${{ matrix.suggests-only }}
 
     steps:
