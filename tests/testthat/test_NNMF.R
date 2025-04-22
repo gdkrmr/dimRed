@@ -62,6 +62,7 @@ test_that("2D projection", {
 
 test_that("other arguments", {
   skip_if_no_NMF()
+  skip_on_cran()
 
   dim_3_args <- embed(input_trn, "NNMF", seed = 13, nrun = 10,
                       ndim = 3, method = "KL",
