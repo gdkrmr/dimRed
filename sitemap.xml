@@ -1,189 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AUC_lnK_R_NX-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/AutoEncoder-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DRR-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DiffusionMaps-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/DrL-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FastICA-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/FruchtermanReingold-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/HLLE-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Isomap-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/KamadaKawai-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/LCMC-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/LaplacianEigenmaps-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/MDS-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/NNMF-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PCA-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/PCA_L1-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Q_NX-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Q_global-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/Q_local-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/R_NX-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/UMAP-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/as.data.frame.html</loc>
-  </url>
-  <url>
-    <loc>/reference/as.dimRedData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/cophenetic_correlation-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dataSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dimRed-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dimRedData-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dimRedMethod-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dimRedMethodList.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dimRedResult-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/distance_correlation-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/embed.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getDimRedData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getMeta.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getNDim.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getOrgData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getOtherData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getPars.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getRotationMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/installSuggests.html</loc>
-  </url>
-  <url>
-    <loc>/reference/kPCA-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/makeKNNgraph.html</loc>
-  </url>
-  <url>
-    <loc>/reference/maximize_correlation-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mean_R_NX-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/mixColorRamps.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nMDS-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/ndims.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot_R_NX.html</loc>
-  </url>
-  <url>
-    <loc>/reference/print.html</loc>
-  </url>
-  <url>
-    <loc>/reference/quality.html</loc>
-  </url>
-  <url>
-    <loc>/reference/reconstruction_error-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/reconstruction_rmse-dimRedResult-method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tSNE-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/total_correlation-dimRedResult-method.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/AUC_lnK_R_NX-dimRedResult-method.html</loc></url>
+<url><loc>/reference/DRR-class.html</loc></url>
+<url><loc>/reference/DiffusionMaps-class.html</loc></url>
+<url><loc>/reference/DrL-class.html</loc></url>
+<url><loc>/reference/FastICA-class.html</loc></url>
+<url><loc>/reference/FruchtermanReingold-class.html</loc></url>
+<url><loc>/reference/HLLE-class.html</loc></url>
+<url><loc>/reference/Isomap-class.html</loc></url>
+<url><loc>/reference/KamadaKawai-class.html</loc></url>
+<url><loc>/reference/LCMC-dimRedResult-method.html</loc></url>
+<url><loc>/reference/MDS-class.html</loc></url>
+<url><loc>/reference/NNMF-class.html</loc></url>
+<url><loc>/reference/PCA-class.html</loc></url>
+<url><loc>/reference/PCA_L1-class.html</loc></url>
+<url><loc>/reference/Q_NX-dimRedResult-method.html</loc></url>
+<url><loc>/reference/Q_global-dimRedResult-method.html</loc></url>
+<url><loc>/reference/Q_local-dimRedResult-method.html</loc></url>
+<url><loc>/reference/R_NX-dimRedResult-method.html</loc></url>
+<url><loc>/reference/UMAP-class.html</loc></url>
+<url><loc>/reference/as.data.frame.html</loc></url>
+<url><loc>/reference/as.dimRedData.html</loc></url>
+<url><loc>/reference/cophenetic_correlation-dimRedResult-method.html</loc></url>
+<url><loc>/reference/dataSets.html</loc></url>
+<url><loc>/reference/dimRed-package.html</loc></url>
+<url><loc>/reference/dimRedData-class.html</loc></url>
+<url><loc>/reference/dimRedMethod-class.html</loc></url>
+<url><loc>/reference/dimRedMethodList.html</loc></url>
+<url><loc>/reference/dimRedResult-class.html</loc></url>
+<url><loc>/reference/distance_correlation-dimRedResult-method.html</loc></url>
+<url><loc>/reference/embed.html</loc></url>
+<url><loc>/reference/getData.html</loc></url>
+<url><loc>/reference/getDimRedData.html</loc></url>
+<url><loc>/reference/getMeta.html</loc></url>
+<url><loc>/reference/getNDim.html</loc></url>
+<url><loc>/reference/getOrgData.html</loc></url>
+<url><loc>/reference/getOtherData.html</loc></url>
+<url><loc>/reference/getPars.html</loc></url>
+<url><loc>/reference/getRotationMatrix.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/installSuggests.html</loc></url>
+<url><loc>/reference/kPCA-class.html</loc></url>
+<url><loc>/reference/makeKNNgraph.html</loc></url>
+<url><loc>/reference/maximize_correlation-dimRedResult-method.html</loc></url>
+<url><loc>/reference/mean_R_NX-dimRedResult-method.html</loc></url>
+<url><loc>/reference/mixColorRamps.html</loc></url>
+<url><loc>/reference/nMDS-class.html</loc></url>
+<url><loc>/reference/ndims.html</loc></url>
+<url><loc>/reference/plot.html</loc></url>
+<url><loc>/reference/plot_R_NX.html</loc></url>
+<url><loc>/reference/print.html</loc></url>
+<url><loc>/reference/quality.html</loc></url>
+<url><loc>/reference/reconstruction_error-dimRedResult-method.html</loc></url>
+<url><loc>/reference/reconstruction_rmse-dimRedResult-method.html</loc></url>
+<url><loc>/reference/tSNE-class.html</loc></url>
+<url><loc>/reference/total_correlation-dimRedResult-method.html</loc></url>
 </urlset>
+
